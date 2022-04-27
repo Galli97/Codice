@@ -61,23 +61,14 @@ label_list = []
 for elem in dir:
     new_dir = os.path.join(path,elem)
     if new_dir not in image_list : image_list.append(new_dir)
-    # read the image data using PIL
-    #image = Image.open(new_dir)
-    #image = np.array(image)
     #image=np.expand_dims(image, axis=2)
-    #shape=image.shape
-    #print(shape)
     
 #### CICLO FOR PER INSERIRE NELLA LISTA DELLE LABELS IL PERCORSO CORRISPONDENTE ########
 for lab in dir1:
     new_dir1 = os.path.join(path1,lab)
     if new_dir1 not in label_list : label_list.append(new_dir1)
-    # read the image data using PIL
-    #label = Image.open(new_dir1)
-    #label = np.array(label)
     #label=np.expand_dims(label, axis=2)
-    #label_shape=label.shape
-    #print(label_shape)
+
 
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI ######
 N = len(image_list)
@@ -88,7 +79,7 @@ tmp2 = np.empty((N, 1024,1024, 3), dtype=np.uint8)
 ###### RIEMPIO LE DUE LISTE CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI NELLE PRIME DUE LISTE #######
 for i in range (len(image_list)):
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]
-    print(image.shape)
+    #print(image.shape)
     tmp1[i] = image
 
 for j in range (len(label_list)):
