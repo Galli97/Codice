@@ -26,6 +26,16 @@ def softmax_sparse_crossentropy_ignoring_last_label(y_true, y_pred):
 
     return cross_entropy_mean
 
+def weighted_cross_entropy(beta):
+  def loss(y_true, y_pred):
+    weight_a = beta * tf.cast(y_true, tf.float32)
+    weight_b = 1 - tf.cast(y_true, tf.float32)
+    
+    o = (tf.math.log1p(tf.exp(-tf.abs(y_pred))) + tf.nn.relu(-y_pred)) * (weight_a + weight_b) + y_pred * weight_b 
+    return tf.reduce_mean(o)
+
+  return loss
+
 def sparse_accuracy_ignoring_last_label(y_true, y_pred):
     nb_classes = K.int_shape(y_pred)[-1]
     y_pred = K.reshape(y_pred, (-1, nb_classes))
@@ -105,5 +115,5 @@ optimizer = SGD(learning_rate=0.01, momentum=0.9)
 loss_fn=softmax_sparse_crossentropy_ignoring_last_label
 metrics=[sparse_accuracy_ignoring_last_label]
 
-model.compile(loss=loss_fn, optimizer=optimizer,metrics=metrics)
+model.compile(loss=weighted_cross_entropy(beta=beta), optimizer=optimizer,metrics=metrics)
 model.fit(x = tmp1,y=tmp2,epochs=2,steps_per_epoch=5)
