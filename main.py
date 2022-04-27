@@ -79,8 +79,11 @@ for lab in dir1:
 list_train = image_list
 labels_train= label_list
 
-print(len(list_train))
-print(len(labels_train))
+#print(len(list_train))
+#print(len(labels_train))
+
+print(list_train)
+print(labels_train)
 
 #model = rete(input_shape=shape,weight_decay=0., classes=5)
 
