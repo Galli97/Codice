@@ -75,11 +75,11 @@ for lab in dir1:
     #print(label_shape)
     
 for i in image_list:
-    image = cv2.imread(image_list[i])
+    image = cv2.imread(image_list[i])[:,:,[2,1,0]]
     tmp1[i] = image
 
 for j in label_list:
-    label = cv2.imread(label_list[j])
+    label = cv2.imread(label_list[j])[:,:,[2,1,0]]
     tmp2[j] = label
 
 
