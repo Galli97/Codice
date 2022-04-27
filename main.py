@@ -41,18 +41,23 @@ def sparse_accuracy_ignoring_last_label(y_true, y_pred):
 #os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID" #If it doesn't work, uncomment this line; it should help.
 #os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
+####### PERCORSO IN LOCALE #########
 #path = r"C:\Users\Mattia\Desktop\Tesi\Dataset\Train-images"
 #path1 =  r"C:\Users\Mattia\Desktop\Tesi\Dataset\Train-labels"
 
+####### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
 path = r"/content/drive/MyDrive/Tesi/Dataset/Train_images"
 path1 = r"/content/drive/MyDrive/Tesi/Dataset/Train_labels"
 
+####### CREO UNA LISTA CON ELEMENTI DATI DA QUELLI NELLA CARTELLA DEL PERCORSO ######
 dir = os.listdir(path)
 dir1 = os.listdir(path1)
 
+###### INIZIALIZO DUE LISTE ########
 image_list = []
 label_list = []
 
+#### CICLO FOR PER INSERIRE NELLA LISTA DELLE IMMAGINI IL PERCORSO CORRISPONDENTE ########
 for elem in dir:
     new_dir = os.path.join(path,elem)
     if new_dir not in image_list : image_list.append(new_dir)
@@ -63,7 +68,7 @@ for elem in dir:
     #shape=image.shape
     #print(shape)
     
-
+#### CICLO FOR PER INSERIRE NELLA LISTA DELLE LABELS IL PERCORSO CORRISPONDENTE ########
 for lab in dir1:
     new_dir1 = os.path.join(path1,lab)
     if new_dir1 not in label_list : label_list.append(new_dir1)
@@ -74,11 +79,13 @@ for lab in dir1:
     #label_shape=label.shape
     #print(label_shape)
 
+##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI ######
 N = len(image_list)
 print(N)
 tmp1 = np.empty((N, 1024, 1024, 3), dtype=np.uint8)
 tmp2 = np.empty((N, 1024,1024, 3), dtype=np.uint8)
 
+###### RIEMPIO LE DUE LISTE CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI NELLE PRIME DUE LISTE #######
 for i in range (len(image_list)):
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]
     tmp1[i] = image
@@ -88,15 +95,17 @@ for j in range (len(label_list)):
     tmp2[j] = label
 
 
-
+##### ALCUNI PRINT DI CONTROLLO ######
 #print(len(image_list))
 #print(len(label_list))
 
 print(image_list)
 print(label_list)
 
-print(tmp1)
-print(tmp2)
+print(len(tmp1))
+print(len(tmp2))
+
+
 
 #model = rete(input_shape=shape,weight_decay=0., classes=5)
 
