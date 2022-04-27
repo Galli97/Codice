@@ -1,5 +1,6 @@
 import tensorflow as tf
 from keras.layers import *
+from tensorflow import keras
 from tensorflow.keras.applications.resnet50 import ResNet50
 from tensorflow.keras import Input
 from keras.layers import Dense,Flatten,Dropout,Lambda
@@ -26,15 +27,6 @@ def softmax_sparse_crossentropy_ignoring_last_label(y_true, y_pred):
 
     return cross_entropy_mean
 
-def weighted_cross_entropy(beta):
-  def loss(y_true, y_pred):
-    weight_a = beta * tf.cast(y_true, tf.float32)
-    weight_b = 1 - tf.cast(y_true, tf.float32)
-    
-    o = (tf.math.log1p(tf.exp(-tf.abs(y_pred))) + tf.nn.relu(-y_pred)) * (weight_a + weight_b) + y_pred * weight_b 
-    return tf.reduce_mean(o)
-
-  return loss
 
 def sparse_accuracy_ignoring_last_label(y_true, y_pred):
     nb_classes = K.int_shape(y_pred)[-1]
@@ -112,8 +104,9 @@ shape=(1024,1024,3)
 model = rete(input_shape=shape,weight_decay=0., classes=5)
 
 optimizer = SGD(learning_rate=0.01, momentum=0.9)
-loss_fn=softmax_sparse_crossentropy_ignoring_last_label
+#loss_fn=softmax_sparse_crossentropy_ignoring_last_label
+loss_fn = keras.losses.SparseCategoricalCrossentropy()
 metrics=[sparse_accuracy_ignoring_last_label]
 
-model.compile(loss=weighted_cross_entropy(beta=0.9), optimizer=optimizer,metrics=metrics)
+model.compile(loss=loss_fn, optimizer=optimizer,metrics=metrics)
 model.fit(x = tmp1,y=tmp2,epochs=2,steps_per_epoch=5)
