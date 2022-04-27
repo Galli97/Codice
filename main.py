@@ -115,5 +115,5 @@ optimizer = SGD(learning_rate=0.01, momentum=0.9)
 loss_fn=softmax_sparse_crossentropy_ignoring_last_label
 metrics=[sparse_accuracy_ignoring_last_label]
 
-model.compile(loss=weighted_cross_entropy(beta=beta), optimizer=optimizer,metrics=metrics)
+model.compile(loss=weighted_cross_entropy(beta=0.9), optimizer=optimizer,metrics=metrics)
 model.fit(x = tmp1,y=tmp2,epochs=2,steps_per_epoch=5)
