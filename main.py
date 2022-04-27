@@ -74,16 +74,24 @@ for lab in dir1:
     #label_shape=label.shape
     #print(label_shape)
     
+for i in image_list:
+    image = cv2.imread(image_list[i])
+    tmp1[i] = image
+
+for j in label_list:
+    label = cv2.imread(label_list[j])
+    tmp2[j] = label
 
 
-list_train = image_list
-labels_train= label_list
 
-#print(len(list_train))
-#print(len(labels_train))
+#print(len(image_list))
+#print(len(label_list))
 
-print(list_train)
-print(labels_train)
+print(image_list)
+print(label_list)
+
+print(tmp1)
+print(tmp2)
 
 #model = rete(input_shape=shape,weight_decay=0., classes=5)
 
