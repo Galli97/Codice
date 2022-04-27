@@ -14,6 +14,20 @@ from PIL import Image
 from rete import *
 from tensorflow.keras.optimizers import SGD
 
+def datagenerator(images,labels, batchsize, mode="train"):
+    while True:
+        start = 0
+        end = batchsize
+        while start  < len(images):
+
+            x = images[start:end] 
+            y = labels[start:end]
+            x2 = images2[start:end]
+            yield (x,x2),y
+
+            start += batchsize
+            end += batchsize
+
 def softmax_sparse_crossentropy_ignoring_last_label(y_true, y_pred):
     y_pred = K.reshape(y_pred, (-1, K.int_shape(y_pred)[-1]))
     log_softmax = tf.nn.log_softmax(y_pred)
@@ -93,8 +107,8 @@ for j in range (len(label_list)):
 #print(len(image_list))
 #print(len(label_list))
 
-print(image_list)
-print(label_list)
+#print(image_list)
+#print(label_list)
 
 print(len(tmp1))
 print(len(tmp2))
@@ -103,10 +117,12 @@ shape=(1024,1024,3)
 
 model = rete(input_shape=shape,weight_decay=0., classes=5)
 
+x_train = datagenerator(tmp1,tmp2,64)
+
 optimizer = SGD(learning_rate=0.01, momentum=0.9)
 #loss_fn=softmax_sparse_crossentropy_ignoring_last_label
 loss_fn = keras.losses.SparseCategoricalCrossentropy()
 metrics=[sparse_accuracy_ignoring_last_label]
 
 model.compile(loss=loss_fn, optimizer=optimizer,metrics=metrics)
-model.fit(x = tmp1,y=tmp2,epochs=2,steps_per_epoch=5)
+model.fit(x = x_train,epochs=2,steps_per_epoch=5)
