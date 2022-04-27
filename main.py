@@ -107,11 +107,11 @@ print(len(tmp2))
 
 
 
-#model = rete(input_shape=shape,weight_decay=0., classes=5)
+model = rete(input_shape=shape,weight_decay=0., classes=5)
 
-#optimizer = SGD(learning_rate=0.01, momentum=0.9)
-#loss_fn=softmax_sparse_crossentropy_ignoring_last_label
-#metrics=[sparse_accuracy_ignoring_last_label]
+optimizer = SGD(learning_rate=0.01, momentum=0.9)
+loss_fn=softmax_sparse_crossentropy_ignoring_last_label
+metrics=[sparse_accuracy_ignoring_last_label]
 
-#model.compile(loss=loss_fn, optimizer=optimizer,metrics=metrics)
+model.compile(loss=loss_fn, optimizer=optimizer,metrics=metrics)
 #model.fit(x = list_train,y=labels_train,epochs=2,steps_per_epoch=5)
