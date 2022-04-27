@@ -68,9 +68,9 @@ for lab in dir1:
     # read the image data using PIL
     label = Image.open(new_dir1)
     label = np.array(label)
+    label=np.expand_dims(label, axis=2)
     label_shape=label.shape
     print(label_shape)
-    label=np.expand_dims(label, axis=2)
     if label not in label_list : label_list.append(label)
 
 
