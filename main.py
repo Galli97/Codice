@@ -117,7 +117,7 @@ print(shape)
 
 model = rete(input_shape=shape,weight_decay=0., classes=5)
 
-x_train = datagenerator(tmp1,tmp2,64)
+x_train = datagenerator(tmp1,tmp2,1)
 
 optimizer = SGD(learning_rate=0.01, momentum=0.9)
 loss_fn=softmax_sparse_crossentropy_ignoring_last_label
