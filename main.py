@@ -125,6 +125,6 @@ loss_fn=softmax_sparse_crossentropy_ignoring_last_label
 metrics=[sparse_accuracy_ignoring_last_label]
 #metrics=[tf.keras.metrics.MeanIoU(num_classes=5)]
 
-model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+model.compile(optimizer = tf.keras.optimizers.Adam(learning_rate=0.001), loss = 'sparse_categorical_crossentropy', metrics = ["accuracy"])
 #model.compile(loss=loss_fn, optimizer=optimizer,metrics=metrics)
 model.fit(x = x_train,epochs=2,steps_per_epoch=5)
