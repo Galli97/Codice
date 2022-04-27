@@ -88,6 +88,7 @@ tmp2 = np.empty((N, 1024,1024, 3), dtype=np.uint8)
 ###### RIEMPIO LE DUE LISTE CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI NELLE PRIME DUE LISTE #######
 for i in range (len(image_list)):
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]
+    print(image.shape)
     tmp1[i] = image
 
 for j in range (len(label_list)):
@@ -105,7 +106,7 @@ print(label_list)
 print(len(tmp1))
 print(len(tmp2))
 
-
+shape=(1024,1024,3)
 
 model = rete(input_shape=shape,weight_decay=0., classes=5)
 
