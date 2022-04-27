@@ -127,4 +127,4 @@ metrics=[sparse_accuracy_ignoring_last_label]
 
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 #model.compile(loss=loss_fn, optimizer=optimizer,metrics=metrics)
-model.fit(x = x_train,epochs=2,steps_per_epoch=5)
+#model.fit(x = x_train,epochs=2,steps_per_epoch=5)
