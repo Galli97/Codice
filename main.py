@@ -55,23 +55,25 @@ label_list = []
 
 for elem in dir:
     new_dir = os.path.join(path,elem)
+    if new_dir not in image_list : image_list.append(new_dir)
     # read the image data using PIL
-    image = Image.open(new_dir)
-    image = np.array(image)
-    image=np.expand_dims(image, axis=2)
-    shape=image.shape
-    print(shape)
-    if image not in image_list : image_list.append(image.all())
+    #image = Image.open(new_dir)
+    #image = np.array(image)
+    #image=np.expand_dims(image, axis=2)
+    #shape=image.shape
+    #print(shape)
+    
 
 for lab in dir1:
     new_dir1 = os.path.join(path1,lab)
+    if new_dir1 not in label_list : label_list.append(new_dir1)
     # read the image data using PIL
-    label = Image.open(new_dir1)
-    label = np.array(label)
-    label=np.expand_dims(label, axis=2)
-    label_shape=label.shape
-    print(label_shape)
-    if label not in label_list : label_list.append(label)
+    #label = Image.open(new_dir1)
+    #label = np.array(label)
+    #label=np.expand_dims(label, axis=2)
+    #label_shape=label.shape
+    #print(label_shape)
+    
 
 
 list_train = image_list
