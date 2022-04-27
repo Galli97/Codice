@@ -115,4 +115,4 @@ loss_fn=softmax_sparse_crossentropy_ignoring_last_label
 metrics=[sparse_accuracy_ignoring_last_label]
 
 model.compile(loss=loss_fn, optimizer=optimizer,metrics=metrics)
-#model.fit(x = list_train,y=labels_train,epochs=2,steps_per_epoch=5)
+model.fit(x = tmp1,y=tmp2,epochs=2,steps_per_epoch=5)
