@@ -61,7 +61,7 @@ for elem in dir:
     image=np.expand_dims(image, axis=2)
     shape=image.shape
     print(shape)
-    if image not in image_list : image_list.append(image)
+    if image not in image_list : image_list.append(image.all())
 
 for lab in dir1:
     new_dir1 = os.path.join(path1,lab)
