@@ -77,8 +77,8 @@ if label not in label_list : label_list.append(label)
 list_train = image_list
 labels_train= label_list
 
-print(list_train)
-print(labels_train)
+print(list_train.shape)
+print(labels_train.shape)
 
 #model = rete(input_shape=shape,weight_decay=0., classes=5)
 
