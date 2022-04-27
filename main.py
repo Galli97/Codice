@@ -113,6 +113,7 @@ print(len(tmp1))
 print(len(tmp2))
 
 shape=(1024,1024,3)
+print(shape)
 
 model = rete(input_shape=shape,weight_decay=0., classes=5)
 
