@@ -121,7 +121,8 @@ x_train = datagenerator(tmp1,tmp2,64)
 optimizer = SGD(learning_rate=0.01, momentum=0.9)
 #loss_fn=softmax_sparse_crossentropy_ignoring_last_label
 loss_fn = keras.losses.SparseCategoricalCrossentropy()
-metrics=[sparse_accuracy_ignoring_last_label]
+#metrics=[sparse_accuracy_ignoring_last_label]
+metrics=[tf.keras.metrics.MeanIoU(num_classes=5)]
 
 model.compile(loss=loss_fn, optimizer=optimizer,metrics=metrics)
 model.fit(x = x_train,epochs=2,steps_per_epoch=5)
