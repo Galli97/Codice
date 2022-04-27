@@ -51,7 +51,7 @@ def sparse_accuracy_ignoring_last_label(y_true, y_pred):
     legal_labels = ~tf.cast(unpacked[-1], tf.bool)
     y_true = tf.stack(unpacked[:-1], axis=-1)
 
-    return K.sum(tf.to_float(legal_labels & K.equal(K.argmax(y_true, axis=-1), K.argmax(y_pred, axis=-1)))) / K.sum(tf.to_float(legal_labels))
+    return K.sum(tf.compact.v1.to_float(legal_labels & K.equal(K.argmax(y_true, axis=-1), K.argmax(y_pred, axis=-1)))) / K.sum(tf.compact.v1.to_float(legal_labels))
 
 #os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID" #If it doesn't work, uncomment this line; it should help.
 #os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
