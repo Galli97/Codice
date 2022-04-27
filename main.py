@@ -76,8 +76,8 @@ for lab in dir1:
 
 N = len(image_list)
 print(N)
-tmp1 = np.empty((N, 1024, 1024, 1), dtype=np.uint8)
-tmp2 = np.empty((N, 1024,1024, 1), dtype=np.uint8)
+tmp1 = np.empty((N, 1024, 1024, 3), dtype=np.uint8)
+tmp2 = np.empty((N, 1024,1024, 3), dtype=np.uint8)
 
 for i in range (len(image_list)):
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]
