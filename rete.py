@@ -70,7 +70,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=4):
     x = Conv2D(classes, (3, 3), kernel_initializer='he_normal', activation='linear', padding='valid', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
 
     x = UpSampling2D(target_size=tuple(image_size))(x)
-    x = Activation('softmax')(x)
+    #x = Activation('softmax')(x)
     model = Model(img_input, x)
 
     weights_path = get_weights_path_resnet()

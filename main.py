@@ -129,7 +129,7 @@ print(len(tmp2))
 shape=(64,64,3)
 print(shape)
 
-model = rete(input_shape=shape,weight_decay=0., classes=5)
+model = rete(input_shape=shape,weight_decay=0., classes=4)
 
 x_train = datagenerator(tmp1,tmp2,2)
 
