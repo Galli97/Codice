@@ -135,7 +135,7 @@ x_train = datagenerator(tmp1,tmp2,2)
 
 optimizer = SGD(learning_rate=0.01, momentum=0.9)
 #loss_fn=softmax_sparse_crossentropy_ignoring_last_label
-loss_fn = keras.losses.SparseCategoricalCrossentropy()
+loss_fn = keras.losses.CategoricalCrossentropy()
 metrics=[sparse_accuracy_ignoring_last_label]
 #metrics=[tf.keras.metrics.MeanIoU(num_classes=5)]
 
