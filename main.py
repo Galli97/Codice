@@ -18,13 +18,13 @@ from tensorflow.compat.v1 import ConfigProto
 from tensorflow.compat.v1 import InteractiveSession
 
 
-def fix_gpu():
-    config = ConfigProto()
-    config.gpu_options.allow_growth = True
-    session = InteractiveSession(config=config)
+# def fix_gpu():
+#     config = ConfigProto()
+#     config.gpu_options.allow_growth = True
+#     session = InteractiveSession(config=config)
 
 
-fix_gpu()
+# fix_gpu()
 
 def datagenerator(images,labels, batchsize, mode="train"):
     while True:
@@ -134,11 +134,11 @@ model = rete(input_shape=shape,weight_decay=0., classes=5)
 x_train = datagenerator(tmp1,tmp2,2)
 
 optimizer = SGD(learning_rate=0.01, momentum=0.9)
-loss_fn=softmax_sparse_crossentropy_ignoring_last_label
-#loss_fn = keras.losses.SparseCategoricalCrossentropy()
+#loss_fn=softmax_sparse_crossentropy_ignoring_last_label
+loss_fn = keras.losses.SparseCategoricalCrossentropy()
 metrics=[sparse_accuracy_ignoring_last_label]
 #metrics=[tf.keras.metrics.MeanIoU(num_classes=5)]
 
-model.compile(optimizer = optimizer, loss = loss_fn, metrics = ["accuracy"])
+model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
 #model.compile(loss=loss_fn, optimizer=optimizer,metrics=metrics)
 model.fit(x = x_train,epochs=2,steps_per_epoch=5)
