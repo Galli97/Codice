@@ -141,5 +141,5 @@ metrics=[sparse_accuracy_ignoring_last_label]
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
 #model.compile(loss=loss_fn, optimizer=optimizer,metrics=metrics)
-model.summary()
-#model.fit(x = tmp1,y=tmp2,epochs=2,steps_per_epoch=7)
+#model.summary()
+model.fit(x = tmp1,y=tmp2,epochs=2,steps_per_epoch=7)
