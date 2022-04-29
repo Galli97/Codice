@@ -106,11 +106,13 @@ tmp2 = np.empty((N, 1024,1024, 3), dtype=np.uint8)
 ###### RIEMPIO LE DUE LISTE CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI NELLE PRIME DUE LISTE #######
 for i in range (len(image_list)):
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]
-    #print(image.shape)
+    image = cv2.resize(image, (64,64,3))
+    print(image.shape)
     tmp1[i] = image
 
 for j in range (len(label_list)):
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]
+    label = cv2.resize(label, (64,64,3))
     tmp2[j] = label
 
 
@@ -137,6 +139,6 @@ loss_fn=softmax_sparse_crossentropy_ignoring_last_label
 metrics=[sparse_accuracy_ignoring_last_label]
 #metrics=[tf.keras.metrics.MeanIoU(num_classes=5)]
 
-model.compile(optimizer = tf.keras.optimizers.Adam(learning_rate=0.001), loss = 'sparse_categorical_crossentropy', metrics = ["accuracy"])
+model.compile(optimizer = optimizer, loss = loss_fn, metrics = ["accuracy"])
 #model.compile(loss=loss_fn, optimizer=optimizer,metrics=metrics)
-model.fit(x = x_train,epochs=2,steps_per_epoch=5)
+#model.fit(x = x_train,epochs=2,steps_per_epoch=5)
