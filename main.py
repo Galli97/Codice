@@ -106,13 +106,13 @@ tmp2 = np.empty((N, 1024,1024, 3), dtype=np.uint8)
 ###### RIEMPIO LE DUE LISTE CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI NELLE PRIME DUE LISTE #######
 for i in range (len(image_list)):
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]
-    image = cv2.resize(image, (64,64,3))
+    image = cv2.resize(image, (64,64))
     print(image.shape)
     tmp1[i] = image
 
 for j in range (len(label_list)):
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]
-    label = cv2.resize(label, (64,64,3))
+    label = cv2.resize(label, (64,64))
     tmp2[j] = label
 
 
