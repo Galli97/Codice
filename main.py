@@ -107,7 +107,7 @@ tmp2 = np.empty((N, 64, 64, 3), dtype=np.uint8)
 for i in range (len(image_list)):
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]
     image = cv2.resize(image, (64,64))
-    print(image.shape)
+    #print(image.shape)
     tmp1[i] = image
 
 for j in range (len(label_list)):
@@ -126,7 +126,7 @@ for j in range (len(label_list)):
 print(len(tmp1))
 print(len(tmp2))
 
-shape=(1024,1024,3)
+shape=(64,64,3)
 print(shape)
 
 model = rete(input_shape=shape,weight_decay=0., classes=5)
@@ -141,4 +141,4 @@ metrics=[sparse_accuracy_ignoring_last_label]
 
 model.compile(optimizer = optimizer, loss = loss_fn, metrics = ["accuracy"])
 #model.compile(loss=loss_fn, optimizer=optimizer,metrics=metrics)
-#model.fit(x = x_train,epochs=2,steps_per_epoch=5)
+model.fit(x = x_train,epochs=2,steps_per_epoch=5)
