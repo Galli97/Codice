@@ -161,7 +161,7 @@ for j in range (len(label_list)):
                 new_label[i,n,2]=0
                 new_label[i,n,3]=0
                 new_label[i,n,4]=1
-                
+    print(new_label.shape)
     tmp2[j] = new_label
     print(tmp2.shape)
     
