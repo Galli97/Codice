@@ -129,17 +129,17 @@ print(len(tmp2))
 shape=(64,64,3)
 print(shape)
 
-model = rete(input_shape=shape,weight_decay=0., classes=4)
+#model = rete(input_shape=shape,weight_decay=0., classes=5)
 
-x_train = datagenerator(tmp1,tmp2,2)
+#x_train = datagenerator(tmp1,tmp2,2)
 
-optimizer = SGD(learning_rate=0.01, momentum=0.9)
+#optimizer = SGD(learning_rate=0.01, momentum=0.9)
 #loss_fn=softmax_sparse_crossentropy_ignoring_last_label
-loss_fn = keras.losses.CategoricalCrossentropy()
-metrics=[sparse_accuracy_ignoring_last_label]
+#loss_fn = keras.losses.CategoricalCrossentropy()
+#metrics=[sparse_accuracy_ignoring_last_label]
 #metrics=[tf.keras.metrics.MeanIoU(num_classes=5)]
 
-model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
+#model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
 #model.compile(loss=loss_fn, optimizer=optimizer,metrics=metrics)
-model.summary()
+#model.summary()
 #model.fit(x = tmp1,y=tmp2,epochs=2,steps_per_epoch=7)
