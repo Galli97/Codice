@@ -180,7 +180,8 @@ for j in range (len(label_list)):
 #print(label_list)
 
 #print(len(tmp1))
-print(tmp2)
+#print(tmp2)
+print(tmp2[1])
 
 #shape=(64,64,3)
 #print(shape)
