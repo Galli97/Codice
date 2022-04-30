@@ -101,7 +101,7 @@ for lab in dir1:
 N = len(image_list)
 print(N)
 tmp1 = np.empty((N, 64, 64, 3), dtype=np.uint8)
-tmp2 = np.empty((N, 64, 64, 3), dtype=np.uint8)
+tmp2 = np.empty((N, 64, 64, 5), dtype=np.uint8)
 
 ###### RIEMPIO LE DUE LISTE CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI NELLE PRIME DUE LISTE #######
 for i in range (len(image_list)):
