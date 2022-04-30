@@ -104,7 +104,7 @@ for j in range (len(label_list)):
     #print(reduct_label.shape)
     new_label = np.empty((64, 64, 5), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
 
-    for t in range(0,4):
+    for t in range(0,N):
         new_label[:,:,t]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x3) i valori di reduct_label (64x64)
 
     for i in range(0,63):
