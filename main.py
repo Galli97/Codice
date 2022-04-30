@@ -17,12 +17,16 @@ from utils import *
 from tensorflow.compat.v1 import ConfigProto
 from tensorflow.compat.v1 import InteractiveSession
 
-tmp1 = get_np_arrays('image_arrays.npy')          #recupero tmp1 dal file 
+####### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
+path = r"/content/drive/MyDrive/Tesi/image_arrays.npy"
+path1 = r"/content/drive/MyDrive/Tesi/label_arrays.npy"
+
+tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
 #print(len(tmp1))
 #print(tmp1.shape)
 #print(tmp1)
 
-tmp2 = get_np_arrays('label_arrays.npy')          #recupero tmp2 dal file
+tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 #print(len(tmp2))
 #print(tmp2.shape)
 #print(tmp2)
