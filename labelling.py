@@ -125,7 +125,8 @@ for j in range (len(label_list)):
 
 print("[INFO] label arrays saved")
 save_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
-    
+
+print('[TODO] Download these two files from the colab folder and save on the drive')
 
 
 ##### ALCUNI PRINT DI CONTROLLO ######
