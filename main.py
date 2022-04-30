@@ -118,11 +118,10 @@ for j in range (len(label_list)):
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]
     label = cv2.resize(label, (64,64))
     #print(label.shape)
-    #tmp2[j] = label
+    tmp2[j] = label
     for i in range(0,63):
         for n in range(0,63): 
             channels_xy = label[i,n];         #SOIL is kept black, NULL (no label) is white 
-            tmp2[j,i,n] = label[i,n]
             if all(channels_xy==bedrock):      #BEDROCK
                 tmp2[j,i,n,1]=1
                 tmp2[j,i,n,2]=0
