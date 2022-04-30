@@ -122,9 +122,9 @@ nullo=[0,0,0];
 for j in range (len(label_list)):
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]
     label = cv2.resize(label, (64,64))
-    print(label[0,0])
+    #print(label[0,0])
     reduct_label=label[:,:,0]
-    print(reduct_label.shape)
+    #print(reduct_label.shape)
     new_label = np.empty((64, 64, 5), dtype=np.uint8)
     for t in range(0,4):
         new_label[:,:,t]=reduct_label
@@ -166,9 +166,9 @@ for j in range (len(label_list)):
                 new_label[i,n,2]=0
                 new_label[i,n,3]=0
                 new_label[i,n,4]=1
-    print(new_label.shape)
+    #print(new_label.shape)
     tmp2[j] = new_label
-    print(tmp2.shape)
+    #print(tmp2.shape)
     
 
 
@@ -181,23 +181,23 @@ for j in range (len(label_list)):
 
 #print(len(tmp1))
 #print(tmp2)
-print(tmp2[1,1,1])
-print(new_label[:,:,1])
+#print(tmp2[1,1,1])
+#print(new_label[:,:,1])
 
-#shape=(64,64,3)
+shape=(64,64,3)
 #print(shape)
 
-#model = rete(input_shape=shape,weight_decay=0., classes=5)
+model = rete(input_shape=shape,weight_decay=0., classes=5)
 
-#x_train = datagenerator(tmp1,tmp2,2)
+x_train = datagenerator(tmp1,tmp2,2)
 
-#optimizer = SGD(learning_rate=0.01, momentum=0.9)
+optimizer = SGD(learning_rate=0.01, momentum=0.9)
 #loss_fn=softmax_sparse_crossentropy_ignoring_last_label
-#loss_fn = keras.losses.CategoricalCrossentropy()
+loss_fn = keras.losses.CategoricalCrossentropy()
 #metrics=[sparse_accuracy_ignoring_last_label]
 #metrics=[tf.keras.metrics.MeanIoU(num_classes=5)]
 
-#model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
+model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
 #model.compile(loss=loss_fn, optimizer=optimizer,metrics=metrics)
-#model.summary()
+model.summary()
 #model.fit(x = tmp1,y=tmp2,epochs=2,steps_per_epoch=7)
