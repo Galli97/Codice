@@ -176,4 +176,4 @@ loss_fn = keras.losses.CategoricalCrossentropy()
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
 model.summary()
-model.fit(x = tmp1,y=tmp2,epochs=2,steps_per_epoch=7)
+model.fit(x = tmp1,y=tmp2,epochs=2,steps_per_epoch=1)
