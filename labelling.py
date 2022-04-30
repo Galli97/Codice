@@ -122,8 +122,9 @@ for j in range (len(label_list)):
     #print(new_label.shape)
     tmp2[j] = new_label
     #print(tmp2.shape)
-    print("[INFO] label arrays saved")
-    save_np_arrays_labels(tmp2)
+
+print("[INFO] label arrays saved")
+save_np_arrays_labels(tmp2)
     
 
 
