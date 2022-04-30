@@ -122,7 +122,7 @@ nullo=[0,0,0];
 for j in range (len(label_list)):
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]
     label = cv2.resize(label, (64,64))
-    print(label.shape)
+    print(label[0,0])
     reduct_label=label[:,:,0]
     print(reduct_label.shape)
     new_label = np.empty((64, 64, 5), dtype=np.uint8)
