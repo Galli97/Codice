@@ -115,6 +115,7 @@ for j in range (len(label_list)):
     label = cv2.resize(label, (64,64))
     print(label.shape)
     label=label[:,:,0]
+    print(label.shape)
     tmp2[j] = label
     
 
