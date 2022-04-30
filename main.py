@@ -113,6 +113,7 @@ for i in range (len(image_list)):
 for j in range (len(label_list)):
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]
     label = cv2.resize(label, (64,64))
+    print(label.shape)
     tmp2[j] = label
 
 
