@@ -81,13 +81,18 @@ tmp1 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
 tmp2 = np.empty((N, 64, 64, 5), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel
 
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
-for i in range (len(image_list)):
-    image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
-    image = cv2.resize(image, (64,64))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
-    #print(image.shape)
-    tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
-print("[INFO] Images arrays saved")
-save_np_arrays(tmp1)
+# for i in range (len(image_list)):
+#     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
+#     image = cv2.resize(image, (64,64))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
+#     #print(image.shape)
+#     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
+# print("[INFO] Images arrays saved")
+# save_np_arrays(tmp1)
+
+tmp1 = get_np_arrays('images_arrays.npy')
+print(len(tmp1))
+print(tmp1.shape)
+print(tmp1)
 
 # ### DEFINISCO DEGLI ARRAY RELATIVE ALLE VARIE CLASSI ####
 # bedrock=[1,1,1];
