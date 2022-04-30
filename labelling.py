@@ -58,7 +58,7 @@ for i in range (len(image_list)):
     #print(image.shape)
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
 print("[INFO] Images arrays saved")
-save_np_arrays(tmp1)
+save_np_arrays(tmp1)                                #salvo tmp1 in un file numpy
 
 ### DEFINISCO DEGLI ARRAY RELATIVE ALLE VARIE CLASSI ####
 bedrock=[1,1,1];
@@ -124,7 +124,7 @@ for j in range (len(label_list)):
     #print(tmp2.shape)
 
 print("[INFO] label arrays saved")
-save_np_arrays_labels(tmp2)
+save_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
     
 
 
