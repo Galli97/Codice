@@ -110,13 +110,36 @@ for i in range (len(image_list)):
     #print(image.shape)
     tmp1[i] = image
 
+bedrock=[1,1,1];
+sand=[2,2,2];
+bigrock=[3,3,3];
+soil=[255,255,255];
+null=[0,0,0];
+
 for j in range (len(label_list)):
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]
     label = cv2.resize(label, (64,64))
     print(label.shape)
-    label=label[:,:,0]
-    print(label.shape)
-    tmp2[j] = label
+    reduct_label=label[:,:,0]
+    print(reduct_label.shape)
+    new_label = np.empty((64, 64, 5), dtype=np.uint8)
+    for i in range(0,63):
+        for n in range(0,63): 
+            channels_xy = label[i,n];          #SOIL is kept black, NULL (no label) is white 
+            print(channels_xy)
+            if all(channels_xy==bedrock):      #BEDROCK
+                new_label[i,n,0]=1
+                new_label[i,n,1]=0
+                new_label[i,n,2]=0
+                new_label[i,n,3]=0
+                new_label[i,n,4]=0
+                new_label[i,n,5]=0
+            print(new_label.shape)
+            #elif all(channels_xy==sand):    #SAND
+                
+            #elif all(channels_xy==bigrock):    #BIG ROCK
+               
+    #tmp2[j] = label
     
 
 
