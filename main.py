@@ -89,7 +89,7 @@ tmp2 = np.empty((N, 64, 64, 5), dtype=np.uint8)  #Qui ho N labels, che portano l
 # print("[INFO] Images arrays saved")
 # save_np_arrays(tmp1)
 
-tmp1 = get_np_arrays('images_arrays.npy')
+tmp1 = get_np_arrays('image_arrays.npy')
 print(len(tmp1))
 print(tmp1.shape)
 print(tmp1)
