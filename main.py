@@ -26,6 +26,7 @@ from tensorflow.compat.v1 import InteractiveSession
 
 # fix_gpu()
 
+### datagenerator prepara i dati per il training
 def datagenerator(images,labels, batchsize, mode="train"):
     while True:
         start = 0
@@ -39,31 +40,6 @@ def datagenerator(images,labels, batchsize, mode="train"):
             start += batchsize
             end += batchsize
 
-def softmax_sparse_crossentropy_ignoring_last_label(y_true, y_pred):
-    y_pred = K.reshape(y_pred, (-1, K.int_shape(y_pred)[-1]))
-    log_softmax = tf.nn.log_softmax(y_pred)
-
-    y_true = K.one_hot(tf.compat.v1.to_int32(K.flatten(y_true)), K.int_shape(y_pred)[-1]+1)
-    unpacked = tf.unstack(y_true, axis=-1)
-    y_true = tf.stack(unpacked[:-1], axis=-1)
-
-    cross_entropy = -K.sum(y_true * log_softmax, axis=1)
-    cross_entropy_mean = K.mean(cross_entropy)
-
-    return cross_entropy_mean
-
-
-def sparse_accuracy_ignoring_last_label(y_true, y_pred):
-    nb_classes = K.int_shape(y_pred)[-1]
-    y_pred = K.reshape(y_pred, (-1, nb_classes))
-
-    y_true = K.one_hot(tf.compat.v1.to_int32(K.flatten(y_true)),
-                       nb_classes + 1)
-    unpacked = tf.unstack(y_true, axis=-1)
-    legal_labels = ~tf.cast(unpacked[-1], tf.bool)
-    y_true = tf.stack(unpacked[:-1], axis=-1)
-
-    return K.sum(tf.compat.v1.to_float(legal_labels & K.equal(K.argmax(y_true, axis=-1), K.argmax(y_pred, axis=-1)))) / K.sum(tf.compat.v1.to_float(legal_labels))
 
 #os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID" #If it doesn't work, uncomment this line; it should help.
 #os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
@@ -77,10 +53,10 @@ path = r"/content/drive/MyDrive/Tesi/Dataset/Train_images"
 path1 = r"/content/drive/MyDrive/Tesi/Dataset/Train_labels"
 
 ####### CREO UNA LISTA CON ELEMENTI DATI DA QUELLI NELLA CARTELLA DEL PERCORSO ######
-dir = os.listdir(path)
-dir1 = os.listdir(path1)
+dir = os.listdir(path)       #immagini in input
+dir1 = os.listdir(path1)     #labels date dalle maschere
 
-###### INIZIALIZO DUE LISTE ########
+###### INIZIALIZO DUE LISTE, UNA PER LE IMMAGINI UNA PER LE LABELS ########
 image_list = []
 label_list = []
 
@@ -100,16 +76,17 @@ for lab in dir1:
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI ######
 N = len(image_list)
 print(N)
-tmp1 = np.empty((N, 64, 64, 3), dtype=np.uint8)
-tmp2 = np.empty((N, 64, 64, 5), dtype=np.uint8)
+tmp1 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
+tmp2 = np.empty((N, 64, 64, 5), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel
 
-###### RIEMPIO LE DUE LISTE CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI NELLE PRIME DUE LISTE #######
+###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
 for i in range (len(image_list)):
-    image = cv2.imread(image_list[i])[:,:,[2,1,0]]
-    image = cv2.resize(image, (64,64))
+    image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
+    image = cv2.resize(image, (64,64))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
     #print(image.shape)
-    tmp1[i] = image
+    tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
 
+### DEFINISCO DEGLI ARRAY RELATIVE ALLE VARIE CLASSI ####
 bedrock=[1,1,1];
 sand=[2,2,2];
 bigrock=[3,3,3];
@@ -120,19 +97,21 @@ nullo=[0,0,0];
 ### MENTRE 5 è IL NUMERO DI CLASSI. IN QUESTO MODO HO UN VETTORE DEL TIPO [0 0 1 0 0] PER OGNI PIXEL, CHE INDICA
 ### A QUALE CLASSE APPARTIENE IL PIXEL (IN QUESTO CASO, ALLA TERZA CLASSE). 
 for j in range (len(label_list)):
-    label = cv2.imread(label_list[j])[:,:,[2,1,0]]
-    label = cv2.resize(label, (64,64))
+    label = cv2.imread(label_list[j])[:,:,[2,1,0]]   #leggo l'immagine di label
+    label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
     #print(label[0,0])
-    reduct_label=label[:,:,0]
+    reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
     #print(reduct_label.shape)
-    new_label = np.empty((64, 64, 5), dtype=np.uint8)
+    new_label = np.empty((64, 64, 5), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
+
     for t in range(0,4):
-        new_label[:,:,t]=reduct_label
+        new_label[:,:,t]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x3) i valori di reduct_label (64x64)
+
     for i in range(0,63):
         for n in range(0,63): 
-            channels_xy = label[i,n];         
+            channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la posizione dell'1 nel vettore di dimensione 5
             #print(channels_xy)
-            if all(channels_xy==bedrock):      #BEDROCK
+            if all(channels_xy==bedrock):      #BEDROCK      
                 new_label[i,n,0]=1
                 new_label[i,n,1]=0
                 new_label[i,n,2]=0
@@ -192,12 +171,9 @@ model = rete(input_shape=shape,weight_decay=0., classes=5)
 x_train = datagenerator(tmp1,tmp2,2)
 
 optimizer = SGD(learning_rate=0.01, momentum=0.9)
-#loss_fn=softmax_sparse_crossentropy_ignoring_last_label
 loss_fn = keras.losses.CategoricalCrossentropy()
-#metrics=[sparse_accuracy_ignoring_last_label]
 #metrics=[tf.keras.metrics.MeanIoU(num_classes=5)]
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
-#model.compile(loss=loss_fn, optimizer=optimizer,metrics=metrics)
 model.summary()
 model.fit(x = tmp1,y=tmp2,epochs=2,steps_per_epoch=7)
