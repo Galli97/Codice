@@ -101,7 +101,7 @@ for lab in dir1:
 N = len(image_list)
 print(N)
 tmp1 = np.empty((N, 64, 64, 3), dtype=np.uint8)
-tmp2 = np.empty((N, 64, 64, 5), dtype=np.uint8)
+tmp2 = np.empty((N, 64, 64, 3), dtype=np.uint8)
 
 ###### RIEMPIO LE DUE LISTE CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI NELLE PRIME DUE LISTE #######
 for i in range (len(image_list)):
@@ -110,36 +110,13 @@ for i in range (len(image_list)):
     #print(image.shape)
     tmp1[i] = image
 
-bedrock=[1,1,1];
-sand=[2,2,2];
-bigrock=[3,3,3];
-
 for j in range (len(label_list)):
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]
     label = cv2.resize(label, (64,64))
-    #print(label.shape)
+    print(label.shape)
     tmp2[j] = label
-    for i in range(0,63):
-        for n in range(0,63): 
-            channels_xy = label[i,n];         #SOIL is kept black, NULL (no label) is white 
-            if all(channels_xy==bedrock):      #BEDROCK
-                tmp2[j,i,n,1]=1
-                tmp2[j,i,n,2]=0
-                tmp2[j,i,n,3]=0
-                tmp2[j,i,n,4]=0
-                tmp2[j,i,n,5]=0
-            elif all(channels_xy==sand):    #SAND
-                tmp2[j,i,n,1]=0
-                tmp2[j,i,n,2]=1
-                tmp2[j,i,n,3]=0
-                tmp2[j,i,n,4]=0
-                tmp2[j,i,n,5]=0
-            elif all(channels_xy==bigrock):    #BIG ROCK
-                tmp2[j,i,n,1]=0
-                tmp2[j,i,n,2]=0
-                tmp2[j,i,n,3]=1
-                tmp2[j,i,n,4]=0
-                tmp2[j,i,n,5]=0
+    
+
 
 ##### ALCUNI PRINT DI CONTROLLO ######
 #print(len(image_list))
@@ -148,8 +125,8 @@ for j in range (len(label_list)):
 #print(image_list)
 #print(label_list)
 
-print(len(tmp1))
-print(len(tmp2))
+#print(len(tmp1))
+print(tmp2)
 
 shape=(64,64,3)
 print(shape)
