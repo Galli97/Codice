@@ -37,8 +37,6 @@ model = rete(input_shape=shape,weight_decay=0., classes=5)
 
 x_train = datagenerator(tmp1,tmp2,2)
 
-print('x_train shape:', x_train.shape)
-print(x_train.shape[0], 'train samples')
 
 optimizer = SGD(learning_rate=0.01, momentum=0.9)
 loss_fn = keras.losses.CategoricalCrossentropy()
