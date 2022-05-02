@@ -55,16 +55,17 @@ tmp2 = np.empty((N, 64, 64, 5), dtype=np.uint8)  #Qui ho N labels, che portano l
 for i in range (len(image_list)):
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
     image = cv2.resize(image, (64,64))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
+    image/=255
     #print(image.shape)
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
 print("[INFO] Images arrays saved")
 save_np_arrays(tmp1)                                #salvo tmp1 in un file numpy
 
 ### DEFINISCO DEGLI ARRAY RELATIVE ALLE VARIE CLASSI ####
-bedrock=[1,1,1];
-sand=[2,2,2];
-bigrock=[3,3,3];
-soil=[255,255,255];
+bedrock=[1,1,1]/255;
+sand=[2,2,2]/255;
+bigrock=[3,3,3]/255;
+soil=[255,255,255]/255;
 nullo=[0,0,0];
 
 ### PER LE LABEL CREO UN ARRAY DI DIMENSIONE 64X64X5 (NEW_LABEL) DOVE 64X64 è LA DIMENSIONE DELL'IMMAGINE
@@ -73,6 +74,7 @@ nullo=[0,0,0];
 for j in range (len(label_list)):
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]   #leggo l'immagine di label
     label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
+    label/=255
     #print(label[0,0])
     reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
     #print(reduct_label.shape)
