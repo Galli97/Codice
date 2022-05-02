@@ -63,10 +63,10 @@ print("[INFO] Images arrays saved")
 save_np_arrays(tmp1)                                #salvo tmp1 in un file numpy
 
 ### DEFINISCO DEGLI ARRAY RELATIVE ALLE VARIE CLASSI ####
-bedrock=[1,1,1]/255;
-sand=[2,2,2]/255;
-bigrock=[3,3,3]/255;
-soil=[255,255,255]/255;
+bedrock=[1/255,1/255,1/255];
+sand=[2/255,2/255,2/255];
+bigrock=[3/255,3/255,3/255];
+soil=[255/255,255/255,255/255];
 nullo=[0,0,0];
 
 ### PER LE LABEL CREO UN ARRAY DI DIMENSIONE 64X64X5 (NEW_LABEL) DOVE 64X64 è LA DIMENSIONE DELL'IMMAGINE
