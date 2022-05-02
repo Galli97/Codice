@@ -65,7 +65,7 @@ for i in range (len(image_list)):
 batch_size = 2
 AUTOTUNE = tf.data.AUTOTUNE
 
-tmp1=prepare(train_ds, shuffle=True, augment=True)
+tmp1=prepare(tmp1, shuffle=True, augment=True)
 ############################################
 print("[INFO] Images arrays saved")
 save_np_arrays(tmp1)                                #salvo tmp1 in un file numpy
