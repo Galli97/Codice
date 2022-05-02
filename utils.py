@@ -52,14 +52,14 @@ def rotate(image):
     rotated = tf.image.rot90(image)
     return rotated
 
-def augment(image_list,tmp1,tmp2):
-    n = random.randint(10,100)
-    for i in range n:
-        a = random.randint(0,len(image_list)-1)
-        image = cv2.imread(image_list[a])[:,:,[2,1,0]]
-        new_image = cropp(image,0.5)
-        tmp1_augmented.append(new_image)
-        label = cv2.imread(label_list[a])[:,:,[2,1,0]]
-        new_label = cropp(label,0.5)
-        tmp2_augmented.append(new_label)
+# def augment(image_list,tmp1,tmp2):
+#     n = random.randint(10,100)
+#     for i in range n:
+#         a = random.randint(0,len(image_list)-1)
+#         image = cv2.imread(image_list[a])[:,:,[2,1,0]]
+#         new_image = cropp(image,0.5)
+#         tmp1_augmented.append(new_image)
+#         label = cv2.imread(label_list[a])[:,:,[2,1,0]]
+#         new_label = cropp(label,0.5)
+#         tmp2_augmented.append(new_label)
      
