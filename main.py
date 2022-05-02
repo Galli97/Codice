@@ -37,15 +37,6 @@ model = rete(input_shape=shape,weight_decay=0., classes=5)
 
 
 x_train = datagenerator(tmp1,tmp2,2)
-datagen = ImageDataGenerator(
-    featurewise_center=True,
-    featurewise_std_normalization=True,
-    rotation_range=20,
-    width_shift_range=0.2,
-    height_shift_range=0.2,
-    horizontal_flip=True,
-    validation_split=0.2)
-datagen.fit(x_train)
 
 optimizer = SGD(learning_rate=0.01, momentum=0.9)
 loss_fn = keras.losses.CategoricalCrossentropy()

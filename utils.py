@@ -1,5 +1,7 @@
 import numpy as np
 import tensorflow as tf
+import random
+
 def save_np_arrays(tmp1):
     with open('image_arrays.npy','wb') as f:
         np.save(f,tmp1)
@@ -27,18 +29,37 @@ def datagenerator(images,labels, batchsize, mode="train"):
             start += batchsize
             end += batchsize
 
+def flip(image):
+    flipped = tf.image.flip_left_right(image)
+    return flipped
+def grayscale(image):
+    grayscaled = tf.image.rgb_to_grayscale(image)
+    return grayscaled
 
-def augment(image_label, seed):
-  image, label = image_label
-  image, label = resize_and_rescale(image, label)
-  image = tf.image.resize_with_crop_or_pad(image, IMG_SIZE + 6, IMG_SIZE + 6)
-  # Make a new seed.
-  new_seed = tf.random.experimental.stateless_split(seed, num=1)[0, :]
-  # Random crop back to the original size.
-  image = tf.image.stateless_random_crop(
-      image, size=[IMG_SIZE, IMG_SIZE, 3], seed=seed)
-  # Random brightness.
-  image = tf.image.stateless_random_brightness(
-      image, max_delta=0.5, seed=new_seed)
-  image = tf.clip_by_value(image, 0, 1)
-  return image, label
+def saturate(image,i=3):
+    saturated = tf.image.adjust_saturation(image, i)
+    return saturated
+
+def brightness(image,i=0.4):
+    bright = tf.image.adjust_brightness(image, i)
+    return bright 
+
+def cropp(image,central_fraction):
+    cropped = tf.image.central_crop(image, central_fraction=0.5)
+    return cropped
+
+def rotate(image):
+    rotated = tf.image.rot90(image)
+    return rotated
+
+def augment(image_list,tmp1,tmp2):
+    n = random.randint(10,100)
+    for i in range n:
+        a = random.randint(0,len(image_list)-1)
+        image = cv2.imread(image_list[a])[:,:,[2,1,0]]
+        new_image = cropp(image,0.5)
+        tmp1_augmented.append(new_image)
+        label = cv2.imread(label_list[a])[:,:,[2,1,0]]
+        new_label = cropp(label,0.5)
+        tmp2_augmented.append(new_label)
+     
