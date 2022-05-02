@@ -35,7 +35,7 @@ shape=(64,64,3)
 batch_size=2
 model = rete(input_shape=shape,weight_decay=0., classes=5)
 
-data=(tmp1,tmp2)
+data=[*tmp1,*tmp2]
 data = (
     data
     .shuffle(1000)
