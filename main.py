@@ -35,14 +35,16 @@ shape=(64,64,3)
 batch_size=2
 model = rete(input_shape=shape,weight_decay=0., classes=5)
 
-x_train = datagenerator(tmp1,tmp2,2)
-x_train = (
-    x_train
+data=(tmp1,tmp2)
+data = (
+    data
     .shuffle(1000)
     .map(augment, num_parallel_calls=AUTOTUNE)
     .batch(batch_size)
     .prefetch(AUTOTUNE)
 )
+x_train = datagenerator(data[0:len(tmp1)-1],data[len(tmp1):len[tmp2]-1,2)
+
 
 optimizer = SGD(learning_rate=0.01, momentum=0.9)
 loss_fn = keras.losses.CategoricalCrossentropy()
