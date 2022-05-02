@@ -43,7 +43,7 @@ data = (
     .batch(batch_size)
     .prefetch(AUTOTUNE)
 )
-x_train = datagenerator(data[0:len(tmp1)-1],data[len(tmp1):len[tmp2]-1,2)
+x_train = datagenerator(data[0:len(tmp1)-1],data[len(tmp1):len(tmp2)-1],2)
 
 
 optimizer = SGD(learning_rate=0.01, momentum=0.9)
