@@ -48,9 +48,10 @@ for lab in dir1:
 N = len(image_list)
 print(N)
 num_classes=5
-tmp1 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
-tmp2 = np.empty((N, 64, 64, 5), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel
-
+# tmp1 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
+# tmp2 = np.empty((N, 64, 64, 5), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel
+tmp1 = np.empty((N, 1024, 1024, 3), dtype=np.uint8)  #Qui ho N immagini
+tmp2 = np.empty((N, 1024, 1024, 5), dtype=np.uint8)
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
 for i in range (len(image_list)):
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
@@ -76,13 +77,13 @@ for j in range (len(label_list)):
     #print(label[0,0])
     reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
     #print(reduct_label.shape)
-    new_label = np.empty((64, 64, 5), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
+    new_label = np.empty((1024, 1024, 5), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
 
     for t in range(0,num_classes-1):
         new_label[:,:,t]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x3) i valori di reduct_label (64x64)
 
-    for i in range(0,63):
-        for n in range(0,63): 
+    for i in range(0,1023):
+        for n in range(0,1023): 
             channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la posizione dell'1 nel vettore di dimensione 5
             #print(channels_xy)
             if all(channels_xy==bedrock):      #BEDROCK      
