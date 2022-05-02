@@ -80,7 +80,7 @@ for j in range (len(label_list)):
 
     # for t in range(0,num_classes-1):
     #     new_label[:,:,t]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x3) i valori di reduct_label (64x64)
-    new_label[:,:,1]=reduct_label 
+    new_label[:,:,0]=reduct_label 
     for i in range(0,63):
         for n in range(0,63): 
             channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la posizione dell'1 nel vettore di dimensione 5
