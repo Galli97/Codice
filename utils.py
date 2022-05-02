@@ -28,24 +28,48 @@ def datagenerator(images,labels, batchsize, mode="train"):
             end += batchsize
 
 
-batch_size = 32
-AUTOTUNE = tf.data.AUTOTUNE
+def flip(image):
+    flipped = tf.image.stateless_random_flip_left_right
+    return flipped
 
-def prepare(ds, shuffle=False, augment=False):
-  # Resize and rescale all datasets.
-  ds = ds.map(lambda x, y: (resize_and_rescale(x), y), 
-              num_parallel_calls=AUTOTUNE)
+def grayscale(image):
+    grayscaled = tf.image.rgb_to_grayscale(image)
+    return grayscaled
 
-  if shuffle:
-    ds = ds.shuffle(1000)
+def saturate(image):
+    saturated = tf.image.stateless_random_saturation
+    return saturated
 
-  # Batch all datasets.
-  ds = ds.batch(batch_size)
+def brightness(image):
+    seed = (1, 2)
+    bright = tf.image.stateless_random_brightness(image,max_delta=0.95,seed)
+    return bright 
 
-  # Use data augmentation only on the training set.
-  if augment:
-    ds = ds.map(lambda x, y: (data_augmentation(x, training=True), y), 
-                num_parallel_calls=AUTOTUNE)
+def cropp(image):
+    cropped = tf.image.stateless_random_crop
+    return cropped
 
-  # Use buffered prefetching on all datasets.
-  return ds.prefetch(buffer_size=AUTOTUNE)
+def rotate(image):
+    rotated = tf.image.rot90(image)
+    return rotated
+
+def resize_and_rescale(image, label):
+  image = tf.cast(image, tf.float32)
+  image = tf.image.resize(image, [IMG_SIZE, IMG_SIZE])
+  image = (image / 255.0)
+  return image, label
+
+def augment(image_label, seed):
+  image, label = image_label
+  image, label = resize_and_rescale(image, label)
+  image = tf.image.resize_with_crop_or_pad(image, IMG_SIZE + 6, IMG_SIZE + 6)
+  # Make a new seed.
+  new_seed = tf.random.experimental.stateless_split(seed, num=1)[0, :]
+  # Random crop back to the original size.
+  image = tf.image.stateless_random_crop(
+      image, size=[IMG_SIZE, IMG_SIZE, 3], seed=seed)
+  # Random brightness.
+  image = tf.image.stateless_random_brightness(
+      image, max_delta=0.5, seed=new_seed)
+  image = tf.clip_by_value(image, 0, 1)
+  return image, label
