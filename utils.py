@@ -28,37 +28,6 @@ def datagenerator(images,labels, batchsize, mode="train"):
             end += batchsize
 
 
-def flip(image):
-    flipped = tf.image.stateless_random_flip_left_right
-    return flipped
-
-def grayscale(image):
-    grayscaled = tf.image.rgb_to_grayscale(image)
-    return grayscaled
-
-def saturate(image):
-    saturated = tf.image.stateless_random_saturation
-    return saturated
-
-def brightness(image):
-    seed = (1, 2)
-    bright = tf.image.stateless_random_brightness(image,max_delta=0.95,seed)
-    return bright 
-
-def cropp(image):
-    cropped = tf.image.stateless_random_crop
-    return cropped
-
-def rotate(image):
-    rotated = tf.image.rot90(image)
-    return rotated
-
-def resize_and_rescale(image, label):
-  image = tf.cast(image, tf.float32)
-  image = tf.image.resize(image, [IMG_SIZE, IMG_SIZE])
-  image = (image / 255.0)
-  return image, label
-
 def augment(image_label, seed):
   image, label = image_label
   image, label = resize_and_rescale(image, label)
