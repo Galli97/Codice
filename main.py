@@ -38,7 +38,6 @@ model = rete(input_shape=shape,weight_decay=0., classes=5)
 data=[*tmp1,*tmp2]
 data = (
     data
-    .shuffle(1000)
     .map(augment, num_parallel_calls=AUTOTUNE)
     .batch(batch_size)
     .prefetch(AUTOTUNE)
