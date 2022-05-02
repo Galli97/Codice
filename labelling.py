@@ -14,7 +14,7 @@ from PIL import Image
 from rete import *
 from tensorflow.keras.optimizers import SGD
 from utils import *
-
+from keras.preprocessing.image import ImageDataGenerator
 ####### PERCORSO IN LOCALE #########
 #path = r"C:\Users\Mattia\Desktop\Tesi\Dataset\Train-images"
 #path1 =  r"C:\Users\Mattia\Desktop\Tesi\Dataset\Train-labels"
@@ -59,8 +59,17 @@ for i in range (len(image_list)):
     image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print(image.shape)
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
+# print("[INFO] Images arrays saved")
+# save_np_arrays(tmp1)                                #salvo tmp1 in un file numpy
+### DATA AUGMENTATION ######
+batch_size = 2
+AUTOTUNE = tf.data.AUTOTUNE
+
+tmp1=prepare(train_ds, shuffle=True, augment=True)
+############################################
 print("[INFO] Images arrays saved")
 save_np_arrays(tmp1)                                #salvo tmp1 in un file numpy
+
 
 ### DEFINISCO DEGLI ARRAY RELATIVE ALLE VARIE CLASSI ####
 bedrock=[1/510,1/510,1/510];
@@ -127,9 +136,14 @@ for j in range (len(label_list)):
     tmp2[j] = new_label
     #print(tmp2.shape)
 
+# print("[INFO] label arrays saved")
+# save_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
+### DATA AUGMENTATION ######
+
+tmp2=prepare(tmp2, shuffle=True, augment=True)
+############################################
 print("[INFO] label arrays saved")
 save_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
-
 print('[TODO] Download these two files from the colab folder and save on the drive')
 
 

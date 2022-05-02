@@ -44,4 +44,4 @@ loss_fn = keras.losses.CategoricalCrossentropy()
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
 model.summary()
-model.fit(x = x_train,epochs=2,steps_per_epoch=1)
+model.fit(x = x_train,batch_size = 2,epochs=2,steps_per_epoch=1)
