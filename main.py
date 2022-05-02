@@ -31,7 +31,7 @@ tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 #print(tmp2.shape)
 #print(tmp2)
 
-shape=(64,64,3)
+shape=(1024,1024,3)
 
 model = rete(input_shape=shape,weight_decay=0., classes=5)
 
