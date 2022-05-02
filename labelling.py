@@ -57,6 +57,8 @@ for i in range (len(image_list)):
     image = cv2.resize(image, (64,64))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
     #print(image.shape)
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
+    tmp1 = tmp1.astype('float32')
+    tmp1 /= 255
 print("[INFO] Images arrays saved")
 save_np_arrays(tmp1)                                #salvo tmp1 in un file numpy
 
@@ -121,6 +123,8 @@ for j in range (len(label_list)):
                 new_label[i,n,4]=1
     #print(new_label.shape)
     tmp2[j] = new_label
+    tmp2 = tmp1.astype('float32')
+    tmp2 /= 255
     #print(tmp2.shape)
 
 print("[INFO] label arrays saved")

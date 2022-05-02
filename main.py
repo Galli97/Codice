@@ -36,8 +36,7 @@ shape=(64,64,3)
 model = rete(input_shape=shape,weight_decay=0., classes=5)
 
 x_train = datagenerator(tmp1,tmp2,2)
-x_train = x_train.astype('float32')
-x_train /= 255
+
 print('x_train shape:', x_train.shape)
 print(x_train.shape[0], 'train samples')
 
