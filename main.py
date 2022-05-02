@@ -16,7 +16,7 @@ from tensorflow.keras.optimizers import SGD
 from utils import *
 from tensorflow.compat.v1 import ConfigProto
 from tensorflow.compat.v1 import InteractiveSession
-
+from keras.preprocessing.image import ImageDataGenerator
 ####### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
 path = r"/content/drive/MyDrive/Tesi/image_arrays.npy"
 path1 = r"/content/drive/MyDrive/Tesi/label_arrays.npy"
