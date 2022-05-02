@@ -49,7 +49,7 @@ N = len(image_list)
 print(N)
 num_classes=5
 tmp1 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
-tmp2 = np.empty((N, 64, 64, 1), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel
+tmp2 = np.empty((N, 64, 64, 5), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel
 
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
 for i in range (len(image_list)):
@@ -76,49 +76,49 @@ for j in range (len(label_list)):
     #print(label[0,0])
     reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
     #print(reduct_label.shape)
-    new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
+    new_label = np.empty((64, 64, 5), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
 
-    # for t in range(0,num_classes-1):
-    #     new_label[:,:,t]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x3) i valori di reduct_label (64x64)
-    new_label[:,:,0]=reduct_label 
+    for t in range(0,num_classes-1):
+        new_label[:,:,t]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x3) i valori di reduct_label (64x64)
+
     for i in range(0,63):
         for n in range(0,63): 
             channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la posizione dell'1 nel vettore di dimensione 5
             #print(channels_xy)
             if all(channels_xy==bedrock):      #BEDROCK      
-                new_label[i,n,0]=0
-                # new_label[i,n,1]=0
-                # new_label[i,n,2]=0
-                # new_label[i,n,3]=0
-                # new_label[i,n,4]=0
+                new_label[i,n,0]=1
+                new_label[i,n,1]=0
+                new_label[i,n,2]=0
+                new_label[i,n,3]=0
+                new_label[i,n,4]=0
                 #print(new_label.shape)
             elif all(channels_xy==sand):    #SAND
-                new_label[i,n,0]=1
-                # new_label[i,n,1]=1
-                # new_label[i,n,2]=0
-                # new_label[i,n,3]=0
-                # new_label[i,n,4]=0
+                new_label[i,n,0]=0
+                new_label[i,n,1]=1
+                new_label[i,n,2]=0
+                new_label[i,n,3]=0
+                new_label[i,n,4]=0
                 
             elif all(channels_xy==bigrock):    #BIG ROCK
-                new_label[i,n,0]=2
-                # new_label[i,n,1]=0
-                # new_label[i,n,2]=1
-                # new_label[i,n,3]=0
-                # new_label[i,n,4]=0
+                new_label[i,n,0]=0
+                new_label[i,n,1]=0
+                new_label[i,n,2]=1
+                new_label[i,n,3]=0
+                new_label[i,n,4]=0
                 
             elif all(channels_xy==soil):    #SOIL
-                new_label[i,n,0]=3
-                # new_label[i,n,1]=0
-                # new_label[i,n,2]=0
-                # new_label[i,n,3]=1
-                # new_label[i,n,4]=0
+                new_label[i,n,0]=0
+                new_label[i,n,1]=0
+                new_label[i,n,2]=0
+                new_label[i,n,3]=1
+                new_label[i,n,4]=0
                 
             elif all(channels_xy==nullo):    #NULL
-                new_label[i,n,0]=4
-                # new_label[i,n,1]=0
-                # new_label[i,n,2]=0
-                # new_label[i,n,3]=0
-                # new_label[i,n,4]=1
+                new_label[i,n,0]=0
+                new_label[i,n,1]=0
+                new_label[i,n,2]=0
+                new_label[i,n,3]=0
+                new_label[i,n,4]=1
     #print(new_label.shape)
     tmp2[j] = new_label
     #print(tmp2.shape)
