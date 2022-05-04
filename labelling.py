@@ -43,7 +43,7 @@ for lab in dir1:
     if new_dir1 not in label_list : label_list.append(new_dir1)
     #label=np.expand_dims(label, axis=2)
 
-image_list,label_list=augment(image_list,label_list);
+image_list, label_list = augment(image_list,label_list);
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI ######
 N = len(image_list)-45
 print(N)

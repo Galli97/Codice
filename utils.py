@@ -103,5 +103,5 @@ def augment(image_list,label_list):
             new_label = grayscale(label)
             label_list.append(new_label)
         
-    return image_list,label_list,n
+    return image_list,label_list
      
