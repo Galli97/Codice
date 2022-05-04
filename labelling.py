@@ -48,6 +48,9 @@ print(len(label_list))
 
 ### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
 image_list, label_list = augment(image_list,label_list);
+
+print(len(image_list))
+print(len(label_list))
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI ######
 N = len(image_list)
 print(N)
