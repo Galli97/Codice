@@ -54,7 +54,7 @@ def rotate(image):
     return rotated
 
 def augment(image_list,label_list):
-    n = random.randint(0,2)
+    n = random.randint(1,2)
     tmp1a = np.empty((n, 64, 64, 3), dtype=np.uint8)
     tmp2a = np.empty((n, 64, 64, 3), dtype=np.uint8)
     for i in range (0,n):
