@@ -65,7 +65,7 @@ print(tmp1a.shape)
 print(tmp2.shape)
 print(tmp2a.shape)
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
-for i in range (N):
+for i in range (N-A):
     print(i)
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
     image = cv2.resize(image, (64,64))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
