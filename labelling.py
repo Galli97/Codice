@@ -74,7 +74,7 @@ for i in range (N-A):
     #print(image.shape)
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
 
-for p in range (N-A,N):
+for p in range (0,A):
     print(p)
     image=tmp1a[p]
     image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
