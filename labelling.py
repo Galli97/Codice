@@ -60,6 +60,7 @@ tmp2 = np.empty((N, 64, 64, 5), dtype=np.uint8)  #Qui ho N labels, che portano l
 
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
 for i in range (len(image_list)-1):
+    print(i)
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
     image = cv2.resize(image, (64,64))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
     image = image.astype('float32')
