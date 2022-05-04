@@ -43,16 +43,20 @@ for lab in dir1:
     if new_dir1 not in label_list : label_list.append(new_dir1)
     #label=np.expand_dims(label, axis=2)
 
+print(len(image_list))
+print(len(label_list))
+
+### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
 image_list, label_list = augment(image_list,label_list);
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI ######
-N = len(image_list)-45
+N = len(image_list)
 print(N)
 num_classes=5
 tmp1 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
 tmp2 = np.empty((N, 64, 64, 5), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel
 
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
-for i in range (len(image_list)-45):
+for i in range (len(image_list)):
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
     image = cv2.resize(image, (64,64))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
     image = image.astype('float32')
@@ -76,7 +80,7 @@ nullo=[0,0,0];
 ### PER LE LABEL CREO UN ARRAY DI DIMENSIONE 64X64X5 (NEW_LABEL) DOVE 64X64 è LA DIMENSIONE DELL'IMMAGINE
 ### MENTRE 5 è IL NUMERO DI CLASSI. IN QUESTO MODO HO UN VETTORE DEL TIPO [0 0 1 0 0] PER OGNI PIXEL, CHE INDICA
 ### A QUALE CLASSE APPARTIENE IL PIXEL (IN QUESTO CASO, ALLA TERZA CLASSE). 
-for j in range (len(label_list)-45):
+for j in range (len(label_list)):
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]   #leggo l'immagine di label
     label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
     label = label.astype('float32')
