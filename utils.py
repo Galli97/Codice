@@ -1,6 +1,7 @@
 import numpy as np
 import tensorflow as tf
 import random
+import cv2
 
 def save_np_arrays(tmp1):
     with open('image_arrays.npy','wb') as f:
