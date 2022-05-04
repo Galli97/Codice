@@ -79,7 +79,7 @@ for p in range (0,A):
     image=tmp1a[p]
     image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print(image.shape)
-    tmp1[p] = image  
+    tmp1[N+p] = image  
 
 print("[INFO] Images arrays saved")
 save_np_arrays(tmp1)                                #salvo tmp1 in un file numpy
