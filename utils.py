@@ -57,15 +57,15 @@ def augment(image_list,label_list):
     n = random.randint(1,len(image_list)-1)
     for i in range (0,n):
         a = random.randint(0,len(image_list)-1)
-        if(a % 2 == 0):
-            image = cv2.imread(image_list[a])[:,:,[2,1,0]]
-            image = cv2.resize(image, (64,64))
-            new_image = rotate(image)
-            image_list.append(new_image)
-            label = cv2.imread(label_list[a])[:,:,[2,1,0]]
-            label = cv2.resize(label, (64,64))
-            new_label = rotate(label)
-            label_list.append(new_label)
+        # if(a % 2 == 0):
+        image = cv2.imread(image_list[a])[:,:,[2,1,0]]
+        image = cv2.resize(image, (64,64))
+        new_image = rotate(image)
+        image_list.append(new_image)
+        label = cv2.imread(label_list[a])[:,:,[2,1,0]]
+        label = cv2.resize(label, (64,64))
+        new_label = rotate(label)
+        label_list.append(new_label)
         # if(a % 10 == 0):
         #     image = cv2.imread(image_list[a])[:,:,[2,1,0]]
         #     image = cv2.resize(image, (64,64))
@@ -103,5 +103,5 @@ def augment(image_list,label_list):
         #     new_label = grayscale(label)
         #     label_list.append(new_label)
         
-    return image_list,label_list,n
+    return image_list,label_list
      
