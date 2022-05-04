@@ -53,10 +53,10 @@ def rotate(image):
     return rotated
 
 def augment(image_list):
-    n = random.randint(10,100)
+    n = random.randint(0,2)
     tmp1a = np.empty((n, 64, 64, 3), dtype=np.uint8)
     tmp2a = np.empty((n, 64, 64, 3), dtype=np.uint8)
-    for i in range n:
+    for i in range (0,n):
         a = random.randint(0,len(image_list)-1)
         image = cv2.imread(image_list[a])[:,:,[2,1,0]]
         new_image = cropp(image,0.5)

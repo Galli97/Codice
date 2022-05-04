@@ -45,7 +45,7 @@ for lab in dir1:
 
 tmp1a,tmp2a,n=augment(image_list);
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI ######
-N = len(image_list-50)+n
+N = len(image_list-50)
 print(N)
 num_classes=5
 tmp1 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
@@ -59,6 +59,9 @@ for i in range (len(image_list-50)):
     image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print(image.shape)
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
+
+for i in range (0,n-1):
+    tmp1(len(image_list)+i).append(tmp1a[i])
 print("[INFO] Images arrays saved")
 save_np_arrays(tmp1)                                #salvo tmp1 in un file numpy
 
@@ -130,6 +133,9 @@ for j in range (len(label_list-50)):
     tmp2[j] = new_label
     #print(tmp2.shape)
 
+for i in range (0,n-1):
+    tmp2(len(image_list)+i).append(tmp2a[i])
+
 print("[INFO] label arrays saved")
 save_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
 
@@ -143,7 +149,11 @@ print('[TODO] Download these two files from the colab folder and save on the dri
 #print(image_list)
 #print(label_list)
 
-#print(len(tmp1))
+print(len(tmp1))
+print(len(tmp2))
+
+print(tmp1.shape)
+print(tmp2.shape)
 #print(tmp2)
 #print(tmp2[1,1,1])
 #print(new_label[:,:,1])
