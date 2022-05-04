@@ -55,57 +55,90 @@ def rotate(image):
 
 def augment(image_list,label_list):
     fix=len(image_list)-1        #voglio lavorare solo sulle immagini della lista iniziale
-    image_list_aug=image_list
-    label_list_aug=label_list
-    n = random.randint(10,fix)
-    for i in range (0,n):
+    A = random.randint(10,fix)
+    tmp1a = np.empty((A, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
+    tmp2a = np.empty((A, 64, 64, 5), dtype=np.uint8) 
+    for i in range (0,A):
         a = random.randint(0,fix)
-        #print(a)
-        if(a % 2 == 0):
-            image = cv2.imread(image_list[a])[:,:,[2,1,0]]
-            image = cv2.resize(image, (64,64))
-            new_image = rotate(image)
-            image_list_aug.append(new_image)
-            label = cv2.imread(label_list[a])[:,:,[2,1,0]]
-            label = cv2.resize(label, (64,64))
-            new_label = rotate(label)
-            label_list_aug.append(new_label)
-        if(a % 10 == 0):
-            image = cv2.imread(image_list[a])[:,:,[2,1,0]]
-            image = cv2.resize(image, (64,64))
-            new_image = brightness(image)
-            image_list_aug.append(new_image)
-            label = cv2.imread(label_list[a])[:,:,[2,1,0]]
-            label = cv2.resize(label, (64,64))
-            new_label = brightness(label)
-            label_list_aug.append(new_label)
-        if(a % 13 == 0):
-            image = cv2.imread(image_list[a])[:,:,[2,1,0]]
-            image = cv2.resize(image, (64,64))
-            new_image = saturate(image)
-            image_list_aug.append(new_image)
-            label = cv2.imread(label_list[a])[:,:,[2,1,0]]
-            label = cv2.resize(label, (64,64))
-            new_label = saturate(label)
-            label_list_aug.append(new_label)
-        if(a % 5 == 0):
-            image = cv2.imread(image_list[a])[:,:,[2,1,0]]
-            image = cv2.resize(image, (64,64))
-            new_image = flip(image)
-            image_list_aug.append(new_image)
-            label = cv2.imread(label_list[a])[:,:,[2,1,0]]
-            label = cv2.resize(label, (64,64))
-            new_label = flip(label)
-            label_list_aug.append(new_label)
-        if(a % 15 == 0):
-            image = cv2.imread(image_list[a])[:,:,[2,1,0]]
-            image = cv2.resize(image, (64,64))
-            new_image = grayscale(image)
-            image_list_aug.append(new_image)
-            label = cv2.imread(label_list[a])[:,:,[2,1,0]]
-            label = cv2.resize(label, (64,64))
-            new_label = grayscale(label)
-            label_list_aug.append(new_label)
+        image = cv2.imread(image_list[a])[:,:,[2,1,0]]
+        image = cv2.resize(image, (64,64))
+        label = cv2.imread(label_list[a])[:,:,[2,1,0]]
+        label = cv2.resize(label, (64,64))
         
-    return image_list_aug,label_list_aug
+        chose = random.randint(1,5)
+        #print(a)
+        if(chose == 1):
+            new_image = rotate(image)
+            new_label = rotate(label)
+        elif(chose == 2):
+            new_image = brightness(image)
+            new_label = brightness(label)
+        elif(chose == 3):
+            new_image = saturate(image)
+            new_label = saturate(label)
+        elif(chose == 4):
+            new_image = flip(image)
+            new_label = flip(label)
+        elif(chose == 5):
+            new_image = grayscale(image)
+            new_label = grayscale(label)
+        tmp1a[i]=new_image
+        tmp2a[i]=new_label
+    return tmp1a,tmp2a,A
+     
+# def augment(image_list,label_list):
+#     fix=len(image_list)-1        #voglio lavorare solo sulle immagini della lista iniziale
+#     image_list_aug=image_list
+#     label_list_aug=label_list
+#     n = random.randint(10,fix)
+#     for i in range (0,n):
+#         a = random.randint(0,fix)
+#         #print(a)
+#         if(a % 2 == 0):
+#             image = cv2.imread(image_list[a])[:,:,[2,1,0]]
+#             image = cv2.resize(image, (64,64))
+#             new_image = rotate(image)
+#             image_list_aug.append(new_image)
+#             label = cv2.imread(label_list[a])[:,:,[2,1,0]]
+#             label = cv2.resize(label, (64,64))
+#             new_label = rotate(label)
+#             label_list_aug.append(new_label)
+#         if(a % 10 == 0):
+#             image = cv2.imread(image_list[a])[:,:,[2,1,0]]
+#             image = cv2.resize(image, (64,64))
+#             new_image = brightness(image)
+#             image_list_aug.append(new_image)
+#             label = cv2.imread(label_list[a])[:,:,[2,1,0]]
+#             label = cv2.resize(label, (64,64))
+#             new_label = brightness(label)
+#             label_list_aug.append(new_label)
+#         if(a % 13 == 0):
+#             image = cv2.imread(image_list[a])[:,:,[2,1,0]]
+#             image = cv2.resize(image, (64,64))
+#             new_image = saturate(image)
+#             image_list_aug.append(new_image)
+#             label = cv2.imread(label_list[a])[:,:,[2,1,0]]
+#             label = cv2.resize(label, (64,64))
+#             new_label = saturate(label)
+#             label_list_aug.append(new_label)
+#         if(a % 5 == 0):
+#             image = cv2.imread(image_list[a])[:,:,[2,1,0]]
+#             image = cv2.resize(image, (64,64))
+#             new_image = flip(image)
+#             image_list_aug.append(new_image)
+#             label = cv2.imread(label_list[a])[:,:,[2,1,0]]
+#             label = cv2.resize(label, (64,64))
+#             new_label = flip(label)
+#             label_list_aug.append(new_label)
+#         if(a % 15 == 0):
+#             image = cv2.imread(image_list[a])[:,:,[2,1,0]]
+#             image = cv2.resize(image, (64,64))
+#             new_image = grayscale(image)
+#             image_list_aug.append(new_image)
+#             label = cv2.imread(label_list[a])[:,:,[2,1,0]]
+#             label = cv2.resize(label, (64,64))
+#             new_label = grayscale(label)
+#             label_list_aug.append(new_label)
+        
+#     return image_list_aug,label_list_aug
      
