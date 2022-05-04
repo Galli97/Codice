@@ -60,10 +60,12 @@ def augment(image_list):
     for i in range (0,n):
         a = random.randint(0,len(image_list)-1)
         image = cv2.imread(image_list[a])[:,:,[2,1,0]]
-        new_image = cropp(image,0.5)
+        image = cv2.resize(image, (64,64))
+        new_image = rotate(image)
         tmp1a[i]= new_image
         label = cv2.imread(label_list[a])[:,:,[2,1,0]]
-        new_label = cropp(label,0.5)
+        label = cv2.resize(label, (64,64))
+        new_label = rotate(label)
         tmp2a[i] = new_label
 
     return tmp1a,tmp2a,n
