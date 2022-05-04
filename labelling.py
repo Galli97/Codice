@@ -60,8 +60,6 @@ for i in range (len(image_list)-50):
     #print(image.shape)
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
 
-# for i in range (0,n-1):
-#     tmp1=[tmp1,tmp1a[i]]
 print("[INFO] Images arrays saved")
 save_np_arrays(tmp1)                                #salvo tmp1 in un file numpy
 
@@ -133,8 +131,6 @@ for j in range (len(label_list)-50):
     tmp2[j] = new_label
     #print(tmp2.shape)
 
-# for i in range (0,n-1):
-#     tmp2=[tmp2,(tmp2a[i])]
 
 print("[INFO] label arrays saved")
 save_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
