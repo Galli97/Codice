@@ -43,9 +43,9 @@ for lab in dir1:
     if new_dir1 not in label_list : label_list.append(new_dir1)
     #label=np.expand_dims(label, axis=2)
 
-tmp1a,tmp2a,n=augment(image_list,label_list);
+image_list,label_list,n=augment(image_list,label_list);
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI ######
-N = len(image_list)-50+n
+N = len(image_list)-50
 print(N)
 num_classes=5
 tmp1 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
@@ -60,8 +60,8 @@ for i in range (len(image_list)-50):
     #print(image.shape)
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
 
-for i in range (0,n-1):
-    tmp1=[tmp1,tmp1a[i]]
+# for i in range (0,n-1):
+#     tmp1=[tmp1,tmp1a[i]]
 print("[INFO] Images arrays saved")
 save_np_arrays(tmp1)                                #salvo tmp1 in un file numpy
 
@@ -133,8 +133,8 @@ for j in range (len(label_list)-50):
     tmp2[j] = new_label
     #print(tmp2.shape)
 
-for i in range (0,n-1):
-    tmp2=[tmp2,(tmp2a[i])]
+# for i in range (0,n-1):
+#     tmp2=[tmp2,(tmp2a[i])]
 
 print("[INFO] label arrays saved")
 save_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy

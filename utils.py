@@ -62,11 +62,11 @@ def augment(image_list,label_list):
         image = cv2.imread(image_list[a])[:,:,[2,1,0]]
         image = cv2.resize(image, (64,64))
         new_image = rotate(image)
-        tmp1a[i]= new_image
+        image_list.append(new_image)
         label = cv2.imread(label_list[a])[:,:,[2,1,0]]
         label = cv2.resize(label, (64,64))
         new_label = rotate(label)
-        tmp2a[i] = new_label
+        label_list.append(new_label)
 
-    return tmp1a,tmp2a,n
+    return image_list,label_list,n
      
