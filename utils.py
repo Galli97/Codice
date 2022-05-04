@@ -54,9 +54,10 @@ def rotate(image):
     return rotated
 
 def augment(image_list,label_list):
-    n = random.randint(10,len(image_list)-1)
+    fix=len(image_list)-1        #voglio lavorare solo sulle immagini della lista iniziale
+    n = random.randint(10,fix)
     for i in range (0,n):
-        a = random.randint(0,len(image_list)-1)
+        a = random.randint(0,fix)
         print(a)
         if(a % 2 == 0):
             image = cv2.imread(image_list[a])[:,:,[2,1,0]]
