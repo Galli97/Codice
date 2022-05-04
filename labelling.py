@@ -51,6 +51,7 @@ image_list_aug, label_list_aug = augment(image_list,label_list);
 
 print(len(image_list_aug))
 print(len(label_list_aug))
+print(label_list_aug[60])
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI ######
 N = len(image_list_aug)
 print(N)
