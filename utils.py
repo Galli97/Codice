@@ -65,5 +65,5 @@ def augment(image_list):
         new_label = cropp(label,0.5)
         tmp2a.append(new_label)
 
-    return tmp1a,tmp2a
+    return tmp1a,tmp2a,n
      
