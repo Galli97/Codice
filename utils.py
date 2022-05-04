@@ -57,6 +57,7 @@ def augment(image_list,label_list):
     n = random.randint(10,len(image_list)-1)
     for i in range (0,n):
         a = random.randint(0,len(image_list)-1)
+        print(a)
         if(a % 2 == 0):
             image = cv2.imread(image_list[a])[:,:,[2,1,0]]
             image = cv2.resize(image, (64,64))
