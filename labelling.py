@@ -74,13 +74,13 @@ for i in range (N-A):
     #print(image.shape)
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
 
-for p in range (0,A):
+for p in range (A):
     print(p)
     image=tmp1a[p]
     image = image.astype('float32')
     image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print(image.shape)
-    tmp1[N+p] = image  
+    tmp1[N-A+p] = image  
 
 print("[INFO] Images arrays saved")
 save_np_arrays(tmp1)                                #salvo tmp1 in un file numpy
@@ -204,7 +204,7 @@ for f in range (0,A):
                 new_label[i,n,3]=0
                 new_label[i,n,4]=1
     #print(new_label.shape)
-    tmp2[N+f] = new_label
+    tmp2[N-A+f] = new_label
     #print(tmp2.shape)
 
 print("[INFO] label arrays saved")
