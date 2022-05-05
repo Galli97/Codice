@@ -159,9 +159,9 @@ for f in range (0,A):
                 new_label[i,n,0]=4
     #print(new_label.shape)
     tmp2[N-A+f] = new_label
-    print('tmp2[0]')
-    print(tmp2[0])
-
+ 
+print('tmp2[0]')
+print(tmp2[0])
 print("[INFO] label arrays saved")
 save_sparse_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
 
