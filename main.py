@@ -35,13 +35,25 @@ shape=(64,64,3)
 
 model = rete(input_shape=shape,weight_decay=0., classes=5)
 
+EPOCHS=100
+train_set = int(len(image_list)*(2/3))
+steps = int(train_set/EPOCHS)
 
-x_train = datagenerator(tmp1,tmp2,2)
+list1_train = tmp1[:train_set]
+list2_train = tmp2[:train_set]
+
+
+list1_test = tmp1[train_set:]
+list2_test = tmp2[train_set:]
+
+x_train = datagenerator(list1_train,list2_train,32)
+x_test = datagenerator(list1_test,list2_test,32)
 
 optimizer = SGD(learning_rate=0.001, momentum=0.9)
 loss_fn = keras.losses.CategoricalCrossentropy()
 
 
+
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
 model.summary()
-model.fit(x = x_train,batch_size = 8,epochs=25,steps_per_epoch=6)
+model.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
