@@ -143,9 +143,6 @@ for f in range (0,A):
     #print(reduct_label.shape)
     new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
     new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x5) i valori di reduct_label (64x64)
-    print('COMPARING...')
-    print(new_label)
-    print(reduct_label)
     for i in range(0,63):
         for n in range(0,63): 
             channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la posizione dell'1 nel vettore di dimensione 5
@@ -162,7 +159,8 @@ for f in range (0,A):
                 new_label[i,n,0]=4
     #print(new_label.shape)
     tmp2[N-A+f] = new_label
-    #print(tmp2.shape)
+    print('tmp2[0]')
+    print(tmp2[0])
 
 print("[INFO] label arrays saved")
 save_sparse_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
