@@ -64,6 +64,7 @@ print(tmp1a.shape)
 
 print(tmp2.shape)
 print(tmp2a.shape)
+print(A)
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
 for i in range (N-A):
     print(i)
@@ -75,7 +76,7 @@ for i in range (N-A):
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
 
 for p in range (A):
-    print(p)
+    #print(p)
     image=tmp1a[p]
     image = image.astype('float32')
     image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
