@@ -76,7 +76,7 @@ for i in range (N-A):
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
 
 for p in range (A):
-    #print(p)
+    print(p)
     image=tmp1a[p]
     image = image.astype('float32')
     image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
@@ -100,6 +100,7 @@ nullo=[0,0,0];
 ### MENTRE 5 è IL NUMERO DI CLASSI. IN QUESTO MODO HO UN VETTORE DEL TIPO [0 0 1 0 0] PER OGNI PIXEL, CHE INDICA
 ### A QUALE CLASSE APPARTIENE IL PIXEL (IN QUESTO CASO, ALLA TERZA CLASSE). 
 for j in range (N-A):
+    print(j)
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]   #leggo l'immagine di label
     label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
     label = label.astype('float32')
@@ -155,6 +156,7 @@ for j in range (N-A):
     #print(tmp2.shape)
 
 for f in range (0,A):
+    print(f)
     label=tmp2a[f]
     label = label.astype('float32')
     label/=510                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
@@ -221,11 +223,11 @@ print('[TODO] Download these two files from the colab folder and save on the dri
 #print(image_list)
 #print(label_list)
 
-print(len(tmp1))
-print(len(tmp2))
+#print(len(tmp1))
+#print(len(tmp2))
 
-print(tmp1.shape)
-print(tmp2.shape)
+#print(tmp1.shape)
+#print(tmp2.shape)
 #print(tmp2)
 #print(tmp2[1,1,1])
 #print(new_label[:,:,1])
