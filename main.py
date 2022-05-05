@@ -38,6 +38,9 @@ model = rete(input_shape=shape,weight_decay=0., classes=5)
 EPOCHS=100
 train_set = int((tmp1.shape[0])*(2/3))
 steps = int(train_set/EPOCHS)
+print(train_set)
+print(steps)
+print(tmp1.shape[0])
 
 list1_train = tmp1[:train_set]
 list2_train = tmp2[:train_set]
