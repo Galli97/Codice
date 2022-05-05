@@ -38,10 +38,10 @@ model = rete(input_shape=shape,weight_decay=0., classes=5)
 
 x_train = datagenerator(tmp1,tmp2,2)
 
-optimizer = SGD(learning_rate=0.01, momentum=0.9)
+optimizer = SGD(learning_rate=0.01)#, momentum=0.9)
 loss_fn = keras.losses.CategoricalCrossentropy()
 
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
 model.summary()
-model.fit(x = x_train,batch_size = 32,epochs=10,steps_per_epoch=6)
+model.fit(x = x_train,batch_size = 32,epochs=25,steps_per_epoch=6)
