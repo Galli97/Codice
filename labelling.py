@@ -105,7 +105,8 @@ for j in range (N-A):
     label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
     label = label.astype('float32')
     label/=510                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
-    #print(label[0,0])
+    print('valori del primo pixel della label')
+    print(label[0,0])
     reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
     #print(reduct_label.shape)
     new_label = np.empty((64, 64, 5), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
@@ -154,7 +155,8 @@ for j in range (N-A):
                 new_label[i,n,4]=1
     #print(new_label.shape)
     tmp2[j] = new_label
-    #print(tmp2.shape)
+    print('label corrisponendte')
+    print(tmp2[j,0,0])
 
 for f in range (0,A):
     print(f)
