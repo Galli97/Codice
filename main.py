@@ -24,12 +24,12 @@ path1 = r"/content/drive/MyDrive/Tesi/label_arrays.npy"
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
 #print(len(tmp1))
 #print(tmp1.shape)
-#print(tmp1)
+print(tmp1[0])
 
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 #print(len(tmp2))
 #print(tmp2.shape)
-#print(tmp2)
+print(tmp2[0])
 
 shape=(64,64,3)
 
@@ -59,4 +59,4 @@ loss_fn = keras.losses.CategoricalCrossentropy()
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
 #model.summary()
-model.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
+#model.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
