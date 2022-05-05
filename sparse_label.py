@@ -88,7 +88,7 @@ for p in range (A):
     tmp1[N-A+p] = image  
 
 print("[INFO] Images arrays saved")
-save_np_arrays(tmp1)                                #salvo tmp1 in un file numpy
+save_sparse_np_arrays(tmp1)                                #salvo tmp1 in un file numpy
 
 
 
@@ -165,7 +165,7 @@ for f in range (0,A):
     #print(tmp2.shape)
 
 print("[INFO] label arrays saved")
-save_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
+save_sparse_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
 
 print('[TODO] Download these two files from the colab folder and save on the drive')
 

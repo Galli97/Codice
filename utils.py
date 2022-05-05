@@ -7,6 +7,10 @@ def save_np_arrays(tmp1):
     with open('image_arrays.npy','wb') as f:
         np.save(f,tmp1)
 
+def save_sparse_np_arrays(tmp1):
+    with open('image_arrays_sparse.npy','wb') as f:
+        np.save(f,tmp1)
+
 def get_np_arrays(file):
     with open(file,'rb') as f:
         tmp1 = np.load(f)
@@ -14,6 +18,9 @@ def get_np_arrays(file):
 
 def save_np_arrays_labels(tmp2):
     with open('label_arrays.npy','wb') as f:
+        np.save(f,tmp2)
+def save_sparse_np_arrays_labels(tmp2):
+    with open('label_arrays_sparse.npy','wb') as f:
         np.save(f,tmp2)
 
 ### datagenerator prepara i dati per il training
