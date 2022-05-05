@@ -72,23 +72,14 @@ def augment(image_list,label_list):
         label = cv2.imread(label_list[a])[:,:,[2,1,0]]
         label = cv2.resize(label, (64,64))
         
-        chose = random.randint(1,5)
+        chose = random.randint(1,2)
         #print(a)
         if(chose == 1):
             new_image = rotate(image)
             new_label = rotate(label)
-        elif(chose == 2):
-            new_image = brightness(image)
-            new_label = brightness(label)
-        elif(chose == 3):
-            new_image = saturate(image)
-            new_label = saturate(label)
         elif(chose == 4):
             new_image = flip(image)
             new_label = flip(label)
-        elif(chose == 5):
-            new_image = grayscale(image)
-            new_label = grayscale(label)
         tmp1a[i]=new_image
         tmp2a[i]=new_label
     return tmp1a,tmp2a,A
