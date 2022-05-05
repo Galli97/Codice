@@ -32,7 +32,7 @@ tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 #print(tmp2)
 
 shape=(64,64,3)
-batch_size=2
+
 model = rete(input_shape=shape,weight_decay=0., classes=5)
 
 
@@ -44,4 +44,4 @@ loss_fn = keras.losses.CategoricalCrossentropy()
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
 model.summary()
-model.fit(x = x_train,batch_size = 2,epochs=2,steps_per_epoch=1)
+model.fit(x = x_train,batch_size = 32,epochs=10,steps_per_epoch=6)
