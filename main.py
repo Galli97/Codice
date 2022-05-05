@@ -36,7 +36,7 @@ shape=(64,64,3)
 model = rete(input_shape=shape,weight_decay=0., classes=5)
 
 EPOCHS=100
-train_set = int(len(image_list)*(2/3))
+train_set = int((tmp1.shape[0])*(2/3))
 steps = int(train_set/EPOCHS)
 
 list1_train = tmp1[:train_set]
