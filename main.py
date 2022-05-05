@@ -55,5 +55,5 @@ loss_fn = keras.losses.CategoricalCrossentropy()
 
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
-model.summary()
+#model.summary()
 model.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
