@@ -155,8 +155,8 @@ for j in range (N-A):
                 new_label[i,n,4]=1
     #print(new_label.shape)
     tmp2[j] = new_label
-    print('label corrisponendte')
-    print(tmp2[j,0,0])
+    # print('label corrisponendte')
+    # print(tmp2[j,0,0])
 
 for f in range (0,A):
     print(f)
