@@ -149,15 +149,12 @@ for j in range (N-A):
                 new_label[i,n,3]=1
                 new_label[i,n,4]=0
                 
-            elif all(channels_xy==nullo):    #NULL
+            else: # all(channels_xy==nullo):    #NULL
                 new_label[i,n,0]=0
                 new_label[i,n,1]=0
                 new_label[i,n,2]=0
                 new_label[i,n,3]=0
                 new_label[i,n,4]=1
-            else:
-                print('Wrong label: ',j)
-                #print(j)
     #print(new_label.shape)
     tmp2[j] = new_label
     # print('label corrisponendte')
@@ -209,15 +206,12 @@ for f in range (0,A):
                 new_label[i,n,3]=1
                 new_label[i,n,4]=0
                 
-            elif all(channels_xy==nullo):    #NULL
+            else: #all(channels_xy==nullo):    #NULL
                 new_label[i,n,0]=0
                 new_label[i,n,1]=0
                 new_label[i,n,2]=0
                 new_label[i,n,3]=0
                 new_label[i,n,4]=1
-            else:
-                print('Wrong augmented label: ', f)
-                #print(f)
     #print(new_label.shape)
     tmp2[N-A+f] = new_label
     #print(tmp2.shape)
