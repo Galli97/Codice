@@ -156,7 +156,8 @@ for j in range (N-A):
                 new_label[i,n,3]=0
                 new_label[i,n,4]=1
             else:
-                print(j)
+                print('Wrong label: ',j)
+                #print(j)
     #print(new_label.shape)
     tmp2[j] = new_label
     # print('label corrisponendte')
@@ -215,8 +216,8 @@ for f in range (0,A):
                 new_label[i,n,3]=0
                 new_label[i,n,4]=1
             else:
-                print('augmented label')
-                print(f)
+                print('Wrong augmented label: ', f)
+                #print(f)
     #print(new_label.shape)
     tmp2[N-A+f] = new_label
     #print(tmp2.shape)
