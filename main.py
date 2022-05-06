@@ -37,7 +37,7 @@ model = rete(input_shape=shape,weight_decay=0., classes=5)
 
 EPOCHS=50
 train_set = int((tmp1.shape[0])*(2/3))
-steps = int(train_set/EPOCHS)
+steps = 6 # int(train_set/EPOCHS)
 #print(train_set)
 print('Number of steps: ',steps)
 #print(tmp1.shape[0])
@@ -59,4 +59,4 @@ loss_fn = keras.losses.CategoricalCrossentropy()
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
 #model.summary()
-model.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps)#,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
+model.fit(x = x_train,batch_size=32,epochs=EPOCHS,steps_per_epoch=steps)#,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
