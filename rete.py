@@ -21,6 +21,19 @@ def get_weights_path_resnet():
     weights_path = get_file('resnet50_weights_tf_dim_ordering_tf_kernels.h5',TF_WEIGHTS_PATH,cache_subdir='models')
     return weights_path
 
+class UpSampling2D(Layer):
+    def __init__(self, size=(1, 1), target_size=None, data_format='default', **kwargs):
+        if data_format == 'default':
+            data_format = K.image_data_format()
+        self.size = tuple(size)
+        if target_size is not None:
+            self.target_size = tuple(target_size)
+        else:
+            self.target_size = None
+        assert data_format in {'channels_last', 'channels_first'}, 'data_format must be in {tf, th}'
+        self.data_format = data_format
+        self.input_spec = [InputSpec(ndim=4)]
+        super(UpSampling2D, self).__init__(**kwargs)
 
 
 def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
@@ -30,7 +43,6 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     else:
         img_input = Input(shape=input_shape)
         image_size = input_shape[0:2]
-    print(image_size)
     # Block 1
     x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1', kernel_regularizer=l2(weight_decay))(img_input)
     x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2', kernel_regularizer=l2(weight_decay))(x)
@@ -58,11 +70,11 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='block5_conv2', kernel_regularizer=l2(weight_decay))(x)
     x = Conv2D(classes, (3, 3), kernel_initializer='he_normal', activation='linear', padding='valid', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
 
-    x = tf.keras.layers.UpSampling2D(64//x.shape[1], 64//x.shape[2],interpolation="bilinear")(x)
+    x = tf.keras.layers.UpSampling2D(32)(x)
     
     x = Activation('softmax')(x)
     model = Model(img_input, x)
-    
+
     weights_path = get_weights_path_resnet()
     model.load_weights(weights_path, by_name=True)
     return model
