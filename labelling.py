@@ -149,7 +149,7 @@ for j in range (N-A):
                 new_label[i,n,3]=1
                 new_label[i,n,4]=0
                 
-            elif: #all(channels_xy==nullo):    #NULL
+            else: #all(channels_xy==nullo):    #NULL
                 new_label[i,n,0]=0
                 new_label[i,n,1]=0
                 new_label[i,n,2]=0
