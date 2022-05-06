@@ -38,19 +38,19 @@ model = rete(input_shape=shape,weight_decay=0., classes=5)
 EPOCHS=50
 train_set = int((tmp1.shape[0])*(2/3))
 steps = int(train_set/EPOCHS)
-print(train_set)
-print(steps)
-print(tmp1.shape[0])
+#print(train_set)
+print('Number of steps: ',steps)
+#print(tmp1.shape[0])
 
-list1_train = tmp1[:train_set]
-list2_train = tmp2[:train_set]
+list1_train = tmp1#[:train_set]
+list2_train = tmp2#[:train_set]
 
 
-list1_test = tmp1[train_set:]
-list2_test = tmp2[train_set:]
+# list1_test = tmp1[train_set:]
+# list2_test = tmp2[train_set:]
 
 x_train = datagenerator(list1_train,list2_train,32)
-x_test = datagenerator(list1_test,list2_test,32)
+#x_test = datagenerator(list1_test,list2_test,32)
 
 optimizer = SGD(learning_rate=0.001, momentum=0.9)
 loss_fn = keras.losses.CategoricalCrossentropy()
@@ -59,4 +59,4 @@ loss_fn = keras.losses.CategoricalCrossentropy()
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
 #model.summary()
-model.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
+model.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps)#,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
