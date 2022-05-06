@@ -1,6 +1,7 @@
 import tensorflow as tf
 from keras.layers import *
 from tensorflow import keras
+from keras import layers
 from tensorflow.keras.applications.resnet50 import ResNet50
 from tensorflow.keras import Input
 from keras import Model,Sequential
