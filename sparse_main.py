@@ -44,12 +44,13 @@ shape=(64,64,3)
 model = rete(input_shape=shape,weight_decay=0., classes=5)
 
 
-x_train = datagenerator(tmp1,tmp2,2)
-x_validation = datagenerator()
+x_train = datagenerator(list_train,label_train,16)
+x_validation = datagenerator(list_validation,label_validation,16)
+
 optimizer = SGD(learning_rate=0.01, momentum=0.9)
 loss_fn = keras.losses.SparseCategoricalCrossentropy()
 
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
 model.summary()
-model.fit(x = x_train,batch_size = 32,epochs=25,steps_per_epoch=250)
+model.fit(x = x_train,batch_size = 16,epochs=25,steps_per_epoch=250)
