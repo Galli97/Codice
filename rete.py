@@ -23,19 +23,19 @@ def get_weights_path_resnet():
     weights_path = get_file('resnet50_weights_tf_dim_ordering_tf_kernels.h5',TF_WEIGHTS_PATH,cache_subdir='models')
     return weights_path
 
-class UpSampling2D(Layer):
-    def __init__(self, size=(1, 1), target_size=None, data_format='default', **kwargs):
-        if data_format == 'default':
-            data_format = K.image_data_format()
-        self.size = tuple(size)
-        if target_size is not None:
-            self.target_size = tuple(target_size)
-        else:
-            self.target_size = None
-        assert data_format in {'channels_last', 'channels_first'}, 'data_format must be in {tf, th}'
-        self.data_format = data_format
-        self.input_spec = [InputSpec(ndim=4)]
-        super(UpSampling2D, self).__init__(**kwargs)
+# class UpSampling2D(Layer):
+#     def __init__(self, size=(1, 1), target_size=None, data_format='default', **kwargs):
+#         if data_format == 'default':
+#             data_format = K.image_data_format()
+#         self.size = tuple(size)
+#         if target_size is not None:
+#             self.target_size = tuple(target_size)
+#         else:
+#             self.target_size = None
+#         assert data_format in {'channels_last', 'channels_first'}, 'data_format must be in {tf, th}'
+#         self.data_format = data_format
+#         self.input_spec = [InputSpec(ndim=4)]
+#         super(UpSampling2D, self).__init__(**kwargs)
 
 
 def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
