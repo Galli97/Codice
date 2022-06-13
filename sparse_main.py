@@ -42,7 +42,7 @@ label_validation = tmp2[:train_set]
 shape=(64,64,3)
 
 #model = rete(input_shape=shape,weight_decay=0.0001, classes=5)
-model = DeeplabV3Plus(input_shape=64,num_classes=5)
+model = DeeplabV3Plus(image_size=64,num_classes=5)
 
 x_train = datagenerator(list_train,label_train,16)
 x_validation = datagenerator(list_validation,label_validation,16)
