@@ -53,7 +53,7 @@ list2_train = tmp2#[:train_set]
 x_train = datagenerator(list1_train,list2_train,32)
 #x_test = datagenerator(list1_test,list2_test,32)
 
-optimizer = SGD(learning_rate=0.001, momentum=0.9)
+optimizer = SGD(learning_rate=0.01, momentum=0.9)
 loss_fn = keras.losses.CategoricalCrossentropy()
 
 

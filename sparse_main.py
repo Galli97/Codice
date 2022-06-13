@@ -47,7 +47,7 @@ model = rete(input_shape=shape,weight_decay=0., classes=5)
 x_train = datagenerator(list_train,label_train,16)
 x_validation = datagenerator(list_validation,label_validation,16)
 
-optimizer = SGD(learning_rate=0.01, momentum=0.9)
+optimizer = SGD(learning_rate=0.001, momentum=0.9)
 loss_fn = keras.losses.SparseCategoricalCrossentropy()
 
 
