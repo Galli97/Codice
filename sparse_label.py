@@ -49,16 +49,12 @@ print(len(label_list))
 
 ### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
 #image_list_aug, label_list_aug = augment(image_list,label_list);
-#tmp1a,tmp2a,A = augment(image_list,label_list);
-original,processed,labelNew = preprocess(image_list,label_list,32,32);
-print(len(original))
-print(len(processed))
-print(len(labelNew))
-A=len(processed)-len(original)
+tmp1a,tmp2a,A = augment(image_list,label_list);
+
 
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI ######
 N = len(image_list)+A
-print('Augmented image list dimesnion')
+print('Augmented image list dimension')
 print(N)
 num_classes=5
 tmp1 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
@@ -169,6 +165,11 @@ print("[INFO] label arrays saved")
 save_sparse_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
 
 print('[TODO] Download these two files from the colab folder and save on the drive')
+
+original,processed,labelNew = preprocess(tmp1,tmp2,32,32);
+print(len(original))
+print(len(processed))
+print(len(labelNew))
 
 
 ##### ALCUNI PRINT DI CONTROLLO ######
