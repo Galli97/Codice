@@ -67,7 +67,7 @@ def rotate(image):
 
 def augment(image_list,label_list):
     fix=len(image_list)-1        #voglio lavorare solo sulle immagini della lista iniziale
-    A = random.randint(10,fix)
+    A = random.randint(50,fix)
     tmp1a = np.empty((A, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
     tmp2a = np.empty((A, 64, 64, 3), dtype=np.uint8) 
     for i in range (0,A):
@@ -116,8 +116,8 @@ def preprocess(image_list,label_list,
     # left-right during training
     _PROB_OF_FLIP = 0.5
 
-    processed_image = image_list
-    label =label_list
+    processed_image = tf.cast(image_list, tf.float32)
+    label = tf.cast(label_list, tf.int32)
      # Resize image and label to the desired range.
     if min_resize_value or max_resize_value:
         [processed_image, label] = (

@@ -166,11 +166,6 @@ save_sparse_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
 
 print('[TODO] Download these two files from the colab folder and save on the drive')
 
-original,processed,labelNew = preprocess(tmp1,tmp2,32,32);
-print(len(original))
-print(len(processed))
-print(len(labelNew))
-
 
 ##### ALCUNI PRINT DI CONTROLLO ######
 #print(len(image_list))
