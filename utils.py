@@ -3,6 +3,8 @@ import tensorflow as tf
 import random
 import cv2
 import tensorflow as tf
+export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
+export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/deeplab 
 from deeplab.core import feature_extractor
 from deeplab.core import preprocess_utils
 
