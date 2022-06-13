@@ -116,8 +116,8 @@ def preprocess(image_list,label_list,
     # left-right during training
     _PROB_OF_FLIP = 0.5
 
-    processed_image = tf.cast(image_list, tf.float32)
-    label = tf.cast(label_list, tf.int32)
+    processed_image = image_list
+    label =label_list
      # Resize image and label to the desired range.
     if min_resize_value or max_resize_value:
         [processed_image, label] = (
