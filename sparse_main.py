@@ -31,13 +31,21 @@ tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 #print(tmp2.shape)
 #print(tmp2)
 
+train_set = lenght(tmp1)*80/100
+
+list_train = tmp1[:train_set]
+list_validation = tmp1[:train_set]
+
+label_train = tmp2[:train_set]
+label_validation = tmp2[:train_set]
+
 shape=(64,64,3)
 
 model = rete(input_shape=shape,weight_decay=0., classes=5)
 
 
 x_train = datagenerator(tmp1,tmp2,2)
-
+x_validation = datagenerator()
 optimizer = SGD(learning_rate=0.01, momentum=0.9)
 loss_fn = keras.losses.SparseCategoricalCrossentropy()
 
