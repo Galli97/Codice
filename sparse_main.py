@@ -58,6 +58,6 @@ optimizer = SGD(learning_rate=0.001, momentum=0.)
 loss_fn = keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 
 
-model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"],sample_weight_mode='temporal)
+model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"],sample_weight_mode='temporal')
 #model.summary()
 model.fit(x = x_train,batch_size = BATCH,epochs=25,steps_per_epoch=10,sample_weight=sample_weight,validation_data=(list_validation, label_validation),validation_steps=10,validation_batch_size=BATCH)
