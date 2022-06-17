@@ -65,15 +65,24 @@ tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 shape=(64,64,3)
 
 #model = rete(input_shape=shape,weight_decay=0.0001, classes=5)
-model = DeeplabV3Plus(image_size=64,num_classes=5)
+#model = DeeplabV3Plus(image_size=64,num_classes=5)
 
 # x_train = data_generator(list_train,label_train)
 # x_validation = data_generator(list_validation,label_validation)
 
-optimizer = SGD(learning_rate=0.001, momentum=0.9)
-loss_fn = keras.losses.SparseCategoricalCrossentropy()
+#optimizer = SGD(learning_rate=0.001, momentum=0.9)
+#loss_fn = keras.losses.SparseCategoricalCrossentropy()
 
 
-model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
+#model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
 #model.summary()
-model.fit(x = train_dataset,batch_size = 4,epochs=25,steps_per_epoch=25,validation_data=val_dataset,validation_steps=25,validation_batch_size=4)
+#model.fit(x = train_dataset,batch_size = 4,epochs=25,steps_per_epoch=25,validation_data=val_dataset,validation_steps=25,validation_batch_size=4)
+
+loss = keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+model.compile(
+    optimizer=keras.optimizers.Adam(learning_rate=0.001),
+    loss=loss,
+    metrics=["accuracy"],
+)
+
+history = model.fit(train_dataset, validation_data=val_dataset, epochs=25)
