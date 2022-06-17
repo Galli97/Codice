@@ -58,5 +58,5 @@ loss_fn = keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
-#model.summary()
+model.summary()
 model.fit(x = x_train,batch_size = BATCH,epochs=25,steps_per_epoch=10,class_weight = class_weight,validation_data=(list_validation, label_validation),validation_steps=10,validation_batch_size=BATCH)
