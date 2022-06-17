@@ -21,6 +21,9 @@ from keras.preprocessing.image import ImageDataGenerator
 path = r"/content/drive/MyDrive/Tesi/image_arrays_sparse.npy"
 path1 = r"/content/drive/MyDrive/Tesi/label_arrays_sparse.npy"
 
+train_images = r"/content/drive/MyDrive/Tesi/Dataset/Train_images"
+train_label = r"/content/drive/MyDrive/Tesi/Dataset/Train_labels"
+
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
 #print(len(tmp1))
 #print(tmp1.shape)
