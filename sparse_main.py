@@ -41,11 +41,9 @@ label_validation = tmp2[:train_set]
 
 shape=(64,64,3)
 BATCH=4
-class_weight = {0: 10.,
-                1: 10.,
-                2: 10.,
-                3: 10.,
-                4: 1.}
+class_weight=[1, 0.1,1,2,3]
+
+
 
 model = rete(input_shape=shape,weight_decay=0.0001, classes=5)
 #model = DeeplabV3Plus(image_size=64,num_classes=5)
