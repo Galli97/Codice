@@ -116,7 +116,7 @@ for j in range (N-80-A):
 
     for i in range(0,63):
         for n in range(0,63): 
-            channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la posizione dell'1 nel vettore di dimensione 5
+            channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
             #print(channels_xy)
             if all(channels_xy==bedrock):      #BEDROCK      
                 new_label[i,n,0]=0
@@ -159,8 +159,8 @@ for j in range (N-80-A):
 #     #print(new_label.shape)
 #     tmp2[N-A+f] = new_label
  
-print('tmp2[0]')
-print(tmp2[0])
+#print('tmp2[0]')
+#print(tmp2[0])
 print("[INFO] label arrays saved")
 save_sparse_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
 
