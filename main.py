@@ -34,30 +34,28 @@ tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 shape=(64,64,3)
 
 #model = rete(input_shape=shape,weight_decay=0., classes=5)
-model = DeeplabV3Plus(image_size=64, num_classes=5)
+#model = DeeplabV3Plus(image_size=64, num_classes=5)
 
 EPOCHS=50
+BATCH=16
 train_set = int((tmp1.shape[0])*(2/3))
 steps = 6 # int(train_set/EPOCHS)
 #print(train_set)
 print('Number of steps: ',steps)
 #print(tmp1.shape[0])
 
-list1_train = tmp1#[:train_set]
-list2_train = tmp2#[:train_set]
+list_train = tmp1[:train_set]
+list_validation = tmp1[:train_set]
 
+label_train = tmp2[:train_set]
+label_validation = tmp2[:train_set]
 
-# list1_test = tmp1[train_set:]
-# list2_test = tmp2[train_set:]
-
-x_train = datagenerator(list1_train,list2_train,32)
-#x_test = datagenerator(list1_test,list2_test,32)
+x_train = datagenerator(list1_train,list2_train,BATCH)
+x_validation = datagenerator(list_validation,label_validation,BATCH)
 
 optimizer = SGD(learning_rate=0.01, momentum=0.9)
 loss_fn = keras.losses.CategoricalCrossentropy()
 
-
-
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
 model.summary()
-model.fit(x = x_train,batch_size=32,epochs=EPOCHS,steps_per_epoch=steps)#,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
+model.fit(x = x_train,batch_size = BATCH,epochs=25,steps_per_epoch=10,validation_data=(list_validation, label_validation),validation_steps=10,validation_batch_size=BATCH)
