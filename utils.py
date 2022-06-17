@@ -4,36 +4,6 @@ import random
 import cv2
 import tensorflow as tf
 
-IMAGE_SIZE = 64
-BATCH_SIZE = 4
-NUM_CLASSES = 5
-DATA_DIR = "./content/drive/MyDrive/Tesi/Dataset"
-NUM_TRAIN_IMAGES = 100
-NUM_VAL_IMAGES = 50
-
-def data_generator(image_list, mask_list):
-    dataset = tf.data.Dataset.from_tensor_slices((image_list, mask_list))
-    dataset = dataset.map(load_data, num_parallel_calls=tf.data.AUTOTUNE)
-    dataset = dataset.batch(BATCH_SIZE, drop_remainder=True)
-    return dataset
-
-def read_image(image_path, mask=False):
-    image = tf.io.read_file(image_path)
-    if mask:
-        image = tf.image.decode_png(image, channels=1)
-        image.set_shape([None, None, 1])
-        image = tf.image.resize(images=image, size=[IMAGE_SIZE, IMAGE_SIZE])
-    else:
-        image = tf.image.decode_png(image, channels=3)
-        image.set_shape([None, None, 3])
-        image = tf.image.resize(images=image, size=[IMAGE_SIZE, IMAGE_SIZE])
-        image = image / 127.5 - 1
-    return image
-
-def load_data(image_list, mask_list):
-    image = read_image(str(image_list))
-    mask = read_image(str(mask_list), mask=True)
-    return image, mask
 
 def save_np_arrays(tmp1):
     with open('image_arrays.npy','wb') as f:
