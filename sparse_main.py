@@ -48,7 +48,7 @@ model = DeeplabV3Plus(image_size=64,num_classes=5)
 x_train = datagenerator(list_train,label_train,BATCH)
 x_validation = datagenerator(list_validation,label_validation,BATCH)
 
-optimizer = SGD(learning_rate=0.001, momentum=0.)
+optimizer = SGD(learning_rate=0.01, momentum=0.5)
 loss_fn = keras.losses.SparseCategoricalCrossentropy()
 
 
