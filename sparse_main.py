@@ -46,7 +46,7 @@ class_weights[:, 0] += 0.41
 class_weights[:, 1] += 1.87
 class_weights[:, 2] += 1.1
 class_weights[:, 3] += 7.05
-class_weights[:, 5] += 7.05
+class_weights[:, 4] += 7.05
 
 #model = rete(input_shape=shape,weight_decay=0.0001, classes=5)
 model = DeeplabV3Plus(image_size=64,num_classes=5)
