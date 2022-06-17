@@ -41,12 +41,12 @@ label_validation = tmp2[:train_set]
 
 shape=(64,64,3)
 BATCH=4
-class_weights = np.zeros((4096, 5))
-class_weights[:, 0] += 0.41
-class_weights[:, 1] += 1.87
-class_weights[:, 2] += 1.1
-class_weights[:, 3] += 7.05
-class_weights[:, 4] += 7.05
+sample_weight = np.zeros((153,4096))
+sample_weight[:, 0] += 0.41
+sample_weight[:, 1] += 1.87
+sample_weight[:, 2] += 1.1
+sample_weight[:, 3] += 7.05
+sample_weight[:, 4] += 7.05
 
 #model = rete(input_shape=shape,weight_decay=0.0001, classes=5)
 model = DeeplabV3Plus(image_size=64,num_classes=5)
@@ -58,6 +58,6 @@ optimizer = SGD(learning_rate=0.001, momentum=0.)
 loss_fn = keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 
 
-model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
+model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"],sample_weight_mode='temporal)
 #model.summary()
-model.fit(x = x_train,batch_size = BATCH,epochs=25,steps_per_epoch=10,class_weight=class_weights,validation_data=(list_validation, label_validation),validation_steps=10,validation_batch_size=BATCH)
+model.fit(x = x_train,batch_size = BATCH,epochs=25,steps_per_epoch=10,sample_weight=sample_weight,validation_data=(list_validation, label_validation),validation_steps=10,validation_batch_size=BATCH)
