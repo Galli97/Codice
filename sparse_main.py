@@ -44,7 +44,7 @@ BATCH=4
 class_weight = {0: 10.,
                 1: 10.,
                 2: 10.,
-                3: 10.
+                3: 10.,
                 4: 1.}
 
 #model = rete(input_shape=shape,weight_decay=0.0001, classes=5)
