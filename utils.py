@@ -4,8 +4,11 @@ import random
 import cv2
 import tensorflow as tf
 
-
-
+def data_generator(image_list, mask_list):
+    dataset = tf.data.Dataset.from_tensor_slices((image_list, mask_list))
+    dataset = dataset.map(load_data, num_parallel_calls=tf.data.AUTOTUNE)
+    dataset = dataset.batch(BATCH_SIZE, drop_remainder=True)
+    return dataset
 
 def save_np_arrays(tmp1):
     with open('image_arrays.npy','wb') as f:
