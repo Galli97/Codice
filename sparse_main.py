@@ -51,7 +51,7 @@ x_validation = datagenerator(list_validation,label_validation,BATCH)
 
 optimizer = SGD(learning_rate=0.01, momentum=0.9)
 loss_fn = keras.losses.SparseCategoricalCrossentropy()
-sample_weight = np.zeros((4096,5))
+sample_weight = np.zeros((N,4069))
 sample_weight[:, 0] += 10
 sample_weight[:, 1] += 10
 sample_weight[:, 2] += 10
