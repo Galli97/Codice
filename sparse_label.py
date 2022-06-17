@@ -69,7 +69,7 @@ print(tmp2.shape)
 print('Number of augmented images')
 print(A)
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
-for i in range (N-80-A):
+for i in range (N-A):
     print(i)
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
     image = cv2.resize(image, (64,64))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
@@ -102,7 +102,7 @@ nullo=[0,0,0];
 ### PER LE LABEL CREO UN ARRAY DI DIMENSIONE 64X64X5 (NEW_LABEL) DOVE 64X64 è LA DIMENSIONE DELL'IMMAGINE
 ### MENTRE 5 è IL NUMERO DI CLASSI. IN QUESTO MODO HO UN VETTORE DEL TIPO [0 0 1 0 0] PER OGNI PIXEL, CHE INDICA
 ### A QUALE CLASSE APPARTIENE IL PIXEL (IN QUESTO CASO, ALLA TERZA CLASSE). 
-for j in range (N-80-A):
+for j in range (N-A):
     print(j)
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]   #leggo l'immagine di label
     label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
