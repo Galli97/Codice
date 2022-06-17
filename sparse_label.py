@@ -131,7 +131,7 @@ for j in range (N-A):
             elif all(channels_xy==nullo):    #NULL
                 new_label[i,n,0]=4
     #print(new_label.shape)
-    new_lab = cv2.resize(new_label, 4096) 
+    new_lab = cv2.resize(new_label, (4096,None)) 
     tmp2[j] = new_lab
     #print(tmp2.shape)
 
