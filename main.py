@@ -50,7 +50,7 @@ list_validation = tmp1[:train_set]
 label_train = tmp2[:train_set]
 label_validation = tmp2[:train_set]
 
-x_train = datagenerator(list1_train,list2_train,BATCH)
+x_train = datagenerator(list_train,label_train,BATCH)
 x_validation = datagenerator(list_validation,label_validation,BATCH)
 
 optimizer = SGD(learning_rate=0.01, momentum=0.9)
