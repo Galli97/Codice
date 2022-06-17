@@ -79,9 +79,10 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
         size=(img_size // x.shape[1], img_size // x.shape[2]),
         interpolation="bilinear",
     )(x)
-
-    x = Activation('softmax')(x)
+    
     x =np.reshape(x,4096)
+    x = Activation('softmax')(x)
+  
 
     model = Model(img_input, x)
 
