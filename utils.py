@@ -10,6 +10,24 @@ def data_generator(image_list, mask_list):
     dataset = dataset.batch(BATCH_SIZE, drop_remainder=True)
     return dataset
 
+def read_image(image_path, mask=False):
+    image = tf.io.read_file(image_path)
+    if mask:
+        image = tf.image.decode_png(image, channels=1)
+        image.set_shape([None, None, 1])
+        image = tf.image.resize(images=image, size=[IMAGE_SIZE, IMAGE_SIZE])
+    else:
+        image = tf.image.decode_png(image, channels=3)
+        image.set_shape([None, None, 3])
+        image = tf.image.resize(images=image, size=[IMAGE_SIZE, IMAGE_SIZE])
+        image = image / 127.5 - 1
+    return image
+
+def load_data(image_list, mask_list):
+    image = read_image(image_list)
+    mask = read_image(mask_list, mask=True)
+    return image, mask
+
 def save_np_arrays(tmp1):
     with open('image_arrays.npy','wb') as f:
         np.save(f,tmp1)
