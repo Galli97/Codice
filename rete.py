@@ -80,7 +80,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
         interpolation="bilinear",
     )(x)
 
-    #x = tf.keras.layers.Reshape((64*64,5))(x)
+    x = tf.keras.layers.Reshape((64*64,5))(x)
     x = Activation('softmax')(x)
   
 
