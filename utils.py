@@ -24,8 +24,8 @@ def read_image(image_path, mask=False):
     return image
 
 def load_data(image_list, mask_list):
-    image = read_image(image_list)
-    mask = read_image(mask_list, mask=True)
+    image = read_image(str(image_list))
+    mask = read_image(str(mask_list), mask=True)
     return image, mask
 
 def save_np_arrays(tmp1):
