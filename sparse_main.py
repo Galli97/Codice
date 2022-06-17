@@ -51,8 +51,14 @@ x_validation = datagenerator(list_validation,label_validation,BATCH)
 
 optimizer = SGD(learning_rate=0.01, momentum=0.9)
 loss_fn = keras.losses.SparseCategoricalCrossentropy()
-class_weight = [10.9, 20.8, 1.0, 50.5, 10.9]
+sample_weight = np.zeros((4096,5))
+sample_weight[:, 0] += 10
+sample_weight[:, 1] += 10
+sample_weight[:, 2] += 10
+sample_weight[:, 3] += 10
+sample_weight[:, 4] += 1
 
-model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
+
+model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"],sample_weight_mode="temporal")
 model.summary()
-model.fit(x = x_train,batch_size = BATCH,epochs=25,steps_per_epoch=10,class_weight=class_weight,validation_data=(list_validation, label_validation),validation_steps=10,validation_batch_size=BATCH)
+model.fit(x = x_train,batch_size = BATCH,epochs=25,steps_per_epoch=10,sample_weight=sample_weight,validation_data=(list_validation, label_validation),validation_steps=10,validation_batch_size=BATCH)
