@@ -50,7 +50,7 @@ x_train = datagenerator(list_train,label_train,BATCH)
 x_validation = datagenerator(list_validation,label_validation,BATCH)
 
 optimizer = SGD(learning_rate=0.001, momentum=0.)
-loss_fn = keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+loss_fn = keras.losses.SparseCategoricalCrossentropy()
 
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
