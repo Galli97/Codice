@@ -58,7 +58,8 @@ print('Augmented image list dimension')
 print(N)
 num_classes=5
 tmp1 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
-tmp2 = np.empty((N, 64, 64, 1), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel
+#tmp2 = np.empty((N, 64, 64, 1), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel
+tmp2 = np.empty((N, 4096, 1), dtype=np.uint8)
 
 print('tmp1,tmp1a,tmp2,tmp2a shapes')
 print(tmp1.shape)
@@ -111,7 +112,8 @@ for j in range (N-A):
     #print(label[0,0])
     reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
     #print(reduct_label.shape)
-    new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
+    #new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
+    new_label = np.empty((4096, 1), dtype=np.uint8)
     new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x5) i valori di reduct_label (64x64)
 
     for i in range(0,63):
@@ -129,7 +131,8 @@ for j in range (N-A):
             elif all(channels_xy==nullo):    #NULL
                 new_label[i,n,0]=4
     #print(new_label.shape)
-    tmp2[j] = new_label
+    new_lab = cv2.resize(new_label, (4096)) 
+    tmp2[j] = new_lab
     #print(tmp2.shape)
 
 # for f in range (0,A):
