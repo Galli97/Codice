@@ -41,7 +41,7 @@ def read_image(image_path, mask=False):
 
 
 def load_data(image_list, mask_list):
-    image = read_image(image_list)
+    image = read_image(str(image_list))
     mask = read_image(mask_list, mask=True)
     return image, mask
 
