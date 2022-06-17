@@ -9,7 +9,7 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 
-IMAGE_SIZE = 1024
+IMAGE_SIZE = 64
 BATCH_SIZE = 4
 NUM_CLASSES = 5
 DATA_DIR = "./content/drive/MyDrive/Tesi/Dataset"
