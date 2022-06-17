@@ -4,6 +4,13 @@ import random
 import cv2
 import tensorflow as tf
 
+IMAGE_SIZE = 64
+BATCH_SIZE = 4
+NUM_CLASSES = 5
+DATA_DIR = "./content/drive/MyDrive/Tesi/Dataset"
+NUM_TRAIN_IMAGES = 100
+NUM_VAL_IMAGES = 50
+
 def data_generator(image_list, mask_list):
     dataset = tf.data.Dataset.from_tensor_slices((image_list, mask_list))
     dataset = dataset.map(load_data, num_parallel_calls=tf.data.AUTOTUNE)
