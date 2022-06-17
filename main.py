@@ -53,9 +53,9 @@ label_validation = tmp2[:train_set]
 x_train = datagenerator(list_train,label_train,BATCH)
 x_validation = datagenerator(list_validation,label_validation,BATCH)
 
-optimizer = SGD(learning_rate=0.01, momentum=0.9)
+optimizer = SGD(learning_rate=0.001, momentum=0.)
 loss_fn = keras.losses.CategoricalCrossentropy()
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
 model.summary()
-model.fit(x = x_train,batch_size = BATCH,epochs=25,steps_per_epoch=10,validation_data=(list_validation, label_validation),validation_steps=10,validation_batch_size=BATCH)
+model.fit(x = x_train,batch_size = BATCH,epochs=25,steps_per_epoch=steps,validation_data=(list_validation, label_validation),validation_steps=10,validation_batch_size=BATCH)
