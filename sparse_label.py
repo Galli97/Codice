@@ -129,7 +129,7 @@ for j in range (N-A):
                 print('big rock: ',channels_xy)
             elif channels_xy[0]==soil[0]:    #SOIL
                 new_label[i,n,0]=3
-                print('soil: ',channels_xy)
+                #print('soil: ',channels_xy)
             elif channels_xy[0]==nullo[0]:    #NULL
                 new_label[i,n,0]=4
     #print(new_label.shape)
