@@ -86,8 +86,7 @@ for i in range (N-A):
 #     #print(image.shape)
 #     tmp1[N-A+p] = image  
 
-print('Info on the first pixel of the first photo: ', tmp1[0,0,0,:])
-print('Info on the 10x10 pixel of the third photo: ', tmp1[3,10,10,:])
+
 print("[INFO] Images arrays saved")
 save_sparse_np_arrays(tmp1)                                #salvo tmp1 in un file numpy
 
@@ -166,6 +165,8 @@ for j in range (N-A):
 #print(tmp2[0])
 print('Info on the first pixel of the first label: ', tmp2[0,0,0,:])
 print('Info on the 10x10 pixel of the third label: ', tmp2[3,10,10,:])
+print('Info on the first pixel of the first photo: ', tmp1[0,0,0,:])
+print('Info on the 10x10 pixel of the third photo: ', tmp1[3,10,10,:])
 print("[INFO] label arrays saved")
 save_sparse_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
 
