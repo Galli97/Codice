@@ -40,7 +40,7 @@ label_train = tmp2[:train_set]
 label_validation = tmp2[train_set:]
 
 shape=(64,64,3)
-BATCH=16
+BATCH= 1
 # sample_weight = np.zeros((153,4096))
 # sample_weight[:, 0] += 0.41
 # sample_weight[:, 1] += 1.87
@@ -60,4 +60,4 @@ loss_fn = keras.losses.SparseCategoricalCrossentropy()
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])#,sample_weight_mode='temporal')
 #model.summary()
-model.fit(x = x_train,batch_size = BATCH,epochs=100,steps_per_epoch=25,validation_data=(list_validation, label_validation),validation_steps=10,validation_batch_size=BATCH)
+model.fit(x = x_train,batch_size = BATCH,epochs=10,steps_per_epoch=25,validation_data=(list_validation, label_validation),validation_steps=10,validation_batch_size=BATCH)
