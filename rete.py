@@ -82,7 +82,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     x = Dropout(0.5)(x)
     x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='block5_conv2', kernel_regularizer=l2(weight_decay))(x)
     x = Dropout(0.5)(x)
-    x = Conv2D(classes, (3, 3), activation='linear', padding='valid', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(classes, (3, 3), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     
     #x = tf.keras.layers.UpSampling2D(32)(x)
 
