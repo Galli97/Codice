@@ -74,8 +74,8 @@ for i in range (N-A):
     print(i)
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
     image = cv2.resize(image, (64,64))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
-    #image = image.astype('float32')
-    #image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+    image = image.astype('float32')
+    image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print('image pixels: ', image)
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
 
@@ -95,15 +95,15 @@ save_sparse_np_arrays(tmp1)                                #salvo tmp1 in un fil
 
 
 ### DEFINISCO DEGLI ARRAY RELATIVE ALLE VARIE CLASSI ####
-# bedrock=[1/510,1/510,1/510];
-# sand=[2/510,2/510,2/510];
-# bigrock=[3/510,3/510,3/510];
-# soil=[255/510,255/510,255/510];
-bedrock=[1,1,1];
-sand=[2,2,2];
-bigrock=[3,3,3];
-soil=[255,255,255];
-nullo=[0,0,0];
+bedrock=[1/510,1/510,1/510];
+sand=[2/510,2/510,2/510];
+bigrock=[3/510,3/510,3/510];
+soil=[255/510,255/510,255/510];
+# bedrock=[1,1,1];
+# sand=[2,2,2];
+# bigrock=[3,3,3];
+# soil=[255,255,255];
+# nullo=[0,0,0];
 
 ### PER LE LABEL CREO UN ARRAY DI DIMENSIONE 64X64X1 (NEW_LABEL) DOVE 64X64 è LA DIMENSIONE DELL'IMMAGINE
 ### MENTRE L'ULTIMA DIMESIONE CONTIENE UN INTERO DA 0 A 4 CHE RAPPRESENTA A QUALE CLASSE APPARTIENE IL PIXEL CORRISPONDENTE.
@@ -111,8 +111,8 @@ for j in range (N-A):
     print(j)
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]   #leggo l'immagine di label
     label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
-    #label = label.astype('float32')
-    #label/=510                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+    label = label.astype('float32')
+    label/=510                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print(label[0,0])
     reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
     #print('reduct label shape: ', reduct_label.shape)
