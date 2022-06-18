@@ -52,7 +52,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     model.layers[-1]._outbound_nodes = []
 
     for layer in model.layers:
-        layer._name = layer.name + str(suffix)
+        layer._name = layer.name
         layer._trainable = False
     x = model.output
     # Block 1
