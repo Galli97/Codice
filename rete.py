@@ -116,16 +116,18 @@ def rete_2(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
         img_input = Input(shape=input_shape)
         image_size = input_shape[0:2]
     # I1 = Input(input_shape)
-    model=keras.Sequential()
-    model = tf.keras.applications.resnet.ResNet101(include_top=False, weights='imagenet', input_tensor=img_input, pooling=None)
-    model.layers.pop()
-    model.outputs = [model.layers[-1].output]
-    model.layers[-1]._outbound_nodes = []
+    
+    tl_model = tf.keras.applications.resnet.ResNet101(include_top=False, weights='imagenet', input_tensor=img_input, pooling=None)
+    tl_model.layers.pop()
+    tl_model.outputs = [tl_model.layers[-1].output]
+    tl_model.layers[-1]._outbound_nodes = []
 
-    for layer in model.layers:
+    for layer in tl_model.layers:
         layer._name = layer.name
         layer._trainable = False
     
+    model=keras.Sequential()
+    model.add(tl_model)
     # Block 1
     model.add(Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1', kernel_regularizer=l2(weight_decay)))
     model.add(Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2', kernel_regularizer=l2(weight_decay)))
