@@ -76,7 +76,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     
     #x = tf.keras.layers.UpSampling2D(32)(x)
 
-    img_size=image_size[0];
+    img_size=input_shape[0];
     x = layers.UpSampling2D(
         size=(img_size // x.shape[1], img_size // x.shape[2]),
         interpolation="bilinear",
