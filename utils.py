@@ -67,7 +67,7 @@ def augment(image_list,label_list):
     fix=len(image_list)-1        #voglio lavorare solo sulle immagini della lista iniziale
     A = random.randint(100,fix)
     tmp1a = np.empty((A, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
-    tmp2a = np.empty((A, 64, 64, 5), dtype=np.uint8) 
+    tmp2a = np.empty((A, 64, 64, 3), dtype=np.uint8) 
     for i in range (0,A):
         a = random.randint(0,fix)
         image = cv2.imread(image_list[a])[:,:,[2,1,0]]
