@@ -66,7 +66,7 @@ def rotate(image):
 def augment(image_list,label_list):
     fix=len(image_list)-1        #voglio lavorare solo sulle immagini della lista iniziale
     A = random.randint(100,fix)
-    tmp1a = np.empty((A, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
+    tmp1a = np.empty((A, 64, 64, 3), dtype=np.uint8)  #Qui ho A immagini
     tmp2a = np.empty((A, 64, 64, 3), dtype=np.uint8) 
     for i in range (0,A):
         a = random.randint(0,fix)
