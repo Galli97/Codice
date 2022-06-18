@@ -3,7 +3,7 @@ from keras.layers import *
 from tensorflow import keras
 from keras import layers
 from tensorflow.keras.applications.resnet50 import ResNet50
-from tf.keras.applications.resnet.ResNet101 import ResNet101
+from tensorflow.keras.applications.resnet.ResNet101 import ResNet101
 from tensorflow.keras import Input
 from keras import Model,Sequential
 from keras.initializers import RandomNormal
