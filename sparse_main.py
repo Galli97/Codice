@@ -48,8 +48,8 @@ BATCH=4
 # sample_weight[:, 3] += 7.05
 # sample_weight[:, 4] += 7.05
 
-#model = rete(input_shape=shape,weight_decay=0.0001, classes=5)
-model = DeeplabV3Plus(image_size=64,num_classes=5)
+model = rete(input_shape=shape,weight_decay=0., classes=5)
+#model = DeeplabV3Plus(image_size=64,num_classes=5)
 
 x_train = datagenerator(list_train,label_train,BATCH)
 x_validation = datagenerator(list_validation,label_validation,BATCH)
