@@ -34,10 +34,10 @@ tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 train_set = int(len(tmp1)*80/100)
 
 list_train = tmp1[:train_set]
-list_validation = tmp1[:train_set]
+list_validation = tmp1[train_set:]
 
 label_train = tmp2[:train_set]
-label_validation = tmp2[:train_set]
+label_validation = tmp2[train_set:]
 
 shape=(64,64,3)
 BATCH=16

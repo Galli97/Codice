@@ -45,15 +45,15 @@ steps = 6 # int(train_set/EPOCHS)
 #print(tmp1.shape[0])
 
 list_train = tmp1[:train_set]
-list_validation = tmp1[:train_set]
+list_validation = tmp1[train_set:]
 
 label_train = tmp2[:train_set]
-label_validation = tmp2[:train_set]
+label_validation = tmp2[train_set:]
 
 x_train = datagenerator(list_train,label_train,BATCH)
 x_validation = datagenerator(list_validation,label_validation,BATCH)
 
-optimizer = SGD(learning_rate=0.0001, momentum=0.)
+optimizer = SGD(learning_rate=0.01, momentum=0.)
 loss_fn = keras.losses.CategoricalCrossentropy()
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
