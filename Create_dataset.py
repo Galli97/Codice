@@ -16,7 +16,7 @@ dir1 = os.listdir(path1)
 # print(len(dir1));
 j=0
 for i in range(0,len(dir)):
-    if(j==400):
+    if(j==1000):
         break
     if(i%100):
         patt=str(dir[i])
