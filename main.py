@@ -37,7 +37,7 @@ shape=(64,64,3)
 model = rete(input_shape=shape,weight_decay=0., classes=5)
 #model = DeeplabV3Plus(image_size=64, num_classes=5)
 
-EPOCHS=100
+EPOCHS=50
 BATCH=16
 train_set = int((tmp1.shape[0])*(2/3))
 steps = int(train_set/EPOCHS)
