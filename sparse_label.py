@@ -95,10 +95,14 @@ save_sparse_np_arrays(tmp1)                                #salvo tmp1 in un fil
 
 
 ### DEFINISCO DEGLI ARRAY RELATIVE ALLE VARIE CLASSI ####
-bedrock=[1/510,1/510,1/510];
-sand=[2/510,2/510,2/510];
-bigrock=[3/510,3/510,3/510];
-soil=[255/510,255/510,255/510];
+# bedrock=[1/510,1/510,1/510];
+# sand=[2/510,2/510,2/510];
+# bigrock=[3/510,3/510,3/510];
+# soil=[255/510,255/510,255/510];
+bedrock=[1,1,1];
+sand=[2,2,2];
+bigrock=[3,3,3];
+soil=[255,255,255];
 nullo=[0,0,0];
 
 ### PER LE LABEL CREO UN ARRAY DI DIMENSIONE 64X64X1 (NEW_LABEL) DOVE 64X64 è LA DIMENSIONE DELL'IMMAGINE
