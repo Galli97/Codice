@@ -21,10 +21,10 @@ for i in range(0,len(dir)):
     if(i%100):
         patt=str(dir[i])
         patt1=str(dir1[i])
-        newpath = os.path.join(r'C:\Users\Mattia\Desktop\Train_images',patt)
-        newpath1 = os.path.join(r'C:\Users\Mattia\Desktop\Train_labels',patt1)
-        shutil.copyfile(path, newpath)
-        shutil.copyfile(path1, newpath1)
+        path = os.path.join(r'C:\Users\Mattia\Desktop\Tesi\Dataset\Train-images',patt)
+        path1 = os.path.join(r'C:\Users\Mattia\Desktop\Tesi\Dataset\Train-labels',patt1)
+        shutil.copy(path, newpath)
+        shutil.copy(path1, newpath1)
         j+=1
 
 #####PRENDO 400 IMMAGINI########
