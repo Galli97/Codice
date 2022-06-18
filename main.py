@@ -33,8 +33,8 @@ tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 
 shape=(64,64,3)
 
-#model = rete(input_shape=shape,weight_decay=0., classes=5)
-model = DeeplabV3Plus(image_size=64, num_classes=5)
+model = rete(input_shape=shape,weight_decay=0., classes=5)
+#model = DeeplabV3Plus(image_size=64, num_classes=5)
 
 EPOCHS=100
 BATCH=1
