@@ -116,6 +116,7 @@ def rete_2(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
         img_input = Input(shape=input_shape)
         image_size = input_shape[0:2]
     # I1 = Input(input_shape)
+    model=models.Sequential()
     model = tf.keras.applications.resnet.ResNet101(include_top=False, weights='imagenet', input_tensor=img_input, pooling=None)
     model.layers.pop()
     model.outputs = [model.layers[-1].output]
