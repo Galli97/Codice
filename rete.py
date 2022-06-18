@@ -39,14 +39,14 @@ def get_weights_path_resnet():
 
 
 def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
-    # if batch_shape:
-    #     img_input = Input(batch_shape=batch_shape)
-    #     image_size = batch_shape[1:3]
-    # else:
-    #     img_input = Input(shape=input_shape)
-    #     image_size = input_shape[0:2]
-    I1 = Input(input_shape)
-    model = ResNet50(include_top=False, weights='imagenet', input_tensor=I1, pooling=None)
+    if batch_shape:
+        img_input = Input(batch_shape=batch_shape)
+        image_size = batch_shape[1:3]
+    else:
+        img_input = Input(shape=input_shape)
+        image_size = input_shape[0:2]
+    # I1 = Input(input_shape)
+    # model = ResNet50(include_top=False, weights='imagenet', input_tensor=I1, pooling=None)
     # Block 1
     x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1', kernel_regularizer=l2(weight_decay))(I1)
     x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2', kernel_regularizer=l2(weight_decay))(x)
@@ -86,10 +86,10 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     x = Activation('softmax')(x)
   
 
-    model = Model(I1, x)
+    model = Model(img_input, x)
 
-    # weights_path = get_weights_path_resnet()
-    # model.load_weights(weights_path, by_name=True)
+    weights_path = get_weights_path_resnet()
+    model.load_weights(weights_path, by_name=True)
     return model
 
 def convolution_block(
