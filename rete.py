@@ -106,6 +106,94 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     # model.load_weights(weights_path, by_name=True)
     return model
 
+
+
+def rete_2(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
+    if batch_shape:
+        img_input = Input(batch_shape=batch_shape)
+        image_size = batch_shape[1:3]
+    else:
+        img_input = Input(shape=input_shape)
+        image_size = input_shape[0:2]
+    # I1 = Input(input_shape)
+    model = tf.keras.applications.resnet.ResNet101(include_top=False, weights='imagenet', input_tensor=img_input, pooling=None)
+    model.layers.pop()
+    model.outputs = [model.layers[-1].output]
+    model.layers[-1]._outbound_nodes = []
+
+    for layer in model.layers:
+        layer._name = layer.name
+        layer._trainable = False
+    
+    # Block 1
+    model.add(Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1', kernel_regularizer=l2(weight_decay)))
+    model.add(Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2', kernel_regularizer=l2(weight_decay)))
+    model.add(BatchNormalization())##########
+    model.add(MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block1_pool'))
+    
+    # Block 2
+    model.add(Conv2D(128, (3, 3), activation='relu', padding='same', name='block2_conv1', kernel_regularizer=l2(weight_decay)))
+    model.add(Conv2D(128, (3, 3), activation='relu', padding='same', name='block2_conv2', kernel_regularizer=l2(weight_decay)))
+    model.add(BatchNormalization())##########
+    model.add(MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block2_pool'))
+
+    # Block 3
+    model.add(Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv1', kernel_regularizer=l2(weight_decay)))
+    model.add(Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv2', kernel_regularizer=l2(weight_decay)))
+    model.add(Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv3', kernel_regularizer=l2(weight_decay)))
+    model.add(BatchNormalization())##########  
+    model.add(MaxPooling2D((2, 2), strides=(2, 2),padding='same',name='block3_pool'))
+    
+    # Block 4
+    model.add(Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=2, name='block4_conv1', kernel_regularizer=l2(weight_decay)))
+    model.add(Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=2, name='block4_conv2', kernel_regularizer=l2(weight_decay)))
+    model.add(Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=2, name='block4_conv3', kernel_regularizer=l2(weight_decay)))
+    model.add(BatchNormalization())##########
+    model.add(MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block4_pool'))
+
+    # Block 5
+    model.add(Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=12, name='block5_conv1', kernel_regularizer=l2(weight_decay)))
+    model.add(Dropout(0.5))
+    model.add(Conv2D(1024, (3, 3), activation='relu', padding='same', name='block5_conv2', kernel_regularizer=l2(weight_decay)))
+    model.add(Dropout(0.5))
+    model.add(Conv2D(classes, (3, 3), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay)))
+    
+    model.add(UpSampling2D(32))
+
+    # img_size=input_shape[0];
+    # x = layers.UpSampling2D(
+    #     size=(img_size // x.shape[1], img_size // x.shape[2]),
+    #     interpolation="bilinear",
+    # )(x)
+
+    #x = tf.keras.layers.Reshape((64*64,5))(x)
+    model.add(Activation('softmax'))
+  
+
+    # model = Model(img_input, x)
+
+    # weights_path = get_weights_path_resnet()
+    # model.load_weights(weights_path, by_name=True)
+    return model
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def convolution_block(
     block_input,
     num_filters=256,
