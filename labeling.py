@@ -43,12 +43,13 @@ for lab in dir1:
     if new_dir1 not in label_list : label_list.append(new_dir1)
     #label=np.expand_dims(label, axis=2)
 
-print('image and label lists dimensions')
+print('Image and label lists dimensions')
 print(len(image_list))
 print(len(label_list))
 
 ### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
 #image_list_aug, label_list_aug = augment(image_list,label_list);
+print('[INFO] Data Augmentation...')
 tmp1a,tmp2a,A = augment(image_list,label_list);
 
 
@@ -68,6 +69,7 @@ print(tmp2.shape)
 print(tmp2a.shape)
 print(A)
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
+print('[INFO]Generating images array)
 for i in range (N-A):
     print(i)
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
@@ -76,7 +78,7 @@ for i in range (N-A):
     image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print(image.shape)
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
-
+print('[INFO]Generating images array for augmented data')
 for p in range (A):
     print(p)
     image=tmp1a[p]
@@ -101,6 +103,7 @@ nullo=[255/510,255/510,255/510];
 ### PER LE LABEL CREO UN ARRAY DI DIMENSIONE 64X64X5 (NEW_LABEL) DOVE 64X64 è LA DIMENSIONE DELL'IMMAGINE
 ### MENTRE 5 è IL NUMERO DI CLASSI. IN QUESTO MODO HO UN VETTORE DEL TIPO [0 0 1 0 0] PER OGNI PIXEL, CHE INDICA
 ### A QUALE CLASSE APPARTIENE IL PIXEL (IN QUESTO CASO, ALLA TERZA CLASSE). 
+print('[INFO]Generating labels array')
 for j in range (N-A):
     print(j)
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]   #leggo l'immagine di label
@@ -161,7 +164,7 @@ for j in range (N-A):
     tmp2[j] = new_label
     # print('label corrisponendte')
     # print(tmp2[j,0,0])
-
+print('[INFO]Generating labels array for augmented data')
 for f in range (0,A):
     print(f)
     label=tmp2a[f]
