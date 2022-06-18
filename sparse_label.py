@@ -74,8 +74,8 @@ for i in range (N-A):
     print(i)
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
     image = cv2.resize(image, (64,64))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
-    image = image.astype('float32')
-    image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+    #image = image.astype('float32')
+    #image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print('image pixels: ', image)
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
 
@@ -107,8 +107,8 @@ for j in range (N-A):
     print(j)
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]   #leggo l'immagine di label
     label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
-    label = label.astype('float32')
-    label/=510                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+    #label = label.astype('float32')
+    #label/=510                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print(label[0,0])
     reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
     #print('reduct label shape: ', reduct_label.shape)
