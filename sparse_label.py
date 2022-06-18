@@ -118,17 +118,19 @@ for j in range (N-A):
         for n in range(0,63): 
             channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
             #print(channels_xy)
-            if any(channels_xy==bedrock):      #BEDROCK      
+            if channels_xy==bedrock:      #BEDROCK      
                 new_label[i,n,0]=0
                 print('bed rock: ',channels_xy)
-            elif any(channels_xy==sand):    #SAND
+            elif channels_xy==sand:    #SAND
                 new_label[i,n,0]=1
-                print('bed rock: ',channels_xy)
-            elif any(channels_xy==bigrock):    #BIG ROCK
+                print('sand: ',channels_xy)
+            elif channels_xy==bigrock:    #BIG ROCK
                 new_label[i,n,0]=2
-            elif any(channels_xy==soil):    #SOIL
+                print('big rock: ',channels_xy)
+            elif channels_xy==soil:    #SOIL
                 new_label[i,n,0]=3
-            elif any(channels_xy==nullo):    #NULL
+                print('soil: ',channels_xy)
+            elif channels_xy==nullo:    #NULL
                 new_label[i,n,0]=4
     #print(new_label.shape)
     tmp2[j] = new_label
