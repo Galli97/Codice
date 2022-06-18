@@ -31,13 +31,14 @@ tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 #print(tmp2.shape)
 #print(tmp2[0,0,0,:])
 
+BATCH=16
 shape=(64,64,3)
 
-model = rete(input_shape=shape,weight_decay=0., classes=5)
+model = rete(input_shape=shape,weight_decay=0.,batch_shape=BATCH, classes=5)
 #model = DeeplabV3Plus(image_size=64, num_classes=5)
 
 EPOCHS=100
-BATCH=1
+
 train_set = int((tmp1.shape[0])*(2/3))
 steps = int(train_set/EPOCHS)
 #print(train_set)
