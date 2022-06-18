@@ -3,7 +3,6 @@ from keras.layers import *
 from tensorflow import keras
 from keras import layers
 from tensorflow.keras.applications.resnet50 import ResNet50
-from tensorflow.keras.applications.resnet.ResNet101 import ResNet101
 from tensorflow.keras import Input
 from keras import Model,Sequential
 from keras.initializers import RandomNormal
@@ -47,7 +46,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
         img_input = Input(shape=input_shape)
         image_size = input_shape[0:2]
     # I1 = Input(input_shape)
-    model = ResNet101(include_top=False, weights='imagenet', input_tensor=img_input, pooling=None)
+    model = tf.keras.applications.resnet.ResNet101(include_top=False, weights='imagenet', input_tensor=img_input, pooling=None)
     model.layers.pop()
     model.outputs = [model.layers[-1].output]
     model.layers[-1]._outbound_nodes = []
