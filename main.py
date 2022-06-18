@@ -36,7 +36,7 @@ shape=(64,64,3)
 model = rete(input_shape=shape,weight_decay=0., classes=5)
 #model = DeeplabV3Plus(image_size=64, num_classes=5)
 
-EPOCHS=50
+EPOCHS=100
 BATCH=1
 train_set = int((tmp1.shape[0])*(2/3))
 steps = int(train_set/EPOCHS)
@@ -58,4 +58,4 @@ loss_fn = keras.losses.CategoricalCrossentropy()
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])
 model.summary()
-model.fit(x = x_train,batch_size = BATCH,epochs=50,steps_per_epoch=steps,validation_data=(list_validation, label_validation),validation_steps=steps,validation_batch_size=BATCH)
+model.fit(x = x_train,batch_size = BATCH,epochs=EPOCHS,steps_per_epoch=steps,validation_data=(list_validation, label_validation),validation_steps=steps,validation_batch_size=BATCH)
