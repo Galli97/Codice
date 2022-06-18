@@ -48,8 +48,16 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
         image_size = input_shape[0:2]
     # I1 = Input(input_shape)
     model = ResNet101(include_top=False, weights='imagenet', input_tensor=img_input, pooling=None)
+    model.layers.pop()
+    model.outputs = [model.layers[-1].output]
+    model.layers[-1]._outbound_nodes = []
+
+    for layer in model.layers:
+        layer._name = layer.name + str(suffix)
+        layer._trainable = False
+    x = model.output
     # Block 1
-    x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1', kernel_regularizer=l2(weight_decay))(img_input)
+    x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1', kernel_regularizer=l2(weight_decay))(x)
     x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2', kernel_regularizer=l2(weight_decay))(x)
     x = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block1_pool')(x)
     x = tf.keras.layers.Dropout(0.5)(x)
