@@ -58,23 +58,27 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     # Block 1
     x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1', kernel_regularizer=l2(weight_decay))(x)
     #x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2', kernel_regularizer=l2(weight_decay))(x)
+    x = tf.keras.layers.BatchNormalization()(x)##########
     x = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block1_pool')(x)
-    x = tf.keras.layers.Dropout(0.5)(x)
+    
     # Block 2
     x = Conv2D(128, (3, 3), activation='relu', padding='same', name='block2_conv1', kernel_regularizer=l2(weight_decay))(x)
    # x = Conv2D(128, (3, 3), activation='relu', padding='same', name='block2_conv2', kernel_regularizer=l2(weight_decay))(x)
+    x = tf.keras.layers.BatchNormalization()(x)##########
     x = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block2_pool')(x)
 
     # Block 3
     x = Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv1', kernel_regularizer=l2(weight_decay))(x)
     x = Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv2', kernel_regularizer=l2(weight_decay))(x)
     #x = Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv3', kernel_regularizer=l2(weight_decay))(x)
+    x = tf.keras.layers.BatchNormalization()(x)##########
     x = MaxPooling2D((2, 2), strides=(2, 2),padding='same',name='block3_pool')(x)
-    x = tf.keras.layers.Dropout(0.5)(x)
+    
     # Block 4
     x = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=2, name='block4_conv1', kernel_regularizer=l2(weight_decay))(x)
     x = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=2, name='block4_conv2', kernel_regularizer=l2(weight_decay))(x)
     #x = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=2, name='block4_conv3', kernel_regularizer=l2(weight_decay))(x)
+    x = tf.keras.layers.BatchNormalization()(x)##########
     x = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block4_pool')(x)
 
     # Block 5
