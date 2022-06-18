@@ -161,7 +161,7 @@ def rete_2(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     model.add(Dropout(0.5))
     model.add(Conv2D(classes, (3, 3), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay)))
     
-    model.add(UpSampling2D(32))
+    model.add(UpSampling2D(64))
 
     # img_size=input_shape[0];
     # x = layers.UpSampling2D(
