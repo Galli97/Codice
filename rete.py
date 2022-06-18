@@ -48,7 +48,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     # I1 = Input(input_shape)
     # model = ResNet50(include_top=False, weights='imagenet', input_tensor=I1, pooling=None)
     # Block 1
-    x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1', kernel_regularizer=l2(weight_decay))(I1)
+    x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1', kernel_regularizer=l2(weight_decay))(img_input)
     x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2', kernel_regularizer=l2(weight_decay))(x)
     x = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block1_pool')(x)
 
