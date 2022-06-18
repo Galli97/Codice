@@ -76,7 +76,7 @@ for i in range (N-A):
     image = cv2.resize(image, (64,64))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
     image = image.astype('float32')
     image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
-    print('image pixels: ', image)
+    #print('image pixels: ', image)
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
 
 # for p in range (A):
@@ -118,7 +118,7 @@ for j in range (N-A):
     for i in range(0,63):
         for n in range(0,63): 
             channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
-            #print(channels_xy)
+            print(channels_xy)
             if channels_xy[0]==bedrock[0]:      #BEDROCK      
                 new_label[i,n,0]=0
                 print('bed rock: ',channels_xy)
@@ -167,9 +167,9 @@ for j in range (N-A):
 #print('tmp2[0]')
 #print(tmp2[0])
 print('Info on the first pixel of the first label: ', tmp2[0,0,0,:])
-print('Info on the 10x10 pixel of the third label: ', tmp2[3,10,10,:])
+#print('Info on the 10x10 pixel of the third label: ', tmp2[3,10,10,:])
 print('Info on the first pixel of the first photo: ', tmp1[0,0,0,:])
-print('Info on the 10x10 pixel of the third photo: ', tmp1[3,10,10,:])
+#print('Info on the 10x10 pixel of the third photo: ', tmp1[3,10,10,:])
 print("[INFO] label arrays saved")
 save_sparse_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
 
