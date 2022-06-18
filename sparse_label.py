@@ -53,7 +53,8 @@ print(len(label_list))
 A=0;
 
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI ######
-N = len(image_list)+A
+#N = len(image_list)+A
+N=1
 print('Augmented image list dimension')
 print(N)
 num_classes=5
@@ -75,7 +76,7 @@ for i in range (N-A):
     image = cv2.resize(image, (64,64))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
     image = image.astype('float32')
     image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
-    #print(image.shape)
+    print('image pixels: ', image)
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
 
 # for p in range (A):
