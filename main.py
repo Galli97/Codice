@@ -41,7 +41,7 @@ BATCH=16
 train_set = int((tmp1.shape[0])*(2/3))
 steps = 6 # int(train_set/EPOCHS)
 #print(train_set)
-print('Number of steps: ',steps)
+#print('Number of steps: ',steps)
 #print(tmp1.shape[0])
 
 list_train = tmp1[:train_set]
