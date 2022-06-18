@@ -119,15 +119,15 @@ for j in range (N-A):
             channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
             #print(channels_xy)
             if all(channels_xy==bedrock):      #BEDROCK      
-                new_label[i,n,0]=0
+                new_label[i,n,:]=0
             elif all(channels_xy==sand):    #SAND
-                new_label[i,n,0]=1
+                new_label[i,n,:]=1
             elif all(channels_xy==bigrock):    #BIG ROCK
-                new_label[i,n,0]=2
+                new_label[i,n,:]=2
             elif all(channels_xy==soil):    #SOIL
-                new_label[i,n,0]=3
+                new_label[i,n,:]=3
             elif all(channels_xy==nullo):    #NULL
-                new_label[i,n,0]=4
+                new_label[i,n,:]=4
     #print(new_label.shape)
     tmp2[j] = new_label
     #print(tmp2.shape)
