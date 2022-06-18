@@ -118,7 +118,7 @@ for j in range (N-A):
     for i in range(0,63):
         for n in range(0,63): 
             channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
-            print(channels_xy)
+            #print(channels_xy)
             if channels_xy[0]==bedrock[0]:      #BEDROCK      
                 new_label[i,n,0]=0
                 print('bed rock: ',channels_xy)
