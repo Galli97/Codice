@@ -40,7 +40,7 @@ label_train = tmp2[:train_set]
 label_validation = tmp2[:train_set]
 
 shape=(64,64,3)
-BATCH=4
+BATCH=16
 # sample_weight = np.zeros((153,4096))
 # sample_weight[:, 0] += 0.41
 # sample_weight[:, 1] += 1.87
