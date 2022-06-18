@@ -86,7 +86,7 @@ for i in range (N-A):
 #     #print(image.shape)
 #     tmp1[N-A+p] = image  
 
-print('Info on the first pixel of the first photo: ', tmp1[1,1,1,1])
+print('Info on the first pixel of the first photo: ', tmp1[0,0,0,:])
 print("[INFO] Images arrays saved")
 save_sparse_np_arrays(tmp1)                                #salvo tmp1 in un file numpy
 
@@ -110,7 +110,7 @@ for j in range (N-A):
     label/=510                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print(label[0,0])
     reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
-    print('reduct label shape: ', reduct_label.shape)
+    #print('reduct label shape: ', reduct_label.shape)
     new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
     new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x5) i valori di reduct_label (64x64)
 
@@ -161,7 +161,7 @@ for j in range (N-A):
  
 #print('tmp2[0]')
 #print(tmp2[0])
-print('Info on the first pixel of the first label: ', tmp2[1,1,1,1])
+print('Info on the first pixel of the first label: ', tmp2[0,0,0,:])
 print("[INFO] label arrays saved")
 save_sparse_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
 
