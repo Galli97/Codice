@@ -45,8 +45,8 @@ BATCH= 32
 model = rete(input_shape=shape,weight_decay=0., classes=5)
 #model = DeeplabV3Plus(image_size=64,num_classes=5)
 
-x_train = datagenerator(list_train,label_train,BATCH)
-x_validation = datagenerator(list_validation,label_validation,BATCH)
+x_train = datagenerator(np.array(list_train),np.array(label_train),BATCH)
+x_validation = datagenerator(np.array(list_validation),np.array(label_validation),BATCH)
 
 optimizer = SGD(learning_rate=0.001, momentum=0.)
 loss_fn = keras.losses.SparseCategoricalCrossentropy()
