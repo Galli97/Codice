@@ -49,8 +49,8 @@ print(len(label_list))
 
 ### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
 #image_list_aug, label_list_aug = augment(image_list,label_list);
-#tmp1a,tmp2a,A = augment(image_list,label_list);
-A=0;
+tmp1a,tmp2a,A = augment(image_list,label_list);
+#A=0;
 
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI ######
 N = len(image_list)+A
@@ -75,17 +75,17 @@ for i in range (N-A):
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
     image = cv2.resize(image, (64,64))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
     image = image.astype('float32')
-    image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+    image/=255                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print('image pixels: ', image)
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
 
-# for p in range (A):
-#     print(p)
-#     image=tmp1a[p]
-#     image = image.astype('float32')
-#     image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
-#     #print(image.shape)
-#     tmp1[N-A+p] = image  
+for p in range (A):
+    print(p)
+    image=tmp1a[p]
+    image = image.astype('float32')
+    image/=255                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+    #print(image.shape)
+    tmp1[N-A+p] = image  
 
 
 print("[INFO] Images arrays saved")
@@ -95,10 +95,10 @@ save_sparse_np_arrays(tmp1)                                #salvo tmp1 in un fil
 
 
 ### DEFINISCO DEGLI ARRAY RELATIVE ALLE VARIE CLASSI ####
-bedrock=[1/510,1/510,1/510];
-sand=[2/510,2/510,2/510];
-bigrock=[3/510,3/510,3/510];
-soil=[255/510,255/510,255/510];
+bedrock=[1/255,1/255,1/255];
+sand=[2/255,2/255,2/255];
+bigrock=[3/255,3/255,3/255];
+soil=[255/255,255/255,255/255];
 # bedrock=[1,1,1];
 # sand=[2,2,2];
 # bigrock=[3,3,3];
@@ -112,7 +112,7 @@ for j in range (N-A):
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]   #leggo l'immagine di label
     label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
     label = label.astype('float32')
-    label/=510                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+    label/=255                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print(label[0,0])
     reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
     #print('reduct label shape: ', reduct_label.shape)
@@ -141,32 +141,32 @@ for j in range (N-A):
     tmp2[j] = new_label
     #print(tmp2.shape)
 
-# for f in range (0,A):
-#     print(f)
-#     label=tmp2a[f]
-#     label = label.astype('float32')
-#     label/=510                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
-#     #print(label[0,0])
-#     reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
-#     #print(reduct_label.shape)
-#     new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
-#     new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x5) i valori di reduct_label (64x64)
-#     for i in range(0,63):
-#         for n in range(0,63): 
-#             channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la posizione dell'1 nel vettore di dimensione 5
-#             #print(channels_xy)
-#             if all(channels_xy==bedrock):      #BEDROCK      
-#                 new_label[i,n,0]=0
-#             elif all(channels_xy==sand):    #SAND
-#                 new_label[i,n,0]=1
-#             elif all(channels_xy==bigrock):    #BIG ROCK
-#                 new_label[i,n,0]=2
-#             elif all(channels_xy==soil):    #SOIL
-#                 new_label[i,n,0]=3
-#             elif all(channels_xy==nullo):    #NULL
-#                 new_label[i,n,0]=4
-#     #print(new_label.shape)
-#     tmp2[N-A+f] = new_label
+for f in range (0,A):
+    print(f)
+    label=tmp2a[f]
+    label = label.astype('float32')
+    label/=255                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+    #print(label[0,0])
+    reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
+    #print(reduct_label.shape)
+    new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
+    new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x5) i valori di reduct_label (64x64)
+    for i in range(0,63):
+        for n in range(0,63): 
+            channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la posizione dell'1 nel vettore di dimensione 5
+            #print(channels_xy)
+            if all(channels_xy==bedrock):      #BEDROCK      
+                new_label[i,n,0]=0
+            elif all(channels_xy==sand):    #SAND
+                new_label[i,n,0]=1
+            elif all(channels_xy==bigrock):    #BIG ROCK
+                new_label[i,n,0]=2
+            elif all(channels_xy==soil):    #SOIL
+                new_label[i,n,0]=3
+            elif all(channels_xy==nullo):    #NULL
+                new_label[i,n,0]=4
+    #print(new_label.shape)
+    tmp2[N-A+f] = new_label
  
 #print('tmp2[0]')
 #print(tmp2[0])
