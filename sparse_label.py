@@ -118,7 +118,7 @@ for j in range (N-A):
     label/=255                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print(label[0,0])
     reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
-    print('reduct label shape: ', reduct_label.shape)
+    #print('reduct label shape: ', reduct_label.shape)
     new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
     new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x5) i valori di reduct_label (64x64)
 
