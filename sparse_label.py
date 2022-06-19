@@ -53,8 +53,8 @@ print(len(label_list))
 A=0;         #### METTO A=0 SE NON VOGLIO FARE DATA AUGMENTATION, COMMENTANDO LA RIGA SOPRA
 
 ####NUMERO DI IMMAGINI NEL DATASET + IMMAGINI DOVUTE AL DATA AUGMENTATION ####
-N = len(image_list)+A           
-
+#N = len(image_list)+A           
+N=100
 print('Augmented image list dimension')
 print(N)
 
