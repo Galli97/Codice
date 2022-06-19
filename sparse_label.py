@@ -144,11 +144,12 @@ for j in range (N-A):
             elif all(channels_xy==soil):     #SOIL
                 new_label[i,n,0]=3
                 #print('soil: ',channels_xy)
-            elif all(channels_xy==nullo):    #NULL
-                new_label[i,n,0]=4
+            # elif all(channels_xy==nullo):    #NULL
+            #     new_label[i,n,0]=4
             else:
-                print(channels_xy)
-                print(j)
+                new_label[i,n,0]=4
+            #     print(channels_xy)
+            #     print(j)
     #print(new_label.shape)
     tmp2[j] = new_label
     #print(tmp2.shape)
