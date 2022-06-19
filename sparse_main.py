@@ -40,13 +40,13 @@ label_train = tmp2[:train_set]
 label_validation = tmp2[train_set:]
 
 shape=(64,64,3)
-BATCH= 32
+BATCH= 16
 
 model = rete(input_shape=shape,weight_decay=0., classes=5)
 #model = DeeplabV3Plus(image_size=64,num_classes=5)
 
-x_train = datagenerator(np.array(list_train),np.array(label_train),BATCH)
-x_validation = datagenerator(np.array(list_validation),np.array(label_validation),BATCH)
+x_train = datagenerator(list_train,label_train,BATCH)
+x_validation = datagenerator(list_validation,label_validation,BATCH)
 
 optimizer = SGD(learning_rate=0.001, momentum=0.)
 loss_fn = keras.losses.SparseCategoricalCrossentropy()
@@ -54,4 +54,4 @@ loss_fn = keras.losses.SparseCategoricalCrossentropy()
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])#,sample_weight_mode='temporal')
 #model.summary()
-model.fit(x = x_train,batch_size = BATCH,epochs=10,steps_per_epoch=25,validation_data=(list_validation, label_validation),validation_steps=10,validation_batch_size=BATCH)
+model.fit(x = np.array(x_train),batch_size = BATCH,epochs=10,steps_per_epoch=25,validation_data=(list_validation, label_validation),validation_steps=10,validation_batch_size=BATCH)
