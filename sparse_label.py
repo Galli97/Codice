@@ -54,14 +54,14 @@ A=0;         #### METTO A=0 SE NON VOGLIO FARE DATA AUGMENTATION, COMMENTANDO LA
 
 ####NUMERO DI IMMAGINI NEL DATASET + IMMAGINI DOVUTE AL DATA AUGMENTATION ####
 #N = len(image_list)+A           
-N=15
+N=100
 print('Augmented image list dimension')
 print(N)
 
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI E DELLE LABEL ######
 num_classes=4
-tmp1 = np.empty((N, 1024, 1024, 3), dtype=np.uint8)  #Qui ho N immagini
-tmp2 = np.empty((N, 1024, 1024, 1), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel. Nel caso sparse avrò un intero ad indicare la classe
+tmp1 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
+tmp2 = np.empty((N, 64, 64, 1), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel. Nel caso sparse avrò un intero ad indicare la classe
 
 #### PRINT DI CONTROLLO ####
 print('tmp1,tmp1a,tmp2,tmp2a shapes')
@@ -77,8 +77,8 @@ print('[INFO]Generating images array')
 for i in range (N-A):
     print(i)
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
-    #image = cv2.resize(image, (64,64))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
-    #print('image shape: ', image.shape)
+    image = cv2.resize(image, (64,64))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
+    print('image shape: ', image.shape)
     image = image.astype('float32')
     image/=255                                      #normalizzo per avere valori per i pixel nell'intervallo [0,1]
     #print('image pixels: ', image)
@@ -146,7 +146,12 @@ for j in range (N-A):
                 #print('soil: ',channels_xy)
             # elif all(channels_xy==nullo):    #NULL
             #     new_label[i,n,0]=4
-    print(new_label.shape)
+    #print(new_label.shape)
+    new_label = cv2.resize(new_label, (64,64))               #ridimension per combaciare con l'input
+    print('new_label: ', new_label.shape)
+    new_label=np.expand_dims(new_label, axis=2)
+    print('new_label expanded: ', new_label.shape)
+    print(new_label[:,:,0])
     tmp2[j] = new_label
     #print(tmp2.shape)
 
