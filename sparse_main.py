@@ -52,7 +52,7 @@ x_validation = datagenerator(list_validation,label_validation,BATCH)
 #print(type(x_train))
 
 #### DEFINSICO I PARAMETRI PER IL COMPILE (OPTIMIZER E LOSS)
-optimizer = SGD(learning_rate=0.01, momentum=0.)
+optimizer = SGD(learning_rate=0.0001, momentum=0.)
 loss_fn = keras.losses.SparseCategoricalCrossentropy()
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])#,sample_weight_mode='temporal')
 
