@@ -117,26 +117,26 @@ print('[INFO]Generating labels array')
 for j in range (N-A):
     print(j)
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]   #leggo l'immagine di label
-    label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
+    #label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
     label = label.astype('float32')
     label/=255                                       #normalizzo per avere valori per i pixel nell'intervallo [0,1]
     #print(label[0,0])
     reduct_label = label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
     #print('reduct label shape: ', reduct_label.shape)
-    new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
+    new_label = np.empty((1024, 1024, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
     new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
 
     #### CONTROLLO OGNI PIXEL PER ASSEGNARE LA CLASSE #######
-    for i in range(0,63):
-        for n in range(0,63): 
+    for i in range(0,1023):
+        for n in range(0,1023): 
             channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
             #print(channels_xy)
             if all(channels_xy==bedrock):       #BEDROCK      
                 new_label[i,n,0]=0
-                print('bed rock: ',channels_xy)
+                #print('bed rock: ',channels_xy)
             elif all(channels_xy==sand):     #SAND
                 new_label[i,n,0]=1
-                print('sand: ',channels_xy)
+                #print('sand: ',channels_xy)
             elif all(channels_xy==bigrock):     #BIG ROCK
                 new_label[i,n,0]=2
                 print('big rock: ',channels_xy)
@@ -146,6 +146,7 @@ for j in range (N-A):
             # elif all(channels_xy==nullo):    #NULL
             #     new_label[i,n,0]=4
     #print(new_label.shape)
+    new_label = cv2.resize(new_label, (64,64))               #ridimension per combaciare con l'input
     tmp2[j] = new_label
     #print(tmp2.shape)
 
