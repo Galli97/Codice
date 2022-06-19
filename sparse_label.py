@@ -146,6 +146,9 @@ for j in range (N-A):
                 print('soil: ',channels_xy)
             elif all(channels_xy==nullo):    #NULL
                 new_label[i,n,0]=4
+            else:
+                print(channels_xy)
+                print(j)
     #print(new_label.shape)
     tmp2[j] = new_label
     #print(tmp2.shape)
