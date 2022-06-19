@@ -70,7 +70,7 @@ print(tmp2.shape)
 print('Number of augmented images')
 print(A)
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
-print('[INFO]Generating images array)
+print('[INFO]Generating images array')
 for i in range (N-A):
     print(i)
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
