@@ -70,6 +70,7 @@ print(tmp2.shape)
 print('Number of augmented images')
 print(A)
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
+print('[INFO]Generating images array)
 for i in range (N-A):
     print(i)
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
@@ -78,7 +79,7 @@ for i in range (N-A):
     image/=255                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print('image pixels: ', image)
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
-
+print('[INFO]Generating images array for augmented data')
 for p in range (A):
     print(p)
     image=tmp1a[p]
@@ -107,6 +108,7 @@ nullo=[0,0,0];
 
 ### PER LE LABEL CREO UN ARRAY DI DIMENSIONE 64X64X1 (NEW_LABEL) DOVE 64X64 è LA DIMENSIONE DELL'IMMAGINE
 ### MENTRE L'ULTIMA DIMESIONE CONTIENE UN INTERO DA 0 A 4 CHE RAPPRESENTA A QUALE CLASSE APPARTIENE IL PIXEL CORRISPONDENTE.
+print('[INFO]Generating labels array')
 for j in range (N-A):
     print(j)
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]   #leggo l'immagine di label
@@ -140,7 +142,7 @@ for j in range (N-A):
     #print(new_label.shape)
     tmp2[j] = new_label
     #print(tmp2.shape)
-
+print('[INFO]Generating labels array for augmented data')
 for f in range (0,A):
     print(f)
     label=tmp2a[f]
