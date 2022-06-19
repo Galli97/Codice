@@ -18,7 +18,7 @@ j=0
 for i in range(0,len(dir)):
     if(j==1000):
         break
-    if(i%100):
+    if(i%100==0):
         patt=str(dir[i])
         patt1=str(dir1[i])
         path = os.path.join(r'C:\Users\Mattia\Desktop\Tesi\Dataset\Train-images',patt)
