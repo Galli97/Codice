@@ -151,7 +151,7 @@ for j in range (N-A):
     print('new_label: ', new_label.shape)
     new_label=np.expand_dims(new_label, axis=2)
     print('new_label expanded: ', new_label.shape)
-    print(new_label[:,:,1])
+    #print(new_label[:,:,0])
     tmp2[j] = new_label
     #print(tmp2.shape)
 
