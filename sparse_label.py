@@ -54,7 +54,7 @@ A=0;         #### METTO A=0 SE NON VOGLIO FARE DATA AUGMENTATION, COMMENTANDO LA
 
 ####NUMERO DI IMMAGINI NEL DATASET + IMMAGINI DOVUTE AL DATA AUGMENTATION ####
 #N = len(image_list)+A           
-N=100
+N=15
 print('Augmented image list dimension')
 print(N)
 
