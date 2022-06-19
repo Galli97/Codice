@@ -134,16 +134,16 @@ for j in range (N-A):
             #print(bigrock[1])
             if all(channels_xy==bedrock):       #BEDROCK      
                 new_label[i,n,0]=0
-                print('bed rock: ',channels_xy)
+                #print('bed rock: ',channels_xy)
             elif all(channels_xy==sand):     #SAND
                 new_label[i,n,0]=1
-                print('sand: ',channels_xy)
+                #print('sand: ',channels_xy)
             elif all(channels_xy==bigrock):     #BIG ROCK
                 new_label[i,n,0]=2
-                print('big rock: ',channels_xy)
+                #print('big rock: ',channels_xy)
             elif all(channels_xy==soil):     #SOIL
                 new_label[i,n,0]=3
-                print('soil: ',channels_xy)
+                #print('soil: ',channels_xy)
             elif all(channels_xy==nullo):    #NULL
                 new_label[i,n,0]=4
             else:
