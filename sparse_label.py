@@ -59,7 +59,7 @@ print('Augmented image list dimension')
 print(N)
 
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI E DELLE LABEL ######
-num_classes=4
+num_classes=5
 tmp1 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
 tmp2 = np.empty((N, 64, 64, 1), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel. Nel caso sparse avrò un intero ad indicare la classe
 
@@ -144,8 +144,8 @@ for j in range (N-A):
             elif all(channels_xy==soil):     #SOIL
                 new_label[i,n,0]=3
                 print('soil: ',channels_xy)
-            # elif all(channels_xy==nullo):    #NULL
-            #     new_label[i,n,0]=4
+            elif all(channels_xy==nullo):    #NULL
+                new_label[i,n,0]=4
     #print(new_label.shape)
     tmp2[j] = new_label
     #print(tmp2.shape)
