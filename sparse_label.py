@@ -46,8 +46,8 @@ for lab in dir1:
 print('image and label lists dimensions')
 print(len(image_list))
 print(len(label_list))
-print(image_list.shape))
-print(label_list.shape))
+print(image_list.shape)
+print(label_list.shape)
 
 ### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
 #image_list_aug, label_list_aug = augment(image_list,label_list);
