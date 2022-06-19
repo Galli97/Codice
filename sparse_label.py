@@ -133,10 +133,10 @@ for j in range (N-A):
             elif all(channels_xy==sand):    #SAND
                 new_label[i,n,0]=1
                 print('sand: ',channels_xy)
-            elif all(channels_xy==bigrock)]:    #BIG ROCK
+            elif all(channels_xy==bigrock):    #BIG ROCK
                 new_label[i,n,0]=2
                 print('big rock: ',channels_xy)
-            elif all(channels_xy==soil)]:    #SOIL
+            elif all(channels_xy==soil):    #SOIL
                 new_label[i,n,0]=3
                 #print('soil: ',channels_xy)
             elif all(channels_xy==nullo):    #NULL
