@@ -38,7 +38,7 @@ def get_weights_path_resnet():
 #         super(UpSampling2D, self).__init__(**kwargs)
 
 
-def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
+def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=4):
     if batch_shape:
         img_input = Input(batch_shape=batch_shape)
         image_size = batch_shape[1:3]
@@ -108,7 +108,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
 
 
 
-def rete_2(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
+def rete_2(input_shape=None, weight_decay=0., batch_shape=None, classes=4):
     if batch_shape:
         img_input = Input(batch_shape=batch_shape)
         image_size = batch_shape[1:3]

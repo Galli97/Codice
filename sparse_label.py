@@ -58,7 +58,7 @@ N = len(image_list)+A
 #N=1
 print('Augmented image list dimension')
 print(N)
-num_classes=5
+num_classes=4
 tmp1 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
 tmp2 = np.empty((N, 64, 64, 1), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel
 
@@ -138,8 +138,8 @@ for j in range (N-A):
             elif all(channels_xy==soil):    #SOIL
                 new_label[i,n,0]=3
                 #print('soil: ',channels_xy)
-            elif all(channels_xy==nullo):    #NULL
-                new_label[i,n,0]=4
+            # elif all(channels_xy==nullo):    #NULL
+            #     new_label[i,n,0]=4
     #print(new_label.shape)
     tmp2[j] = new_label
     #print(tmp2.shape)
@@ -166,8 +166,8 @@ for j in range (N-A):
 #                 new_label[i,n,0]=2
 #             elif all(channels_xy==soil):    #SOIL
 #                 new_label[i,n,0]=3
-#             elif all(channels_xy==nullo):    #NULL
-#                 new_label[i,n,0]=4
+#           # elif all(channels_xy==nullo):    #NULL
+#            #     new_label[i,n,0]=4
 #     #print(new_label.shape)
 #     tmp2[N-A+f] = new_label
  
