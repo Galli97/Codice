@@ -22,12 +22,12 @@ path = r"/content/drive/MyDrive/Tesi/image_arrays_sparse.npy"
 path1 = r"/content/drive/MyDrive/Tesi/label_arrays_sparse.npy"
 
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
-#print(len(tmp1))
+print(type(tmp1))
 #print(tmp1.shape)
 #print(tmp1)
 
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
-#print(len(tmp2))
+print(type(tmp2))
 #print(tmp2.shape)
 #print(tmp2)
 
@@ -54,4 +54,4 @@ loss_fn = keras.losses.SparseCategoricalCrossentropy()
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])#,sample_weight_mode='temporal')
 #model.summary()
-model.fit(x = np.array(x_train),batch_size = BATCH,epochs=10,steps_per_epoch=25,validation_data=(list_validation, label_validation),validation_steps=10,validation_batch_size=BATCH)
+model.fit(x = x_train,batch_size = BATCH,epochs=10,steps_per_epoch=25,validation_data=(list_validation, label_validation),validation_steps=10,validation_batch_size=BATCH)
