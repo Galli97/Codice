@@ -131,16 +131,16 @@ for j in range (N-A):
         for n in range(0,63): 
             channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
             #print(channels_xy)
-            if channels_xy[0]==bedrock[0]:      #BEDROCK      
+            if all(channels_xy==bedrock):       #BEDROCK      
                 new_label[i,n,0]=0
                 print('bed rock: ',channels_xy)
-            elif channels_xy[0]==sand[0]:    #SAND
+            elif all(channels_xy==sand):     #SAND
                 new_label[i,n,0]=1
                 print('sand: ',channels_xy)
-            elif channels_xy[0]==bigrock[0]:    #BIG ROCK
+            elif all(channels_xy==bigrock):     #BIG ROCK
                 new_label[i,n,0]=2
                 print('big rock: ',channels_xy)
-            elif channels_xy[0]==soil[0]:    #SOIL
+            elif all(channels_xy==soil):     #SOIL
                 new_label[i,n,0]=3
                 #print('soil: ',channels_xy)
             # elif all(channels_xy==nullo):    #NULL
@@ -165,14 +165,14 @@ for j in range (N-A):
 #         for n in range(0,63): 
 #             channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la posizione dell'1 nel vettore di dimensione 5
 #             #print(channels_xy)
-#             if all(channels_xy==bedrock):      #BEDROCK      
-#                 new_label[i,n,0]=0
-#             elif all(channels_xy==sand):    #SAND
-#                 new_label[i,n,0]=1
-#             elif all(channels_xy==bigrock):    #BIG ROCK
-#                 new_label[i,n,0]=2
-#             elif all(channels_xy==soil):    #SOIL
-#                 new_label[i,n,0]=3
+            # if all(channels_xy==bedrock):      #BEDROCK      
+            #     new_label[i,n,0]=0
+            # elif all(channels_xy==sand):    #SAND
+            #     new_label[i,n,0]=1
+            # elif all(channels_xy==bigrock):    #BIG ROCK
+            #     new_label[i,n,0]=2
+            # elif all(channels_xy==soil):    #SOIL
+            #     new_label[i,n,0]=3
 #           # elif all(channels_xy==nullo):    #NULL
 #            #     new_label[i,n,0]=4
 #     #print(new_label.shape)
