@@ -46,6 +46,8 @@ for lab in dir1:
 print('image and label lists dimensions')
 print(len(image_list))
 print(len(label_list))
+print(image_list.shape))
+print(label_list.shape))
 
 ### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
 #image_list_aug, label_list_aug = augment(image_list,label_list);
@@ -117,7 +119,7 @@ for j in range (N-A):
     label/=255                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print(label[0,0])
     reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
-    #print('reduct label shape: ', reduct_label.shape)
+    print('reduct label shape: ', reduct_label.shape)
     new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
     new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x5) i valori di reduct_label (64x64)
 
@@ -125,19 +127,19 @@ for j in range (N-A):
         for n in range(0,63): 
             channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
             #print(channels_xy)
-            if channels_xy[0]==bedrock[0]:      #BEDROCK      
+            if all(channels_xy==bedrock):      #BEDROCK      
                 new_label[i,n,0]=0
                 print('bed rock: ',channels_xy)
-            elif channels_xy[0]==sand[0]:    #SAND
+            elif all(channels_xy==sand):    #SAND
                 new_label[i,n,0]=1
                 print('sand: ',channels_xy)
-            elif channels_xy[0]==bigrock[0]:    #BIG ROCK
+            elif all(channels_xy==bigrock)]:    #BIG ROCK
                 new_label[i,n,0]=2
                 print('big rock: ',channels_xy)
-            elif channels_xy[0]==soil[0]:    #SOIL
+            elif all(channels_xy==soil)]:    #SOIL
                 new_label[i,n,0]=3
                 #print('soil: ',channels_xy)
-            elif channels_xy[0]==nullo[0]:    #NULL
+            elif all(channels_xy==nullo):    #NULL
                 new_label[i,n,0]=4
     #print(new_label.shape)
     tmp2[j] = new_label
@@ -171,10 +173,15 @@ for j in range (N-A):
 #     tmp2[N-A+f] = new_label
  
 #print('tmp2[0]')
-#print(tmp2[0])
-print('Info on the first pixel of the first label: ', tmp2[0,0,0,:])
+print('tmp1 shape: ', tmp1.shape)
+print('tmp2 shape: ', tmp2.shape)
+label = cv2.imread(label_list[10])[:,:,[2,1,0]]
+label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
+label = label.astype('float32')
+label/=255
+print('class of the first pixel of the first label: ', tmp2[0,0,0,:])
 #print('Info on the 10x10 pixel of the third label: ', tmp2[3,10,10,:])
-print('Info on the first pixel of the first photo: ', tmp1[0,0,0,:])
+print('Info on the first pixel of the first label: ', label[0,0])
 #print('Info on the 10x10 pixel of the third photo: ', tmp1[3,10,10,:])
 print("[INFO] label arrays saved")
 save_sparse_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
