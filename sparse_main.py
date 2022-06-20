@@ -41,8 +41,8 @@ label_validation = tmp2[train_set:]
 ###### DEFINISCO IL MODELLO #######
 shape=(64,64,3)
 BATCH= 8
-EPOCHS=5
-steps = 5#int(train_set/EPOCHS)
+EPOCHS=10
+steps = 50#int(train_set/EPOCHS)
 #model = rete(input_shape=shape,weight_decay=0., classes=5)
 model = DeeplabV3Plus(image_size=64,num_classes=5)
 
