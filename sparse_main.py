@@ -54,7 +54,7 @@ x_validation = datagenerator(list_validation,label_validation,BATCH)
 #### DEFINSICO I PARAMETRI PER IL COMPILE (OPTIMIZER E LOSS)
 #optimizer = SGD(learning_rate=0.0001, momentum=0.)
 optimizer=keras.optimizers.Adam(learning_rate=0.001)
-loss_fn = keras.losses.SparseCategoricalCrossentropy()
+loss_fn = tf.nn.sparse_softmax_cross_entropy_with_logits()#keras.losses.SparseCategoricalCrossentropy()
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ["accuracy"])#,sample_weight_mode='temporal')
 
 ### AVVIO IL TRAINING #####
