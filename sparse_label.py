@@ -89,7 +89,7 @@ for p in range (A):
     print(p)
     image=tmp1a[p]
     image = image.astype('float32')
-    image/=255                                      #normalizzo per avere valori per i pixel nell'intervallo [0,1]
+    image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print(image.shape)
     tmp1[N-A+p] = image  
 
