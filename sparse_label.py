@@ -192,9 +192,9 @@ label = cv2.imread(label_list[9])[:,:,[2,1,0]]
 label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
 # label = label.astype('float32')
 # label/=255
-print('class of the first pixel of the first label: ', tmp2[9,0:10,0:10,:])
+print('class of the first pixel of the first label: ', tmp2[9,20:30,20:30,:])
 #print('Info on the 10x10 pixel of the third label: ', tmp2[3,10,10,:])
-print('Info on the first pixel of the first label: ', label[0:10,0:10])
+print('Info on the first pixel of the first label: ', label[20:30,20:30])
 #print('Info on the 10x10 pixel of the third photo: ', tmp1[3,10,10,:])
 
 ##### SALVATAGGIO #############
