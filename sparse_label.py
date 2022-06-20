@@ -78,8 +78,8 @@ for i in range (N-A):
     print(i)
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
     image = cv2.resize(image, (64,64))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
-    # image = image.astype('float32')
-    # image/=255                                      #normalizzo per avere valori per i pixel nell'intervallo [0,1]
+    image = image.astype('float64')
+    image/=510                                    #normalizzo per avere valori per i pixel nell'intervallo [0,1]
     #print('image pixels: ', image)
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo path in image_list
 
