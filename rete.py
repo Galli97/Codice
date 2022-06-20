@@ -180,6 +180,84 @@ def rete_2(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     return model
 
 
+def rete_3(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
+    if batch_shape:
+        img_input = Input(batch_shape=batch_shape)
+        image_size = batch_shape[1:3]
+    else:
+        img_input = Input(shape=input_shape)
+        image_size = input_shape[0:2]
+    # I1 = Input(input_shape)
+    model = tf.keras.applications.resnet.ResNet101(include_top=False, weights='imagenet', input_tensor=img_input, pooling=None)
+    model.layers.pop()
+    model.outputs = [model.layers[-1].output]
+    model.layers[-1]._outbound_nodes = []
+
+    for layer in model.layers:
+        layer._name = layer.name
+        layer._trainable = False
+    x = model.output
+
+    # Block 1
+    conv1 = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1', kernel_regularizer=l2(weight_decay))(x)
+    conv1 = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2', kernel_regularizer=l2(weight_decay))(conv1)
+    pool1 = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block1_pool')(conv1)
+    
+    # Block 2
+    conv2 = Conv2D(128, (3, 3), activation='relu', padding='same', name='block2_conv1', kernel_regularizer=l2(weight_decay))(pool1)
+    conv2 = Conv2D(128, (3, 3), activation='relu', padding='same', name='block2_conv2', kernel_regularizer=l2(weight_decay))(conv2)
+    pool2 = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block2_pool')(conv2)
+
+    # Block 3
+    conv3 = Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv1', kernel_regularizer=l2(weight_decay))(pool2)
+    conv3 = Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv2', kernel_regularizer=l2(weight_decay))(conv3)
+    conv3 = Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv3', kernel_regularizer=l2(weight_decay))(conv3)
+    pool3 = MaxPooling2D((2, 2), strides=(2, 2),padding='same',name='block3_pool')(x)
+    
+    # Block 4
+    conv4 = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=2, name='block4_conv1', kernel_regularizer=l2(weight_decay))(pool3)
+    conv4 = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=2, name='block4_conv2', kernel_regularizer=l2(weight_decay))(conv4)
+    conv4 = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=2, name='block4_conv3', kernel_regularizer=l2(weight_decay))(conv4)
+    pool4 = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block4_pool')(x)
+
+    # Block 5
+    conv5 = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=12, name='block5_conv1', kernel_regularizer=l2(weight_decay))(pool4)
+    #x = Dropout(0.5)(x)
+    conv5 = Conv2D(1024, (3, 3), activation='relu', padding='same', name='block5_conv2', kernel_regularizer=l2(weight_decay))(conv5)
+    #x = Dropout(0.5)(x)
+    
+    up1 = concatenate([UpSampling2D((2, 2))(conv3), conv2], axis=-1)
+    conv6 = Conv2D(512, (3, 3), activation='relu', padding='same')(up1)
+    conv6 = Dropout(0.2)(conv6)
+    conv6 = Conv2D(512, (3, 3), activation='relu', padding='same')(conv6)
+
+    up2 = concatenate([UpSampling2D((2, 2))(conv5), conv4], axis=-1)
+    conv7 = Conv2D(256, (3, 3), activation='relu', padding='same')(up2)
+    conv7 = Dropout(0.2)(conv5)
+    conv7 = Conv2D(256, (3, 3), activation='relu', padding='same')(conv7)
+    
+    up3 = concatenate([UpSampling2D((2, 2))(conv7), conv6], axis=-1)
+    conv8 = Conv2D(128, (3, 3), activation='relu', padding='same')(up3)
+    conv8 = Dropout(0.2)(conv5)
+    conv8 = Conv2D(128, (3, 3), activation='relu', padding='same')(conv8)
+
+    up4 = concatenate([UpSampling2D((2, 2))(conv8), conv1], axis=-1)
+    conv9 = Conv2D(64, (3, 3), activation='relu', padding='same')(up4)
+    conv9 = Dropout(0.2)(conv5)
+    conv9 = Conv2D(64, (3, 3), activation='relu', padding='same')(conv9)
+
+    x = Conv2D(classes, (3, 3), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(conv9)
+    
+    #x = tf.keras.layers.Reshape((64*64,5))(x)
+    x = Activation('softmax')(x)
+  
+
+    model = Model(img_input, x)
+
+    # weights_path = get_weights_path_resnet()
+    # model.load_weights(weights_path, by_name=True)
+    return model
+
 
 
 
