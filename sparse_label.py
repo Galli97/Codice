@@ -53,8 +53,8 @@ tmp1a,tmp2a,A = augment(image_list,label_list);
 #A=0;         #### METTO A=0 SE NON VOGLIO FARE DATA AUGMENTATION, COMMENTANDO LA RIGA SOPRA
 
 ####NUMERO DI IMMAGINI NEL DATASET + IMMAGINI DOVUTE AL DATA AUGMENTATION ####
-N = len(image_list)+A           
-N=500
+#N = len(image_list)+A           
+N=500+A
 print('Augmented image list dimension')
 print(N)
 
