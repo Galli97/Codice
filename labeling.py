@@ -50,12 +50,13 @@ print(len(label_list))
 ### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
 #image_list_aug, label_list_aug = augment(image_list,label_list);
 print('[INFO] Data Augmentation...')
-tmp1a,tmp2a,A = augment(image_list,label_list);
-
+#tmp1a,tmp2a,A = augment(image_list,label_list);
+A=0
 
 
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI ######
-N = len(image_list)+A
+#N = len(image_list)+A
+N=400
 print('Augmented image list dimension')
 print(N)
 num_classes=5
