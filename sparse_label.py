@@ -133,21 +133,21 @@ for j in range (N-A):
             #print(channels_xy[1])
             #print(bigrock[1])
             if all(channels_xy==bedrock):       #BEDROCK      
-                new_label[i,n,0]=0
+                new_label[i,n,0]=1
                 #print('bed rock: ',channels_xy)
             elif all(channels_xy==sand):     #SAND
-                new_label[i,n,0]=1
+                new_label[i,n,0]=2
                 #print('sand: ',channels_xy)
             elif all(channels_xy==bigrock):     #BIG ROCK
-                new_label[i,n,0]=2
+                new_label[i,n,0]=3
                 #print('big rock: ',channels_xy)
             elif all(channels_xy==soil):     #SOIL
-                new_label[i,n,0]=3
+                new_label[i,n,0]=4
                 #print('soil: ',channels_xy)
             # elif all(channels_xy==nullo):    #NULL
             #     new_label[i,n,0]=4
             else:
-                new_label[i,n,0]=4
+                new_label[i,n,0]=-1
             #     print(channels_xy)
             #     print(j)
     #print(new_label.shape)
@@ -174,15 +174,15 @@ for f in range (0,A):
             channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la posizione dell'1 nel vettore di dimensione 5
             #print(channels_xy)
             if all(channels_xy==bedrock):      #BEDROCK      
-                new_label[i,n,0]=0
-            elif all(channels_xy==sand):    #SAND
                 new_label[i,n,0]=1
-            elif all(channels_xy==bigrock):    #BIG ROCK
+            elif all(channels_xy==sand):    #SAND
                 new_label[i,n,0]=2
-            elif all(channels_xy==soil):    #SOIL
+            elif all(channels_xy==bigrock):    #BIG ROCK
                 new_label[i,n,0]=3
-            else: # all(channels_xy==nullo):    #NULL
+            elif all(channels_xy==soil):    #SOIL
                 new_label[i,n,0]=4
+            else: # all(channels_xy==nullo):    #NULL
+                new_label[i,n,0]=-1
     #print(new_label.shape)
     tmp2[N-A+f] = new_label
 
