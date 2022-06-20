@@ -44,7 +44,7 @@ BATCH= 32
 EPOCHS=10
 steps = 4#int(train_set/EPOCHS)
 weight_decay = 0.0001/2
-model = rete_2(input_shape=shape,weight_decay=weight_decay, classes=5)
+model = rete(input_shape=shape,weight_decay=weight_decay, classes=5)
 #model = DeeplabV3Plus(image_size=64,num_classes=5)
 
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######
