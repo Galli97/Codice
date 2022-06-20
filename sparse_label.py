@@ -151,8 +151,8 @@ for j in range (N-A):
             #     print(channels_xy)
             #     print(j)
     #print(new_label.shape)
-    new_label = new_label.astype('float32')
-    new_label/=510  
+    # new_label = new_label.astype('float32')
+    # new_label/=510  
     tmp2[j] = new_label
     #print(tmp2.shape)
 
