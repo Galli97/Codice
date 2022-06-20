@@ -64,11 +64,11 @@ tmp1 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
 tmp2 = np.empty((N, 64, 64, num_classes), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel
 
 print(tmp1.shape)
-print(tmp1a.shape)
+#print(tmp1a.shape)
 
 print(tmp2.shape)
-print(tmp2a.shape)
-print(A)
+#print(tmp2a.shape)
+#print(A)
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
 print('[INFO]Generating images array')
 for i in range (N-A):
