@@ -54,7 +54,7 @@ A=0;         #### METTO A=0 SE NON VOGLIO FARE DATA AUGMENTATION, COMMENTANDO LA
 
 ####NUMERO DI IMMAGINI NEL DATASET + IMMAGINI DOVUTE AL DATA AUGMENTATION ####
 N = len(image_list)+A           
-N=400
+N=10
 print('Augmented image list dimension')
 print(N)
 
@@ -78,8 +78,8 @@ for i in range (N-A):
     print(i)
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
     image = cv2.resize(image, (64,64))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
-    image = image.astype('float64')
-    image/=510                                    #normalizzo per avere valori per i pixel nell'intervallo [0,1]
+    # image = image.astype('float64')
+    # image/=510                                    #normalizzo per avere valori per i pixel nell'intervallo [0,1]
     #print('image pixels: ', image)
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo path in image_list
 
@@ -192,9 +192,9 @@ label = cv2.imread(label_list[10])[:,:,[2,1,0]]
 label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
 label = label.astype('float32')
 label/=255
-print('class of the first pixel of the first label: ', tmp2[0,0,0,:])
+print('class of the first pixel of the first label: ', tmp2[0,0:10,0:10,:])
 #print('Info on the 10x10 pixel of the third label: ', tmp2[3,10,10,:])
-print('Info on the first pixel of the first label: ', label[0,0])
+print('Info on the first pixel of the first label: ', label[0:10,0:10])
 #print('Info on the 10x10 pixel of the third photo: ', tmp1[3,10,10,:])
 
 ##### SALVATAGGIO #############
