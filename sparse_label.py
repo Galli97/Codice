@@ -49,12 +49,12 @@ print(len(label_list))
 
 
 ### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
-#tmp1a,tmp2a,A = augment(image_list,label_list);
+tmp1a,tmp2a,A = augment(image_list,label_list);
 A=0;         #### METTO A=0 SE NON VOGLIO FARE DATA AUGMENTATION, COMMENTANDO LA RIGA SOPRA
 
 ####NUMERO DI IMMAGINI NEL DATASET + IMMAGINI DOVUTE AL DATA AUGMENTATION ####
 N = len(image_list)+A           
-N=10
+N=500
 print('Augmented image list dimension')
 print(N)
 
@@ -84,14 +84,14 @@ for i in range (N-A):
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo path in image_list
 
 ### FACCIO LO STESSO CON LE NUOVE IMMAGINI OTTENUTE CON IL DATA AUGMENTATION #######
-# print('[INFO]Generating images array for augmented data')
-# for p in range (A):
-#     print(p)
-#     image=tmp1a[p]
-#     image = image.astype('float32')
-#     image/=255                                      #normalizzo per avere valori per i pixel nell'intervallo [0,1]
-#     #print(image.shape)
-#     tmp1[N-A+p] = image  
+print('[INFO]Generating images array for augmented data')
+for p in range (A):
+    print(p)
+    image=tmp1a[p]
+    image = image.astype('float32')
+    image/=255                                      #normalizzo per avere valori per i pixel nell'intervallo [0,1]
+    #print(image.shape)
+    tmp1[N-A+p] = image  
 
 ######## SALVATAGGIO ####
 print("[INFO] Images arrays saved")
@@ -157,33 +157,33 @@ for j in range (N-A):
     #print(tmp2.shape)
 
 ### FACCIO LO STESSO CON LE NUOVE LABEL OTTENUTE CON IL DATA AUGMENTATION #######
-# print('[INFO]Generating labels array for augmented data')
-# for f in range (0,A):
-#     print(f)
-#     label=tmp2a[f]
-#     label = label.astype('float32')
-#     label/=255                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
-#     #print(label[0,0])
-#     reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
-#     #print(reduct_label.shape)
-#     new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
-#     new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x5) i valori di reduct_label (64x64)
-#     for i in range(0,63):
-#         for n in range(0,63): 
-#             channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la posizione dell'1 nel vettore di dimensione 5
-#             #print(channels_xy)
-            # if all(channels_xy==bedrock):      #BEDROCK      
-            #     new_label[i,n,0]=0
-            # elif all(channels_xy==sand):    #SAND
-            #     new_label[i,n,0]=1
-            # elif all(channels_xy==bigrock):    #BIG ROCK
-            #     new_label[i,n,0]=2
-            # elif all(channels_xy==soil):    #SOIL
-            #     new_label[i,n,0]=3
-#           # elif all(channels_xy==nullo):    #NULL
-#            #     new_label[i,n,0]=4
-#     #print(new_label.shape)
-#     tmp2[N-A+f] = new_label
+print('[INFO]Generating labels array for augmented data')
+for f in range (0,A):
+    print(f)
+    label=tmp2a[f]
+    label = label.astype('float32')
+    label/=255                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+    #print(label[0,0])
+    reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
+    #print(reduct_label.shape)
+    new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
+    new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x5) i valori di reduct_label (64x64)
+    for i in range(0,63):
+        for n in range(0,63): 
+            channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la posizione dell'1 nel vettore di dimensione 5
+            #print(channels_xy)
+            if all(channels_xy==bedrock):      #BEDROCK      
+                new_label[i,n,0]=0
+            elif all(channels_xy==sand):    #SAND
+                new_label[i,n,0]=1
+            elif all(channels_xy==bigrock):    #BIG ROCK
+                new_label[i,n,0]=2
+            elif all(channels_xy==soil):    #SOIL
+                new_label[i,n,0]=3
+            else: # all(channels_xy==nullo):    #NULL
+                new_label[i,n,0]=4
+    #print(new_label.shape)
+    tmp2[N-A+f] = new_label
 
 
 #### PRINT DI CONTROLLO ######

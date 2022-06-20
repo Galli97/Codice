@@ -72,6 +72,8 @@ def augment(image_list,label_list):
         a = random.randint(0,fix)
         image = cv2.imread(image_list[a])[:,:,[2,1,0]]
         image = cv2.resize(image, (64,64))
+        image = image.astype('float32')
+        image/=510   
         label = cv2.imread(label_list[a])[:,:,[2,1,0]]
         label = cv2.resize(label, (64,64))
         
