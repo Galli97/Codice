@@ -161,8 +161,9 @@ print('[INFO]Generating labels array for augmented data')
 for f in range (0,A):
     print(f)
     label=tmp2a[f]
-    label = label.astype('float32')
-    label/=255                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+    label = cv2.resize(label, (64,64))
+    # label = label.astype('float32')
+    # label/=255                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print(label[0,0])
     reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
     #print(reduct_label.shape)
@@ -190,13 +191,13 @@ for f in range (0,A):
 #print('tmp2[0]')
 print('tmp1 shape: ', tmp1.shape)
 print('tmp2 shape: ', tmp2.shape)
-label = cv2.imread(label_list[9])[:,:,[2,1,0]]
-label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
+lab = cv2.imread(label_list[9])[:,:,[2,1,0]]
+lab = cv2.resize(lab, (64,64))               #ridimension per combaciare con l'input
 # label = label.astype('float32')
 # label/=255
 print('class of the first pixel of the first label: ', tmp2[9,20:30,20:30,:])
 #print('Info on the 10x10 pixel of the third label: ', tmp2[3,10,10,:])
-print('Info on the first pixel of the first label: ', label[20:30,20:30])
+print('Info on the first pixel of the first label: ', lab[20:30,20:30])
 #print('Info on the 10x10 pixel of the third photo: ', tmp1[3,10,10,:])
 
 ##### SALVATAGGIO #############
