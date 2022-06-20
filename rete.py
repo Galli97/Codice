@@ -226,7 +226,7 @@ def rete_3(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     conv5 = Conv2D(1024, (3, 3), activation='relu', padding='same', name='block5_conv2', kernel_regularizer=l2(weight_decay))(conv5)
     #x = Dropout(0.5)(x)
     
-    up1 = concatenate([UpSampling2D((2, 2))(conv3), conv2], axis=-1)
+    up1 = concatenate([UpSampling2D((2, 2))(conv2), conv3], axis=-1)
     conv6 = Conv2D(512, (3, 3), activation='relu', padding='same')(up1)
     conv6 = Dropout(0.2)(conv6)
     conv6 = Conv2D(512, (3, 3), activation='relu', padding='same')(conv6)
