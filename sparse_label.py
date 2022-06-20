@@ -78,8 +78,8 @@ for i in range (N-A):
     print(i)
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
     image = cv2.resize(image, (64,64))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
-    # image = image.astype('float64')
-    # image/=510                                    #normalizzo per avere valori per i pixel nell'intervallo [0,1]
+    image = image.astype('float32')
+    image/=510                                    #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print('image pixels: ', image)
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo path in image_list
 
@@ -151,6 +151,8 @@ for j in range (N-A):
             #     print(channels_xy)
             #     print(j)
     #print(new_label.shape)
+    new_label = new_label.astype('float32')
+    new_label/=510  
     tmp2[j] = new_label
     #print(tmp2.shape)
 
@@ -188,11 +190,11 @@ for j in range (N-A):
 #print('tmp2[0]')
 print('tmp1 shape: ', tmp1.shape)
 print('tmp2 shape: ', tmp2.shape)
-label = cv2.imread(label_list[9])[:,:,[2,1,0]]
+label = cv2.imread(label_list[8])[:,:,[2,1,0]]
 label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
 # label = label.astype('float32')
 # label/=255
-print('class of the first pixel of the first label: ', tmp2[9,20:30,20:30,:])
+print('class of the first pixel of the first label: ', tmp2[8,20:30,20:30,:])
 #print('Info on the 10x10 pixel of the third label: ', tmp2[3,10,10,:])
 print('Info on the first pixel of the first label: ', label[20:30,20:30])
 #print('Info on the 10x10 pixel of the third photo: ', tmp1[3,10,10,:])
