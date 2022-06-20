@@ -98,6 +98,11 @@ def augment(image_list,label_list):
 
 ##########################
 
+from keras.objectives import *
+from keras.metrics import binary_crossentropy
+import keras.backend as K
+import tensorflow as tf
+
 def softmax_sparse_crossentropy_ignoring_last_label(y_true, y_pred):
     y_pred = K.reshape(y_pred, (-1, K.int_shape(y_pred)[-1]))
     log_softmax = tf.nn.log_softmax(y_pred)
