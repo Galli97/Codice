@@ -162,13 +162,15 @@ for j in range (N-A):
                 new_label[i,n,3]=1
                 new_label[i,n,4]=0
                 
-            # else: # all(channels_xy==nullo):    #NULL
-            #     new_label[i,n,0]=0
-            #     new_label[i,n,1]=0
-            #     new_label[i,n,2]=0
-            #     new_label[i,n,3]=0
-            #     new_label[i,n,4]=1
+            elif all(channels_xy==nullo):    #NULL
+                new_label[i,n,0]=0
+                new_label[i,n,1]=0
+                new_label[i,n,2]=0
+                new_label[i,n,3]=0
+                new_label[i,n,4]=1
     #print(new_label.shape)
+    # new_label = new_label.astype('float32')
+    # new_label/=510
     tmp2[j] = new_label
     # print('label corrisponendte')
     # print(tmp2[j,0,0])
