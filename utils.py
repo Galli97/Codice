@@ -116,8 +116,6 @@ def softmax_sparse_crossentropy_ignoring_last_label(y_true, y_pred):
 
     return cross_entropy_mean
 
-from tensorflow.contrib.metrics import streaming_mean_iou
-
 
 def sparse_accuracy_ignoring_last_label(y_true, y_pred):
     nb_classes = K.int_shape(y_pred)[-1]
