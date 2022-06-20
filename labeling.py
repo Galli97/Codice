@@ -115,7 +115,7 @@ print('[INFO]Generating labels array')
 for j in range (N-A):
     print(j)
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]   #leggo l'immagine di label
-    # label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
+    label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
     # label = label.astype('float32')
     # label/=510                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print('valori del primo pixel della label')
