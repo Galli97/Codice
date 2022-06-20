@@ -147,7 +147,7 @@ for j in range (N-A):
             # elif all(channels_xy==nullo):    #NULL
             #     new_label[i,n,0]=4
             else:
-                new_label[i,n,0]=-1
+                new_label[i,n,0]=0
             #     print(channels_xy)
             #     print(j)
     #print(new_label.shape)
@@ -182,7 +182,7 @@ for f in range (0,A):
             elif all(channels_xy==soil):    #SOIL
                 new_label[i,n,0]=4
             else: # all(channels_xy==nullo):    #NULL
-                new_label[i,n,0]=-1
+                new_label[i,n,0]=0
     #print(new_label.shape)
     tmp2[N-A+f] = new_label
 
