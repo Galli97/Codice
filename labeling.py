@@ -58,7 +58,7 @@ tmp1a,tmp2a,A = augment(image_list,label_list);
 N = len(image_list)+A
 print('Augmented image list dimension')
 print(N)
-num_classes=4
+num_classes=5
 tmp1 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
 tmp2 = np.empty((N, 64, 64, num_classes), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel
 
@@ -94,11 +94,17 @@ save_np_arrays(tmp1)                                #salvo tmp1 in un file numpy
 
 
 ### DEFINISCO DEGLI ARRAY RELATIVE ALLE VARIE CLASSI ####
-bedrock=[1/510,1/510,1/510];
-sand=[2/510,2/510,2/510];
-bigrock=[3/510,3/510,3/510];
+# bedrock=[1/510,1/510,1/510];
+# sand=[2/510,2/510,2/510];
+# bigrock=[3/510,3/510,3/510];
+# soil=[0,0,0];
+# nullo=[255/510,255/510,255/510];
+
 soil=[0,0,0];
-nullo=[255/510,255/510,255/510];
+bedrock=[1,1,1];
+sand=[2,2,2];
+bigrock=[3,3,3];
+nullo=[255,255,255];
 
 ### PER LE LABEL CREO UN ARRAY DI DIMENSIONE 64X64X5 (NEW_LABEL) DOVE 64X64 è LA DIMENSIONE DELL'IMMAGINE
 ### MENTRE 5 è IL NUMERO DI CLASSI. IN QUESTO MODO HO UN VETTORE DEL TIPO [0 0 1 0 0] PER OGNI PIXEL, CHE INDICA
@@ -107,9 +113,9 @@ print('[INFO]Generating labels array')
 for j in range (N-A):
     print(j)
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]   #leggo l'immagine di label
-    label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
-    label = label.astype('float32')
-    label/=510                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+    # label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
+    # label = label.astype('float32')
+    # label/=510                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print('valori del primo pixel della label')
     #print(label[0,0])
     # if (j==119):
@@ -168,8 +174,8 @@ print('[INFO]Generating labels array for augmented data')
 for f in range (0,A):
     print(f)
     label=tmp2a[f]
-    label = label.astype('float32')
-    label/=510                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+    # label = label.astype('float32')
+    # label/=510                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print(label[0,0])
     reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
     #print(reduct_label.shape)
