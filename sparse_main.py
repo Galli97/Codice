@@ -34,7 +34,7 @@ tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 #print(type(tmp2))
 
 #### PRENDO UNA PARTE DEL DATASET (20%) E LO UTILIZZO PER IL VALIDATION SET #####
-train_set = int(len(tmp1)*80/100)
+train_set = int(len(tmp1)*70/100)
 
 list_train = tmp1[:train_set]
 list_validation = tmp1[train_set:]
