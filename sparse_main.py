@@ -46,7 +46,7 @@ label_validation = tmp2[train_set:]
 shape=(64,64,3)
 BATCH= 32
 EPOCHS=5
-steps = 8#int(train_set/EPOCHS)
+steps = 7#int(train_set/EPOCHS)
 weight_decay = 0.0001/2
 
 model = rete(input_shape=shape,weight_decay=weight_decay, classes=5)

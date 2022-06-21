@@ -16,6 +16,8 @@ from tensorflow.keras.optimizers import SGD
 from utils import *
 from keras.preprocessing.image import ImageDataGenerator
 import random
+from sklearn.utils import shuffle
+
 ####### PERCORSO IN LOCALE #########
 path = r"C:\Users\Mattia\Desktop\Train_images"
 path1 =  r"C:\Users\Mattia\Desktop\Train_labels"
@@ -49,11 +51,12 @@ print(len(image_list))
 print(len(label_list))
 
 print('Elem1: ', image_list[0])
+print('label1: ', label_list[0])
 
 ####Reshuffle della lista immagini e lable####
-random.shuffle(image_list)
-random.shuffle(label_list)
+image_list, label_list = shuffle(np.array(image_list), np.array(label_list))
 print('Elem1 shuffled: ', image_list[0])
+print('label1: ', label_list[0])
 
 ### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
 tmp1a,tmp2a,A = augment(image_list,label_list);
@@ -198,7 +201,7 @@ save_sparse_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
 #print('tmp2[0]')
 print('tmp1 shape: ', tmp1.shape)
 print('tmp2 shape: ', tmp2.shape)
-lab = cv2.imread(label_list[9])[:,:,[2,1,0]]
+lab = cv2.imread(label_list[0])[:,:,[2,1,0]]
 lab = cv2.resize(lab, (64,64))               #ridimension per combaciare con l'input
 # label = label.astype('float32')
 # label/=255
