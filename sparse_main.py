@@ -48,6 +48,7 @@ BATCH= 64
 EPOCHS=10
 steps = 4#int(train_set/EPOCHS)
 weight_decay = 0.0001/2
+
 model = rete(input_shape=shape,weight_decay=weight_decay, classes=5)
 #model = DeeplabV3Plus(image_size=64,num_classes=5)
 
@@ -57,11 +58,12 @@ x_validation = datagenerator(list_validation,label_validation,BATCH)
 #print(type(x_train))
 
 #### DEFINSICO I PARAMETRI PER IL COMPILE (OPTIMIZER E LOSS)
-#labels=[]
+
 lr_base = 0.01 * (float(BATCH) / 16)
 optimizer = SGD(learning_rate=0.001, momentum=0.)
 #optimizer=keras.optimizers.Adam(learning_rate=0.001)
 loss_fn =softmax_sparse_crossentropy_ignoring_last_label#keras.losses.SparseCategoricalCrossentropy()
+
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = [sparse_accuracy_ignoring_last_label])#,sample_weight_mode='temporal')
 
 ### AVVIO IL TRAINING #####
