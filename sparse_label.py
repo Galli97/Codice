@@ -15,6 +15,7 @@ from rete import *
 from tensorflow.keras.optimizers import SGD
 from utils import *
 from keras.preprocessing.image import ImageDataGenerator
+import random
 ####### PERCORSO IN LOCALE #########
 path = r"C:\Users\Mattia\Desktop\Train_images"
 path1 =  r"C:\Users\Mattia\Desktop\Train_labels"
@@ -47,6 +48,12 @@ print('Image and label lists dimensions')
 print(len(image_list))
 print(len(label_list))
 
+print('Elem1: ', image_list[0])
+
+####Reshuffle della lista immagini e lable####
+random.shuffle(image_list)
+random.shuffle(label_list)
+print('Elem1 shuffled: ', image_list[0])
 
 ### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
 tmp1a,tmp2a,A = augment(image_list,label_list);
