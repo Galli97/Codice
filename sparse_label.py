@@ -133,8 +133,8 @@ for j in range (N-A):
     new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
 
     #### CONTROLLO OGNI PIXEL PER ASSEGNARE LA CLASSE #######
-    for i in range(0,63):
-        for n in range(0,63): 
+    for i in range(0,64):
+        for n in range(0,64): 
             channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
             #print(channels_xy[1])
             if all(channels_xy==bedrock):       #BEDROCK      
@@ -167,8 +167,8 @@ for f in range (0,A):
     reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
     new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
     new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x5) i valori di reduct_label (64x64)
-    for i in range(0,63):
-        for n in range(0,63): 
+    for i in range(0,64):
+        for n in range(0,64): 
             channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la posizione dell'1 nel vettore di dimensione 5
             #print(channels_xy)
             if all(channels_xy==bedrock):      #BEDROCK      
@@ -195,9 +195,9 @@ lab = cv2.imread(label_list[9])[:,:,[2,1,0]]
 lab = cv2.resize(lab, (64,64))               #ridimension per combaciare con l'input
 # label = label.astype('float32')
 # label/=255
-print('class of the first pixel of the first label: ', tmp2[9,20:30,20:30,:])
+print('class of the first pixel of the first label: ', tmp2[0,:,:,:])
 #print('Info on the 10x10 pixel of the third label: ', tmp2[3,10,10,:])
-print('Info on the first pixel of the first label: ', lab[20:30,20:30])
+print('Info on the first pixel of the first label: ', lab[:,:])
 #print('Info on the 10x10 pixel of the third photo: ', tmp1[3,10,10,:])
 
 

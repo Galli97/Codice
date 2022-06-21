@@ -22,8 +22,8 @@ for x in range(len(dir1),len(dir)):
     img=str(dir[x])
     image_path = os.path.join(r'C:\Users\Mattia\Desktop\Tesi\Dataset\Train-labels',img)
     image = cv2.imread(image_path)
-    for i in range(0,1023):
-        for j in range(0,1023): 
+    for i in range(0,1024):
+        for j in range(0,1024): 
             channels_xy = image[i,j];          #SOIL is kept black, NULL (no label) is white 
             if all(channels_xy==bedrock):      #BEDROCK
                 image[i,j,0]=255

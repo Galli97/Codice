@@ -131,8 +131,8 @@ for j in range (N-A):
         new_label[:,:,t]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x5) i valori di reduct_label (64x64)
     
 
-    for i in range(0,63):
-        for n in range(0,63): 
+    for i in range(0,64):
+        for n in range(0,64): 
             channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la posizione dell'1 nel vettore di dimensione 5
             #print(channels_xy)
             if all(channels_xy==bedrock):      #BEDROCK      
@@ -185,8 +185,8 @@ for f in range (0,A):
         new_label[:,:,t]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x5) i valori di reduct_label (64x64)
     
 
-    for i in range(0,63):
-        for n in range(0,63): 
+    for i in range(0,64):
+        for n in range(0,64): 
             channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la posizione dell'1 nel vettore di dimensione 5
             #print(channels_xy)
             if all(channels_xy==bedrock):      #BEDROCK      
