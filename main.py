@@ -56,7 +56,7 @@ x_validation = datagenerator(list_validation,label_validation,BATCH)
 
 ### DEFINISCO OPTIMIZER E LOSS  ######
 optimizer = SGD(learning_rate=0.001, momentum=0.)#,clipnorm=1.0)
-loss_fn = keras.losses.CategoricalCrossentropy()
+loss_fn = iou_coef#keras.losses.CategoricalCrossentropy()
 
 ### ESEGUO IL COMPILE ###
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = [tf.keras.metrics.MeanIoU(num_classes=5)])#["accuracy"])
