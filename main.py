@@ -55,7 +55,7 @@ optimizer = SGD(learning_rate=0.001, momentum=0.)#,clipnorm=1.0)
 loss_fn = keras.losses.CategoricalCrossentropy()
 
 ### ESEGUO IL COMPILE ###
-model.compile(optimizer = optimizer, loss = loss_fn , metrics = [metrics=[tf.keras.metrics.MeanIoU(num_classes=5)])#["accuracy"])
+model.compile(optimizer = optimizer, loss = loss_fn , metrics = [tf.keras.metrics.MeanIoU(num_classes=5)])#["accuracy"])
 
 ## IL SUMMARY DA N OUTPUT LA STRUTTURA DEL MODELLO CON I VARI LAYERS ####
 model.summary()
