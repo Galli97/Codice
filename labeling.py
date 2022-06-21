@@ -48,27 +48,27 @@ print(len(image_list))
 print(len(label_list))
 
 ### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
-#image_list_aug, label_list_aug = augment(image_list,label_list);
 print('[INFO] Data Augmentation...')
 tmp1a,tmp2a,A = augment(image_list,label_list);
-#A=0
+#A=0                                            ##METTO A=0 COMMENTANDO LA RIGA SOPRA SE NON VOGLIO FARE DATA AUGMENTATION
 
-
-##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI ######
 #N = len(image_list)+A
-N=500+A
+N=500+A                                      #### UTILIZZARE LA RIGA SOPRA PER USARE TUTTE LE IMMAGINI A DISPOSIZIONE
 print('Augmented image list dimension')
 print(N)
+
+##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI E DELLE LABEL######
 num_classes=5
 tmp1 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
 tmp2 = np.empty((N, 64, 64, num_classes), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel
 
+print('tmp1, tmp1a, tmp2, tmp2a shapes: ')
 print(tmp1.shape)
-#print(tmp1a.shape)
+print(tmp1a.shape)
 
 print(tmp2.shape)
-#print(tmp2a.shape)
-#print(A)
+print(tmp2a.shape)
+
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
 print('[INFO]Generating images array')
 for i in range (N-A):
@@ -77,16 +77,14 @@ for i in range (N-A):
     image = cv2.resize(image, (64,64))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
     image = image.astype('float32')
     image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
-    #print(image.shape)
-    tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo pathin image_list
+    tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo path in image_list
 
-print('[INFO]Generating images array for augmented data')
+print('[INFO]Generating image array for augmented data')
 for p in range (A):
     print(p)
     image=tmp1a[p]
-    image = image.astype('float32')
-    image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
-    #print(image.shape)
+    # image = image.astype('float32')                 ### LA NORMALIZZAZIONE VIENE GIà FATTA NELLA FUNZIONE utils.augment()
+    # image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     tmp1[N-A+p] = image  
 
 print("[INFO] Images arrays saved")
@@ -98,7 +96,7 @@ save_np_arrays(tmp1)                                #salvo tmp1 in un file numpy
 ### DEFINISCO DEGLI ARRAY RELATIVE ALLE VARIE CLASSI ####
 # bedrock=[1/510,1/510,1/510];
 # sand=[2/510,2/510,2/510];
-# bigrock=[3/510,3/510,3/510];
+# bigrock=[3/510,3/510,3/510];                          ##### HO TOLTO LA NORMALIZZAZIONE PER PROBLEMI CON IL LABELING
 # soil=[0,0,0];
 # nullo=[255/510,255/510,255/510];
 
@@ -118,17 +116,14 @@ for j in range (N-A):
     label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
     # label = label.astype('float32')
     # label/=510                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
-    #print('valori del primo pixel della label')
-    #print(label[0,0])
     # if (j==119):
     #     print(label[:,:])
     reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
-    #print(reduct_label.shape)
     new_label = np.empty((64, 64, num_classes), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
 
     for t in range(0,num_classes-1):
         new_label[:,:,t]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x5) i valori di reduct_label (64x64)
-    #new_label[:,:,0]=reduct_label
+    
 
     for i in range(0,63):
         for n in range(0,63): 
@@ -140,7 +135,7 @@ for j in range (N-A):
                 new_label[i,n,2]=0
                 new_label[i,n,3]=0
                 new_label[i,n,4]=0
-                #print(new_label.shape)
+             
             elif all(channels_xy==sand):    #SAND
                 new_label[i,n,0]=0
                 new_label[i,n,1]=1
@@ -168,12 +163,8 @@ for j in range (N-A):
                 new_label[i,n,2]=0
                 new_label[i,n,3]=0
                 new_label[i,n,4]=1
-    #print(new_label.shape)
-    # new_label = new_label.astype('float32')
-    # new_label/=510
     tmp2[j] = new_label
-    # print('label corrisponendte')
-    # print(tmp2[j,0,0])
+    
 
 print('[INFO]Generating labels array for augmented data')
 for f in range (0,A):
@@ -181,14 +172,12 @@ for f in range (0,A):
     label=tmp2a[f]
     # label = label.astype('float32')
     # label/=510                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
-    #print(label[0,0])
     reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
-    #print(reduct_label.shape)
     new_label = np.empty((64, 64, num_classes), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
 
     for t in range(0,num_classes-1):
         new_label[:,:,t]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x5) i valori di reduct_label (64x64)
-    #new_label[:,:,0]=reduct_label
+    
 
     for i in range(0,63):
         for n in range(0,63): 
@@ -200,7 +189,7 @@ for f in range (0,A):
                 new_label[i,n,2]=0
                 new_label[i,n,3]=0
                 new_label[i,n,4]=0
-                #print(new_label.shape)
+                
             elif all(channels_xy==sand):    #SAND
                 new_label[i,n,0]=0
                 new_label[i,n,1]=1
@@ -228,9 +217,9 @@ for f in range (0,A):
                 new_label[i,n,2]=0
                 new_label[i,n,3]=0
                 new_label[i,n,4]=1
-    #print(new_label.shape)
+ 
     tmp2[N-A+f] = new_label
-    #print(tmp2.shape)
+    
 
 print("[INFO] label arrays saved")
 save_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
