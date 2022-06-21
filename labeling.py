@@ -15,6 +15,7 @@ from rete import *
 from tensorflow.keras.optimizers import SGD
 from utils import *
 from keras.preprocessing.image import ImageDataGenerator
+from sklearn.utils import shuffle
 ####### PERCORSO IN LOCALE #########
 path = r"C:\Users\Mattia\Desktop\Train_images"
 path1 =  r"C:\Users\Mattia\Desktop\Train_labels"
@@ -97,8 +98,8 @@ print('[INFO]Generating image array for augmented data')
 for p in range (A):
     print(p)
     image=tmp1a[p]
-    # image = image.astype('float32')                 ### LA NORMALIZZAZIONE VIENE GIà FATTA NELLA FUNZIONE utils.augment()
-    # image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+    image = image.astype('float32')                 ### LA NORMALIZZAZIONE VIENE GIà FATTA NELLA FUNZIONE utils.augment()
+    image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     tmp1[N-A+p] = image  
 
 ######## SALVATAGGIO ####
