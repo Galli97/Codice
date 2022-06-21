@@ -17,7 +17,7 @@ import keras.backend as K
 import os
 from keras.utils.data_utils import get_file
 
-
+### QUESTA FUNZIONE RECUPERA I PESI DELLA RESNET50
 def get_weights_path_resnet():
     TF_WEIGHTS_PATH = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.2/resnet50_weights_tf_dim_ordering_tf_kernels.h5'
     weights_path = get_file('resnet50_weights_tf_dim_ordering_tf_kernels.h5',TF_WEIGHTS_PATH,cache_subdir='models')
@@ -38,6 +38,7 @@ def get_weights_path_resnet():
 #         super(UpSampling2D, self).__init__(**kwargs)
 
 
+##### IN QUESTA RETE SEGUO LA STRUTTURA DEL PAPER ###
 def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     if batch_shape:
         img_input = Input(batch_shape=batch_shape)
@@ -47,18 +48,18 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
         image_size = input_shape[0:2]
     # I1 = Input(input_shape)
 
-    model = tf.keras.applications.resnet.ResNet101(include_top=False, weights='imagenet', input_tensor=img_input, pooling=None)
-    model.layers.pop()
-    # model.outputs = [model.layers[-1].output]
-    # model.layers[-1]._outbound_nodes = []
+    # model = tf.keras.applications.resnet.ResNet101(include_top=False, weights='imagenet', input_tensor=img_input, pooling=None)
+    # model.layers.pop()
+    # # model.outputs = [model.layers[-1].output]
+    # # model.layers[-1]._outbound_nodes = []
 
-    for layer in model.layers:
-        layer._name = layer.name
-        layer._trainable = False
-    x = model.output
+    # for layer in model.layers:
+    #     layer._name = layer.name
+    #     layer._trainable = False
+    # x = model.output
 
     # Block 1
-    x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1', kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1', kernel_regularizer=l2(weight_decay))(img_input)
     x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2', kernel_regularizer=l2(weight_decay))(x)
     #x = tf.keras.layers.BatchNormalization()(x)##########
     x = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block1_pool')(x)
@@ -104,8 +105,8 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
 
     model = Model(img_input, x)
 
-    # weights_path = get_weights_path_resnet()
-    # model.load_weights(weights_path, by_name=True)
+    weights_path = get_weights_path_resnet()
+    model.load_weights(weights_path, by_name=True)
     return model
 
 
