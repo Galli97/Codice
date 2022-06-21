@@ -16,12 +16,12 @@ from tensorflow.keras.optimizers import SGD
 from utils import *
 from keras.preprocessing.image import ImageDataGenerator
 ####### PERCORSO IN LOCALE #########
-#path = r"C:\Users\Mattia\Desktop\Tesi\Dataset\Train-images"
-#path1 =  r"C:\Users\Mattia\Desktop\Tesi\Dataset\Train-labels"
+path = r"C:\Users\Mattia\Desktop\Train_images"
+path1 =  r"C:\Users\Mattia\Desktop\Train_labels"
 
 ####### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
-path = r"/content/drive/MyDrive/Tesi/Dataset/Train_images"
-path1 = r"/content/drive/MyDrive/Tesi/Dataset/Train_labels"
+# path = r"/content/drive/MyDrive/Tesi/Dataset/Train_images"
+# path1 = r"/content/drive/MyDrive/Tesi/Dataset/Train_labels"
 
 ####### CREO UNA LISTA CON ELEMENTI DATI DA QUELLI NELLA CARTELLA DEL PERCORSO ######
 dir = os.listdir(path)       #immagini in input
