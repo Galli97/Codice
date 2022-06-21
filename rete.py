@@ -46,15 +46,17 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
         img_input = Input(shape=input_shape)
         image_size = input_shape[0:2]
     # I1 = Input(input_shape)
+
     model = tf.keras.applications.resnet.ResNet101(include_top=False, weights='imagenet', input_tensor=img_input, pooling=None)
     model.layers.pop()
-    model.outputs = [model.layers[-1].output]
-    model.layers[-1]._outbound_nodes = []
+    # model.outputs = [model.layers[-1].output]
+    # model.layers[-1]._outbound_nodes = []
 
     for layer in model.layers:
         layer._name = layer.name
         layer._trainable = False
     x = model.output
+
     # Block 1
     x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1', kernel_regularizer=l2(weight_decay))(x)
     x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2', kernel_regularizer=l2(weight_decay))(x)
@@ -86,7 +88,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     #x = Dropout(0.5)(x)
     x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='block5_conv2', kernel_regularizer=l2(weight_decay))(x)
     #x = Dropout(0.5)(x)
-    x = Conv2D(classes, (3, 3), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(classes, (1, 1), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     
     #x = tf.keras.layers.UpSampling2D(32)(x)
 
@@ -96,8 +98,8 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
         interpolation="bilinear",
     )(x)
 
-    #x = tf.keras.layers.Reshape((64*64,5))(x)
-    #x = Activation('softmax')(x)
+    x = tf.keras.layers.Reshape((64*64,5))(x)
+    x = Activation('softmax')(x)
   
 
     model = Model(img_input, x)
