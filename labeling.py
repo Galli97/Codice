@@ -54,13 +54,15 @@ tmp1a,tmp2a,A = augment(image_list,label_list);
 
 #N = len(image_list)+A
 N=500+A                                      #### UTILIZZARE LA RIGA SOPRA PER USARE TUTTE LE IMMAGINI A DISPOSIZIONE
-print('Augmented image list dimension')
-print(N)
 
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI E DELLE LABEL######
 num_classes=5
 tmp1 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
 tmp2 = np.empty((N, 64, 64, num_classes), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel
+
+#### PRINT DI CONTROLLO ####
+print('Augmented image list dimension')
+print(N)
 
 print('tmp1, tmp1a, tmp2, tmp2a shapes: ')
 print(tmp1.shape)
@@ -68,6 +70,9 @@ print(tmp1a.shape)
 
 print(tmp2.shape)
 print(tmp2a.shape)
+
+print('Number of augmented images')
+print(A)
 
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
 print('[INFO]Generating images array')
@@ -87,6 +92,7 @@ for p in range (A):
     # image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     tmp1[N-A+p] = image  
 
+######## SALVATAGGIO ####
 print("[INFO] Images arrays saved")
 save_np_arrays(tmp1)                                #salvo tmp1 in un file numpy
 
@@ -220,7 +226,7 @@ for f in range (0,A):
  
     tmp2[N-A+f] = new_label
     
-
+##### SALVATAGGIO #############
 print("[INFO] label arrays saved")
 save_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
 

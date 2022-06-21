@@ -50,11 +50,11 @@ print(len(label_list))
 
 ### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
 tmp1a,tmp2a,A = augment(image_list,label_list);
-#A=0;         #### METTO A=0 SE NON VOGLIO FARE DATA AUGMENTATION, COMMENTANDO LA RIGA SOPRA
+#A=0;                                              #### METTO A=0 SE NON VOGLIO FARE DATA AUGMENTATION, COMMENTANDO LA RIGA SOPRA
 
 ####NUMERO DI IMMAGINI NEL DATASET + IMMAGINI DOVUTE AL DATA AUGMENTATION ####
 #N = len(image_list)+A           
-N=500+A
+N=500+A                                             #### UTILIZZARE LA RIGA SOPRA PER USARE TUTTE LE IMMAGINI A DISPOSIZIONE
 print('Augmented image list dimension')
 print(N)
 
@@ -64,11 +64,17 @@ tmp1 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
 tmp2 = np.empty((N, 64, 64, 1), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel. Nel caso sparse avrò un intero ad indicare la classe
 
 #### PRINT DI CONTROLLO ####
-print('tmp1,tmp1a,tmp2,tmp2a shapes')
+print('Augmented image list dimension')
+print(N)
+
+print('tmp1,tmp1a,tmp2,tmp2a shapes: ')
+
 print(tmp1.shape)
-#print(tmp1a.shape)
+print(tmp1a.shape)
+
 print(tmp2.shape)
-#print(tmp2a.shape)
+print(tmp2a.shape)
+
 print('Number of augmented images')
 print(A)
 
@@ -80,7 +86,6 @@ for i in range (N-A):
     image = cv2.resize(image, (64,64))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
     image = image.astype('float32')
     image/=510                                    #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
-    #print('image pixels: ', image)
     tmp1[i] = image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo path in image_list
 
 ### FACCIO LO STESSO CON LE NUOVE IMMAGINI OTTENUTE CON IL DATA AUGMENTATION #######
@@ -88,8 +93,8 @@ print('[INFO]Generating images array for augmented data')
 for p in range (A):
     print(p)
     image=tmp1a[p]
-    image = image.astype('float32')
-    image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+    # image = image.astype('float32')                 ### LA NORMALIZZAZIONE VIENE GIà FATTA NELLA FUNZIONE utils.augment()
+    # image/=510                                      #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     #print(image.shape)
     tmp1[N-A+p] = image  
 
@@ -103,13 +108,16 @@ save_sparse_np_arrays(tmp1)                                #salvo tmp1 in un fil
 ### DEFINISCO DEGLI ARRAY RELATIVE ALLE VARIE CLASSI ####
 # bedrock=[1/255,1/255,1/255];       #Normalizzo tutto dividendo per 255
 # sand=[2/255,2/255,2/255];
-# bigrock=[3/255,3/255,3/255];
+# bigrock=[3/255,3/255,3/255];        ##### HO TOLTO LA NORMALIZZAZIONE PER PROBLEMI CON IL LABELING
+#nullo=[255/255,255/255,255/255];
+#soil=[0,0,0];
+
 soil=[0,0,0];
 bedrock=[1,1,1];
 sand=[2,2,2];
 bigrock=[3,3,3];
 nullo=[255,255,255];
-#nullo=[255/255,255/255,255/255];
+
 
 ### PER LE LABEL CREO UN ARRAY DI DIMENSIONE 64X64X1 (NEW_LABEL) DOVE 64X64 è LA DIMENSIONE DELL'IMMAGINE
 ### MENTRE L'ULTIMA DIMESIONE CONTIENE UN INTERO DA 0 A 3 CHE RAPPRESENTA A QUALE CLASSE APPARTIENE IL PIXEL CORRISPONDENTE.
@@ -120,9 +128,7 @@ for j in range (N-A):
     label = cv2.resize(label, (64,64))               #ridimension per combaciare con l'input
     # label = label.astype('float32')
     # label/=255                                       #normalizzo per avere valori per i pixel nell'intervallo [0,1]
-    #print(label[0,0])
     reduct_label = label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
-    #print('reduct label shape: ', reduct_label.shape)
     new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
     new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
 
@@ -131,7 +137,6 @@ for j in range (N-A):
         for n in range(0,63): 
             channels_xy = label[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
             #print(channels_xy[1])
-            #print(bigrock[1])
             if all(channels_xy==bedrock):       #BEDROCK      
                 new_label[i,n,0]=1
                 #print('bed rock: ',channels_xy)
@@ -144,17 +149,12 @@ for j in range (N-A):
             elif all(channels_xy==soil):     #SOIL
                 new_label[i,n,0]=4
                 #print('soil: ',channels_xy)
-            # elif all(channels_xy==nullo):    #NULL
-            #     new_label[i,n,0]=4
-            else:
+            else:  #all(channels_xy==nullo):    #NULL
                 new_label[i,n,0]=0
             #     print(channels_xy)
-            #     print(j)
-    #print(new_label.shape)
-    # new_label = new_label.astype('float32')
-    # new_label/=510  
+            #     print(j) 
     tmp2[j] = new_label
-    #print(tmp2.shape)
+
 
 ### FACCIO LO STESSO CON LE NUOVE LABEL OTTENUTE CON IL DATA AUGMENTATION #######
 print('[INFO]Generating labels array for augmented data')
@@ -164,9 +164,7 @@ for f in range (0,A):
     label = cv2.resize(label, (64,64))
     # label = label.astype('float32')
     # label/=255                                       #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
-    #print(label[0,0])
     reduct_label=label[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
-    #print(reduct_label.shape)
     new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
     new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x5) i valori di reduct_label (64x64)
     for i in range(0,63):
@@ -183,9 +181,11 @@ for f in range (0,A):
                 new_label[i,n,0]=4
             else: # all(channels_xy==nullo):    #NULL
                 new_label[i,n,0]=0
-    #print(new_label.shape)
     tmp2[N-A+f] = new_label
 
+##### SALVATAGGIO #############
+print("[INFO] label arrays saved")
+save_sparse_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
 
 #### PRINT DI CONTROLLO ######
 #print('tmp2[0]')
@@ -200,9 +200,7 @@ print('class of the first pixel of the first label: ', tmp2[9,20:30,20:30,:])
 print('Info on the first pixel of the first label: ', lab[20:30,20:30])
 #print('Info on the 10x10 pixel of the third photo: ', tmp1[3,10,10,:])
 
-##### SALVATAGGIO #############
-print("[INFO] label arrays saved")
-save_sparse_np_arrays_labels(tmp2)              #salvo tmp2 in un file numpy
+
 
 print('[TODO] Download these two files from the colab folder and save on the drive')
 
