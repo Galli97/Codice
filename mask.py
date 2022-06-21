@@ -2,20 +2,22 @@
 import os 
 import cv2 
 import numpy as np
+
+### CREO DUE LISTE CON I PATH DELLE IMMAGINI E DELLE MASK 
 path = r"C:\Users\Mattia\Desktop\Tesi\Dataset\Train-labels"
 path1 =  r"C:\Users\Mattia\Desktop\Tesi\Dataset\Mask"
 
 dir = os.listdir(path)
-dir1 = os.listdir(path1)
+dir1 = os.listdir(path1)   ##QUESTO LISTA MI SERVE PER RIPRENDERE L'OPERAZIONE DA DOVE AVEVO INTERROTTO
 
 
 
-####Considero un' immagine
-
+#### DEFINISCO GLI ARRAY DEI VARI PIXEL
 bedrock=[1,1,1];
 sand=[2,2,2];
 bigrock=[3,3,3];
 
+### PRENDO UN'IMMAGINE E CAMBIO I PIXEL CORRISPONDENTI ALLE CLASSI BEDROCK SAND E BIGROCK ATTRIBUENDO AD OGNUNO UN COLORE DIVERSO
 for x in range(len(dir1),len(dir)):
     img=str(dir[x])
     image_path = os.path.join(r'C:\Users\Mattia\Desktop\Tesi\Dataset\Train-labels',img)
@@ -38,10 +40,3 @@ for x in range(len(dir1),len(dir)):
     new_img=str(dir[x])
     new_image_path = os.path.join(r'C:\Users\Mattia\Desktop\Tesi\Dataset\Mask',new_img)
     new_image=cv2.imwrite(new_image_path, image)
-
-#print(np.shape(image))  #(1024,1024,3)  
-#cv2.imshow('immagine',new_image)
-#####waits for user to press any key (this is necessary to avoid Python kernel form crashing)
-#cv2.waitKey(0) 
-######closing all open windows when the user press a key
-#cv2.destroyAllWindows() 
