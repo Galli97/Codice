@@ -23,8 +23,8 @@ from keras.preprocessing.image import ImageDataGenerator
 # path1 = r"/content/drive/MyDrive/Tesi/label_arrays.npy"
 
 ####### PERCORSO IN LOCALE #########
-path = r"C:\Users\Mattia\Documenti\Github\Codice\image_arrays_sparse.npy"
-path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_arrays_sparse.npy"
+path = r"C:\Users\Mattia\Documenti\Github\Codice\image_arrays.npy"
+path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_arrays.npy"
 
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
 
