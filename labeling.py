@@ -47,6 +47,15 @@ print('Image and label lists dimensions')
 print(len(image_list))
 print(len(label_list))
 
+print('Elem1: ', image_list[0])
+print('label1: ', label_list[0])
+
+####RESHUFFLE DELLA LISTA DELLE IMMAGINI E DELLE LABEL####
+image_list, label_list = shuffle(np.array(image_list), np.array(label_list))
+print('Elem1 shuffled: ', image_list[0])
+print('label1: ', label_list[0])
+
+
 ### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
 print('[INFO] Data Augmentation...')
 tmp1a,tmp2a,A = augment(image_list,label_list);

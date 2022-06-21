@@ -53,7 +53,7 @@ print(len(label_list))
 print('Elem1: ', image_list[0])
 print('label1: ', label_list[0])
 
-####Reshuffle della lista immagini e lable####
+####RESHUFFLE DELLA LISTA DELLE IMMAGINI E DELLE LABEL####
 image_list, label_list = shuffle(np.array(image_list), np.array(label_list))
 print('Elem1 shuffled: ', image_list[0])
 print('label1: ', label_list[0])
