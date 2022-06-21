@@ -76,6 +76,7 @@ def augment(image_list,label_list):
         image/=510   
         label = cv2.imread(label_list[a])[:,:,[2,1,0]]
         label = cv2.resize(label, (64,64))
+        label = label.astype('float32')
         
         chose = random.randint(1,5)
         #print(a)
@@ -127,6 +128,13 @@ def weighted_cross_entropy(beta):
     return tf.reduce_mean(o)
 
   return loss
+
+
+def iou_coef(y_true, y_pred, smooth=1):
+  intersection = K.sum(K.abs(y_true * y_pred), axis=[1,2,3])
+  union = K.sum(y_true,[1,2,3])+K.sum(y_pred,[1,2,3])-intersection
+  iou = K.mean((intersection + smooth) / (union + smooth), axis=0)
+  return iou
 
 def sparse_accuracy_ignoring_last_label(y_true, y_pred):
     nb_classes = K.int_shape(y_pred)[-1]
