@@ -60,9 +60,9 @@ x_validation = datagenerator(list_validation,label_validation,BATCH)
 #### DEFINSICO I PARAMETRI PER IL COMPILE (OPTIMIZER E LOSS)
 
 lr_base = 0.01 * (float(BATCH) / 16)
-optimizer = SGD(learning_rate=0.001, momentum=0.)
-#optimizer=keras.optimizers.Adam(learning_rate=0.001)
-loss_fn =keras.losses.SparseCategoricalCrossentropy() #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
+#optimizer = SGD(learning_rate=0.001, momentum=0.)
+optimizer=keras.optimizers.Adam(learning_rate=0.001)
+loss_fn =keras.losses.SparseCategoricalCrossentropy(from_logits=True)#keras.losses.SparseCategoricalCrossentropy() #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics = ['accuracy'])#[sparse_accuracy_ignoring_last_label])#,sample_weight_mode='temporal')
 
