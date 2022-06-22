@@ -100,7 +100,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     )(x)
 
     #x = tf.keras.layers.Reshape((64*64,5))(x)
-    #x = Activation('softmax')(x)
+    x = Activation('softmax')(x)
   
 
     model = Model(img_input, x)
@@ -120,17 +120,17 @@ def rete_2(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
         image_size = input_shape[0:2]
     # I1 = Input(input_shape)
     
-    tl_model = tf.keras.applications.resnet.ResNet101(include_top=False, weights='imagenet', input_tensor=img_input, pooling=None)
-    tl_model.layers.pop()
-    # tl_model.outputs = [tl_model.layers[-1].output]
-    # tl_model.layers[-1]._outbound_nodes = []
+    # tl_model = tf.keras.applications.resnet.ResNet101(include_top=False, weights='imagenet', input_tensor=img_input, pooling=None)
+    # tl_model.layers.pop()
+    # # tl_model.outputs = [tl_model.layers[-1].output]
+    # # tl_model.layers[-1]._outbound_nodes = []
 
-    for layer in tl_model.layers:
-        layer._name = layer.name
-        layer._trainable = False
+    # for layer in tl_model.layers:
+    #     layer._name = layer.name
+    #     layer._trainable = False
     
     model=keras.Sequential()
-    model.add(tl_model)
+    #model.add(tl_model)
     # Block 1
     model.add(Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1', kernel_regularizer=l2(weight_decay)))
     model.add(Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2', kernel_regularizer=l2(weight_decay)))
@@ -159,9 +159,9 @@ def rete_2(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
 
     # Block 5
     model.add(Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=12, name='block5_conv1', kernel_regularizer=l2(weight_decay)))
-    model.add(Dropout(0.5))
+    model.add(Dropout(0.5))      #############
     model.add(Conv2D(1024, (3, 3), activation='relu', padding='same', name='block5_conv2', kernel_regularizer=l2(weight_decay)))
-    model.add(Dropout(0.5))
+    model.add(Dropout(0.5))  #########
     model.add(Conv2D(classes, (3, 3), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay)))
     
     model.add(UpSampling2D(64))
