@@ -178,8 +178,8 @@ def rete_2(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
 
     # model = Model(img_input, x)
 
-    # weights_path = get_weights_path_resnet()
-    # model.load_weights(weights_path, by_name=True)
+    weights_path = get_weights_path_resnet()
+    model.load_weights(weights_path, by_name=True)
     return model
 
 
