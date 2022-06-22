@@ -110,7 +110,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     return model
 
 
-##### COME RETE 2 MA MODELLO SEQUENTIAL E AGGIUNTA DI BATCH NORMALIZATION E DROPOUT ####
+##### COME RETE 2 MA MODELLO SEQUENTIAL E AGGIUNTA DI BATCH NORMALIZATION, DROPOUT E AVERAGEPOOLING ####
 def rete_2(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     if batch_shape:
         img_input = Input(batch_shape=batch_shape)
@@ -135,27 +135,27 @@ def rete_2(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     model.add(Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1', kernel_regularizer=l2(weight_decay)))
     model.add(Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2', kernel_regularizer=l2(weight_decay)))
     model.add(BatchNormalization())##########
-    model.add(MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block1_pool'))
+    model.add(AveragePooling2D((2, 2), strides=(2, 2),padding='same', name='block1_pool'))
     
     # Block 2
     model.add(Conv2D(128, (3, 3), activation='relu', padding='same', name='block2_conv1', kernel_regularizer=l2(weight_decay)))
     model.add(Conv2D(128, (3, 3), activation='relu', padding='same', name='block2_conv2', kernel_regularizer=l2(weight_decay)))
     model.add(BatchNormalization())##########
-    model.add(MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block2_pool'))
+    model.add(AveragePooling2D((2, 2), strides=(2, 2),padding='same', name='block2_pool'))
 
     # Block 3
     model.add(Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv1', kernel_regularizer=l2(weight_decay)))
     model.add(Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv2', kernel_regularizer=l2(weight_decay)))
     model.add(Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv3', kernel_regularizer=l2(weight_decay)))
     model.add(BatchNormalization())##########  
-    model.add(MaxPooling2D((2, 2), strides=(2, 2),padding='same',name='block3_pool'))
+    model.add(AveragePooling2D((2, 2), strides=(2, 2),padding='same',name='block3_pool'))
     
     # Block 4
     model.add(Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=2, name='block4_conv1', kernel_regularizer=l2(weight_decay)))
     model.add(Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=2, name='block4_conv2', kernel_regularizer=l2(weight_decay)))
     model.add(Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=2, name='block4_conv3', kernel_regularizer=l2(weight_decay)))
     model.add(BatchNormalization())##########
-    model.add(MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block4_pool'))
+    model.add(AveragePooling2D((2, 2), strides=(2, 2),padding='same', name='block4_pool'))
 
     # Block 5
     model.add(Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=12, name='block5_conv1', kernel_regularizer=l2(weight_decay)))
