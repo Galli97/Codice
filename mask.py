@@ -11,7 +11,6 @@ dir = os.listdir(path)
 dir1 = os.listdir(path1)   ##QUESTO LISTA MI SERVE PER RIPRENDERE L'OPERAZIONE DA DOVE AVEVO INTERROTTO
 
 
-
 #### DEFINISCO GLI ARRAY DEI VARI PIXEL
 bedrock=[1,1,1];
 sand=[2,2,2];

@@ -13,6 +13,14 @@ def save_sparse_np_arrays(tmp1):
     with open('image_arrays_sparse.npy','wb') as f:
         np.save(f,tmp1)
 
+def save_patches(tmp1):
+    with open('image_patches.npy','wb') as f:
+        np.save(f,tmp1)
+
+def save_label_patches(tmp1):
+    with open('label_patches.npy','wb') as f:
+        np.save(f,tmp1)
+
 def get_np_arrays(file):
     with open(file,'rb') as f:
         tmp1 = np.load(f)
@@ -99,7 +107,10 @@ def augment(image_list,label_list):
         tmp2a[i]=new_label
     return tmp1a,tmp2a,A
 
+
+
 ##########################
+
 
 
 

@@ -130,7 +130,7 @@ def rete_2(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     #     layer._trainable = False
     
     model=keras.Sequential()
-    #model.add(tl_model)
+    model.add(img_input)
     # Block 1
     model.add(Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1', kernel_regularizer=l2(weight_decay)))
     model.add(Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2', kernel_regularizer=l2(weight_decay)))
@@ -164,7 +164,7 @@ def rete_2(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     model.add(Dropout(0.5))  #########
     model.add(Conv2D(classes, (3, 3), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay)))
     
-    model.add(UpSampling2D(64))
+    model.add(UpSampling2D(16))
 
     # img_size=input_shape[0];
     # x = layers.UpSampling2D(
@@ -176,8 +176,8 @@ def rete_2(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     model.add(Activation('softmax'))
   
 
-    # model = Model(img_input, x)
-
+    #model = Model(img_input, x)
+    model.built = True
     weights_path = get_weights_path_resnet()
     model.load_weights(weights_path, by_name=True)
     return model
