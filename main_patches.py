@@ -33,6 +33,7 @@ tmp1 = get_np_arrays(path)          #recupero tmp1 dal file
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 #print(type(tmp2))
 
+
 #### PRENDO UNA PARTE DEL DATASET (20%) E LO UTILIZZO PER IL VALIDATION SET #####
 train_set = int(len(tmp1)*80/100)
 
