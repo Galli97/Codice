@@ -31,8 +31,12 @@ flag_soil=False;
 count=0;
 
 ### PRENDO UN'IMMAGINE E CAMBIO I PIXEL CORRISPONDENTI ALLE CLASSI BEDROCK SAND E BIGROCK ATTRIBUENDO AD OGNUNO UN COLORE DIVERSO
-for x in range(400,len(dir1)):
+for x in range(846,len(dir1)):
     print('Label: ', x)
+    flag_sand=False;
+    flag_bedrock=False;
+    flag_bigrock=False;
+    flag_soil=False;
     if(count==100):
         break
     else:
@@ -42,6 +46,10 @@ for x in range(400,len(dir1)):
         image = cv2.imread(image_path)
         #print(image.shape)
         for i in range(0,1024):
+            if(flag_bigrock==True):
+                break
+            elif(flag_bedrock==True and flag_sand==True and flag_soil==True):
+                break
             for j in range(0,1024): 
                 channels_xy = image[i,j];
                 if(flag_bigrock==True):
@@ -57,6 +65,7 @@ for x in range(400,len(dir1)):
                 elif all(channels_xy==soil):    #BIG ROCK
                     flag_soil=True
         if (flag_bigrock==True):
+            print('Big Rock IN')
             patt=str(dir[x])
             patt1=str(dir1[x])
             path = os.path.join(r'C:\Users\Mattia\Desktop\Tesi\Dataset\Train-images',patt)
@@ -69,7 +78,8 @@ for x in range(400,len(dir1)):
             flag_soil=False;
             count+=1
             print(count)
-        elif (flag_bigrock==True and flag_sand==True and flag_soil==True):
+        elif (flag_bedrock==True and flag_sand==True and flag_soil==True):
+            print('Three IN')
             patt=str(dir[x])
             patt1=str(dir1[x])
             path = os.path.join(r'C:\Users\Mattia\Desktop\Tesi\Dataset\Train-images',patt)
