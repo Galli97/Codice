@@ -167,7 +167,7 @@ for t in range (len(cropped_list)):
             #if r==0 and c==0:
             #print('channel_xy: ',channels_xy)
             if channels_xy[0]==bedrock:       #BEDROCK      
-                new_label[i,n,:]=1
+                new_label[i,n,:]=4
                 #print('bed rock: ',channels_xy)
             elif channels_xy[0]==sand:     #SAND
                 new_label[i,n,:]=2
@@ -176,10 +176,10 @@ for t in range (len(cropped_list)):
                 new_label[i,n,:]=3
                 #print('big rock: ',channels_xy)
             elif channels_xy[0]==soil:     #SOIL
-                new_label[i,n,:]=4
+                new_label[i,n,:]=1
                 #print('soil: ',channels_xy)
             elif channels_xy[0]==nullo:    #NULL
-                new_label[i,n,:]=5
+                new_label[i,n,:]=0
                 #print('tana')
             #     print(channels_xy)
             #     print(j) 
