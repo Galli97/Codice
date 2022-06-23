@@ -31,7 +31,8 @@ flag_soil=False;
 count=0;
 
 ### PRENDO UN'IMMAGINE E CAMBIO I PIXEL CORRISPONDENTI ALLE CLASSI BEDROCK SAND E BIGROCK ATTRIBUENDO AD OGNUNO UN COLORE DIVERSO
-for x in range(0,len(dir1)):
+for x in range(400,len(dir1)):
+    print('Label: ', x)
     if(count==100):
         break
     else:
