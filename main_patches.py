@@ -44,7 +44,7 @@ label_train = tmp2[:train_set]
 label_validation = tmp2[train_set:]
 
 ###### DEFINISCO IL MODELLO #######
-shape=(64,64,3)
+shape=(64,64,1)
 BATCH= 64
 EPOCHS=5
 steps = 8#int(train_set/EPOCHS)
