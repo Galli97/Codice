@@ -64,14 +64,14 @@ A=0;                                              #### METTO A=0 SE NON VOGLIO F
 
 ####NUMERO DI IMMAGINI NEL DATASET + IMMAGINI DOVUTE AL DATA AUGMENTATION ####
 #N = len(image_list)+A           
-N=1                                   #### UTILIZZARE LA RIGA SOPRA PER USARE TUTTE LE IMMAGINI A DISPOSIZIONE
+N=10                                   #### UTILIZZARE LA RIGA SOPRA PER USARE TUTTE LE IMMAGINI A DISPOSIZIONE
 print('Augmented image list dimension')
 print(N)
 
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI E DELLE LABEL ######
 num_classes=5
-tmp1 = np.empty((N, 64, 64, 1), dtype=np.uint8)  #Qui ho N immagini
-tmp2 = np.empty((N, 64, 64, 1), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel. Nel caso sparse avrò un intero ad indicare la classe
+tmp1 = np.empty((N*256, 64, 64, 1), dtype=np.uint8)  #Qui ho N immagini
+tmp2 = np.empty((N*256, 64, 64, 1), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel. Nel caso sparse avrò un intero ad indicare la classe
 
 #### PRINT DI CONTROLLO ####
 print('Augmented image list dimension')
@@ -96,10 +96,10 @@ for i in range (N-A):
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     image=np.expand_dims(image, axis=2)
-    print(image.shape)
-    if i==0:
-       cv2.imshow('image',image)
-       cv2.waitKey(0) 
+    #print(image.shape)
+    # if i==0:
+    #    cv2.imshow('image',image)
+    #    cv2.waitKey(0) 
     image = image.astype('float32')
     image/=510                                    #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     # cropped_image = image[0:64,0:64]
@@ -107,10 +107,10 @@ for i in range (N-A):
     for r in range (0,16):
         for c in range (0,16):
             cropped_image = image[64*r:64*(r+1),64*c:64*(c+1)]
-            print('cropped_image: ',cropped_image.shape)
-            if r==5 and c==3:
-                cv2.imshow('cropped',cropped_image)
-                cv2.waitKey(0) 
+            # print('cropped_image: ',cropped_image.shape)
+            # if r==5 and c==3:
+            #     cv2.imshow('cropped',cropped_image)
+            #     cv2.waitKey(0) 
             tmp1[i] = cropped_image                                 #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo path in image_list
 
 ######## SALVATAGGIO ####
@@ -144,28 +144,28 @@ for j in range (N-A):
             cropped_label = label[64*(r):64*(r+1),64*(c):64*(c+1)]
             cropped_label = cropped_label.astype('float32')
             cropped_list.append(cropped_label)
-            if r==0 and c==0:
-                print('cropped label: ',cropped_label)
+            # if r==0 and c==0:
+            #     print('cropped label: ',cropped_label)
 for t in range (len(cropped_list)):
     print(t)
     crop=cropped_list[t]
-    if t==0:
-        print(crop)
-    print('crop shape: ', crop.shape)
+    # if t==0:
+    #     print(crop)
+    #print('crop shape: ', crop.shape)
     reduct_label = crop[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
-    print('reduct label: ', reduct_label.shape)
-    if r==0 and c==0:
-        print('reduct label: ', reduct_label)
+    #print('reduct label: ', reduct_label.shape)
+    # if r==0 and c==0:
+    #     print('reduct label: ', reduct_label)
     new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
     new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
-    if r==0 and c==0:
-        print('new_label: ', new_label)
+    # if r==0 and c==0:
+    #     print('new_label: ', new_label)
     #### CONTROLLO OGNI PIXEL PER ASSEGNARE LA CLASSE #######
     for i in range(0,64):
         for n in range(0,64): 
             channels_xy = crop[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
             #if r==0 and c==0:
-            print('channel_xy: ',channels_xy)
+            #print('channel_xy: ',channels_xy)
             if channels_xy[0]==bedrock:       #BEDROCK      
                 new_label[i,n,:]=1
                 #print('bed rock: ',channels_xy)
@@ -183,7 +183,7 @@ for t in range (len(cropped_list)):
                 #print('tana')
             #     print(channels_xy)
             #     print(j) 
-tmp2[t] = new_label
+    tmp2[t] = new_label
 
 print("[INFO] label arrays saved")
 save_label_patches(tmp2)
