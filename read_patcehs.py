@@ -26,13 +26,32 @@ tmp1 = get_np_arrays(path)          #recupero tmp1 dal file
 #print(type(tmp1))
 
 
+soil_count=0;
+bedrock_count=0;
+sand_count=0;
+bigrock_count=0;
+null_count=0;
+
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 #print(type(tmp2))
 for i in range (0,len(tmp2)):
     for r in range(0,64):
         for c in range (0,64):
-            if tmp2[i,r,c,:]!=1 and tmp2[i,r,c,:]!=2 and tmp2[i,r,c,:]!=3 and tmp2[i,r,c,:]!=4 and tmp2[i,r,c,:]!=0:
-                print(tmp2[i,r,c,:])
+            # if tmp2[i,r,c,:]!=1 and tmp2[i,r,c,:]!=2 and tmp2[i,r,c,:]!=3 and tmp2[i,r,c,:]!=4 and tmp2[i,r,c,:]!=0:
+            #     print(tmp2[i,r,c,:])
+            if tmp2[i,r,c,:]==0:
+                soil_count+=1
+            if tmp2[i,r,c,:]==1:
+                bedrock_count+=1
+            if tmp2[i,r,c,:]==2:
+                sand_count+=1
+            if tmp2[i,r,c,:]==3:
+                bigrock_count+=1
+            if tmp2[i,r,c,:]==4:
+                null_count+=1
 
-# print(tmp2[500,:,:,:])
-# print(tmp2[740,:,:,:])
+print('soil: ', soil_count)
+print('bedrock: ', bedrock_count)
+print('sand: ', sand_count)
+print('bigrock: ', bigrock_count)
+print('null: ', null_count)
