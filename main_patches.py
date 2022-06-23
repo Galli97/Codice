@@ -45,7 +45,7 @@ label_validation = tmp2[train_set:]
 
 ###### DEFINISCO IL MODELLO #######
 shape=(64,64,1)
-BATCH= 64
+BATCH= 16
 EPOCHS=5
 steps = 8#int(train_set/EPOCHS)
 weight_decay = 0.0001/2
