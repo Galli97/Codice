@@ -34,7 +34,7 @@ count=0;
 for x in range(0,len(dir)):
     if(count==100):
         break
-    if(x%10==0):
+    else:
         img=str(dir[x])
         #print(img)
         image_path = os.path.join(init_path,img)
@@ -67,6 +67,7 @@ for x in range(0,len(dir)):
             flag_bigrock=False;
             flag_soil=False;
             count+=1
+            print(count)
         elif (flag_bigrock==True and flag_sand==True and flag_soil==True):
             patt=str(dir[x])
             patt1=str(dir1[x])
@@ -79,6 +80,7 @@ for x in range(0,len(dir)):
             flag_bigrock=False;
             flag_soil=False;
             count+=1
+            print(count)
 
 ###QUESTO CICLO FOR SELEZIONA LE IMMAGINI E LE LABEL DALLE RISPETTIVE CARTELLE, PRENDENDONE UNA OGNI 10, PER UN TOTALE DI 1000 IMMAGINI E 1000 LABEL####
 # j=0
