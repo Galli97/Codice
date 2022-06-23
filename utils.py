@@ -17,9 +17,10 @@ def save_patches(tmp1):
     with open('image_patches.npy','wb') as f:
         np.save(f,tmp1)
 
-def save_label_patches(tmp1):
-    with open('label_patches.npy','wb') as f:
+def save_cropped_images(tmp1):
+    with open('cropped_images.npy','wb') as f:
         np.save(f,tmp1)
+
 
 def get_np_arrays(file):
     with open(file,'rb') as f:
@@ -32,6 +33,14 @@ def save_np_arrays_labels(tmp2):
 def save_sparse_np_arrays_labels(tmp2):
     with open('label_arrays_sparse.npy','wb') as f:
         np.save(f,tmp2)
+        
+def save_label_patches(tmp1):
+    with open('label_patches.npy','wb') as f:
+        np.save(f,tmp1)
+
+def save_cropped_labels(tmp1):
+    with open('cropped_labels.npy','wb') as f:
+        np.save(f,tmp1)
 
 ### datagenerator prepara i dati per il training
 def datagenerator(images,labels, batchsize, mode="train"):
