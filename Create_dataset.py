@@ -31,13 +31,13 @@ flag_soil=False;
 count=0;
 
 ### PRENDO UN'IMMAGINE E CAMBIO I PIXEL CORRISPONDENTI ALLE CLASSI BEDROCK SAND E BIGROCK ATTRIBUENDO AD OGNUNO UN COLORE DIVERSO
-for x in range(0,len(dir)):
+for x in range(0,len(dir1)):
     if(count==100):
         break
     else:
-        img=str(dir[x])
+        img=str(dir1[x])
         #print(img)
-        image_path = os.path.join(init_path,img)
+        image_path = os.path.join(init_path1,img)
         image = cv2.imread(image_path)
         #print(image.shape)
         for i in range(0,1024):
