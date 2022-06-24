@@ -18,12 +18,12 @@ from tensorflow.compat.v1 import ConfigProto
 from tensorflow.compat.v1 import InteractiveSession
 from keras.preprocessing.image import ImageDataGenerator
 ###### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
-path = r"/content/drive/MyDrive/Tesi/image_patches.npy"
-path1 = r"/content/drive/MyDrive/Tesi/label_patches.npy"
+# path = r"/content/drive/MyDrive/Tesi/image_patches.npy"
+# path1 = r"/content/drive/MyDrive/Tesi/label_patches.npy"
 
 # ####### PERCORSO IN LOCALE #########
-# path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches.npy"
-# path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches.npy"
+path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches.npy"
+path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches.npy"
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
@@ -76,8 +76,8 @@ loss_weights=[soil_pixels/PIXELS,bedrock_pixels/PIXELS,sand_pixels/PIXELS,bigroc
 shape=(64,64,1)
 print(shape)
 BATCH= 32
-EPOCHS=25#50
-steps = 250#int(train_set/EPOCHS)
+EPOCHS=50
+steps = int(train_set/EPOCHS)
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,1)
 model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
@@ -116,7 +116,7 @@ x_validation = datagenerator(list_validation,label_validation,BATCH)
 #### DEFINSICO I PARAMETRI PER IL COMPILE (OPTIMIZER E LOSS)
 
 lr_base = 0.01 * (float(BATCH) / 16)
-optimizer = SGD(learning_rate=0.001, momentum=0.)
+optimizer = SGD(learning_rate=lr_base, momentum=0.)
 #optimizer=keras.optimizers.Adam(learning_rate=0.001)
 loss_fn =keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 
