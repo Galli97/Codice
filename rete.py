@@ -99,7 +99,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     #     interpolation="bilinear",
     # )(x)
     x = BilinearUpSampling2D(target_size=tuple(image_size))(x)
-    x = tf.keras.layers.Reshape((64*64,5))(x)
+    #x = tf.keras.layers.Reshape((64*64,5))(x)
     x = Activation('softmax')(x)
     #x = tf.keras.layers.Reshape((64,64,1))(x)
     model = Model(img_input, x)
