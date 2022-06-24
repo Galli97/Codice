@@ -16,7 +16,7 @@ from keras.regularizers import l2
 import keras.backend as K
 import os
 from keras.utils.data_utils import get_file
-
+from utils import *
 ### QUESTA FUNZIONE RECUPERA I PESI DELLA RESNET50
 def get_weights_path_resnet():
     TF_WEIGHTS_PATH = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.2/resnet50_weights_tf_dim_ordering_tf_kernels.h5'
@@ -89,20 +89,19 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     #x = Dropout(0.5)(x)
     x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='block5_conv2', kernel_regularizer=l2(weight_decay))(x)
     #x = Dropout(0.5)(x)
-    x = Conv2D(classes, (1, 1), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(classes, (3, 3), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     
     #x = tf.keras.layers.UpSampling2D(32)(x)
 
-    img_size=input_shape[0];
-    x = layers.UpSampling2D(
-        size=(img_size // x.shape[1], img_size // x.shape[2]),
-        interpolation="bilinear",
-    )(x)
-
-    #x = tf.keras.layers.Reshape((64*64,5))(x)
+    # img_size=input_shape[0];
+    # x = layers.UpSampling2D(
+    #     size=(img_size // x.shape[1], img_size // x.shape[2]),
+    #     interpolation="bilinear",
+    # )(x)
+    x = BilinearUpSampling2D(target_size=tuple(image_size))(x)
+    x = tf.keras.layers.Reshape((64*64,5))(x)
     x = Activation('softmax')(x)
-  
-
+    #x = tf.keras.layers.Reshape((64,64,1))(x)
     model = Model(img_input, x)
 
     weights_path = get_weights_path_resnet()

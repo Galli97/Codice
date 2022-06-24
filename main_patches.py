@@ -18,56 +18,96 @@ from tensorflow.compat.v1 import ConfigProto
 from tensorflow.compat.v1 import InteractiveSession
 from keras.preprocessing.image import ImageDataGenerator
 ###### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
-path = r"/content/drive/MyDrive/Tesi/image_patches.npy"
-path1 = r"/content/drive/MyDrive/Tesi/label_patches.npy"
+# path = r"/content/drive/MyDrive/Tesi/image_patches.npy"
+# path1 = r"/content/drive/MyDrive/Tesi/label_patches.npy"
 
 # ####### PERCORSO IN LOCALE #########
-# path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches.npy"
-# path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches.npy"
+path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches.npy"
+path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches.npy"
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
 #print(type(tmp1))
+print(tmp1.shape)
+
+
 
 
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 #print(type(tmp2))
+print(tmp2.shape)
+print(len(tmp2))
 
+N = len(tmp2)
+tmp1=tmp1[:N]
+print(tmp1.shape)
 
 #### PRENDO UNA PARTE DEL DATASET (20%) E LO UTILIZZO PER IL VALIDATION SET #####
-train_set = int(len(tmp1)*80/100)
+train_set = int(len(tmp2)*80/100)
 
 list_train = tmp1[:train_set]
 list_validation = tmp1[train_set:]
+print('list_train: ',list_train.shape)
+print('list_validation: ',list_validation.shape)
 
 label_train = tmp2[:train_set]
 label_validation = tmp2[train_set:]
+print('label_train: ',label_train.shape)
+print('label_validation: ',label_validation.shape)
+
+label_train = label_train.reshape((len(label_train),64*64,1))
+label_validation = label_validation.reshape((len(label_validation),64*64,1))
+print('label_train: ',label_train.shape)
+print('label_validation: ',label_validation.shape)
 
 ###### DEFINISCO IL MODELLO #######
 shape=(64,64,1)
-BATCH= 16
+print(shape)
+BATCH= 4
 EPOCHS=5
 steps = 8#int(train_set/EPOCHS)
 weight_decay = 0.0001/2
-
-model = rete(input_shape=shape,weight_decay=weight_decay, classes=5)
+batch_shape=(BATCH,64,64,1)
+model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 
 #model = DeeplabV3Plus(image_size=64,num_classes=5)
 
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######
-x_train = datagenerator(list_train,label_train,BATCH)
-x_validation = datagenerator(list_validation,label_validation,BATCH)
+# x_train = datagenerator(list_train,label_train,BATCH)
+# x_validation = datagenerator(list_validation,label_validation,BATCH)
 #print(type(x_train))
+
+sample_weight = np.ones(shape=(800,64*64))
+print(sample_weight.shape)
+sample_weight[:,0] = 1.5
+sample_weight[:,1] = 0.5
+sample_weight[:,2] = 1.5
+sample_weight[:,3] = 3.0
+sample_weight[:,4] = 0
+
+val_sample_weight = np.ones(shape=(200,64*64))
+print(val_sample_weight.shape)
+val_sample_weight[:,0] = 1.5
+val_sample_weight[:,1] = 0.5
+val_sample_weight[:,2] = 1.5
+val_sample_weight[:,3] = 3.0
+val_sample_weight[:,4] = 0
+
+# Create a Dataset that includes sample weights
+# (3rd element in the return tuple).
+x_train = tf.data.Dataset.from_tensors((list_train, label_train, sample_weight))
+x_validation = tf.data.Dataset.from_tensors((list_validation, label_validation, val_sample_weight))
+
 
 #### DEFINSICO I PARAMETRI PER IL COMPILE (OPTIMIZER E LOSS)
 
 lr_base = 0.01 * (float(BATCH) / 16)
-optimizer = SGD(learning_rate=0.001, momentum=0.)
+optimizer = SGD(learning_rate=lr_base, momentum=0.)
 #optimizer=keras.optimizers.Adam(learning_rate=0.001)
 loss_fn =keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 
-model.compile(optimizer = optimizer, loss = loss_fn , metrics = ['accuracy'])#['accuracy'])#[sparse_accuracy_ignoring_last_label])#,sample_weight_mode='temporal')
+model.compile(optimizer = optimizer, loss = loss_fn , metrics =[tf.keras.metrics.SparseCategoricalAccuracy()],sample_weight_mode='temporal')#loss_weights=[0.3,0.1,0.4,0.9,0])#[tf.keras.metrics.MeanIoU(num_classes=5)])#['accuracy'])#[sparse_accuracy_ignoring_last_label])#,sample_weight_mode='temporal')
 
 ### AVVIO IL TRAINING #####
 model.summary()
-model.fit(x = x_train,batch_size = BATCH,epochs=EPOCHS,steps_per_epoch=steps,validation_data=(list_validation, label_validation),validation_steps=steps,validation_batch_size=BATCH)
+model.fit(x = x_train,batch_size = BATCH,epochs=EPOCHS,steps_per_epoch=steps,validation_data=x_validation,validation_steps=steps,validation_batch_size=BATCH)

@@ -35,7 +35,7 @@ crop_labels_list = get_np_arrays(path1)          #recupero tmp2 dal file
 #tmp1a,tmp2a,A = augment(image_list,label_list);
 A=0;
 #N = len(crop_images_list)+A
-N=200;
+N=1000;
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI E DELLE LABEL ######
 num_classes=5
 tmp1 = np.empty((N, 64, 64, 1), dtype=np.uint8)  #Qui ho N immagini
