@@ -22,6 +22,14 @@ def save_cropped_images(tmp1):
     with open('cropped_images.npy','wb') as f:
         np.save(f,tmp1)
 
+def save_patches_TEST(tmp1):
+    with open('image_patches_TEST.npy','wb') as f:
+        np.save(f,tmp1)
+
+def save_cropped_images_TEST(tmp1):
+    with open('cropped_images_TEST.npy','wb') as f:
+        np.save(f,tmp1)
+
 
 def get_np_arrays(file):
     with open(file,'rb') as f:
@@ -41,6 +49,14 @@ def save_label_patches(tmp1):
 
 def save_cropped_labels(tmp1):
     with open('cropped_labels.npy','wb') as f:
+        np.save(f,tmp1)
+
+def save_label_patches_TEST(tmp1):
+    with open('label_patches_TEST.npy','wb') as f:
+        np.save(f,tmp1)
+
+def save_cropped_labels_TEST(tmp1):
+    with open('cropped_labels_TEST.npy','wb') as f:
         np.save(f,tmp1)
 
 ### datagenerator prepara i dati per il training

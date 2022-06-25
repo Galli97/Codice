@@ -10,6 +10,7 @@ from matplotlib import image
 import cv2
 import numpy as np
 import os
+import matplotlib.pyplot as plt
 from PIL import Image
 from rete import *
 from tensorflow.keras.optimizers import SGD
@@ -29,6 +30,7 @@ path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches.npy"
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
 #print(type(tmp1))
 print(tmp1.shape)
+print('999: ',tmp1[999])
 
 
 
@@ -37,7 +39,7 @@ tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 #print(type(tmp2))
 print(tmp2.shape)
 print(len(tmp2))
-
+print('999: ',tmp2[999])
 # N = len(tmp2)
 # tmp1=tmp1[:N]
 # print(tmp1.shape)
@@ -76,8 +78,8 @@ loss_weights=[soil_pixels/PIXELS,bedrock_pixels/PIXELS,sand_pixels/PIXELS,bigroc
 shape=(64,64,1)
 print(shape)
 BATCH= 32
-EPOCHS=50
-steps = int(train_set/EPOCHS)
+EPOCHS=10
+steps = 5 #int(train_set/EPOCHS)
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,1)
 model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
@@ -124,4 +126,29 @@ model.compile(optimizer = optimizer, loss = loss_fn , metrics =[sparse_accuracy_
 
 ### AVVIO IL TRAINING #####
 model.summary()
-model.fit(x = x_train,batch_size = BATCH,epochs=EPOCHS,steps_per_epoch=steps,validation_data=x_validation,validation_steps=steps,validation_batch_size=BATCH)
+history = model.fit(x = x_train,batch_size = BATCH,epochs=EPOCHS,steps_per_epoch=steps,validation_data=x_validation,validation_steps=steps,validation_batch_size=BATCH)
+model.save('model.h5')
+
+plt.plot(history.history["loss"])
+plt.title("Training Loss")
+plt.ylabel("loss")
+plt.xlabel("epoch")
+plt.show()
+
+plt.plot(history.history['sparse_accuracy_ignoring_last_label'])
+plt.title("Training Accuracy")
+plt.ylabel("accuracy")
+plt.xlabel("epoch")
+plt.show()
+
+plt.plot(history.history["val_loss"])
+plt.title("Validation Loss")
+plt.ylabel("val_loss")
+plt.xlabel("epoch")
+plt.show()
+
+plt.plot(history.history["val_sparse_accuracy_ignoring_last_label"])
+plt.title("Validation Accuracy")
+plt.ylabel("val_accuracy")
+plt.xlabel("epoch")
+plt.show()

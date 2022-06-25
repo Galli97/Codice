@@ -91,14 +91,14 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     #x = Dropout(0.5)(x)
     x = Conv2D(classes, (3, 3), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     
-    #x = tf.keras.layers.UpSampling2D(32)(x)
+    x = tf.keras.layers.UpSampling2D(16)(x)
 
     # img_size=input_shape[0];
     # x = layers.UpSampling2D(
     #     size=(img_size // x.shape[1], img_size // x.shape[2]),
     #     interpolation="bilinear",
     # )(x)
-    x = BilinearUpSampling2D(target_size=tuple(image_size))(x)
+    #x = BilinearUpSampling2D(target_size=tuple(image_size))(x)
     #x = tf.keras.layers.Reshape((64*64,5))(x)
     x = Activation('softmax')(x)
     #x = tf.keras.layers.Reshape((64,64,1))(x)
