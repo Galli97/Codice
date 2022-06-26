@@ -6,6 +6,7 @@ import tensorflow as tf
 from keras.layers import *
 import keras.backend as K
 
+
 def save_np_arrays(tmp1):
     with open('image_arrays.npy','wb') as f:
         np.save(f,tmp1)
@@ -28,6 +29,10 @@ def save_patches_TEST(tmp1):
 
 def save_cropped_images_TEST(tmp1):
     with open('cropped_images_TEST.npy','wb') as f:
+        np.save(f,tmp1)
+
+def save_predictions(tmp1):
+    with open('predictions.npy','wb') as f:
         np.save(f,tmp1)
 
 
@@ -134,7 +139,72 @@ def augment(image_list,label_list):
     return tmp1a,tmp2a,A
 
 
+def decode_masks(tmp2):
+    soil=0;
+    bedrock=1;
+    sand=2;
+    bigrock=3;
+    null=4;
+    decoded_images = np.empty((len(tmp2), 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
+    for n in range (len(tmp2)):
+      label = tmp2[n]
+      #reduct_label = label[:,:,0]                        
+      image = np.empty((64, 64, 3), dtype=np.uint8) 
+      #image[:,:,0]=reduct_label  
+      for i in range(0,64):
+          for j in range(0,64): 
+              channels_xy = label[i,j];          #SOIL is kept black, NULL (no label) is white 
+              if channels_xy==bedrock:      #BEDROCK --->RED
+                  image[i,j,0]=255
+                  image[i,j,1]=0
+                  image[i,j,2]=0
+              elif channels_xy==sand:    #SAND --->GREEN
+                  image[i,j,0]=0
+                  image[i,j,1]=255
+                  image[i,j,2]=0
+              elif channels_xy==bigrock:    #BIG ROCK ---> BLUE
+                  image[i,j,0]=0
+                  image[i,j,1]=0
+                  image[i,j,2]=255
+              elif channels_xy==soil:    #SOIL ---> BLACK
+                  image[i,j,0]=0
+                  image[i,j,1]=0
+                  image[i,j,2]=0
+              elif channels_xy==null:    #NULL ---> WHITE
+                  image[i,j,0]=255
+                  image[i,j,1]=255
+                  image[i,j,2]=255
+              decoded_images[n]=image
+    return decoded_images
 
+
+def decode_predictions(tmp2):
+    # soil=[1,0,0,0,0];
+    # bedrock=[0,1,0,0,0];
+    # sand=[0,0,1,0,0];
+    # bigrock=[0,0,0,1,0];
+    # null=[0,0,0,0,1];
+    decoded_images = np.empty((len(tmp2), 64, 64, 1), dtype=np.uint8)  #Qui ho N immagini
+    for n in range (len(tmp2)):
+      label = tmp2[n]
+      #reduct_label = label[:,:,0]                        
+      image = np.empty((64, 64, 1), dtype=np.uint8) 
+      #image[:,:,0]=reduct_label  
+      for i in range(0,64):
+          for j in range(0,64): 
+              # channels_xy = label[i,j];          #SOIL is kept black, NULL (no label) is white 
+              # if all(channels_xy==bedrock):      #BEDROCK
+              image[i,j,0]=np.argmax(label[i,j])
+              # elif all(channels_xy==sand):    #SAND
+              #   image[i,j,0]=2
+              # elif all(channels_xy==bigrock):    #BIG ROCK
+              #   image[i,j,0]=3
+              # elif all(channels_xy==soil):    #SOIL ---> BLACK
+              #   image[i,j,0]=0
+              # elif all(channels_xy==null):    #NULL ---> WHITE
+              #   image[i,j,0]=4
+              decoded_images[n]=image
+    return decoded_images
 ##########################
 
 

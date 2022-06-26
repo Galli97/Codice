@@ -18,8 +18,8 @@ from tensorflow.compat.v1 import ConfigProto
 from tensorflow.compat.v1 import InteractiveSession
 from keras.preprocessing.image import ImageDataGenerator
 ####### PERCORSO IN LOCALE #########
-path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches.npy"
-path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches.npy"
+path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches_TEST.npy"
+path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches_TEST.npy"
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
