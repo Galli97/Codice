@@ -144,7 +144,7 @@ model.compile(optimizer = optimizer, loss = loss_fn , metrics =[sparse_accuracy_
 
 ### AVVIO IL TRAINING #####
 model.summary()
-history = model.fit(x = x_train.as_numpy_iterator(),batch_size = BATCH,epochs=EPOCHS,steps_per_epoch=steps,validation_data=x_validation.as_numpy_iterator,validation_steps=steps,validation_batch_size=BATCH)
+history = model.fit(x = np.asarray(x_train),batch_size = BATCH,epochs=EPOCHS,steps_per_epoch=steps,validation_data=np.asarray(x_validation),validation_steps=steps,validation_batch_size=BATCH)
 model.save('model.h5')
 
 plt.plot(history.history["loss"])
