@@ -145,7 +145,6 @@ train_batches = (
     x_train
     .cache()
     .shuffle(BUFFER_SIZE)
-    .batch(BATCH)
     .repeat()
     .map(Augment())
     .prefetch(buffer_size=tf.data.AUTOTUNE))
