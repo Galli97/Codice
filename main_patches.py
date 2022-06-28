@@ -93,8 +93,8 @@ BATCH=1
 EPOCHS = 3
 steps = 2 #int(train_set/EPOCHS)
 weight_decay = 0.0001/2
-batch_shape=(80,64,64,1)
-model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=batch_shape, classes=5)
+batch_shape=(BATCH,64,64,1)
+model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 
 #model = DeeplabV3Plus(image_size=64,num_classes=5)
 
@@ -131,8 +131,8 @@ x_validation = tf.data.Dataset.from_tensors((list_validation, label_validation))
 x_train = x_train.map(add_sample_weights)
 x_validation = x_validation.map(add_sample_weights)
 # Shuffle and slice the dataset.
-x_train = x_train.batch(BATCH)
-x_validation=x_validation.batch(BATCH)
+# x_train = x_train.batch(BATCH)
+# x_validation=x_validation.batch(BATCH)
 #### DEFINSICO I PARAMETRI PER IL COMPILE (OPTIMIZER E LOSS)
 
 lr_base = 0.001 * (float(BATCH) / 16)
