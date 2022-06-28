@@ -91,9 +91,9 @@ loss_weights=[soil_pixels/PIXELS,bedrock_pixels/PIXELS,sand_pixels/PIXELS,bigroc
 ###### DEFINISCO IL MODELLO #######
 shape=(64,64,1)
 print(shape)
-BATCH=2
+BATCH=32
 EPOCHS = 10
-steps = 5 #int(train_set/EPOCHS)
+steps = int(train_set/EPOCHS)
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,1)
 model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
@@ -104,8 +104,8 @@ model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, class
 #sample_weights = add_sample_weights(list_train, label_train)
 
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######
-# x_train = datagenerator(list_train,label_train,BATCH)
-# x_validation = datagenerator(list_validation,label_validation,BATCH)
+x_train = datagenerator(list_train,label_train,BATCH)
+x_validation = datagenerator(list_validation,label_validation,BATCH)
 #print(type(x_train))
 
 
@@ -127,30 +127,19 @@ model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, class
 
 # # Create a Dataset that includes sample weights
 # # (3rd element in the return tuple).
-x_train = tf.data.Dataset.from_tensors((list_train, label_train))
-x_validation = tf.data.Dataset.from_tensors((list_validation, label_validation))
-BUFFER_SIZE=1000;
-class Augment(tf.keras.layers.Layer):
-  def __init__(self, seed=42):
-    super().__init__()
-    # both use the same seed, so they'll make the same random changes.
-    self.augment_inputs = tf.keras.layers.RandomFlip(mode="horizontal", seed=seed)
-    self.augment_labels = tf.keras.layers.RandomFlip(mode="horizontal", seed=seed)
+# x_train = tf.data.Dataset.from_tensors((list_train, label_train))
+# x_validation = tf.data.Dataset.from_tensors((list_validation, label_validation))
+# BUFFER_SIZE=1000;
 
-  def call(self, inputs, labels):
-    inputs = self.augment_inputs(inputs)
-    labels = self.augment_labels(labels)
-    return inputs, labels
-train_batches = (
-    x_train
-    .cache()
-    .shuffle(BUFFER_SIZE)
-    .repeat()
-    .map(Augment())
-    .prefetch(buffer_size=tf.data.AUTOTUNE))
+# train_batches = (
+#     x_train
+#     .cache()
+#     .shuffle(BUFFER_SIZE)
+#     .repeat()
+#     .prefetch(buffer_size=tf.data.AUTOTUNE))
 
-x_train = train_batches.map(add_sample_weights)
-x_validation = x_validation.map(add_sample_weights)
+# x_train = train_batches.map(add_sample_weights)
+# x_validation = x_validation.map(add_sample_weights)
 # Shuffle and slice the dataset.
 # x_train = x_train.batch(BATCH)
 # x_validation=x_validation.batch(BATCH)
