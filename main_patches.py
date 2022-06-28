@@ -18,9 +18,9 @@ from utils import *
 from tensorflow.compat.v1 import ConfigProto
 from tensorflow.compat.v1 import InteractiveSession
 from keras.preprocessing.image import ImageDataGenerator
-
+TF_GPU_ALLOCATOR=cuda_malloc_async
 config = ConfigProto()
-config.gpu_options.allow_growth = True
+config.gpu_options.per_process_gpu_memory_fraction = 0.4
 session = InteractiveSession(config=config)
 ###### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
 path = r"/content/drive/MyDrive/Tesi/final_images.npy"
