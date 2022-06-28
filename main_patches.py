@@ -92,7 +92,7 @@ loss_weights=[soil_pixels/PIXELS,bedrock_pixels/PIXELS,sand_pixels/PIXELS,bigroc
 shape=(64,64,1)
 print(shape)
 BATCH=2
-EPOCHS = 5
+EPOCHS = 10
 steps = 5 #int(train_set/EPOCHS)
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,1)
@@ -166,7 +166,7 @@ model.compile(optimizer = optimizer, loss = loss_fn , metrics =[sparse_accuracy_
 
 ### AVVIO IL TRAINING #####
 model.summary()
-history = model.fit(x = x_train,batch_size = BATCH,epochs=EPOCHS,validation_data=x_validation,validation_batch_size=BATCH)
+history = model.fit(x = x_train,batch_size = BATCH, steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation,validation_step=steps,validation_batch_size=BATCH)
 model.save('model.h5')
 
 plt.plot(history.history["loss"])
