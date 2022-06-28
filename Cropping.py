@@ -99,7 +99,9 @@ crop_labels_list=[]
 print('[INFO]Generating labels array')
 for j in range (N-A):
     print(j)
-    label = cv2.imread(label_list[j])[:,:,[2,1,0]]   
+    label = cv2.imread(label_list[j])[:,:,[2,1,0]]
+    label = cv2.cvtColor(label, cv2.COLOR_BGR2GRAY)
+    label=np.expand_dims(label, axis=2)
     label = label.astype('float32')
     for r in range (0,16):
         for c in range (0,16):
@@ -110,3 +112,8 @@ for j in range (N-A):
 ######## SALVATAGGIO ####
 print("[INFO] Cropped labels arrays saved")
 save_cropped_labels(crop_labels_list) 
+
+
+print(crop_images_list[0].shape)
+print(crop_labels_list[0].shape)
+print(crop_labels_list[5])

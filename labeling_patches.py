@@ -31,11 +31,9 @@ path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\cropped_labels.npy"
 crop_images_list = get_np_arrays(path)          #recupero tmp1 dal file 
 crop_labels_list = get_np_arrays(path1)          #recupero tmp2 dal file
 
-### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
-#tmp1a,tmp2a,A = augment(image_list,label_list);
-A=0;
+
 #N = len(crop_images_list)+A
-N=5000;
+N=2000;
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI E DELLE LABEL ######
 num_classes=5
 tmp1 = np.empty((len(crop_images_list), 64, 64, 1), dtype=np.uint8)  #Qui ho N immagini
@@ -83,15 +81,31 @@ for t in range (0,len(crop_labels_list)):
         image = crop_labels_list[t]
         #print(image.shape)
         for i in range(0,64):
-            if(flag_bigrock==True):
+            if(flag_bigrock==True and flag_soil==True):
+                    break
+            if(flag_bigrock==True and flag_sand==True):
                 break
-            elif(flag_bedrock==True and flag_sand==True and flag_soil==True):
+            if(flag_bigrock==True and flag_soil==True):
+                break
+            elif(flag_bedrock==True and flag_soil==True):
+                break
+            elif(flag_bedrock==True and flag_sand==True):
+                break
+            elif(flag_sand==True and flag_soil==True):
                 break
             for j in range(0,64): 
                 channels_xy = image[i,j];
-                if(flag_bigrock==True):
+                if(flag_bigrock==True and flag_soil==True):
                     break
-                elif(flag_bedrock==True and flag_sand==True and flag_soil==True):
+                if(flag_bigrock==True and flag_sand==True):
+                    break
+                if(flag_bigrock==True and flag_soil==True):
+                    break
+                elif(flag_bedrock==True and flag_soil==True):
+                    break
+                elif(flag_bedrock==True and flag_sand==True):
+                    break
+                elif(flag_sand==True and flag_soil==True):
                     break
                 elif all(channels_xy==bedrock):      #BEDROCK
                     flag_bedrock=True
@@ -123,7 +137,7 @@ for t in range (0,len(crop_labels_list)):
                     elif channels_xy[0]==nullo:    #NULL
                         new_label[i,n,:]=4
             tmp2[count] = new_label
-            chosen_label.append(tmp1[t])
+            chosen_label.append(t) #(tmp1[t])
             flag_sand=False;
             flag_bedrock=False;
             flag_bigrock=False;
@@ -152,7 +166,7 @@ for t in range (0,len(crop_labels_list)):
                     elif channels_xy[0]==nullo:    #NULL
                         new_label[i,n,:]=4
             tmp2[count] = new_label
-            chosen_label.append(tmp1[t])
+            chosen_label.append(t)
             flag_sand=False;
             flag_bedrock=False;
             flag_bigrock=False;
@@ -181,7 +195,7 @@ for t in range (0,len(crop_labels_list)):
                     elif channels_xy[0]==nullo:    #NULL
                         new_label[i,n,:]=4
             tmp2[count] = new_label
-            chosen_label.append(tmp1[t])
+            chosen_label.append(t)
             flag_sand=False;
             flag_bedrock=False;
             flag_bigrock=False;
@@ -210,7 +224,7 @@ for t in range (0,len(crop_labels_list)):
                     elif channels_xy[0]==nullo:    #NULL
                         new_label[i,n,:]=4
             tmp2[count] = new_label
-            chosen_label.append(tmp1[t])
+            chosen_label.append(t)
             flag_sand=False;
             flag_bedrock=False;
             flag_bigrock=False;
@@ -239,7 +253,7 @@ for t in range (0,len(crop_labels_list)):
                     elif channels_xy[0]==nullo:    #NULL
                         new_label[i,n,:]=4
             tmp2[count] = new_label
-            chosen_label.append(tmp1[t])
+            chosen_label.append(t)
             flag_sand=False;
             flag_bedrock=False;
             flag_bigrock=False;
@@ -268,7 +282,7 @@ for t in range (0,len(crop_labels_list)):
                     elif channels_xy[0]==nullo:    #NULL
                         new_label[i,n,:]=4
             tmp2[count] = new_label
-            chosen_label.append(tmp1[t])
+            chosen_label.append(t)
             flag_sand=False;
             flag_bedrock=False;
             flag_bigrock=False;
@@ -276,11 +290,17 @@ for t in range (0,len(crop_labels_list)):
             count+=1
             print('count: ', count)
 
+selected_images=[]
+for k in range (len(chosen_label)):
+    index = chosen_label[k]
+    selected_images.append(tmp1[index])
+
 print("[INFO] image arrays saved")
-tmp3=chosen_label
+tmp3=np.array(selected_images)
 save_patches(tmp3)
 print("[INFO] label arrays saved")
 save_label_patches(tmp2)
-
+print('tmp3: ', tmp3.shape)
+print('tmp2: ', tmp2.shape)
 print('tmp3[0]: ', tmp3[0])
 print('tmp2[0]: ',tmp2[0])

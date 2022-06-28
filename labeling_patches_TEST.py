@@ -83,15 +83,31 @@ for t in range (0,len(crop_labels_list)):
         image = crop_labels_list[t]
         #print(image.shape)
         for i in range(0,64):
-            if(flag_bigrock==True):
+            if(flag_bigrock==True and flag_soil==True):
+                    break
+            if(flag_bigrock==True and flag_sand==True):
                 break
-            elif(flag_bedrock==True and flag_sand==True and flag_soil==True):
+            if(flag_bigrock==True and flag_soil==True):
+                break
+            elif(flag_bedrock==True and flag_soil==True):
+                break
+            elif(flag_bedrock==True and flag_sand==True):
+                break
+            elif(flag_sand==True and flag_soil==True):
                 break
             for j in range(0,64): 
                 channels_xy = image[i,j];
-                if(flag_bigrock==True):
+                if(flag_bigrock==True and flag_soil==True):
                     break
-                elif(flag_bedrock==True and flag_sand==True and flag_soil==True):
+                if(flag_bigrock==True and flag_sand==True):
+                    break
+                if(flag_bigrock==True and flag_soil==True):
+                    break
+                elif(flag_bedrock==True and flag_soil==True):
+                    break
+                elif(flag_bedrock==True and flag_sand==True):
+                    break
+                elif(flag_sand==True and flag_soil==True):
                     break
                 elif all(channels_xy==bedrock):      #BEDROCK
                     flag_bedrock=True

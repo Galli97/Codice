@@ -19,18 +19,20 @@ from tensorflow.compat.v1 import ConfigProto
 from tensorflow.compat.v1 import InteractiveSession
 from keras.preprocessing.image import ImageDataGenerator
 ###### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
-# path = r"/content/drive/MyDrive/Tesi/image_patches.npy"
-# path1 = r"/content/drive/MyDrive/Tesi/label_patches.npy"
+# path = r"/content/drive/MyDrive/Tesi/final_images.npy"
+# path1 = r"/content/drive/MyDrive/Tesi/final_labels.npy"
 
 # ####### PERCORSO IN LOCALE #########
-path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches.npy"
-path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches.npy"
+path = r"C:\Users\Mattia\Documenti\Github\Codice\final_images.npy"
+path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\final_labels.npy"
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
 #print(type(tmp1))
 print(tmp1.shape)
-print('999: ',tmp1[999])
+# print('999: ',tmp1[999])
+# print('0: ',tmp1[0])
+# print('4000: ',tmp1[4000])
 
 
 
@@ -38,13 +40,17 @@ print('999: ',tmp1[999])
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 #print(type(tmp2))
 print(tmp2.shape)
-print(len(tmp2))
-print('999: ',tmp2[999])
+# print(len(tmp2))
+# print('999: ',tmp2[999])
+# print('0: ',tmp2[0])
+# print('3050: ',tmp2[3050])
+
+
 # N = len(tmp2)
 # tmp1=tmp1[:N]
 # print(tmp1.shape)
 
-#### PRENDO UNA PARTE DEL DATASET (20%) E LO UTILIZZO PER IL VALIDATION SET #####
+# #### PRENDO UNA PARTE DEL DATASET (20%) E LO UTILIZZO PER IL VALIDATION SET #####
 train_set = int(len(tmp2)*80/100)
 
 list_train = tmp1[:train_set]
@@ -57,18 +63,18 @@ label_validation = tmp2[train_set:]
 print('label_train: ',label_train.shape)
 print('label_validation: ',label_validation.shape)
 
-# soil:  674741
-# bedrock:  1031730
-# sand:  378918
-# bigrock:  174845
-# null:  1835766
-soil_pixels = 674741;
-bedrock_pixels = 1031730;
-sand_pixels = 378918;
-bigrock_pixels = 174845;
-null_pixels = 1835766;
-PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels#+null_pixels ;
-loss_weights=[soil_pixels/PIXELS,bedrock_pixels/PIXELS,sand_pixels/PIXELS,bigrock_pixels/PIXELS,0]
+# soil:  1895582
+# bedrock:  3880619
+# sand:  1108513
+# bigrock:  1413195
+# null:  7037515
+soil_pixels = 1895582;
+bedrock_pixels = 3880619;
+sand_pixels = 1108513;
+bigrock_pixels = 1413195;
+null_pixels = 7037515;
+PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels+null_pixels ;
+loss_weights=[soil_pixels/PIXELS,bedrock_pixels/PIXELS,sand_pixels/PIXELS,bigrock_pixels/PIXELS,null_pixels/PIXELS]
 # label_train = label_train.reshape((len(label_train),64*64,1))
 # label_validation = label_validation.reshape((len(label_validation),64*64,1))
 # print('label_train: ',label_train.shape)
@@ -77,19 +83,23 @@ loss_weights=[soil_pixels/PIXELS,bedrock_pixels/PIXELS,sand_pixels/PIXELS,bigroc
 ###### DEFINISCO IL MODELLO #######
 shape=(64,64,1)
 print(shape)
-BATCH= 32
-EPOCHS=10
-steps = 5 #int(train_set/EPOCHS)
+BATCH=1
+EPOCHS = 20
+steps = 30 #int(train_set/EPOCHS)
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,1)
 model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 
 #model = DeeplabV3Plus(image_size=64,num_classes=5)
 
+
+#sample_weights = add_sample_weights(list_train, label_train)
+
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######
-x_train = datagenerator(list_train,label_train,BATCH)
-x_validation = datagenerator(list_validation,label_validation,BATCH)
+# x_train = datagenerator(list_train,label_train,BATCH)
+# x_validation = datagenerator(list_validation,label_validation,BATCH)
 #print(type(x_train))
+
 
 # sample_weight = np.ones(shape=(len(label_train),64,64))
 # print(sample_weight.shape)
@@ -107,20 +117,22 @@ x_validation = datagenerator(list_validation,label_validation,BATCH)
 # val_sample_weight[:,3] = 3.0
 # val_sample_weight[:,4] = 0
 
-# Create a Dataset that includes sample weights
-# (3rd element in the return tuple).
-# x_train = tf.data.Dataset.from_tensors((list_train, label_train, sample_weight))
-# x_validation = tf.data.Dataset.from_tensors((list_validation, label_validation, val_sample_weight))
+# # Create a Dataset that includes sample weights
+# # (3rd element in the return tuple).
+x_train = tf.data.Dataset.from_tensors((list_train, label_train))
+x_validation = tf.data.Dataset.from_tensors((list_validation, label_validation))
 
+x_train = x_train.map(add_sample_weights)
+x_validation = x_validation.map(add_sample_weights)
 # Shuffle and slice the dataset.
 # x_train = x_train.batch(BATCH)
 # x_validation=x_validation.batch(BATCH)
 #### DEFINSICO I PARAMETRI PER IL COMPILE (OPTIMIZER E LOSS)
 
-lr_base = 0.01 * (float(BATCH) / 16)
+lr_base = 0.001 * (float(BATCH) / 16)
 optimizer = SGD(learning_rate=lr_base, momentum=0.)
 #optimizer=keras.optimizers.Adam(learning_rate=0.001)
-loss_fn =keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
+loss_fn = keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics =[sparse_accuracy_ignoring_last_label],loss_weights=loss_weights)#,sample_weight_mode='temporal'))#[tf.keras.metrics.SparseCategoricalAccuracy()]#[tf.keras.metrics.MeanIoU(num_classes=5)])#['accuracy'])#[sparse_accuracy_ignoring_last_label])#,sample_weight_mode='temporal')
 

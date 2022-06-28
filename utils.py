@@ -35,6 +35,9 @@ def save_predictions(tmp1):
     with open('predictions.npy','wb') as f:
         np.save(f,tmp1)
 
+def save_final_images(tmp1):
+    with open('final_images.npy','wb') as f:
+        np.save(f,tmp1)
 
 def get_np_arrays(file):
     with open(file,'rb') as f:
@@ -62,6 +65,10 @@ def save_label_patches_TEST(tmp1):
 
 def save_cropped_labels_TEST(tmp1):
     with open('cropped_labels_TEST.npy','wb') as f:
+        np.save(f,tmp1)
+
+def save_final_labels(tmp1):
+    with open('final_labels.npy','wb') as f:
         np.save(f,tmp1)
 
 ### datagenerator prepara i dati per il training
@@ -100,24 +107,31 @@ def cropp(image,central_fraction):
 def rotate(image):
     rotated = tf.image.rot90(image)
     return rotated
-   
 
-def augment(image_list,label_list):
-    fix=len(image_list)-1        #voglio lavorare solo sulle immagini della lista iniziale
-    A = random.randint(400,fix)
-    tmp1a = np.empty((A, 64, 64, 3), dtype=np.uint8)  #Qui ho A immagini
-    tmp2a = np.empty((A, 64, 64, 3), dtype=np.uint8) 
+def translation(image):
+  height, width = image.shape[:2]
+  quarter_height, quarter_width = height / 4, width / 4
+  T = np.float32([[1, 0, quarter_width], [0, 1, quarter_height]])
+  img_translation = cv2.warpAffine(image, T, (width, height))
+  return img_translation  
+
+def augment(image_list,label_list,N):
+    fix=N-1        #voglio lavorare solo sulle immagini della lista iniziale
+    A = random.randint(1000,fix)
+    tmp1a = []# np.empty((A, 64, 64, 1), dtype=np.uint8)  #Qui ho A immagini
+    tmp2a = []#np.empty((A, 64, 64, 1), dtype=np.uint8) 
     for i in range (0,A):
         a = random.randint(0,fix)
-        image = cv2.imread(image_list[a])[:,:,[2,1,0]]
-        image = cv2.resize(image, (64,64))
-        image = image.astype('float32')
-        image/=510   
-        label = cv2.imread(label_list[a])[:,:,[2,1,0]]
-        label = cv2.resize(label, (64,64))
-        label = label.astype('float32')
-        
-        chose = random.randint(1,5)
+        # image = cv2.imread(image_list[a])[:,:,[2,1,0]]
+        # image = cv2.resize(image, (64,64))
+        # image = image.astype('float32')
+        # image/=510  
+        image=image_list[a] 
+        # label = cv2.imread(label_list[a])[:,:,[2,1,0]]
+        # label = cv2.resize(label, (64,64))
+        # label = label.astype('float32')
+        label=label_list[a]
+        chose = random.randint(1,3)
         #print(a)
         if(chose == 1):
             new_image = rotate(image)
@@ -125,17 +139,17 @@ def augment(image_list,label_list):
         elif(chose == 2):
             new_image = brightness(image)
             new_label = label
+        # elif(chose == 3):
+        #     new_image = cv2.rotate(image, cv2.ROTATE_180)
+        #     new_label = cv2.rotate(new_label, cv2.ROTATE_180)
         elif(chose == 3):
-            new_image = saturate(image)
-            new_label = label
-        elif(chose == 4):
             new_image = flip(image)
             new_label = flip(label)
-        elif(chose == 5):
-            new_image = grayscale(image)
-            new_label = label
-        tmp1a[i]=new_image
-        tmp2a[i]=new_label
+        # elif(chose == 5):
+        #     new_image = grayscale(image)
+        #     new_label = label
+        tmp1a.append(new_image)#[i]=new_image
+        tmp2a.append(new_label)#[i]=new_label
     return tmp1a,tmp2a,A
 
 
@@ -207,8 +221,55 @@ def decode_predictions(tmp2):
     return decoded_images
 ##########################
 
+def _adjust_labels(labels, predictions):
+  """Adjust the 'labels' tensor by squeezing it if needed."""
+  labels = tf.cast(labels, tf.int32)
+  if len(predictions.shape) == len(labels.shape):
+    labels = tf.squeeze(labels, [-1])
+  return labels, predictions
 
 
+def _validate_rank(labels, predictions, weights):
+  if weights is not None and len(weights.shape) != len(labels.shape):
+    raise RuntimeError(
+        ("Weight and label tensors were not of the same rank. weights.shape "
+         "was %s, and labels.shape was %s.") %
+        (predictions.shape, labels.shape))
+  if (len(predictions.shape) - 1) != len(labels.shape):
+    raise RuntimeError(
+        ("Weighted sparse categorical crossentropy expects `labels` to have a "
+         "rank of one less than `predictions`. labels.shape was %s, and "
+         "predictions.shape was %s.") % (labels.shape, predictions.shape))
+
+
+def loss(labels, predictions, weights=None, from_logits=False):
+  """Calculate a per-batch sparse categorical crossentropy loss.
+  This loss function assumes that the predictions are post-softmax.
+  Args:
+    labels: The labels to evaluate against. Should be a set of integer indices
+      ranging from 0 to (vocab_size-1).
+    predictions: The network predictions. Should have softmax already applied.
+    weights: An optional weight array of the same shape as the 'labels' array.
+      If None, all examples will be used.
+    from_logits: Whether the input predictions are logits.
+  Returns:
+    A loss scalar.
+  Raises:
+    RuntimeError if the passed tensors do not have the same rank.
+  """
+  # When using these functions with the Keras core API, we will need to squeeze
+  # the labels tensor - Keras adds a spurious inner dimension.
+  labels, predictions = _adjust_labels(labels, predictions)
+  _validate_rank(labels, predictions, weights)
+
+  example_losses = tf.keras.losses.sparse_categorical_crossentropy(
+      labels, predictions, from_logits=from_logits)
+
+  if weights is None:
+    return tf.reduce_mean(example_losses)
+  weights = tf.cast(weights, predictions.dtype)
+  return tf.math.divide_no_nan(
+      tf.reduce_sum(example_losses * weights), tf.reduce_sum(weights))
 
 
 
@@ -295,6 +356,18 @@ def sparse_accuracy_ignoring_last_label(y_true, y_pred):
 
 ########################################################
 #######################################################
+def add_sample_weights(image, label):
+  # The weights for each class, with the constraint that:
+  #     sum(class_weights) == 1.0
+  class_weights = tf.constant([2.0, 1.0, 2.0,2.0,0])
+  class_weights = class_weights/tf.reduce_sum(class_weights)
+
+  # Create an image of `sample_weights` by using the label at each pixel as an 
+  # index into the `class weights` .
+  sample_weights = tf.gather(class_weights, indices=tf.cast(label, tf.int32))
+
+  return image, label, sample_weights
+########################
 
 def preprocess(image_list,label_list,
                                crop_height,
