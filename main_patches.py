@@ -131,8 +131,8 @@ x_validation = tf.data.Dataset.from_tensors((list_validation, label_validation))
 x_train = x_train.map(add_sample_weights)
 x_validation = x_validation.map(add_sample_weights)
 # Shuffle and slice the dataset.
-# x_train = x_train.batch(BATCH)
-# x_validation=x_validation.batch(BATCH)
+x_train = x_train.batch(BATCH)
+x_validation=x_validation.batch(BATCH)
 #### DEFINSICO I PARAMETRI PER IL COMPILE (OPTIMIZER E LOSS)
 
 lr_base = 0.001 * (float(BATCH) / 16)
