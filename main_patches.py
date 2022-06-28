@@ -89,9 +89,9 @@ loss_weights=[soil_pixels/PIXELS,bedrock_pixels/PIXELS,sand_pixels/PIXELS,bigroc
 ###### DEFINISCO IL MODELLO #######
 shape=(64,64,1)
 print(shape)
-BATCH=1
-EPOCHS = 3
-steps = 2 #int(train_set/EPOCHS)
+BATCH=64
+EPOCHS = 10
+steps = 5 #int(train_set/EPOCHS)
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,1)
 model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
@@ -102,8 +102,8 @@ model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, class
 #sample_weights = add_sample_weights(list_train, label_train)
 
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######
-# x_train = datagenerator(list_train,label_train,BATCH)
-# x_validation = datagenerator(list_validation,label_validation,BATCH)
+x_train = datagenerator(list_train,label_train,BATCH)
+x_validation = datagenerator(list_validation,label_validation,BATCH)
 #print(type(x_train))
 
 
@@ -125,11 +125,11 @@ model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, class
 
 # # Create a Dataset that includes sample weights
 # # (3rd element in the return tuple).
-x_train = tf.data.Dataset.from_tensors((list_train, label_train))
-x_validation = tf.data.Dataset.from_tensors((list_validation, label_validation))
+# x_train = tf.data.Dataset.from_tensors((list_train, label_train))
+# x_validation = tf.data.Dataset.from_tensors((list_validation, label_validation))
 
-x_train = x_train.map(add_sample_weights)
-x_validation = x_validation.map(add_sample_weights)
+# x_train = x_train.map(add_sample_weights)
+# x_validation = x_validation.map(add_sample_weights)
 # Shuffle and slice the dataset.
 # x_train = x_train.batch(BATCH)
 # x_validation=x_validation.batch(BATCH)
@@ -144,7 +144,7 @@ model.compile(optimizer = optimizer, loss = loss_fn , metrics =[sparse_accuracy_
 
 ### AVVIO IL TRAINING #####
 model.summary()
-history = model.fit(x = np.array(x_train),batch_size = BATCH,epochs=EPOCHS,steps_per_epoch=steps,validation_data=np.array(x_validation),validation_steps=steps,validation_batch_size=BATCH)
+history = model.fit(x = x_train,batch_size = BATCH,epochs=EPOCHS,steps_per_epoch=steps,validation_data=x_validation,validation_steps=steps,validation_batch_size=BATCH)
 model.save('model.h5')
 
 plt.plot(history.history["loss"])
