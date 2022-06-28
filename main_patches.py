@@ -94,7 +94,7 @@ EPOCHS = 3
 steps = 2 #int(train_set/EPOCHS)
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,1)
-model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=batch_shape, classes=5)
+model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 
 #model = DeeplabV3Plus(image_size=64,num_classes=5)
 
@@ -125,10 +125,8 @@ model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=batch_shape
 
 # # Create a Dataset that includes sample weights
 # # (3rd element in the return tuple).
-x_train = tf.data.Dataset.from_tensors((list_train, label_train))\
-        .batch(BATCH, drop_remainder=True)
-x_validation = tf.data.Dataset.from_tensors((list_validation, label_validation))\
-        .batch(BATCH, drop_remainder=True)
+x_train = tf.data.Dataset.from_tensors((list_train, label_train))
+x_validation = tf.data.Dataset.from_tensors((list_validation, label_validation))
 
 x_train = x_train.map(add_sample_weights)
 x_validation = x_validation.map(add_sample_weights)
@@ -146,7 +144,7 @@ model.compile(optimizer = optimizer, loss = loss_fn , metrics =[sparse_accuracy_
 
 ### AVVIO IL TRAINING #####
 model.summary()
-history = model.fit(x = x_train,batch_size = BATCH,epochs=EPOCHS,steps_per_epoch=steps,validation_data=x_validation,validation_steps=steps,validation_batch_size=BATCH)
+history = model.fit(x = x_train.as_numpy_iterator(),batch_size = BATCH,epochs=EPOCHS,steps_per_epoch=steps,validation_data=x_validation.as_numpy_iterator,validation_steps=steps,validation_batch_size=BATCH)
 model.save('model.h5')
 
 plt.plot(history.history["loss"])
