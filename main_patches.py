@@ -129,8 +129,17 @@ model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, class
 # # (3rd element in the return tuple).
 x_train = tf.data.Dataset.from_tensors((list_train, label_train))
 x_validation = tf.data.Dataset.from_tensors((list_validation, label_validation))
+BUFFER_SIZE=1000;
+train_batches = (
+    x_train
+    .cache()
+    .shuffle(BUFFER_SIZE)
+    .batch(BATCH)
+    .repeat()
+    .map(Augment())
+    .prefetch(buffer_size=tf.data.AUTOTUNE))
 
-x_train = x_train.map(add_sample_weights)
+x_train = train_batches.map(add_sample_weights)
 x_validation = x_validation.map(add_sample_weights)
 # Shuffle and slice the dataset.
 # x_train = x_train.batch(BATCH)
