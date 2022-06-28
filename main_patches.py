@@ -124,14 +124,14 @@ model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, class
 
 # # Create a Dataset that includes sample weights
 # # (3rd element in the return tuple).
-x_train = tf.data.Dataset.from_tensors((list_train, label_train))
-x_validation = tf.data.Dataset.from_tensors((list_validation, label_validation))
+x_train = tf.data.Dataset.from_generator(datagenerator(x_train,BATCH))
+x_validation = tf.data.Dataset.from_generator(datagenerator(x_validation,BATCH))
 
 x_train = x_train.map(add_sample_weights)
 x_validation = x_validation.map(add_sample_weights)
 
-x_train = datagenerator(x_train,BATCH)
-x_validation = datagenerator(x_validation,BATCH)
+# x_train = datagenerator(x_train,BATCH)
+# x_validation = datagenerator(x_validation,BATCH)
 # Shuffle and slice the dataset.
 # x_train = x_train.batch(BATCH)
 # x_validation=x_validation.batch(BATCH)
