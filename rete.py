@@ -23,6 +23,25 @@ def get_weights_path_resnet():
     weights_path = get_file('resnet50_weights_tf_dim_ordering_tf_kernels.h5',TF_WEIGHTS_PATH,cache_subdir='models')
     return weights_path
 
+def upsample(filters, size, apply_dropout=False):
+  initializer = tf.random_normal_initializer(0., 0.02)
+
+  result = tf.keras.Sequential()
+  result.add(
+    tf.keras.layers.Conv2DTranspose(filters, size, strides=2,
+                                    padding='same',
+                                    kernel_initializer=initializer,
+                                    use_bias=False))
+
+  result.add(tf.keras.layers.BatchNormalization())
+
+  if apply_dropout:
+      result.add(tf.keras.layers.Dropout(0.5))
+
+  result.add(tf.keras.layers.ReLU())
+
+  return result
+
 # class UpSampling2D(Layer):
 #     def __init__(self, size=(1, 1), target_size=None, data_format='default', **kwargs):
 #         if data_format == 'default':
@@ -91,8 +110,15 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     #x = Dropout(0.5)(x)
     x = Conv2D(classes, (3, 3), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     
-    x = tf.keras.layers.UpSampling2D(16)(x)
+    #x = tf.keras.layers.UpSampling2D(16)(x)
 
+    x = upsample(512, 3)(x) # 4x4 -> 8x8
+    x = upsample(256, 3)(x)  # 8x8 -> 16x16
+    x = upsample(128, 3)(x)  # 16x16 -> 32x32
+    #x = upsample(64, 3)(x)  # 32x32 -> 64x64
+    x = tf.keras.layers.Conv2DTranspose(
+      filters=classes, kernel_size=3, strides=2,
+      padding='same') (x)
     # img_size=input_shape[0];
     # x = layers.UpSampling2D(
     #     size=(img_size // x.shape[1], img_size // x.shape[2]),

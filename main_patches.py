@@ -93,12 +93,12 @@ shape=(64,64,1)
 print(shape)
 BATCH=32
 EPOCHS = 10
-steps = int(train_set/EPOCHS)
+steps = 5#int(train_set/EPOCHS)
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,1)
-model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+#model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 
-#model = DeeplabV3Plus(image_size=64,num_classes=5)
+model = DeeplabV3Plus(image_size=64,num_classes=5)
 
 
 #sample_weights = add_sample_weights(list_train, label_train)
@@ -150,7 +150,7 @@ optimizer = SGD(learning_rate=lr_base, momentum=0.)
 #optimizer=keras.optimizers.Adam(learning_rate=0.001)
 loss_fn = keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 
-model.compile(optimizer = optimizer, loss = loss_fn , metrics =[sparse_accuracy_ignoring_last_label],loss_weights=loss_weights)#,sample_weight_mode='temporal'))#[tf.keras.metrics.SparseCategoricalAccuracy()]#[tf.keras.metrics.MeanIoU(num_classes=5)])#['accuracy'])#[sparse_accuracy_ignoring_last_label])#,sample_weight_mode='temporal')
+model.compile(optimizer = optimizer, loss = loss_fn , metrics =[MyMeanIoU(num_classes=5)],loss_weights=loss_weights)#,sample_weight_mode='temporal'))#[tf.keras.metrics.SparseCategoricalAccuracy()]#[tf.keras.metrics.MeanIoU(num_classes=5)])#['accuracy'])#[sparse_accuracy_ignoring_last_label])#,sample_weight_mode='temporal')
 
 ### AVVIO IL TRAINING #####
 model.summary()
