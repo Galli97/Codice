@@ -96,7 +96,7 @@ EPOCHS = 10
 steps = 5#int(train_set/EPOCHS)
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,1)
-model = AtrousFCN_Vgg16_16s(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 
 #model = DeeplabV3Plus(image_size=64,num_classes=5)
 
