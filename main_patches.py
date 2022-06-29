@@ -39,7 +39,7 @@ print(tmp1.shape)
 # print('999: ',tmp1[999])
 # print('0: ',tmp1[0])
 # print('4000: ',tmp1[4000])
-tmp1=tmp1[:800]
+tmp1=tmp1[:900]
 # print(tmp1.shape)
 
 
@@ -50,7 +50,7 @@ print(tmp2.shape)
 # print('999: ',tmp2[999])
 # print('0: ',tmp2[0])
 # print('3050: ',tmp2[3050])
-tmp2=tmp2[:800]
+tmp2=tmp2[:900]
 # print(tmp2.shape)
 
 
