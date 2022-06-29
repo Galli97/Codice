@@ -89,7 +89,7 @@ loss_weights=[soil_pixels/PIXELS,bedrock_pixels/PIXELS,sand_pixels/PIXELS,bigroc
 # print('label_validation: ',label_validation.shape)
 
 ###### DEFINISCO IL MODELLO #######
-shape=(64,64,1)
+shape=(64,64,3)
 print(shape)
 BATCH=32
 EPOCHS = 10
