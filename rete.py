@@ -214,7 +214,7 @@ def rete_2(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
 def convolution_block(
     block_input,
     num_filters=256,
-    kernel_size=3,
+    kernel_size=1,
     dilation_rate=1,
     padding="same",
     use_bias=False,
