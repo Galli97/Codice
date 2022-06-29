@@ -266,7 +266,7 @@ def AtrousFCN_Vgg16_16s(input_shape=None, weight_decay=0., batch_momentum=0.9, b
 
     model = Model(img_input, x)
 
-    weights_path = get_weights_path_vgg16()
+    weights_path = get_weights_path_resnet()
     model.load_weights(weights_path, by_name=True)
     return model
 
