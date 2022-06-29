@@ -214,7 +214,7 @@ def rete_2(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
 def convolution_block(
     block_input,
     num_filters=256,
-    kernel_size=1,
+    kernel_size=3,
     dilation_rate=1,
     padding="same",
     use_bias=False,
@@ -249,7 +249,7 @@ def DilatedSpatialPyramidPooling(dspp_input):
     return output
 
 def DeeplabV3Plus(image_size, num_classes):
-    model_input = keras.Input(shape=(image_size, image_size, 3))
+    model_input = keras.Input(shape=(image_size, image_size, 1))
     resnet50 = keras.applications.ResNet50(
         weights="imagenet", include_top=False, input_tensor=model_input
     )
