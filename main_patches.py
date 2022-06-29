@@ -92,8 +92,8 @@ loss_weights=[soil_pixels/PIXELS,bedrock_pixels/PIXELS,sand_pixels/PIXELS,bigroc
 shape=(64,64,1)
 print(shape)
 BATCH=1
-EPOCHS = 5
-steps = 2#int(train_set/EPOCHS)
+EPOCHS = 10
+steps = 5#int(train_set/EPOCHS)
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,1)
 model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
