@@ -96,9 +96,9 @@ EPOCHS = 10
 steps = 5#int(train_set/EPOCHS)
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,1)
-#model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+model = AtrousFCN_Vgg16_16s(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 
-model = DeeplabV3Plus(image_size=64,num_classes=5)
+#model = DeeplabV3Plus(image_size=64,num_classes=5)
 
 
 #sample_weights = add_sample_weights(list_train, label_train)
@@ -154,7 +154,7 @@ model.compile(optimizer = optimizer, loss = loss_fn , metrics =[MyMeanIoU(num_cl
 
 ### AVVIO IL TRAINING #####
 model.summary()
-history = model.fit(x = x_train,batch_size = BATCH, steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation,validation_steps=steps,validation_batch_size=BATCH)
+history = model.fit(x = x_train, steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation,validation_steps=steps)
 model.save('model.h5')
 
 plt.plot(history.history["loss"])

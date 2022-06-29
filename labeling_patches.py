@@ -33,7 +33,7 @@ crop_labels_list = get_np_arrays(path1)          #recupero tmp2 dal file
 
 
 #N = len(crop_images_list)+A
-N=2000;
+N=5000;
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI E DELLE LABEL ######
 num_classes=5
 tmp1 = np.empty((len(crop_images_list), 64, 64, 1), dtype=np.uint8)  #Qui ho N immagini
@@ -289,16 +289,18 @@ for t in range (0,len(crop_labels_list)):
             flag_soil=False;
             count+=1
             print('count: ', count)
-
+print('chosen_label',len(chosen_label))
 selected_images=[]
 for k in range (len(chosen_label)):
     index = chosen_label[k]
     selected_images.append(tmp1[index])
 
+print('selected_images',len(selected_images))
 print("[INFO] image arrays saved")
 tmp3=np.array(selected_images)
 save_patches(tmp3)
 print("[INFO] label arrays saved")
+tmp2=tmp2[0:len(tmp3)]
 save_label_patches(tmp2)
 print('tmp3: ', tmp3.shape)
 print('tmp2: ', tmp2.shape)

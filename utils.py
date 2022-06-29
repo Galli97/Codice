@@ -118,19 +118,18 @@ def translation(image):
 def augment(image_list,label_list,N):
     fix=N-1        #voglio lavorare solo sulle immagini della lista iniziale
     A = random.randint(1000,fix)
+    skipped=0
+    indices=[]
     tmp1a = []# np.empty((A, 64, 64, 1), dtype=np.uint8)  #Qui ho A immagini
     tmp2a = []#np.empty((A, 64, 64, 1), dtype=np.uint8) 
     for i in range (0,A):
         a = random.randint(0,fix)
-        # image = cv2.imread(image_list[a])[:,:,[2,1,0]]
-        # image = cv2.resize(image, (64,64))
-        # image = image.astype('float32')
-        # image/=510  
+        if a in indices:
+          skipped+=1
+          continue  
         image=image_list[a] 
-        # label = cv2.imread(label_list[a])[:,:,[2,1,0]]
-        # label = cv2.resize(label, (64,64))
-        # label = label.astype('float32')
         label=label_list[a]
+        indices.append(a)
         chose = random.randint(1,3)
         #print(a)
         if(chose == 1):
@@ -139,17 +138,15 @@ def augment(image_list,label_list,N):
         elif(chose == 2):
             new_image = brightness(image)
             new_label = label
-        # elif(chose == 3):
-        #     new_image = cv2.rotate(image, cv2.ROTATE_180)
-        #     new_label = cv2.rotate(new_label, cv2.ROTATE_180)
         elif(chose == 3):
             new_image = flip(image)
             new_label = flip(label)
-        # elif(chose == 5):
-        #     new_image = grayscale(image)
-        #     new_label = label
+        # elif(chose == 4):
+        #     new_image = translation(image)
+        #     new_label = translation(label)
         tmp1a.append(new_image)#[i]=new_image
         tmp2a.append(new_label)#[i]=new_label
+    A=A-skipped
     return tmp1a,tmp2a,A
 
 
@@ -193,30 +190,13 @@ def decode_masks(tmp2):
 
 
 def decode_predictions(tmp2):
-    # soil=[1,0,0,0,0];
-    # bedrock=[0,1,0,0,0];
-    # sand=[0,0,1,0,0];
-    # bigrock=[0,0,0,1,0];
-    # null=[0,0,0,0,1];
     decoded_images = np.empty((len(tmp2), 64, 64, 1), dtype=np.uint8)  #Qui ho N immagini
     for n in range (len(tmp2)):
-      label = tmp2[n]
-      #reduct_label = label[:,:,0]                        
+      label = tmp2[n]                   
       image = np.empty((64, 64, 1), dtype=np.uint8) 
-      #image[:,:,0]=reduct_label  
       for i in range(0,64):
           for j in range(0,64): 
-              # channels_xy = label[i,j];          #SOIL is kept black, NULL (no label) is white 
-              # if all(channels_xy==bedrock):      #BEDROCK
               image[i,j,0]=np.argmax(label[i,j])
-              # elif all(channels_xy==sand):    #SAND
-              #   image[i,j,0]=2
-              # elif all(channels_xy==bigrock):    #BIG ROCK
-              #   image[i,j,0]=3
-              # elif all(channels_xy==soil):    #SOIL ---> BLACK
-              #   image[i,j,0]=0
-              # elif all(channels_xy==null):    #NULL ---> WHITE
-              #   image[i,j,0]=4
               decoded_images[n]=image
     return decoded_images
 ##########################

@@ -76,9 +76,9 @@ for f in range (0,A):
             elif channels_xy[0]==bigrock:     #BIG ROCK
                 new_label[i,n,:]=3
             elif channels_xy[0]==soil:     #SOIL
-                new_label[i,n,:]=0
-            elif channels_xy[0]==nullo:    #NULL
                 new_label[i,n,:]=4
+            elif channels_xy[0]==nullo:    #NULL
+                new_label[i,n,:]=0
     augmented_labels[f] = new_label
 
 print(augmented_labels.shape)
