@@ -108,8 +108,8 @@ x_train = datagenerator(list_train,label_train,BATCH)
 x_validation = datagenerator(list_validation,label_validation,BATCH)
 #print(type(x_train))
 
-x_train=tf.keras.applications.vgg16.preprocess_input(x_train)
-x_validation=tf.keras.applications.vgg16.preprocess_input(x_validation)
+# x_train=tf.keras.applications.vgg16.preprocess_input(x_train)
+# x_validation=tf.keras.applications.vgg16.preprocess_input(x_validation)
 # sample_weight = np.ones(shape=(len(label_train),64,64))
 # print(sample_weight.shape)
 # sample_weight[:,0] = 1.5
