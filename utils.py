@@ -154,11 +154,11 @@ def augment(image_list,label_list,N):
 
 
 def decode_masks(tmp2):
-    soil=0;
+    soil=4;
     bedrock=1;
     sand=2;
     bigrock=3;
-    null=4;
+    null=0;
     decoded_images = np.empty((len(tmp2), 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
     for n in range (len(tmp2)):
       label = tmp2[n]

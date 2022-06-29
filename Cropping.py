@@ -84,7 +84,7 @@ for i in range (N-A):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     image=np.expand_dims(image, axis=2)
     image = image.astype('float32')
-    image/=510                                    #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+    image/=255                                  #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     for r in range (0,16):
         for c in range (0,16):
             cropped_image = image[64*r:64*(r+1),64*c:64*(c+1)]

@@ -133,9 +133,9 @@ for t in range (0,len(crop_labels_list)):
                     elif channels_xy[0]==bigrock:     #BIG ROCK
                         new_label[i,n,:]=3
                     elif channels_xy[0]==soil:     #SOIL
-                        new_label[i,n,:]=0
-                    elif channels_xy[0]==nullo:    #NULL
                         new_label[i,n,:]=4
+                    elif channels_xy[0]==nullo:    #NULL
+                        new_label[i,n,:]=0
             tmp2[count] = new_label
             chosen_label.append(t) #(tmp1[t])
             flag_sand=False;
@@ -162,9 +162,9 @@ for t in range (0,len(crop_labels_list)):
                     elif channels_xy[0]==bigrock:     #BIG ROCK
                         new_label[i,n,:]=3
                     elif channels_xy[0]==soil:     #SOIL
-                        new_label[i,n,:]=0
-                    elif channels_xy[0]==nullo:    #NULL
                         new_label[i,n,:]=4
+                    elif channels_xy[0]==nullo:    #NULL
+                        new_label[i,n,:]=0
             tmp2[count] = new_label
             chosen_label.append(t)
             flag_sand=False;
@@ -191,9 +191,9 @@ for t in range (0,len(crop_labels_list)):
                     elif channels_xy[0]==bigrock:     #BIG ROCK
                         new_label[i,n,:]=3
                     elif channels_xy[0]==soil:     #SOIL
-                        new_label[i,n,:]=0
-                    elif channels_xy[0]==nullo:    #NULL
                         new_label[i,n,:]=4
+                    elif channels_xy[0]==nullo:    #NULL
+                        new_label[i,n,:]=0
             tmp2[count] = new_label
             chosen_label.append(t)
             flag_sand=False;
@@ -220,9 +220,9 @@ for t in range (0,len(crop_labels_list)):
                     elif channels_xy[0]==bigrock:     #BIG ROCK
                         new_label[i,n,:]=3
                     elif channels_xy[0]==soil:     #SOIL
-                        new_label[i,n,:]=0
-                    elif channels_xy[0]==nullo:    #NULL
                         new_label[i,n,:]=4
+                    elif channels_xy[0]==nullo:    #NULL
+                        new_label[i,n,:]=0
             tmp2[count] = new_label
             chosen_label.append(t)
             flag_sand=False;
@@ -249,9 +249,9 @@ for t in range (0,len(crop_labels_list)):
                     elif channels_xy[0]==bigrock:     #BIG ROCK
                         new_label[i,n,:]=3
                     elif channels_xy[0]==soil:     #SOIL
-                        new_label[i,n,:]=0
-                    elif channels_xy[0]==nullo:    #NULL
                         new_label[i,n,:]=4
+                    elif channels_xy[0]==nullo:    #NULL
+                        new_label[i,n,:]=0
             tmp2[count] = new_label
             chosen_label.append(t)
             flag_sand=False;
@@ -278,9 +278,9 @@ for t in range (0,len(crop_labels_list)):
                     elif channels_xy[0]==bigrock:     #BIG ROCK
                         new_label[i,n,:]=3
                     elif channels_xy[0]==soil:     #SOIL
-                        new_label[i,n,:]=0
-                    elif channels_xy[0]==nullo:    #NULL
                         new_label[i,n,:]=4
+                    elif channels_xy[0]==nullo:    #NULL
+                        new_label[i,n,:]=0
             tmp2[count] = new_label
             chosen_label.append(t)
             flag_sand=False;
