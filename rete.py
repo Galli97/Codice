@@ -247,7 +247,7 @@ def AtrousFCN_Vgg16_16s(img_size=None, weight_decay=0., batch_momentum=0.9, batc
     x = Conv2D(classes, (3, 3), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     x = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(x)
     x = Activation('softmax')(x)
-    model = Model(inputs=cnn.input, outputs=x)
+    model = Model(inputs=vggmodel.input, outputs=x)
 
     return model
 
