@@ -221,13 +221,24 @@ def get_weights_path_vgg16():
 
 def AtrousFCN_Vgg16_16s(img_size=None, weight_decay=0., batch_momentum=0.9, batch_shape=None, classes=5):
     
-    cnn = tf.keras.applications.vgg16.VGG16(
-    input_shape=img_size,
-    weights='imagenet',
-    include_top=False
-    )
-    cnn.trainable = False
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc1', kernel_regularizer=l2(weight_decay))(cnn.output)
+    vggmodel = tf.keras.applications.vgg16.VGG16(input_shape=img_size, weights='imagenet',include_top=False)
+    # model.layers.pop()
+    vggmodel = vggmodel.layers[:-3]
+    vggmodel.trainable = False
+    # # model.outputs = [model.layers[-1].output]
+    # # model.layers[-1]._outbound_nodes = []
+
+    # for layer in model.layers:
+    #     layer._name = layer.name
+    #     layer._trainable = False
+    # x = model.output
+    # cnn = tf.keras.applications.vgg16.VGG16(
+    # input_shape=img_size,
+    # weights='imagenet',
+    # include_top=False
+    # )
+    # cnn.trainable = False
+    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc1', kernel_regularizer=l2(weight_decay))(vggmodel.output)
     #x = Dropout(0.5)(x)
     x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc2', kernel_regularizer=l2(weight_decay))(x)
     #x = Dropout(0.5)(x)
