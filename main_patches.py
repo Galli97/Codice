@@ -40,7 +40,7 @@ print(tmp1.shape)
 # print('999: ',tmp1[999])
 # print('0: ',tmp1[0])
 # print('4000: ',tmp1[4000])
-tmp1=tmp1[:1500]
+#tmp1=tmp1[:1500]
 # print(tmp1.shape)
 
 
@@ -51,7 +51,7 @@ print(tmp2.shape)
 # print('999: ',tmp2[999])
 # print('0: ',tmp2[0])
 # print('3050: ',tmp2[3050])
-tmp2=tmp2[:1500]
+#tmp2=tmp2[:1500]
 # print(tmp2.shape)
 
 
@@ -95,7 +95,7 @@ loss_weights=[soil_pixels/PIXELS,bedrock_pixels/PIXELS,sand_pixels/PIXELS,bigroc
 shape=(64,64,3)
 print(shape)
 BATCH=32
-EPOCHS = 10
+EPOCHS = 20
 steps = int(train_set/EPOCHS)
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,1)
