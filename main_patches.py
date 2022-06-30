@@ -22,7 +22,7 @@ from keras.preprocessing.image import ImageDataGenerator
 # os.environ['TF_GPU_ALLOCATOR'] = 'cuda_malloc_async'
 # print(os.getenv('TF_GPU_ALLOCATOR'))
 
-config = tf.ConfigProto()
+config = ConfigProto()
 config.gpu_options.allow_growth=True
 session = InteractiveSession(config=config)
 ###### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
