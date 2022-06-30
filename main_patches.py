@@ -110,12 +110,12 @@ model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=batch_shape
 BUFFER_SIZE=500;
 # # Create a Dataset that includes sample weights
 # # (3rd element in the return tuple).
-x_train = tf.data.Dataset.from_tensors((list_train, label_train))
+x_train = tf.data.Dataset.from_tensor_slices((list_train, label_train))
 x_train = x_train.cache()
 x_train = x_train.shuffle(BUFFER_SIZE)
 x_train = x_train.batch(BATCH)
 x_train = x_train.repeat()
-
+print(x_train.shape)
 x_validation = tf.data.Dataset.from_tensors((list_validation, label_validation))
 x_validation = x_validation.repeat()
 
