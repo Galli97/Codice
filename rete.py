@@ -231,8 +231,9 @@ def AtrousFCN_Vgg16_16s(img_size=None, weight_decay=0., batch_momentum=0.9, batc
     #x = Dropout(0.5)(x)
     x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc2', kernel_regularizer=l2(weight_decay))(x)
     #x = Dropout(0.5)(x)
-    x = Conv2D(classes, (3, 3), activation='softmax', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
-    model.add(UpSampling2D(16))
+    x = Conv2D(classes, (3, 3), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
+    x = Activation('softmax')(x)
     model = Model(inputs=cnn.input, outputs=x)
 
     return model
