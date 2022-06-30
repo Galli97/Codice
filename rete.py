@@ -223,7 +223,7 @@ def AtrousFCN_Vgg16_16s(img_size=None, weight_decay=0., batch_momentum=0.9, batc
     
     vggmodel = tf.keras.applications.vgg16.VGG16(input_shape=img_size, weights='imagenet',include_top=False)
     # model.layers.pop()
-    vggmodel = Sequential(vggmodel.layers[:-3])
+    vggmodel = Sequential(vggmodel.layers[:-4])
     for layer in vggmodel.layers:        
         layer.trainable = False
     x = vggmodel.output
@@ -245,7 +245,7 @@ def AtrousFCN_Vgg16_16s(img_size=None, weight_decay=0., batch_momentum=0.9, batc
     x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc2', kernel_regularizer=l2(weight_decay))(x)
     #x = Dropout(0.5)(x)
     x = Conv2D(classes, (3, 3), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
-    x = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(x)
+    x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
     x = Activation('softmax')(x)
     model = Model(inputs=vggmodel.input, outputs=x)
 
