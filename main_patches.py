@@ -131,7 +131,7 @@ optimizer = SGD(learning_rate=lr_base, momentum=0.)
 #optimizer=keras.optimizers.Adam(learning_rate=0.001)
 loss_fn = keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 
-model.compile(optimizer = optimizer, loss = loss_fn , metrics =['accuracy'],sample_weight_mode='temporal')#tf.keras.metrics.SparseCategoricalAccuracy()s#loss_weights=loss_weights#[tf.keras.metrics.SparseCategoricalAccuracy()]#[tf.keras.metrics.MeanIoU(num_classes=5)])#['accuracy'])#[sparse_accuracy_ignoring_last_label])#,sample_weight_mode='temporal')
+model.compile(optimizer = optimizer, loss = loss_fn , metrics =[tf.keras.metrics.SparseCategoricalAccuracy()],sample_weight_mode='temporal')#tf.keras.metrics.SparseCategoricalAccuracy()s#loss_weights=loss_weights#[tf.keras.metrics.SparseCategoricalAccuracy()]#[tf.keras.metrics.MeanIoU(num_classes=5)])#['accuracy'])#[sparse_accuracy_ignoring_last_label])#,sample_weight_mode='temporal')
 
 ### AVVIO IL TRAINING #####
 model.summary()
