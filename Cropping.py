@@ -81,8 +81,8 @@ print('[INFO]Generating images array')
 for i in range (N-A):
     print(i)
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    image=np.expand_dims(image, axis=2)
+    # image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    # image=np.expand_dims(image, axis=2)
     image = image.astype('float32')
     image/=255                                  #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     for r in range (0,16):
@@ -100,8 +100,8 @@ print('[INFO]Generating labels array')
 for j in range (N-A):
     print(j)
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]
-    label = cv2.cvtColor(label, cv2.COLOR_BGR2GRAY)
-    label=np.expand_dims(label, axis=2)
+    # label = cv2.cvtColor(label, cv2.COLOR_BGR2GRAY)
+    # label=np.expand_dims(label, axis=2)
     label = label.astype('float32')
     for r in range (0,16):
         for c in range (0,16):

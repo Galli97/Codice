@@ -40,7 +40,7 @@ tmp1a,tmp2a,A = augment(tmp1,tmp2,N);
 print('A: ',A)
 
 print(tmp1a[1])
-augmented_images = np.empty((A, 64, 64, 1), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel. Nel caso sparse avrò un intero ad indicare la classe
+augmented_images = np.empty((A, 64, 64, 3), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel. Nel caso sparse avrò un intero ad indicare la classe
 augmented_labels= np.empty((A, 64, 64, 1), dtype=np.uint8)  #Qui ho N immagini
 
 print('[INFO]Generating images array for augmented data')
