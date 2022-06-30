@@ -21,8 +21,10 @@ from keras.preprocessing.image import ImageDataGenerator
 
 # os.environ['TF_GPU_ALLOCATOR'] = 'cuda_malloc_async'
 # print(os.getenv('TF_GPU_ALLOCATOR'))
-config = ConfigProto(gpu_options=tf.GPUOptions(allow_growth=True))
-session = tf.Session(config=config)
+
+config = tf.ConfigProto()
+config.gpu_options.allow_growth=True
+session = InteractiveSession(config=config)
 ###### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
 path = r"/content/drive/MyDrive/Tesi/final_images.npy"
 path1 = r"/content/drive/MyDrive/Tesi/final_labels.npy"
