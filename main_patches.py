@@ -147,7 +147,7 @@ model.compile(optimizer = optimizer, loss = loss_fn , metrics =[tf.keras.metrics
 ### AVVIO IL TRAINING #####
 model.summary()
 # history = 
-model.fit(x = x_train,batch_size=BATCH, steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation,validation_steps=steps)
+model.fit(x = x_train,batch_size=BATCH, steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation)
 model.save('model.h5')
 
 # plt.plot(history.history["loss"])
