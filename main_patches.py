@@ -116,7 +116,7 @@ x_train = x_train.shuffle(BUFFER_SIZE)
 x_train = x_train.batch(BATCH)
 x_train = x_train.repeat()
 #print(x_train.shape)
-x_validation = tf.data.Dataset.from_tensors((list_validation, label_validation))
+x_validation = tf.data.Dataset.from_tensor_slices((list_validation, label_validation))
 x_validation = x_validation.repeat()
 
 
