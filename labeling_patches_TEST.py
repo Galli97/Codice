@@ -38,9 +38,9 @@ A=0;
 N=100;
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI E DELLE LABEL ######
 num_classes=5
-tmp1 = np.empty((len(crop_images_list), 64, 64, 1), dtype=np.uint8)  #Qui ho N immagini
+tmp1 = np.empty((len(crop_images_list), 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
 tmp2 = np.empty((N, 64, 64, 1), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel. Nel caso sparse avrò un intero ad indicare la classe
-tmp3 = np.empty((N, 64, 64, 1), dtype=np.uint8)  #Qui ho N immagini
+tmp3 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
 print('Image and label lists dimensions')
 print(len(crop_images_list))
 print(len(crop_labels_list))
@@ -139,7 +139,7 @@ for t in range (0,len(crop_labels_list)):
                     elif channels_xy[0]==nullo:    #NULL
                         new_label[i,n,:]=0
             tmp2[count] = new_label
-            chosen_label.append(tmp1[t])
+            chosen_label.append(t)
             flag_sand=False;
             flag_bedrock=False;
             flag_bigrock=False;
@@ -168,7 +168,7 @@ for t in range (0,len(crop_labels_list)):
                     elif channels_xy[0]==nullo:    #NULL
                         new_label[i,n,:]=0
             tmp2[count] = new_label
-            chosen_label.append(tmp1[t])
+            chosen_label.append(t)
             flag_sand=False;
             flag_bedrock=False;
             flag_bigrock=False;
@@ -197,7 +197,7 @@ for t in range (0,len(crop_labels_list)):
                     elif channels_xy[0]==nullo:    #NULL
                         new_label[i,n,:]=0
             tmp2[count] = new_label
-            chosen_label.append(tmp1[t])
+            chosen_label.append(t)
             flag_sand=False;
             flag_bedrock=False;
             flag_bigrock=False;
@@ -226,7 +226,7 @@ for t in range (0,len(crop_labels_list)):
                     elif channels_xy[0]==nullo:    #NULL
                         new_label[i,n,:]=0
             tmp2[count] = new_label
-            chosen_label.append(tmp1[t])
+            chosen_label.append(t)
             flag_sand=False;
             flag_bedrock=False;
             flag_bigrock=False;
@@ -255,7 +255,7 @@ for t in range (0,len(crop_labels_list)):
                     elif channels_xy[0]==nullo:    #NULL
                         new_label[i,n,:]=0
             tmp2[count] = new_label
-            chosen_label.append(tmp1[t])
+            chosen_label.append(t)
             flag_sand=False;
             flag_bedrock=False;
             flag_bigrock=False;
@@ -284,19 +284,25 @@ for t in range (0,len(crop_labels_list)):
                     elif channels_xy[0]==nullo:    #NULL
                         new_label[i,n,:]=0
             tmp2[count] = new_label
-            chosen_label.append(tmp1[t])
+            chosen_label.append(t)
             flag_sand=False;
             flag_bedrock=False;
             flag_bigrock=False;
             flag_soil=False;
             count+=1
             print('count: ', count)
-
+print('chosen_label',len(chosen_label))
+selected_images=[]
+for k in range (len(chosen_label)):
+    index = chosen_label[k]
+    selected_images.append(tmp1[index])
+print('selected_images',len(selected_images))
 print("[INFO] image arrays saved")
-tmp3=chosen_label
+tmp3=np.array(selected_images)
 save_patches_TEST(tmp3)
 print("[INFO] label arrays saved")
 save_label_patches_TEST(tmp2)
-
+print('tmp3: ', tmp3.shape)
+print('tmp2: ', tmp2.shape)
 print('tmp3[0]: ', tmp3[0])
 print('tmp2[0]: ',tmp2[0])

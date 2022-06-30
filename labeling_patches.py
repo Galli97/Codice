@@ -36,9 +36,9 @@ crop_labels_list = get_np_arrays(path1)          #recupero tmp2 dal file
 N=3000;
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI E DELLE LABEL ######
 num_classes=5
-tmp1 = np.empty((len(crop_images_list), 64, 64, 1), dtype=np.uint8)  #Qui ho N immagini
+tmp1 = np.empty((len(crop_images_list), 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
 tmp2 = np.empty((N, 64, 64, 1), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel. Nel caso sparse avrò un intero ad indicare la classe
-tmp3 = np.empty((N, 64, 64, 1), dtype=np.uint8)  #Qui ho N immagini
+tmp3 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
 print('Image and label lists dimensions')
 print(len(crop_images_list))
 print(len(crop_labels_list))
