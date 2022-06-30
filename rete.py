@@ -219,9 +219,9 @@ def get_weights_path_vgg16():
     return weights_path
 
 
-def AtrousFCN_Vgg16_16s(input_shape=None, weight_decay=0., batch_momentum=0.9, batch_shape=None, classes=5):
+def AtrousFCN_Vgg16_16s(img_size=None, weight_decay=0., batch_momentum=0.9, batch_shape=None, classes=5):
     cnn = tf.keras.applications.vgg16.VGG16(
-    input_shape=input_shape,
+    input_shape=img_size,
     weights='imagenet',
     include_top=False
     )
