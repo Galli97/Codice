@@ -39,7 +39,7 @@ print(tmp1.shape)
 # print('999: ',tmp1[999])
 # print('0: ',tmp1[0])
 # print('4000: ',tmp1[4000])
-tmp1=tmp1[:500]
+tmp1=tmp1[:700]
 # print(tmp1.shape)
 
 
@@ -50,7 +50,7 @@ print(tmp2.shape)
 # print('999: ',tmp2[999])
 # print('0: ',tmp2[0])
 # print('3050: ',tmp2[3050])
-tmp2=tmp2[:500]
+tmp2=tmp2[:700]
 # print(tmp2.shape)
 
 
@@ -107,7 +107,7 @@ model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=batch_shape
 # x_validation = datagenerator(list_validation,label_validation,BATCH)
 #print(type(x_train))
 
-BUFFER_SIZE=500;
+BUFFER_SIZE=train_set;
 # # Create a Dataset that includes sample weights
 # # (3rd element in the return tuple).
 x_train = tf.data.Dataset.from_tensor_slices((list_train, label_train))
@@ -117,6 +117,8 @@ x_train = x_train.batch(BATCH)
 x_train = x_train.repeat()
 #print(x_train.shape)
 x_validation = tf.data.Dataset.from_tensor_slices((list_validation, label_validation))
+x_validation = x_validation.cache()
+x_validation = x_validation.shuffle(700-BUFFER_SIZE)
 x_validation = x_validation.batch(BATCH)
 x_validation = x_validation.repeat()
 
