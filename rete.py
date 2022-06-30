@@ -226,9 +226,9 @@ def AtrousFCN_Vgg16_16s(img_size=None, weight_decay=0., batch_momentum=0.9, batc
     include_top=False
     )
     cnn.trainable = False
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='block5_conv1', kernel_regularizer=l2(weight_decay))(cnn.output)
+    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc1', kernel_regularizer=l2(weight_decay))(cnn.output)
     #x = Dropout(0.5)(x)
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='block5_conv2', kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc2', kernel_regularizer=l2(weight_decay))(x)
     #x = Dropout(0.5)(x)
     x = Conv2D(classes, (3, 3), activation='softmax', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     model = Model(inputs=cnn.input, outputs=x)
