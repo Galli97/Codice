@@ -39,7 +39,7 @@ print(tmp1.shape)
 # print('999: ',tmp1[999])
 # print('0: ',tmp1[0])
 # print('4000: ',tmp1[4000])
-tmp1=tmp1[:500]
+tmp1=tmp1[:1000]
 # print(tmp1.shape)
 
 
@@ -50,7 +50,7 @@ print(tmp2.shape)
 # print('999: ',tmp2[999])
 # print('0: ',tmp2[0])
 # print('3050: ',tmp2[3050])
-tmp2=tmp2[:500]
+tmp2=tmp2[:1000]
 # print(tmp2.shape)
 
 
@@ -102,44 +102,25 @@ model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, class
 
 #model = DeeplabV3Plus(image_size=64,num_classes=5)
 
-
-#sample_weights = add_sample_weights(list_train, label_train)
-
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######
 # x_train = datagenerator(list_train,label_train,BATCH)
 # x_validation = datagenerator(list_validation,label_validation,BATCH)
 #print(type(x_train))
 
-# x_train=tf.keras.applications.vgg16.preprocess_input(x_train)
-# x_validation=tf.keras.applications.vgg16.preprocess_input(x_validation)
-# sample_weight = np.ones(shape=(len(label_train),64,64))
-# print(sample_weight.shape)
-# sample_weight[:,0] = 1.5
-# sample_weight[:,1] = 0.5
-# sample_weight[:,2] = 1.5
-# sample_weight[:,3] = 3.0
-# sample_weight[:,4] = 0
-
-# val_sample_weight = np.ones(shape=(len(label_validation),64,64))
-# print(val_sample_weight.shape)
-# val_sample_weight[:,0] = 1.5
-# val_sample_weight[:,1] = 0.5
-# val_sample_weight[:,2] = 1.5
-# val_sample_weight[:,3] = 3.0
-# val_sample_weight[:,4] = 0
-
+BUFFER_SIZE=100;
 # # Create a Dataset that includes sample weights
 # # (3rd element in the return tuple).
 x_train = tf.data.Dataset.from_tensors((list_train, label_train))
 x_train = x_train.repeat()
+x_train = x_train.shuffle(BUFFER_SIZE)
 x_validation = tf.data.Dataset.from_tensors((list_validation, label_validation))
 x_validation = x_validation.repeat()
-# BUFFER_SIZE=1000;
+
 
 # train_batches = (
 #     x_train
 #     .cache()
-#     .shuffle(BUFFER_SIZE)
+#     
 #     .repeat()
 #     .prefetch(buffer_size=tf.data.AUTOTUNE))
 
@@ -186,3 +167,21 @@ model.save('model.h5')
 # plt.ylabel("val_accuracy")
 # plt.xlabel("epoch")
 # plt.show()
+
+# x_train=tf.keras.applications.vgg16.preprocess_input(x_train)
+# x_validation=tf.keras.applications.vgg16.preprocess_input(x_validation)
+# sample_weight = np.ones(shape=(len(label_train),64,64))
+# print(sample_weight.shape)
+# sample_weight[:,0] = 1.5
+# sample_weight[:,1] = 0.5
+# sample_weight[:,2] = 1.5
+# sample_weight[:,3] = 3.0
+# sample_weight[:,4] = 0
+
+# val_sample_weight = np.ones(shape=(len(label_validation),64,64))
+# print(val_sample_weight.shape)
+# val_sample_weight[:,0] = 1.5
+# val_sample_weight[:,1] = 0.5
+# val_sample_weight[:,2] = 1.5
+# val_sample_weight[:,3] = 3.0
+# val_sample_weight[:,4] = 0
