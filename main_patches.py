@@ -95,7 +95,7 @@ shape=(64,64,1)
 print(shape)
 BATCH=16
 EPOCHS = 10
-steps = 5#int(train_set/EPOCHS)
+steps = int(train_set/EPOCHS)
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,1)
 model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=batch_shape, classes=5)
@@ -117,8 +117,8 @@ x_train = x_train.batch(BATCH)
 x_train = x_train.repeat()
 #print(x_train.shape)
 x_validation = tf.data.Dataset.from_tensor_slices((list_validation, label_validation))
-x_validation = x_validation.cache()
-x_validation = x_validation.shuffle(700-BUFFER_SIZE)
+#x_validation = x_validation.cache()
+#x_validation = x_validation.shuffle(700-BUFFER_SIZE)
 x_validation = x_validation.batch(BATCH)
 x_validation = x_validation.repeat()
 
