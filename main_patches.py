@@ -122,7 +122,7 @@ x_validation = x_validation.batch(BATCH)
      
 
 x_train = x_train.map(add_sample_weights)
-x_validation = x_validation.map(add_sample_weights)
+#x_validation = x_validation.map(add_sample_weights)
 
 #### DEFINSICO I PARAMETRI PER IL COMPILE (OPTIMIZER E LOSS)
 
