@@ -378,11 +378,11 @@ def sparse_accuracy_ignoring_last_label(y_true, y_pred):
 
 ########################################################
 #######################################################
-# soil:  5964781
+# null:  7098361
 # bedrock:  4205537
 # sand:  2327347
 # bigrock:  2075910
-# null:  7098361
+# soil:  5964781
 def add_sample_weights(image, label):
   # The weights for each class, with the constraint that:
   #     sum(class_weights) == 1.0
