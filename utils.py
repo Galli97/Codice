@@ -301,8 +301,8 @@ def weighted_cross_entropy(beta):
 def iou_coef(y_true, y_pred, smooth=1):
   y_true=tf.cast(y_true, tf.float32)
   y_pred=tf.cast(y_pred, tf.float32)
-  print('ypre: ',y_pred.shape)
-  print('ytrue: ',y_true.shape)
+  # print('ypre: ',y_pred.shape)
+  # print('ytrue: ',y_true.shape)
   intersection = K.sum(K.abs(y_true * y_pred), axis=[1,2,3])
   union = K.sum(y_true,[1,2,3])+K.sum(y_pred,[1,2,3])-intersection
   iou = K.mean((intersection + smooth) / (union + smooth), axis=0)
