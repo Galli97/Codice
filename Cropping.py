@@ -60,10 +60,10 @@ print('label1: ', label_list[0])
 
 ### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
 #tmp1a,tmp2a,A = augment(image_list,label_list);
-A=0;                                              #### METTO A=0 SE NON VOGLIO FARE DATA AUGMENTATION, COMMENTANDO LA RIGA SOPRA
+#A=0;                                              #### METTO A=0 SE NON VOGLIO FARE DATA AUGMENTATION, COMMENTANDO LA RIGA SOPRA
 
 ####NUMERO DI IMMAGINI NEL DATASET + IMMAGINI DOVUTE AL DATA AUGMENTATION ####
-N = len(image_list)+A           
+N = len(image_list)           
 #N=163                                 #### UTILIZZARE LA RIGA SOPRA PER USARE TUTTE LE IMMAGINI A DISPOSIZIONE
 print('Augmented image list dimension')
 print(N)
@@ -78,7 +78,7 @@ print(N)
 crop_images_list=[]
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
 print('[INFO]Generating images array')
-for i in range (N-A):
+for i in range (N):
     print(i)
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
     # image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -97,7 +97,7 @@ save_cropped_images(crop_images_list)
 crop_labels_list=[]
 
 print('[INFO]Generating labels array')
-for j in range (N-A):
+for j in range (N):
     print(j)
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]
     # label = cv2.cvtColor(label, cv2.COLOR_BGR2GRAY)

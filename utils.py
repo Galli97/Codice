@@ -92,13 +92,25 @@ def grayscale(image):
     grayscaled = tf.image.rgb_to_grayscale(image)
     return grayscaled
 
-def saturate(image,i=3):
+def saturate(image):
+    i = random.randint(1,10)
     saturated = tf.image.adjust_saturation(image, i)
     return saturated
 
-def brightness(image,i=0.4):
+def brightness(image):
+    i = random.randint(1,10)
+    i=i/10
     bright = tf.image.adjust_brightness(image, i)
     return bright 
+
+
+def contrast(image):
+    i = random.randint(1,5)
+    i=i/10
+    f = random.randint(5,10)
+    f=f/10
+    contrasted = tf.image.stateless_random_contrast(image, i, f)
+    return contrasted
 
 def cropp(image,central_fraction):
     cropped = tf.image.central_crop(image, central_fraction=0.5)
@@ -117,7 +129,7 @@ def translation(image):
 
 def augment(image_list,label_list,N):
     fix=N-1        #voglio lavorare solo sulle immagini della lista iniziale
-    A = random.randint(1000,fix)
+    A = random.randint(2000,fix)
     skipped=0
     indices=[]
     tmp1a = []# np.empty((A, 64, 64, 1), dtype=np.uint8)  #Qui ho A immagini
@@ -141,6 +153,15 @@ def augment(image_list,label_list,N):
         elif(chose == 3):
             new_image = flip(image)
             new_label = flip(label)
+        elif(chose == 4):
+            new_image = grayscale(image)
+            new_label = label
+        elif(chose == 5):
+            new_image = saturate(image)
+            new_label = label
+        elif(chose == 6):
+            new_image = contrast(image)
+            new_label = label
         # elif(chose == 4):
         #     new_image = translation(image)
         #     new_label = translation(label)

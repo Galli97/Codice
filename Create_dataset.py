@@ -31,8 +31,9 @@ flag_soil=False;
 count=0;
 
 ### PRENDO UN'IMMAGINE E CAMBIO I PIXEL CORRISPONDENTI ALLE CLASSI BEDROCK SAND E BIGROCK ATTRIBUENDO AD OGNUNO UN COLORE DIVERSO
-#da 600-1487
-for x in range(1487,len(dir1)):
+#da 600-1587 prendo immagini che abbiano o la big rock, oppure sand-soil-bedrock
+#Da 3000-3554 in poi prendo immagini che abbiano o la big rock, oppure sand-soil
+for x in range(3554,len(dir1)):
     print('Label: ', x)
     flag_sand=False;
     flag_bedrock=False;
@@ -49,13 +50,13 @@ for x in range(1487,len(dir1)):
         for i in range(0,1024):
             if(flag_bigrock==True):
                 break
-            elif(flag_bedrock==True and flag_sand==True and flag_soil==True):
+            elif(flag_sand==True and flag_soil==True):
                 break
             for j in range(0,1024): 
                 channels_xy = image[i,j];
                 if(flag_bigrock==True):
                     break
-                elif(flag_bedrock==True and flag_sand==True and flag_soil==True):
+                elif(flag_sand==True and flag_soil==True):
                     break
                 elif all(channels_xy==bedrock):      #BEDROCK
                     flag_bedrock=True
@@ -79,7 +80,7 @@ for x in range(1487,len(dir1)):
             flag_soil=False;
             count+=1
             print(count)
-        elif (flag_bedrock==True and flag_sand==True and flag_soil==True):
+        elif (flag_sand==True and flag_soil==True):
             print('Three IN')
             patt=str(dir[x])
             patt1=str(dir1[x])
