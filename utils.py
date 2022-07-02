@@ -299,6 +299,8 @@ def weighted_cross_entropy(beta):
 
 
 def dice_coef(y_true, y_pred,smooth=1):
+  y_true = tf.cast(y_true, tf.float32)
+  y_pred = tf.cast(y_pred, tf.float32)
   y_true = K.flatten(y_true)
   y_pred = K.flatten(y_pred)
   intersection = K.sum(y_true * y_pred)
