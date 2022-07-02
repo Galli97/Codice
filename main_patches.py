@@ -78,14 +78,14 @@ print('label_validation: ',label_validation.shape)
 # bigrock:  1413195
 # null:  7037515
 
-null_pixels = 7037515;
-bedrock_pixels = 3880619;
-sand_pixels = 1108513;
-bigrock_pixels = 1413195;
-soil_pixels = 1895582;
+# null_pixels = 7037515;
+# bedrock_pixels = 3880619;
+# sand_pixels = 1108513;
+# bigrock_pixels = 1413195;
+# soil_pixels = 1895582;
 
-PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels+null_pixels ;
-loss_weights=[soil_pixels/PIXELS,bedrock_pixels/PIXELS,sand_pixels/PIXELS,bigrock_pixels/PIXELS,null_pixels/PIXELS]
+# PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels+null_pixels ;
+# loss_weights=[soil_pixels/PIXELS,bedrock_pixels/PIXELS,sand_pixels/PIXELS,bigrock_pixels/PIXELS,null_pixels/PIXELS]
 # label_train = label_train.reshape((len(label_train),64*64,1))
 # label_validation = label_validation.reshape((len(label_validation),64*64,1))
 # print('label_train: ',label_train.shape)
