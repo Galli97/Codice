@@ -52,7 +52,7 @@ EPOCHS=10
 
 x_test = datagenerator(tmp1,tmp2,BATCH)
 
-model = tf.keras.models.load_model('model.h5',custom_objects={"sparse_accuracy_ignoring_last_label": sparse_accuracy_ignoring_last_label })
+model = tf.keras.models.load_model('model.h5',custom_objects={"UpdatedMeanIoU": UpdatedMeanIoU })
 
 print("[INFO] Starting Evaluation")
 
