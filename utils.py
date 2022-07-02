@@ -297,6 +297,8 @@ def weighted_cross_entropy(beta):
 
   return loss
 
+
+##############FUNZIONA################
 class UpdatedMeanIoU(tf.keras.metrics.MeanIoU):
   def __init__(self,
                y_true=None,
@@ -309,6 +311,8 @@ class UpdatedMeanIoU(tf.keras.metrics.MeanIoU):
   def update_state(self, y_true, y_pred, sample_weight=None):
     y_pred = tf.math.argmax(y_pred, axis=-1)
     return super().update_state(y_true, y_pred, sample_weight)
+#########################################
+
 
 def dice_coef_func(smooth=1, threshold=0.5):
     def dice_coef(y_true, y_pred):
@@ -340,6 +344,7 @@ def dice_coeff(y_true, y_pred):
 def dice_loss(y_true, y_pred):
     loss = 1 - dice_coeff(y_true, y_pred)
     return loss
+
 def iou_coef(y_true, y_pred):
   y_true = K.flatten(y_true)
   y_pred = K.flatten(y_pred)
@@ -354,36 +359,8 @@ def iou_coef(y_true, y_pred):
 import numpy as np
 import scipy.misc as misc
 
-def GetIOU(Pred,GT,NumClasses,ClassNames=[], DisplyResults=False): #Given A ground true and predicted labels return the intersection over union for each class
-    # and the union for each class
-    ClassIOU=np.zeros(NumClasses)#Vector that Contain IOU per class
-    ClassWeight=np.zeros(NumClasses)#Vector that Contain Number of pixel per class Predicted U Ground true (Union for this class)
-    for i in range(NumClasses): # Go over all classes
-        Intersection=np.float32(np.sum((Pred==GT)*(GT==i)))# Calculate intersection
-        Union=np.sum(GT==i)+np.sum(Pred==i)-Intersection # Calculate Union
-        if Union>0:
-            ClassIOU[i]=Intersection/Union# Calculate intesection over union
-            ClassWeight[i]=Union
 
-    #------------Display results-------------------------------------------------------------------------------------
-    if DisplyResults:
-       for i in range(len(ClassNames)):
-            print(ClassNames[i]+") "+str(ClassIOU[i]))
-       print("Mean Classes IOU) "+str(np.mean(ClassIOU)))
-       print("Image Predicition Accuracy)" + str(np.float32(np.sum(Pred == GT)) / GT.size))
-    #-------------------------------------------------------------------------------------------------
 
-    return ClassIOU, ClassWeight
-def IOU(y_pred,ytrue,num_classes,Classes):
-   CIOU,CU=GetIOU(y_pred,y_true,num_classes,Classes) #Calculate intersection over union
-   Intersection+=CIOU*CU
-   Union+=CU
-   for i in range(len(Classes)):
-        if Union[i]>0: print(Classes[i]+"\t"+str(Intersection[i]/Union[i]))
-
-# class MyMeanIOU(tf.keras.metrics.MeanIoU):
-#     def update_state(self, y_true, y_pred, sample_weight=[0.1,0.3,0.4,0.2,0]):
-#         return super().update_state(tf.argmax(y_true, axis=-1), tf.argmax(y_pred, axis=-1), sample_weight)
 
 class MyMeanIoU(tf.keras.metrics.MeanIoU):
     '''Custom meanIoU to handle borders (class = -1).'''
@@ -429,7 +406,7 @@ def sparse_accuracy_ignoring_last_label(y_true, y_pred):
 def add_sample_weights(image, label):
   # The weights for each class, with the constraint that:
   #     sum(class_weights) == 1.0
-  class_weights = tf.constant([0.5, 1.0, 1.0, 1.0, 1.0])
+  class_weights = tf.constant([0.5, 1.0, 1.1, 1.2, 0.8])
   class_weights = class_weights/tf.reduce_sum(class_weights)
 
   # Create an image of `sample_weights` by using the label at each pixel as an 

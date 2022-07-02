@@ -94,10 +94,10 @@ print('label_validation: ',label_validation.shape)
 ###### DEFINISCO IL MODELLO #######
 shape=(64,64,3)
 print(shape)
-BATCH=32
-EPOCHS = 100
+BATCH=64
+EPOCHS = 150
 steps = int(train_set/EPOCHS)
-weight_decay = 0.0001/2
+weight_decay = 0# 0.0001/2
 batch_shape=(BATCH,64,64,1)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 model = AtrousFCN_Vgg16_16s(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
@@ -127,7 +127,7 @@ x_train = x_train.map(add_sample_weights)
 
 #### DEFINSICO I PARAMETRI PER IL COMPILE (OPTIMIZER E LOSS)
 
-lr_base = 0.01 * (float(BATCH) / 16)
+lr_base = 0.02 * (float(BATCH) / 16)
 optimizer = SGD(learning_rate=lr_base, momentum=0.)
 #optimizer=keras.optimizers.Adam(learning_rate=0.001)
 loss_fn = keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
