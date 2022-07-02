@@ -310,6 +310,22 @@ class UpdatedMeanIoU(tf.keras.metrics.MeanIoU):
     y_pred = tf.math.argmax(y_pred, axis=-1)
     return super().update_state(y_true, y_pred, sample_weight)
 
+def dice_coef_func(smooth=1, threshold=0.5):
+    def dice_coef(y_true, y_pred):
+        prediction = tf.where(y_pred > threshold, 1, 0)
+        prediction = tf.cast(prediction, dtype=y_true.dtype)
+        ground_truth_area = tf.reduce_sum(
+            y_true, axis=(1, 2, 3))
+        prediction_area = tf.reduce_sum(
+            prediction, axis=(1, 2, 3))
+        intersection_area = tf.reduce_sum(
+            y_true*y_pred, axis=(1, 2, 3))
+        combined_area = ground_truth_area + prediction_area
+        dice = tf.reduce_mean(
+            (2*intersection_area + smooth)/(combined_area + smooth))
+        return dice
+    return dice_coef
+    
 def dice_coef(y_true, y_pred,smooth=1):
   y_true = K.flatten(y_true)
   y_pred = K.flatten(y_pred)
