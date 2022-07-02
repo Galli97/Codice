@@ -312,6 +312,7 @@ class UpdatedMeanIoU(tf.keras.metrics.MeanIoU):
 
 def dice_coef_func(smooth=1, threshold=0.5):
     def dice_coef(y_true, y_pred):
+        y_pred = tf.math.argmax(y_pred, axis=-1)
         prediction = tf.where(y_pred > threshold, 1, 0)
         prediction = tf.cast(prediction, dtype=y_true.dtype)
         ground_truth_area = tf.reduce_sum(
