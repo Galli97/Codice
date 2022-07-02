@@ -298,14 +298,19 @@ def weighted_cross_entropy(beta):
   return loss
 
 
-def iou_coef(y_true, y_pred, smooth=1):
-  y_true=tf.cast(y_true, tf.float32)
-  y_pred=tf.cast(y_pred, tf.float32)
-  # print('ypre: ',y_pred.shape)
-  # print('ytrue: ',y_true.shape)
-  intersection = K.sum(K.abs(y_true * y_pred), axis=[1,2,3])
-  union = K.sum(y_true,[1,2,3])+K.sum(y_pred,[1,2,3])-intersection
-  iou = K.mean((intersection + smooth) / (union + smooth), axis=0)
+def dice_coef(y_true, y_pred,smooth=1):
+  y_true = K.flatten(y_true)
+  y_pred = K.flatten(y_pred)
+  intersection = K.sum(y_true * y_pred)
+  dice = (2. * intersection + smooth) / (K.sum(y_true)+K.sum(y_pred)+smooth)
+  return dice
+
+def iou_coef(y_true, y_pred):
+  y_true = K.flatten(y_true)
+  y_pred = K.flatten(y_pred)
+  intersection = K.sum(y_true * y_pred)
+  union = K.sum(y_true)+K.sum(y_pred)-intersection
+  iou = intersection / union 
   return iou
 ##Calculate Intersection Over Union Score for predicted layer
 import numpy as np
