@@ -307,7 +307,7 @@ def dice_coef(y_true, y_pred,smooth=1):
 
 def iou_coef(y_true, y_pred):
   y_true = K.flatten(y_true)
-  y_pred = np.argmax(y_pred)
+  y_pred = tf.math.argmax(y_pred)
   y_pred = K.flatten(y_pred)
   intersection = K.sum(y_true * y_pred)
   union = K.sum(y_true)+K.sum(y_pred)-intersection
