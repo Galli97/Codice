@@ -95,7 +95,7 @@ loss_weights=[soil_pixels/PIXELS,bedrock_pixels/PIXELS,sand_pixels/PIXELS,bigroc
 shape=(64,64,3)
 print(shape)
 BATCH=32
-EPOCHS = 50
+EPOCHS = 100
 steps = int(train_set/EPOCHS)
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,1)
