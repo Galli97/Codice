@@ -325,13 +325,15 @@ def dice_coef_func(smooth=1, threshold=0.5):
             (2*intersection_area + smooth)/(combined_area + smooth))
         return dice
     return dice_coef
-    
-def dice_coef(y_true, y_pred,smooth=1):
-  y_true = K.flatten(y_true)
-  y_pred = K.flatten(y_pred)
-  intersection = K.sum(y_true * y_pred)
-  dice = (2. * intersection + smooth) / (K.sum(y_true)+K.sum(y_pred)+smooth)
-  return dice
+
+def dice_coeff(y_true, y_pred):
+    smooth = 1.
+    # Flatten
+    y_true_f = tf.reshape(y_true, [-1])
+    y_pred_f = tf.reshape(y_pred, [-1])
+    intersection = tf.reduce_sum(y_true_f * y_pred_f)
+    score = (2. * intersection + smooth) / (tf.reduce_sum(y_true_f) + tf.reduce_sum(y_pred_f) + smooth)
+    return score
 
 def iou_coef(y_true, y_pred):
   y_true = K.flatten(y_true)
