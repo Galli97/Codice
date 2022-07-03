@@ -109,7 +109,7 @@ x_train = x_train.map(add_sample_weights)
 #         lr = 0.01
 #     else:
 #         lr = 0.1
-callback = tf.keras.callbacks.LearningRateScheduler(scheduler)
+#callback = tf.keras.callbacks.LearningRateScheduler(scheduler)
 lr_base = 0.01 * (float(BATCH) / 16)
 optimizer = SGD(learning_rate=lr_base, momentum=0.)
 #optimizer=keras.optimizers.Adam(learning_rate=0.001)
