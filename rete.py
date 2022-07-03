@@ -239,7 +239,7 @@ def rete_vgg16(img_size=None, weight_decay=0., batch_momentum=0.9, batch_shape=N
 
     return model
 
-def rete_vgg16_dilation(img_size=None, batch_momentum=0.9, batch_shape=None, classes=5):
+def rete_vgg16_dilation(img_size=None, weight_decay=0., batch_momentum=0.9, batch_shape=None, classes=5):
     
     vggmodel = tf.keras.applications.vgg16.VGG16(input_shape=img_size, weights='imagenet',include_top=False)
 
@@ -248,16 +248,16 @@ def rete_vgg16_dilation(img_size=None, batch_momentum=0.9, batch_shape=None, cla
         layer.trainable = False
     x = vggmodel.output
     
-    x = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv1', kernel_regularizer='l2')(x)
-    x = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv2', kernel_regularizer='l2')(x)
-    x = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv3', kernel_regularizer='l2')(x)
+    x = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv1', kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv2', kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv3', kernel_regularizer=l2(weight_decay))(x)
     
     x = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block4_pool')(x)
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc1', kernel_regularizer='l2')(x)
+    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc1', kernel_regularizer=l2(weight_decay))(x)
     x = Dropout(0.5)(x)
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc2', kernel_regularizer='l2')(x)
+    x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc2', kernel_regularizer=l2(weight_decay))(x)
     x = Dropout(0.5)(x)
-    x = Conv2D(classes, (3, 3), activation='linear', padding='valid', strides=(1, 1), kernel_regularizer='l2')(x)
+    x = Conv2D(classes, (3, 3), activation='linear', padding='valid', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     x = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(x)
     x = Activation('softmax')(x)
     model = Model(inputs=vggmodel.input, outputs=x)

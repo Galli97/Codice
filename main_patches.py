@@ -68,13 +68,13 @@ print('label_validation: ',label_validation.shape)
 ###### DEFINISCO IL MODELLO #######
 shape=(64,64,3)
 print(shape)
-BATCH = 16
+BATCH = 8
 EPOCHS = 50 
 steps = 5#int(train_set/EPOCHS)
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,1)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
-model = rete_vgg16_dilation(img_size=shape,batch_shape=None, classes=5)
+model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = DeeplabV3Plus(image_size=64,num_classes=5)
 
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######
