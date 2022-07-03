@@ -101,11 +101,11 @@ x_train = x_train.map(add_sample_weights)
 
 #### DEFINSICO I PARAMETRI PER IL COMPILE (OPTIMIZER E LOSS)
 def scheduler(epoch, lr):
-    if epoch > 0.9 * epochs:
+    if epoch > 0.9 * EPOCHS:
         lr = 0.0001
-    elif epoch > 0.75 * epochs:
+    elif epoch > 0.75 * EPOCHS:
         lr = 0.001
-    elif epoch > 0.5 * epochs:
+    elif epoch > 0.5 * EPOCHS:
         lr = 0.01
     else:
         lr = 0.1
