@@ -32,7 +32,9 @@ count=0;
 
 ### PRENDO UN'IMMAGINE E CAMBIO I PIXEL CORRISPONDENTI ALLE CLASSI BEDROCK SAND E BIGROCK ATTRIBUENDO AD OGNUNO UN COLORE DIVERSO
 #da 600-1587 prendo immagini che abbiano o la big rock, oppure sand-soil-bedrock
-#Da 3000-3554 in poi prendo immagini che abbiano o la big rock, oppure sand-soil
+#Da 3000-3554  prendo immagini che abbiano o la big rock, oppure sand-soil
+#Da 3554-4168  prendo immagini che abbiano o la big rock, oppure sand
+#Da 4168 prendo immagini che abbiano o la big rock, oppure sand-soil
 for x in range(3554,len(dir1)):
     print('Label: ', x)
     flag_sand=False;
