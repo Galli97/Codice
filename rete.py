@@ -229,9 +229,9 @@ def rete_vgg16(img_size=None, weight_decay=0., batch_momentum=0.9, batch_shape=N
     x = vggmodel.output
    
     x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc1', kernel_regularizer=l2(weight_decay))(x)
-    x = Dropout(0.5)(x)
+    #x = Dropout(0.5)(x)
     x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc2', kernel_regularizer=l2(weight_decay))(x)
-    x = Dropout(0.5)(x)
+    #x = Dropout(0.5)(x)
     x = Conv2D(classes, (3, 3), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
     x = Activation('softmax')(x)
@@ -259,6 +259,7 @@ def rete_vgg16_dilation(img_size=None, weight_decay=0., batch_momentum=0.9, batc
     x = Dropout(0.5)(x)
     x = Conv2D(classes, (3, 3), activation='linear', padding='valid', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     x = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(x)
+    #x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)  ###SENZA DROPOUT
     x = Activation('softmax')(x)
     model = Model(inputs=vggmodel.input, outputs=x)
 
