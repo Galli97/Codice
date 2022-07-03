@@ -100,18 +100,18 @@ x_train = x_train.map(add_sample_weights)
 #x_validation = x_validation.map(add_sample_weights)
 
 #### DEFINSICO I PARAMETRI PER IL COMPILE (OPTIMIZER E LOSS)
-def scheduler(epoch, lr):
-    if epoch > 0.9 * EPOCHS:
-        lr = 0.0001
-    elif epoch > 0.75 * EPOCHS:
-        lr = 0.001
-    elif epoch > 0.5 * EPOCHS:
-        lr = 0.01
-    else:
-        lr = 0.1
+# def scheduler(epoch, lr):
+#     if epoch > 0.9 * epochs:
+#         lr = 0.0001
+#     elif epoch > 0.75 * epochs:
+#         lr = 0.001
+#     elif epoch > 0.5 * epochs:
+#         lr = 0.01
+#     else:
+#         lr = 0.1
 callback = tf.keras.callbacks.LearningRateScheduler(scheduler)
-#lr_base = 0.03 * (float(BATCH) / 16)
-optimizer = SGD()
+lr_base = 0.01 * (float(BATCH) / 16)
+optimizer = SGD(learning_rate=lr_base, momentum=0.)
 #optimizer=keras.optimizers.Adam(learning_rate=0.001)
 loss_fn = keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 
@@ -122,7 +122,7 @@ model.compile(optimizer = optimizer, loss = loss_fn , metrics =[UpdatedMeanIoU(n
 ### AVVIO IL TRAINING #####
 model.summary()
 # history = 
-model.fit(x = x_train,batch_size=BATCH, steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation,callbacks=[callback])
+model.fit(x = x_train,batch_size=BATCH, steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation)
 model.save('model.h5')
 
 # plt.plot(history.history["loss"])
