@@ -252,7 +252,22 @@ class UpdatedMeanIoU(tf.keras.metrics.MeanIoU):
     y_pred = tf.math.argmax(y_pred, axis=-1)
     return super().update_state(y_true, y_pred, sample_weight)
 #########################################
+class DiceLoss(tf.keras.losses.Loss):
+    def __init__(self, smooth=1e-6, gama=2):
+        super(DiceLoss, self).__init__()
+        self.name = 'NDL'
+        self.smooth = smooth
+        self.gama = gama
 
+    def call(self, y_true, y_pred):
+        y_true, y_pred = tf.cast(
+            y_true, dtype=tf.float32), tf.cast(y_pred, tf.float32)
+        nominator = 2 * \
+            tf.reduce_sum(tf.multiply(y_pred, y_true)) + self.smooth
+        denominator = tf.reduce_sum(
+            y_pred ** self.gama) + tf.reduce_sum(y_true ** self.gama) + self.smooth
+        result = 1 - tf.divide(nominator, denominator)
+        return result
 
 def dice_coef_func(smooth=1, threshold=0.5):
     def dice_coef(y_true, y_pred):
