@@ -243,7 +243,7 @@ def rete_vgg16_dilation(img_size=None, weight_decay=0., batch_momentum=0.9, batc
     
     vggmodel = tf.keras.applications.vgg16.VGG16(input_shape=img_size, weights='imagenet',include_top=False)
 
-    vggmodel = Sequential(vggmodel.layers[:-7])
+    vggmodel = Sequential(vggmodel.layers[:-8])
     for layer in vggmodel.layers:        
         layer.trainable = False
     x = vggmodel.output
