@@ -34,7 +34,7 @@ tmp1 = get_np_arrays(path)          #recupero tmp1 dal file
 print(tmp1.shape)
 print('0: ',tmp1[1])
 # tmp1=tmp1[0:50]
-F=53830+ 17136+ 39004 +12305 +52629
+F=6.10917989e+01
 print('F',F)
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 #print(type(tmp2))
@@ -84,4 +84,5 @@ soil_pixels =  100914
 
 #percent = 100/np.array([[null_pixels],[bedrock_pixels],[sand_pixels],[bigrock_pixels],[soil_pixels]])
 matrix2 = np.array([[matrix[0]*100/null_pixels],[matrix[1]*100/bedrock_pixels], [matrix[2]*100/sand_pixels],[matrix[3]*100/bigrock_pixels], [matrix[4]*100/soil_pixels]])
-print(matrix2)
+np.set_printoptions(suppress=True)
+print(matrix2.astype(float))

@@ -336,7 +336,7 @@ def sparse_accuracy_ignoring_last_label(y_true, y_pred):
 def add_sample_weights(image, label):
   # The weights for each class, with the constraint that:
   #     sum(class_weights) == 1.0
-  class_weights = tf.constant([0.8, 1.0, 1.3, 1.7, 0.8])
+  class_weights = tf.constant([0.5, 1.5, 1.7, 1.8, 0.8])
   class_weights = class_weights/tf.reduce_sum(class_weights)
 
   # Create an image of `sample_weights` by using the label at each pixel as an 
