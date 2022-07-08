@@ -65,6 +65,11 @@ flag_sand=False;
 flag_bedrock=False;
 flag_bigrock=False;
 flag_soil=False;
+counter_sand=0;
+counter_bedrock=0;
+counter_bigrock=0;
+counter_soil=0;
+
 count=0;
 
 chosen_label=[];
@@ -82,7 +87,7 @@ for t in range (0,len(crop_labels_list)):
         #print(image.shape)
         for m in range(0,64):
             if(flag_bigrock==True and flag_soil==True):
-                    break
+                break
             elif(flag_bigrock==True and flag_sand==True):
                 break
             elif(flag_bigrock==True and flag_soil==True):
@@ -108,15 +113,23 @@ for t in range (0,len(crop_labels_list)):
                 elif(flag_sand==True and flag_soil==True):
                     break
                 elif all(channels_xy==bedrock):      #BEDROCK
-                    flag_bedrock=True
+                    counter_bedrock+=1;
+                    if (counter_bedrock>1365):
+                        flag_bedrock=True
                 elif all(channels_xy==sand):    #SAND
-                    flag_sand=True
+                    counter_sand+=1;
+                    if (counter_sand>1365):
+                        flag_sand=True
                 elif all(channels_xy==bigrock):    #BIG ROCK
-                    flag_bigrock=True
+                    counter_bigrock+=1;
+                    if (counter_bigrock>1365):
+                        flag_bigrock=True
                 elif all(channels_xy==soil):    #BIG ROCK
-                    flag_soil=True
+                    counter_soil+=1;
+                    if (counter_soil>1365):
+                        flag_soil=True
         if (flag_bigrock==True and flag_sand==True):
-            print('Big Rock IN')
+            print('Big Rock-sand IN')
             print('Inserted label: ',t)
             crop=crop_labels_list[t]
             reduct_label = crop[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
@@ -145,7 +158,7 @@ for t in range (0,len(crop_labels_list)):
             count+=1
             print('count: ', count)
         elif (flag_bigrock==True and flag_bedrock==True):
-            print('Big Rock IN')
+            print('Big Rock-bedrock IN')
             print('Inserted label: ',t)
             crop=crop_labels_list[t]
             reduct_label = crop[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
@@ -174,7 +187,7 @@ for t in range (0,len(crop_labels_list)):
             count+=1
             print('count: ', count)
         elif (flag_bigrock==True and flag_soil==True):
-            print('Big Rock IN')
+            print('Big Rock-soil IN')
             print('Inserted label: ',t)
             crop=crop_labels_list[t]
             reduct_label = crop[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
