@@ -328,15 +328,18 @@ def sparse_accuracy_ignoring_last_label(y_true, y_pred):
 
 ########################################################
 #######################################################
-# null:  7976718
-# bedrock:  4628580
-# sand:  3341899
-# bigrock:  2927625
-# soil:  9461306
+null_pixels =  7976718
+bedrock_pixels =  4628580
+sand_pixels =  3341899
+bigrock_pixels =  2927625
+soil_pixels =  9461306
+PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels#+null_pixels ;
+Weights=[PIXELS/soil_pixels,PIXELS/bedrock_pixels,PIXELS/sand_pixels,PIXELS/bigrock_pixels]
+
 def add_sample_weights(image, label):
   # The weights for each class, with the constraint that:
   #     sum(class_weights) == 1.0
-  class_weights = tf.constant([0.5, 1.5, 1.7, 1.8, 0.8])
+  class_weights = tf.constant([0, Weights(0), Weights(1), Weights(2), Weights(3)])
   class_weights = class_weights/tf.reduce_sum(class_weights)
 
   # Create an image of `sample_weights` by using the label at each pixel as an 

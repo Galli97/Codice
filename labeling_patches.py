@@ -80,7 +80,7 @@ for t in range (0,len(crop_labels_list)):
     else:
         image = crop_labels_list[t]
         #print(image.shape)
-        for i in range(0,64):
+        for m in range(0,64):
             if(flag_bigrock==True and flag_soil==True):
                     break
             if(flag_bigrock==True and flag_sand==True):
@@ -94,7 +94,7 @@ for t in range (0,len(crop_labels_list)):
             elif(flag_sand==True and flag_soil==True):
                 break
             for j in range(0,64): 
-                channels_xy = image[i,j];
+                channels_xy = image[m,j];
                 if(flag_bigrock==True and flag_soil==True):
                     break
                 if(flag_bigrock==True and flag_sand==True):

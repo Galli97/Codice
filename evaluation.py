@@ -86,3 +86,5 @@ soil_pixels =  100914
 matrix2 = np.array([[matrix[0]*100/null_pixels],[matrix[1]*100/bedrock_pixels], [matrix[2]*100/sand_pixels],[matrix[3]*100/bigrock_pixels], [matrix[4]*100/soil_pixels]])
 np.set_printoptions(suppress=True)
 print(matrix2.astype(float))
+
+model.evaluate(x_test,steps=200)#len(tmp2))
