@@ -118,19 +118,19 @@ for t in range (0,len(crop_labels_list)):
                     break
                 elif all(channels_xy==bedrock):      #BEDROCK
                     counter_bedrock+=1;
-                    if (counter_bedrock>1365):
+                    if (counter_bedrock>1024):
                         flag_bedrock=True
                 elif all(channels_xy==sand):    #SAND
                     counter_sand+=1;
-                    if (counter_sand>1365):
+                    if (counter_sand>1024):
                         flag_sand=True
                 elif all(channels_xy==bigrock):    #BIG ROCK
                     counter_bigrock+=1;
-                    if (counter_bigrock>1365):
+                    if (counter_bigrock>1024):
                         flag_bigrock=True
                 elif all(channels_xy==soil):    #BIG ROCK
                     counter_soil+=1;
-                    if (counter_soil>1365):
+                    if (counter_soil>1024):
                         flag_soil=True
         if (flag_bigrock==True and flag_sand==True):
             print('Big Rock-sand IN')
