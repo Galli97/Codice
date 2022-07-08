@@ -80,6 +80,10 @@ for t in range (0,len(crop_labels_list)):
     flag_bedrock=False;
     flag_bigrock=False;
     flag_soil=False;
+    counter_sand=0;
+    counter_bedrock=0;
+    counter_bigrock=0;
+    counter_soil=0;
     if(count==N):
         break
     else:

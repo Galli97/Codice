@@ -87,4 +87,4 @@ matrix2 = np.array([[matrix[0]*100/null_pixels],[matrix[1]*100/bedrock_pixels], 
 np.set_printoptions(suppress=True)
 print(matrix2.astype(float))
 
-model.evaluate(x_test,steps=200)#len(tmp2))
+model.evaluate(x_test,steps=100)#len(tmp2))
