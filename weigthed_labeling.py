@@ -69,7 +69,7 @@ counter_sand=0;
 counter_bedrock=0;
 counter_bigrock=0;
 counter_soil=0;
-
+counter_soil_reduce=0;
 count=0;
 
 chosen_label=[];
@@ -84,6 +84,7 @@ for t in range (0,len(crop_labels_list)):
     counter_bedrock=0;
     counter_bigrock=0;
     counter_soil=0;
+    counter_soil_reduce=0;
     if(count==N):
         break
     else:
@@ -118,20 +119,24 @@ for t in range (0,len(crop_labels_list)):
                     break
                 elif all(channels_xy==bedrock):      #BEDROCK
                     counter_bedrock+=1;
-                    if (counter_bedrock>1024):
+                    if (counter_bedrock>820):
                         flag_bedrock=True
                 elif all(channels_xy==sand):    #SAND
                     counter_sand+=1;
-                    if (counter_sand>1024):
+                    if (counter_sand>820):
                         flag_sand=True
                 elif all(channels_xy==bigrock):    #BIG ROCK
                     counter_bigrock+=1;
-                    if (counter_bigrock>1024):
+                    if (counter_bigrock>820):
                         flag_bigrock=True
-                elif all(channels_xy==soil):    #BIG ROCK
+                elif all(channels_xy==soil):    #SOIL
                     counter_soil+=1;
                     if (counter_soil>1024):
-                        flag_soil=True
+                        counter_soil_reduce+=1;
+                        if(200<counter_soil_reduce<400):
+                            flag_soil=True
+
+                        
         if (flag_bigrock==True and flag_sand==True):
             print('Big Rock-sand IN')
             print('Inserted label: ',t)
