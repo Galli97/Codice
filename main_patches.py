@@ -70,7 +70,7 @@ shape=(64,64,3)
 print(shape)
 BATCH = 64
 EPOCHS = 200 
-steps = 20#int(train_set/EPOCHS)
+steps = int(train_set/EPOCHS)
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,1)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
