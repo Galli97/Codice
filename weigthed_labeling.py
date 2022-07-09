@@ -119,24 +119,24 @@ for t in range (0,len(crop_labels_list)):
                     break
                 elif all(channels_xy==bedrock):      #BEDROCK
                     counter_bedrock+=1;
-                    if (counter_bedrock>820):
+                    if (counter_bedrock>682):
                         flag_bedrock=True
                 elif all(channels_xy==sand):    #SAND
                     counter_sand+=1;
-                    if (counter_sand>820):
+                    if (counter_sand>682):
                         flag_sand=True
                 elif all(channels_xy==bigrock):    #BIG ROCK
                     counter_bigrock+=1;
-                    if (counter_bigrock>820):
+                    if (counter_bigrock>682):
                         flag_bigrock=True
                 elif all(channels_xy==soil):    #SOIL
                     counter_soil+=1;
-                    if (counter_soil>820):
+                    if (counter_soil>682):
                         flag_soil=True;
                     if (flag_soil==True):
                         counter_soil_reduce+=1;
 
-        if(counter_soil>820 and counter_soil_reduce>600):
+        if(counter_soil>682 and counter_soil_reduce>1200):
             flag_soil=False      
 
         if (flag_bigrock==True and flag_sand==True):
