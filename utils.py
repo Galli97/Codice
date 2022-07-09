@@ -334,7 +334,7 @@ def add_sample_weights(image, label):
     bedrock_pixels =  580879 #4628580
     sand_pixels =  466967 #3341899
     bigrock_pixels =  416230 #2927625
-    soil_pixels = 444864 #9461306
+    soil_pixels = 744539 #9461306
     
     PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels#+null_pixels ;
     # The weights for each class, with the constraint that:
