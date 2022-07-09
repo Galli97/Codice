@@ -131,12 +131,12 @@ for t in range (0,len(crop_labels_list)):
                         flag_bigrock=True
                 elif all(channels_xy==soil):    #SOIL
                     counter_soil+=1;
-                    if (counter_soil>1024):
+                    if (counter_soil>820):
                         counter_soil_reduce+=1;
-                        if(200<counter_soil_reduce<400):
-                            flag_soil=True
 
-                        
+        if(counter_soil>820 and counter_soil_reduce<600):
+            flag_soil=True       
+
         if (flag_bigrock==True and flag_sand==True):
             print('Big Rock-sand IN')
             print('Inserted label: ',t)
