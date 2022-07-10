@@ -53,8 +53,8 @@ for i in range (0,len(tmp2)):
             if tmp2[i,r,c,:]==0:
                 null_count+=1
 
-print('soil: ', soil_count)
+print('null: ', null_count)
 print('bedrock: ', bedrock_count)
 print('sand: ', sand_count)
 print('bigrock: ', bigrock_count)
-print('null: ', null_count)
+print('soil: ', soil_count)

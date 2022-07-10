@@ -54,6 +54,10 @@ for x in range(3554,len(dir1)):
                 break
             elif(flag_sand==True and flag_soil==True):
                 break
+            elif(flag_sand==True and flag_bedrock==True):
+                break
+            elif(flag_bedrock==True and flag_soil==True):
+                break
             for j in range(0,1024): 
                 channels_xy = image[i,j];
                 if(flag_bigrock==True):
@@ -83,7 +87,35 @@ for x in range(3554,len(dir1)):
             count+=1
             print(count)
         elif (flag_sand==True and flag_soil==True):
-            print('Three IN')
+            print('Sand-soil')
+            patt=str(dir[x])
+            patt1=str(dir1[x])
+            path = os.path.join(r'C:\Users\Mattia\Desktop\Tesi\Dataset\Train-images',patt)
+            path1 = os.path.join(r'C:\Users\Mattia\Desktop\Tesi\Dataset\Train-labels',patt1)
+            shutil.copy(path, newpath)
+            shutil.copy(path1, newpath1)
+            flag_sand=False;
+            flag_bedrock=False;
+            flag_bigrock=False;
+            flag_soil=False;
+            count+=1
+            print(count)
+        elif (flag_sand==True and flag_bedrock==True):
+            print('Sand-bedrock')
+            patt=str(dir[x])
+            patt1=str(dir1[x])
+            path = os.path.join(r'C:\Users\Mattia\Desktop\Tesi\Dataset\Train-images',patt)
+            path1 = os.path.join(r'C:\Users\Mattia\Desktop\Tesi\Dataset\Train-labels',patt1)
+            shutil.copy(path, newpath)
+            shutil.copy(path1, newpath1)
+            flag_sand=False;
+            flag_bedrock=False;
+            flag_bigrock=False;
+            flag_soil=False;
+            count+=1
+            print(count)
+        elif (flag_bedrock==True and flag_soil==True):
+            print('Soil-Bedrock')
             patt=str(dir[x])
             patt1=str(dir1[x])
             path = os.path.join(r'C:\Users\Mattia\Desktop\Tesi\Dataset\Train-images',patt)

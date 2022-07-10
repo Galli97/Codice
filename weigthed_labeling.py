@@ -124,7 +124,7 @@ for t in range (0,len(crop_labels_list)):
                     break
                 elif all(channels_xy==nullo):    #BIG ROCK
                     counter_null+=1;
-                    if (counter_bigrock>1024):
+                    if (counter_bigrock>820):
                         flag_null=True;
                 elif all(channels_xy==bedrock):      #BEDROCK
                     counter_bedrock+=1;
@@ -147,7 +147,7 @@ for t in range (0,len(crop_labels_list)):
         if(flag_null==True):
             continue
 
-        if(counter_soil>682 and counter_soil_reduce>1100):
+        if(counter_soil>682 and counter_soil_reduce>600):
             flag_soil=False      
 
         if (flag_bigrock==True and flag_sand==True):
