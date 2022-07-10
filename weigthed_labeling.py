@@ -65,10 +65,12 @@ flag_sand=False;
 flag_bedrock=False;
 flag_bigrock=False;
 flag_soil=False;
+flag_null=False;
 counter_sand=0;
 counter_bedrock=0;
 counter_bigrock=0;
 counter_soil=0;
+counter_null=0;
 counter_soil_reduce=0;
 count=0;
 
@@ -80,11 +82,14 @@ for t in range (0,len(crop_labels_list)):
     flag_bedrock=False;
     flag_bigrock=False;
     flag_soil=False;
+    flag_null=False;
     counter_sand=0;
     counter_bedrock=0;
     counter_bigrock=0;
     counter_soil=0;
+    counter_null=0;
     counter_soil_reduce=0;
+
     if(count==N):
         break
     else:
@@ -117,6 +122,10 @@ for t in range (0,len(crop_labels_list)):
                     break
                 elif(flag_sand==True and flag_soil==True):
                     break
+                elif all(channels_xy==nullo):    #BIG ROCK
+                    counter_null+=1;
+                    if (counter_bigrock>1024):
+                        flag_null=True;
                 elif all(channels_xy==bedrock):      #BEDROCK
                     counter_bedrock+=1;
                     if (counter_bedrock>682):
@@ -135,8 +144,10 @@ for t in range (0,len(crop_labels_list)):
                         flag_soil=True;
                     if (flag_soil==True):
                         counter_soil_reduce+=1;
+        if(flag_null==True):
+            continue
 
-        if(counter_soil>682 and counter_soil_reduce>1200):
+        if(counter_soil>682 and counter_soil_reduce>1100):
             flag_soil=False      
 
         if (flag_bigrock==True and flag_sand==True):
@@ -166,6 +177,7 @@ for t in range (0,len(crop_labels_list)):
             flag_bedrock=False;
             flag_bigrock=False;
             flag_soil=False;
+            flag_null=False;
             count+=1
             print('count: ', count)
         elif (flag_bigrock==True and flag_bedrock==True):
@@ -195,6 +207,7 @@ for t in range (0,len(crop_labels_list)):
             flag_bedrock=False;
             flag_bigrock=False;
             flag_soil=False;
+            flag_null=False;
             count+=1
             print('count: ', count)
         elif (flag_bigrock==True and flag_soil==True):
@@ -224,6 +237,7 @@ for t in range (0,len(crop_labels_list)):
             flag_bedrock=False;
             flag_bigrock=False;
             flag_soil=False;
+            flag_null=False;
             count+=1
             print('count: ', count)
         elif (flag_bedrock==True and flag_sand==True):
@@ -253,6 +267,7 @@ for t in range (0,len(crop_labels_list)):
             flag_bedrock=False;
             flag_bigrock=False;
             flag_soil=False;
+            flag_null=False;
             count+=1
             print('count: ', count)
         elif (flag_bedrock==True and flag_soil==True):
@@ -282,6 +297,7 @@ for t in range (0,len(crop_labels_list)):
             flag_bedrock=False;
             flag_bigrock=False;
             flag_soil=False;
+            flag_null=False;
             count+=1
             print('count: ', count)
         elif (flag_sand==True and flag_soil==True):
@@ -311,6 +327,7 @@ for t in range (0,len(crop_labels_list)):
             flag_bedrock=False;
             flag_bigrock=False;
             flag_soil=False;
+            flag_null=False;
             count+=1
             print('count: ', count)
 print('chosen_label',len(chosen_label))
