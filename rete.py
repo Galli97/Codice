@@ -224,7 +224,7 @@ def rete_vgg16(img_size=None, weight_decay=0., batch_momentum=0.9, batch_shape=N
     vggmodel = tf.keras.applications.vgg16.VGG16(input_shape=img_size, weights='imagenet',include_top=False)
 
     vggmodel = Sequential(vggmodel.layers[:-4])
-    for layer in vggmodel.layers[:-4]:        
+    for layer in vggmodel.layers:#[:-4]:        
         layer.trainable = False
     x = vggmodel.output
    
