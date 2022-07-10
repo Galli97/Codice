@@ -34,8 +34,8 @@ count=0;
 #da 600-1587 prendo immagini che abbiano o la big rock, oppure sand-soil-bedrock
 #Da 3000-3554  prendo immagini che abbiano o la big rock, oppure sand-soil
 #Da 3554-4168  prendo immagini che abbiano o la big rock, oppure sand
-#Da 4168 prendo immagini che abbiano o la big rock, oppure sand-soil
-for x in range(3554,len(dir1)):
+#Da 4168 prendo immagini che abbiano o la big rock, oppure almeno altre due classi
+for x in range(4168,len(dir1)):
     print('Label: ', x)
     flag_sand=False;
     flag_bedrock=False;

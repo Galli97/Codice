@@ -71,6 +71,19 @@ def save_final_labels(tmp1):
     with open('final_labels.npy','wb') as f:
         np.save(f,tmp1)
 
+def save_cropped_images512(tmp1):
+    with open('cropped_images512.npy','wb') as f:
+        np.save(f,tmp1)
+
+def save_cropped_labels512(tmp1):
+    with open('cropped_labels512.npy','wb') as f:
+        np.save(f,tmp1)
+def save_label_patches512(tmp1):
+    with open('label_patches512.npy','wb') as f:
+        np.save(f,tmp1)
+def save_patches512(tmp1):
+    with open('image_patches512.npy','wb') as f:
+        np.save(f,tmp1)
 ### datagenerator prepara i dati per il training
 def datagenerator(images,labels, batchsize, mode="train"):
     while True:
