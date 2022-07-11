@@ -57,15 +57,6 @@ print('label_train: ',label_train.shape)
 print('label_validation: ',label_validation.shape)
 
 
-# null:  7098361
-# bedrock:  4205537
-# sand:  2327347
-# bigrock:  2075910
-# soil:  5964781
-
-# PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels+null_pixels ;
-# loss_weights=[soil_pixels/PIXELS,bedrock_pixels/PIXELS,sand_pixels/PIXELS,bigrock_pixels/PIXELS,null_pixels/PIXELS]
-
 
 ###### DEFINISCO IL MODELLO #######
 shape=(64,64,3)
@@ -113,24 +104,10 @@ x_train = (
 x_validation = x_validation.batch(BATCH)
 
 lr_base = 0.01# * (float(BATCH) / 16)
-# def scheduler(epoch, lr):
-#     if epoch < 10:
-#         return lr_base
-#     else:
-#         return lr_base * 2
-#### DEFINSICO I PARAMETRI PER IL COMPILE (OPTIMIZER E LOSS)
-# def scheduler(epoch, lr_base):
-#     if epoch > 0.7 * EPOCHS:
-#         return lr_base
-#     elif epoch > 0.4 * EPOCHS:
-#         return lr_base*10
-#     else:
-#         return lr_base*100
 
-# callback = tf.keras.callbacks.LearningRateScheduler(scheduler)
 
-#optimizer = SGD(learning_rate=lr_base, momentum=0.)
-optimizer=keras.optimizers.Adam(learning_rate=0.001)
+optimizer = SGD(learning_rate=lr_base, momentum=0.)
+#optimizer=keras.optimizers.Adam(learning_rate=0.001)
 loss_fn =keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics =[UpdatedMeanIoU(num_classes=5)],sample_weight_mode='temporal')#UpdatedMeanIoU(num_classes=5)#tf.keras.metrics.SparseCategoricalAccuracy()#MyMeanIoU(num_classes=5)#loss_weights=loss_weights#[tf.keras.metrics.SparseCategoricalAccuracy()]#[tf.keras.metrics.MeanIoU(num_classes=5)])#['accuracy'])#[sparse_accuracy_ignoring_last_label])#,sample_weight_mode='temporal')
