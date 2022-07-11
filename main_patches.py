@@ -103,7 +103,7 @@ x_train = (
 
 x_validation = x_validation.batch(BATCH)
 
-lr_base = 0.01# * (float(BATCH) / 16)
+lr_base = 0.001# * (float(BATCH) / 16)
 
 
 optimizer = SGD(learning_rate=lr_base, momentum=0.)
