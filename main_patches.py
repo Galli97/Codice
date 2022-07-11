@@ -91,7 +91,7 @@ x_train = tf.data.Dataset.from_tensor_slices((list_train, label_train))
 # x_train = x_train.batch(BATCH)
 # x_train = x_train.repeat()
 # x_train = x_train.prefetch(buffer_size=tf.data.AUTOTUNE)
-#print(x_train.shape)
+print(x_train.shape)
 x_validation = tf.data.Dataset.from_tensor_slices((list_validation, label_validation))
 #x_validation = x_validation.batch(BATCH)
      
