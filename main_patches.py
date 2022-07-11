@@ -89,22 +89,30 @@ BUFFER_SIZE=train_set;
 # # Create a Dataset that includes sample weights
 # # (3rd element in the return tuple).
 x_train = tf.data.Dataset.from_tensor_slices((list_train, label_train))
-#x_train = tf.keras.applications.vgg16.preprocess_input(x_train)
-x_train = x_train.cache()
-x_train = x_train.shuffle(BUFFER_SIZE)
-x_train = x_train.batch(BATCH)
-x_train = x_train.repeat(EPOCHS)                         ###Ad ogni epoch avrò un numero di batch pari ha len(dataset)/Batch_size. 
-x_train = x_train.prefetch(buffer_size=tf.data.AUTOTUNE)
+# #x_train = tf.keras.applications.vgg16.preprocess_input(x_train)
+# x_train = x_train.cache()
+# x_train = x_train.shuffle(BUFFER_SIZE)
+# x_train = x_train.batch(BATCH)
+# x_train = x_train.repeat(EPOCHS)                         ###Ad ogni epoch avrò un numero di batch pari ha len(dataset)/Batch_size. 
+# x_train = x_train.prefetch(buffer_size=tf.data.AUTOTUNE)
 
-x_train = x_train.map(add_sample_weights)
-#print(x_train.shape)
+# x_train = x_train.map(add_sample_weights)
+# #print(x_train.shape)
 x_validation = tf.data.Dataset.from_tensor_slices((list_validation, label_validation))
+# x_validation = x_validation.batch(BATCH)
+# #x_validation = x_validation.map(add_sample_weights_val)    
+
+x_train = (
+    x_train
+    .cache()
+    .shuffle(BUFFER_SIZE)
+    .batch(BATCH)
+    .repeat(EPOCHS)
+    .prefetch(buffer_size=tf.data.AUTOTUNE))
+
 x_validation = x_validation.batch(BATCH)
-#x_validation = x_validation.map(add_sample_weights_val)    
 
-
-
-lr_base = 0.01 * (float(BATCH) / 16)
+lr_base = 0.01# * (float(BATCH) / 16)
 # def scheduler(epoch, lr):
 #     if epoch < 10:
 #         return lr_base
@@ -121,8 +129,8 @@ lr_base = 0.01 * (float(BATCH) / 16)
 
 # callback = tf.keras.callbacks.LearningRateScheduler(scheduler)
 
-optimizer = SGD(learning_rate=lr_base, momentum=0.)
-#optimizer=keras.optimizers.Adam(learning_rate=0.001)
+#optimizer = SGD(learning_rate=lr_base, momentum=0.)
+optimizer=keras.optimizers.Adam(learning_rate=0.001)
 loss_fn =keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics =[UpdatedMeanIoU(num_classes=5)],sample_weight_mode='temporal')#UpdatedMeanIoU(num_classes=5)#tf.keras.metrics.SparseCategoricalAccuracy()#MyMeanIoU(num_classes=5)#loss_weights=loss_weights#[tf.keras.metrics.SparseCategoricalAccuracy()]#[tf.keras.metrics.MeanIoU(num_classes=5)])#['accuracy'])#[sparse_accuracy_ignoring_last_label])#,sample_weight_mode='temporal')
