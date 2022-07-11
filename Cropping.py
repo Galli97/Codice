@@ -63,7 +63,7 @@ print('label1: ', label_list[0])
 #A=0;                                              #### METTO A=0 SE NON VOGLIO FARE DATA AUGMENTATION, COMMENTANDO LA RIGA SOPRA
 
 ####NUMERO DI IMMAGINI NEL DATASET + IMMAGINI DOVUTE AL DATA AUGMENTATION ####
-N = len(image_list)           
+N = 1 #len(image_list)           
 #N=163                                 #### UTILIZZARE LA RIGA SOPRA PER USARE TUTTE LE IMMAGINI A DISPOSIZIONE
 print('Augmented image list dimension')
 print(N)
@@ -106,7 +106,7 @@ for j in range (N):
     for r in range (0,16):
         for c in range (0,16):
             cropped_label = label[64*(r):64*(r+1),64*(c):64*(c+1)]
-            cropped_label = cropped_label.astype('float32')
+            #cropped_label = cropped_label.astype('float32')
             crop_labels_list.append(cropped_label)
 
 ######## SALVATAGGIO ####

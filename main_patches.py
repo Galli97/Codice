@@ -68,13 +68,13 @@ print('label_validation: ',label_validation.shape)
 ###### DEFINISCO IL MODELLO #######
 shape=(64,64,3)
 print(shape)
-BATCH = 64
-EPOCHS = 100 
-steps = int(train_set/EPOCHS)
+BATCH = 8
+EPOCHS = 50 
+steps = int(train_set/EPOCHS*BATCH)
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,1)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
-model = rete_vgg16(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = DeeplabV3Plus(image_size=64,num_classes=5)
 
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######
@@ -89,7 +89,7 @@ x_train = tf.data.Dataset.from_tensor_slices((list_train, label_train))
 x_train = x_train.cache()
 x_train = x_train.shuffle(BUFFER_SIZE)
 x_train = x_train.batch(BATCH)
-x_train = x_train.repeat()
+#x_train = x_train.repeat()
 x_train = x_train.prefetch(buffer_size=tf.data.AUTOTUNE)
 #print(x_train.shape)
 x_validation = tf.data.Dataset.from_tensor_slices((list_validation, label_validation))
@@ -116,8 +116,8 @@ lr_base = 0.01 * (float(BATCH) / 16)
 
 # callback = tf.keras.callbacks.LearningRateScheduler(scheduler)
 
-optimizer = SGD(learning_rate=lr_base, momentum=0.)
-#optimizer=keras.optimizers.Adam(learning_rate=0.001)
+#optimizer = SGD(learning_rate=lr_base, momentum=0.)
+optimizer=keras.optimizers.Adam(learning_rate=0.001)
 loss_fn =keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics =[UpdatedMeanIoU(num_classes=5)],sample_weight_mode='temporal')#UpdatedMeanIoU(num_classes=5)#tf.keras.metrics.SparseCategoricalAccuracy()#MyMeanIoU(num_classes=5)#loss_weights=loss_weights#[tf.keras.metrics.SparseCategoricalAccuracy()]#[tf.keras.metrics.MeanIoU(num_classes=5)])#['accuracy'])#[sparse_accuracy_ignoring_last_label])#,sample_weight_mode='temporal')

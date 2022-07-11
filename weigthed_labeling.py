@@ -100,7 +100,7 @@ for t in range (0,len(crop_labels_list)):
                 break
             elif(flag_bigrock==True and flag_sand==True):
                 break
-            elif(flag_bigrock==True and flag_soil==True):
+            elif(flag_bigrock==True and flag_bedrock==True):
                 break
             elif(flag_bedrock==True and flag_soil==True):
                 break
@@ -114,7 +114,7 @@ for t in range (0,len(crop_labels_list)):
                     break
                 elif(flag_bigrock==True and flag_sand==True):
                     break
-                elif(flag_bigrock==True and flag_soil==True):
+                elif(flag_bigrock==True and flag_bedrock==True):
                     break
                 elif(flag_bedrock==True and flag_soil==True):
                     break
@@ -124,7 +124,7 @@ for t in range (0,len(crop_labels_list)):
                     break
                 elif all(channels_xy==nullo):    #BIG ROCK
                     counter_null+=1;
-                    if (counter_bigrock>820):
+                    if (counter_null>820):
                         flag_null=True;
                 elif all(channels_xy==bedrock):      #BEDROCK
                     counter_bedrock+=1;

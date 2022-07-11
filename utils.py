@@ -155,27 +155,27 @@ def augment(image_list,label_list,N):
         image=image_list[a] 
         label=label_list[a]
         indices.append(a)
-        chose = random.randint(1,3)
+        choose = random.randint(1,3)
         #print(a)
-        if(chose == 1):
+        if(choose == 1):
             new_image = rotate(image)
             new_label = rotate(label)
-        elif(chose == 2):
+        elif(choose == 2):
             new_image = brightness(image)
             new_label = label
-        elif(chose == 3):
+        elif(choose == 3):
             new_image = flip(image)
             new_label = flip(label)
-        elif(chose == 4):
+        elif(choose == 4):
             new_image = grayscale(image)
             new_label = label
-        elif(chose == 5):
+        elif(choose == 5):
             new_image = saturate(image)
             new_label = label
-        elif(chose == 6):
+        elif(choose == 6):
             new_image = contrast(image)
             new_label = label
-        # elif(chose == 4):
+        # elif(choose == 4):
         #     new_image = translation(image)
         #     new_label = translation(label)
         tmp1a.append(new_image)#[i]=new_image
