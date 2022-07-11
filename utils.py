@@ -342,23 +342,42 @@ def sparse_accuracy_ignoring_last_label(y_true, y_pred):
 ########################################################
 #######################################################
   
-def add_sample_weights(image, label):
-    null_pixels = 2473182  # 7976718 
-    bedrock_pixels =  1588727 #4628580
-    sand_pixels =  1106893 #3341899
-    bigrock_pixels =  727281 #2927625
-    soil_pixels = 1296493 #9461306
+def add_sample_weights(image, label, mode = 0):
+    if (mode==0):
+        null_pixels = 1981224
+        bedrock_pixels =  1261125 
+        sand_pixels =  885248 
+        bigrock_pixels =  577428 
+        soil_pixels = 1045759 
+        
+
+        PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels#+null_pixels ;
+        # The weights for each class, with the constraint that:
+        #     sum(class_weights) == 1.0
+        class_weights = tf.constant([0, PIXELS/soil_pixels, PIXELS/bedrock_pixels,PIXELS/sand_pixels,PIXELS/bigrock_pixels])
+        class_weights = class_weights/tf.reduce_sum(class_weights)
+
+        # Create an image of `sample_weights` by using the label at each pixel as an 
+        # index into the `class weights` .
+        sample_weights = tf.gather(class_weights, indices=tf.cast(label, tf.int32))
+    elif (mode==1):
+        null_pixels = 491958  
+        bedrock_pixels =  327602 
+        sand_pixels =  221645 
+        bigrock_pixels =  149853 
+        soil_pixels = 250734 
+        
+
+        PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels#+null_pixels ;
+        # The weights for each class, with the constraint that:
+        #     sum(class_weights) == 1.0
+        class_weights = tf.constant([0, PIXELS/soil_pixels, PIXELS/bedrock_pixels,PIXELS/sand_pixels,PIXELS/bigrock_pixels])
+        class_weights = class_weights/tf.reduce_sum(class_weights)
+
+        # Create an image of `sample_weights` by using the label at each pixel as an 
+        # index into the `class weights` .
+        sample_weights = tf.gather(class_weights, indices=tf.cast(label, tf.int32))
     
-
-    PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels#+null_pixels ;
-    # The weights for each class, with the constraint that:
-    #     sum(class_weights) == 1.0
-    class_weights = tf.constant([0, PIXELS/soil_pixels, PIXELS/bedrock_pixels,PIXELS/sand_pixels,PIXELS/bigrock_pixels])
-    class_weights = class_weights/tf.reduce_sum(class_weights)
-
-    # Create an image of `sample_weights` by using the label at each pixel as an 
-    # index into the `class weights` .
-    sample_weights = tf.gather(class_weights, indices=tf.cast(label, tf.int32))
 
     return image, label, sample_weights
 ########################
