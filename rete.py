@@ -258,8 +258,8 @@ def rete_vgg16_dilation(image_size=None, weight_decay=0., batch_momentum=0.9, ba
     x = Dropout(0.5)(x)
     x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc2', kernel_regularizer=l2(weight_decay))(x)
     x = Dropout(0.5)(x)
-    x = Conv2D(classes, (1, 1), activation='linear', padding='valid', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
-    x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
+    x = Conv2D(classes, (3, 3), activation='linear', padding='valid', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    x = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(x)
     
     x = Activation('softmax')(x)
     model = Model(inputs=vggmodel.input, outputs=x)
