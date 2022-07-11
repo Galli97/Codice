@@ -103,7 +103,6 @@ x_validation = x_validation.batch(BATCH)
 #x_validation = x_validation.map(add_sample_weights_val)    
 
 
-#x_validation = x_validation.map(add_sample_weights)
 
 lr_base = 0.01 * (float(BATCH) / 16)
 # def scheduler(epoch, lr):
