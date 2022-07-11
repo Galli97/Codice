@@ -51,7 +51,12 @@ print(shape)
 BATCH= 1
 EPOCHS=10
 
-x_test = datagenerator(tmp1,tmp2,BATCH)
+#x_test = datagenerator(tmp1,tmp2,BATCH)
+x_test = tf.data.Dataset.from_tensor_slices((tmp1, tmp2))
+x_test = (
+    x_test
+    .batch(BATCH)
+)
 
 model = tf.keras.models.load_model('model.h5',custom_objects={"UpdatedMeanIoU": UpdatedMeanIoU })
 
