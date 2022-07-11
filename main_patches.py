@@ -74,6 +74,7 @@ steps = int(train_set/(EPOCHS))
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,1)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+tf.keras.backend.set_image_data_format('channels_last')
 model = rete_vgg16_dilation(image_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = DeeplabV3Plus(image_size=64,num_classes=5)
 
@@ -86,7 +87,7 @@ BUFFER_SIZE=train_set;
 # # Create a Dataset that includes sample weights
 # # (3rd element in the return tuple).
 x_train = (list_train, label_train) #tf.data.Dataset.from_tensor_slices((list_train, label_train))
-x_train = tf.keras.applications.vgg16.preprocess_input(x_train)
+#x_train = tf.keras.applications.vgg16.preprocess_input(x_train)
 x_train = tf.data.Dataset.from_tensor_slices(x_train)
 x_train = x_train.map(add_sample_weights)
 # x_train = x_train.cache()
