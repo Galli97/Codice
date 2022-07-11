@@ -71,7 +71,7 @@ print('label_validation: ',label_validation.shape)
 shape=(64,64,3)
 print(shape)
 BATCH = 64
-EPOCHS = 50 
+EPOCHS = 100 
 steps = int(train_set/(EPOCHS))
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,3)
@@ -93,7 +93,7 @@ x_train = tf.data.Dataset.from_tensor_slices((list_train, label_train))
 x_train = x_train.cache()
 x_train = x_train.shuffle(BUFFER_SIZE)
 x_train = x_train.batch(BATCH)
-x_train = x_train.repeat()
+x_train = x_train.repeat(EPOCHS)                         ###Ad ogni epoch avrò un numero di batch pari ha len(dataset)/Batch_size. 
 x_train = x_train.prefetch(buffer_size=tf.data.AUTOTUNE)
 
 x_train = x_train.map(add_sample_weights)
