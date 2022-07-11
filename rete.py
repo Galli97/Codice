@@ -239,13 +239,8 @@ def rete_vgg16(img_size=None, weight_decay=0., batch_momentum=0.9, batch_shape=N
 
     return model
 
-def rete_vgg16_dilation(input_shape=None, weight_decay=0., batch_momentum=0.9, batch_shape=None, classes=5):
-    if batch_shape:
-        img_input = Input(batch_shape=batch_shape)
-        image_size = batch_shape[1:3]
-    else:
-        img_input = Input(shape=input_shape)
-        image_size = input_shape[0:2]
+def rete_vgg16_dilation(image_size=None, weight_decay=0., batch_momentum=0.9, batch_shape=None, classes=5):
+    
 
     vggmodel = tf.keras.applications.vgg16.VGG16(input_shape=image_size, weights='imagenet',include_top=False)
 
