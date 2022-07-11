@@ -75,7 +75,7 @@ weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,3)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 tf.keras.backend.set_image_data_format('channels_last')
-model = rete_vgg16_dilation(image_size=batch_shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+model = rete_vgg16_dilation(image_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = DeeplabV3Plus(image_size=64,num_classes=5)
 
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######
