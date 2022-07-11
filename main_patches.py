@@ -86,6 +86,7 @@ BUFFER_SIZE=train_set;
 # # Create a Dataset that includes sample weights
 # # (3rd element in the return tuple).
 x_train = tf.data.Dataset.from_tensor_slices((list_train, label_train))
+x_train = tf.keras.applications.vgg16.preprocess_input(x_train)
 # x_train = x_train.cache()
 # x_train = x_train.shuffle(BUFFER_SIZE)
 # x_train = x_train.batch(BATCH)
