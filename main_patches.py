@@ -90,16 +90,17 @@ BUFFER_SIZE=train_set;
 # # (3rd element in the return tuple).
 x_train = tf.data.Dataset.from_tensor_slices((list_train, label_train))
 #x_train = tf.keras.applications.vgg16.preprocess_input(x_train)
-x_train = x_train.map(add_sample_weights)
 x_train = x_train.cache()
 x_train = x_train.shuffle(BUFFER_SIZE)
 x_train = x_train.batch(BATCH)
 x_train = x_train.repeat()
 x_train = x_train.prefetch(buffer_size=tf.data.AUTOTUNE)
+
+x_train = x_train.map(add_sample_weights)
 #print(x_train.shape)
 x_validation = tf.data.Dataset.from_tensor_slices((list_validation, label_validation))
 x_validation = x_validation.batch(BATCH)
-     
+x_validation = x_validation.map(add_sample_weights)    
 
 
 #x_validation = x_validation.map(add_sample_weights)
