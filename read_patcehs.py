@@ -57,14 +57,16 @@ for i in range (0,len(tmp2)):
             #     print(tmp1[i,r,c,:])
             if tmp2[i,r,c,:]==4:
                 soil_count+=1
-            if tmp2[i,r,c,:]==1:
+            elif tmp2[i,r,c,:]==1:
                 bedrock_count+=1
-            if tmp2[i,r,c,:]==2:
+            elif tmp2[i,r,c,:]==2:
                 sand_count+=1
-            if tmp2[i,r,c,:]==3:
+            elif tmp2[i,r,c,:]==3:
                 bigrock_count+=1
-            if tmp2[i,r,c,:]==0:
+            elif tmp2[i,r,c,:]==0:
                 null_count+=1
+            else:
+                print(i)
 
 # for i in range (0,len(label_train)):
 #     for r in range(0,64):
