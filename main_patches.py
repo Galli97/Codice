@@ -100,7 +100,7 @@ x_train = x_train.map(add_sample_weights)
 #print(x_train.shape)
 x_validation = tf.data.Dataset.from_tensor_slices((list_validation, label_validation))
 x_validation = x_validation.batch(BATCH)
-x_validation = x_validation.map(add_sample_weights)    
+x_validation = x_validation.map(add_sample_weights,mode=1)    
 
 
 #x_validation = x_validation.map(add_sample_weights)
