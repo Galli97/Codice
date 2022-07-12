@@ -98,7 +98,7 @@ x_train = (
     .cache()
     .shuffle(BUFFER_SIZE)
     .batch(BATCH)
-    #.repeat(EPOCHS)
+    .repeat(EPOCHS)
     .prefetch(buffer_size=tf.data.AUTOTUNE))
 
 
