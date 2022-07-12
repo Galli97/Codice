@@ -98,11 +98,11 @@ x_train = (
     .cache()
     .shuffle(BUFFER_SIZE)
     .batch(BATCH)
-    .repeat(EPOCHS)
+    #.repeat(EPOCHS)
     .prefetch(buffer_size=tf.data.AUTOTUNE))
 
 
-x_validation = x_validation.map(add_sample_weights_val)   
+#x_validation = x_validation.map(add_sample_weights_val)   
 x_validation = x_validation.batch(BATCH)
 
 lr_base = 0.01 * (float(BATCH) / 16)
