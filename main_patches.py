@@ -90,9 +90,9 @@ x_train = tf.data.Dataset.from_tensor_slices((list_train, label_train))
 # 
 # #print(x_train.shape)
 x_validation = tf.data.Dataset.from_tensor_slices((list_validation, label_validation))
-# x_validation = x_validation.batch(BATCH)
-# #x_validation = x_validation.map(add_sample_weights_val)    
 
+ 
+x_train = x_train.map(add_sample_weights)
 x_train = (
     x_train
     .cache()
@@ -100,8 +100,9 @@ x_train = (
     .batch(BATCH)
     .repeat(EPOCHS)
     .prefetch(buffer_size=tf.data.AUTOTUNE))
-x_train = x_train.map(add_sample_weights)
 
+
+#x_validation = x_validation.map(add_sample_weights_val)   
 x_validation = x_validation.batch(BATCH)
 
 lr_base = 0.01 * (float(BATCH) / 16)
