@@ -38,9 +38,9 @@ prediction = decode_masks(predictions)
 foto = random.randint(0,len(tmp1)-1)
 
 
-img=cv2.resize(tmp1[foto],(1024,1024))
-img_prediction=cv2.resize(prediction[foto],(1024,1024))
-label=cv2.resize(true[foto],(1024,1024))
+img=cv2.resize(tmp1[foto],(512,512))
+img_prediction=cv2.resize(prediction[foto],(512,512))
+label=cv2.resize(true[foto],(512,512))
 
 
 cv2.imshow('image', img) 
