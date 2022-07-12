@@ -23,7 +23,7 @@ from sklearn.feature_extraction import image
 # path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches.npy"
 path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches_TEST.npy"
 path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches_TEST.npy"
-path2 = r"C:\Users\Mattia\Documenti\Github\Codice\predictions_ADAM.npy"
+path2 = r"C:\Users\Mattia\Documenti\Github\Codice\predictions.npy"
 
 tmp1 = get_np_arrays(path)
 tmp2 = get_np_arrays(path1)
