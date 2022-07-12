@@ -144,34 +144,34 @@ for j in range (N):
             for m in range(0,64):
                 if(flag_null==True):
                     break
-                elif(flag_bigrock==True and flag_sand==True):
-                    break
-                elif(flag_bigrock==True and flag_bedrock==True):
-                    break
-                elif(flag_bigrock==True and flag_soil==True):
-                    break
-                elif(flag_bedrock==True and flag_soil==True):
-                    break
-                elif(flag_bedrock==True and flag_sand==True):
-                    break
-                elif(flag_sand==True and flag_soil==True):
-                    break
+                # elif(flag_bigrock==True and flag_sand==True):
+                #     break
+                # elif(flag_bigrock==True and flag_bedrock==True):
+                #     break
+                # elif(flag_bigrock==True and flag_soil==True):
+                #     break
+                # elif(flag_bedrock==True and flag_soil==True):
+                #     break
+                # elif(flag_bedrock==True and flag_sand==True):
+                #     break
+                # elif(flag_sand==True and flag_soil==True):
+                #     break
                 for s in range(0,64): 
                     channels_xy = cropped_label[m,s];
                     if(flag_null==True):
                         break
-                    elif(flag_bigrock==True and flag_sand==True):
-                        break
-                    elif(flag_bigrock==True and flag_soil==True):
-                        break
-                    elif(flag_bigrock==True and flag_bedrock==True):
-                        break
-                    elif(flag_bedrock==True and flag_soil==True):
-                        break
-                    elif(flag_bedrock==True and flag_sand==True):
-                        break
-                    elif(flag_sand==True and flag_soil==True):
-                        break
+                    # elif(flag_bigrock==True and flag_sand==True):
+                    #     break
+                    # elif(flag_bigrock==True and flag_soil==True):
+                    #     break
+                    # elif(flag_bigrock==True and flag_bedrock==True):
+                    #     break
+                    # elif(flag_bedrock==True and flag_soil==True):
+                    #     break
+                    # elif(flag_bedrock==True and flag_sand==True):
+                    #     break
+                    # elif(flag_sand==True and flag_soil==True):
+                    #     break
                     elif channels_xy==nullo:    #Null
                         counter_null+=1;
                         if (counter_null>1365):
@@ -197,7 +197,7 @@ for j in range (N):
                 continue
 
             if(flag_soil==True):
-                if (counter_soil_reduce>341):
+                if (counter_soil_reduce>1024):
                     flag_soil=False;  
                 else:
                     flag_soil=True;

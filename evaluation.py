@@ -26,14 +26,14 @@ from keras.preprocessing.image import ImageDataGenerator
 # ####### PERCORSO IN LOCALE #########
 path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches_TEST.npy"
 path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches_TEST.npy"
-path2= r"C:\Users\Mattia\Documenti\Github\Codice\cropped_images_TEST.npy"
-path3 =  r"C:\Users\Mattia\Documenti\Github\Codice\cropped_labels_TEST.npy"
+# path2= r"C:\Users\Mattia\Documenti\Github\Codice\cropped_images_TEST.npy"
+# path3 =  r"C:\Users\Mattia\Documenti\Github\Codice\cropped_labels_TEST.npy"
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
 #print(type(tmp1))
 print(tmp1.shape)
 print('0: ',tmp1[1])
-# tmp1=tmp1[0:50]
+#tmp1=tmp1[0:100]
 F=6.10917989e+01
 print('F',F)
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
@@ -41,7 +41,7 @@ tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 print(tmp2.shape)
 print(len(tmp2))
 print('0: ',tmp2[8,:,:,0])
-# tmp2=tmp2[0:50]
+#tmp2=tmp2[0:100]
 print('tmp2: ', tmp2.shape)
 # crop_images_list = get_np_arrays(path2)          #recupero tmp1 dal file 
 # crop_labels_list = get_np_arrays(path3) 
@@ -81,11 +81,13 @@ print(prediction[5])
 matrix = tf.math.confusion_matrix(cm1,cm2,num_classes=5)
 print(matrix)
 
-null_pixels = 174904 
-bedrock_pixels =  63385
-sand_pixels =  65842
-bigrock_pixels =  4555
-soil_pixels =  100914
+ 
+
+null_pixels = 831340 
+bedrock_pixels =  360564
+sand_pixels =  316722
+bigrock_pixels =  16502
+soil_pixels =  522872
 
 #percent = 100/np.array([[null_pixels],[bedrock_pixels],[sand_pixels],[bigrock_pixels],[soil_pixels]])
 matrix2 = np.array([[matrix[0]*100/null_pixels],[matrix[1]*100/bedrock_pixels], [matrix[2]*100/sand_pixels],[matrix[3]*100/bigrock_pixels], [matrix[4]*100/soil_pixels]])

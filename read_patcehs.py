@@ -22,7 +22,8 @@ path = r"C:\Users\Mattia\Documenti\Github\Codice\final_images.npy"
 path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\final_labels.npy"
 # path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches.npy"
 # path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches.npy"
-
+# path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches_TEST.npy"
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
 #print(type(tmp1))

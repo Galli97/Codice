@@ -50,6 +50,7 @@ print('Image and label lists dimensions')
 print(len(image_list))
 print(len(label_list))
 
+
 print('Elem1: ', image_list[0])
 print('label1: ', label_list[0])
 
@@ -58,12 +59,12 @@ image_list, label_list = shuffle(np.array(image_list), np.array(label_list))
 print('Elem1 shuffled: ', image_list[0])
 print('label1: ', label_list[0])
 
-### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
-#tmp1a,tmp2a,A = augment(image_list,label_list);
-A=0;                                              #### METTO A=0 SE NON VOGLIO FARE DATA AUGMENTATION, COMMENTANDO LA RIGA SOPRA
+# ### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
+# #tmp1a,tmp2a,A = augment(image_list,label_list);
+# A=0;                                              #### METTO A=0 SE NON VOGLIO FARE DATA AUGMENTATION, COMMENTANDO LA RIGA SOPRA
 
 ####NUMERO DI IMMAGINI NEL DATASET + IMMAGINI DOVUTE AL DATA AUGMENTATION ####
-N = len(image_list)+A           
+N = 500#len(image_list)+A           
 #N=163                                 #### UTILIZZARE LA RIGA SOPRA PER USARE TUTTE LE IMMAGINI A DISPOSIZIONE
 print('Augmented image list dimension')
 print(N)
@@ -78,13 +79,11 @@ print(N)
 crop_images_list=[]
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
 print('[INFO]Generating images array')
-for i in range (N-A):
+for i in range (N):
     print(i)
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
-    # image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    # image=np.expand_dims(image, axis=2)
     image = image.astype('float32')
-    image/=510                                    #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+    image/=255                                    #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     for r in range (0,16):
         for c in range (0,16):
             cropped_image = image[64*r:64*(r+1),64*c:64*(c+1)]
@@ -93,13 +92,16 @@ for i in range (N-A):
 ######## SALVATAGGIO ####
 print("[INFO] Cropped images arrays saved")
 save_cropped_images_TEST(crop_images_list) 
+print('shape ', crop_images_list[0].shape)
 
 crop_labels_list=[]
 
 print('[INFO]Generating labels array')
-for j in range (N-A):
+for j in range (N):
     print(j)
-    label = cv2.imread(label_list[j])[:,:,[2,1,0]]   
+    label = cv2.imread(label_list[j])[:,:,[2,1,0]]
+    label = cv2.cvtColor(label, cv2.COLOR_BGR2GRAY)
+    label=np.expand_dims(label, axis=2)  
     label = label.astype('float32')
     for r in range (0,16):
         for c in range (0,16):
@@ -109,4 +111,5 @@ for j in range (N-A):
 
 ######## SALVATAGGIO ####
 print("[INFO] Cropped labels arrays saved")
+print('shape ', crop_labels_list[0].shape)
 save_cropped_labels_TEST(crop_labels_list) 

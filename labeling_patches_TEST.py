@@ -35,10 +35,10 @@ crop_labels_list = get_np_arrays(path1)          #recupero tmp2 dal file
 #tmp1a,tmp2a,A = augment(image_list,label_list);
 A=0;
 #N = len(crop_images_list)+A
-N=100;
+N=500;
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI E DELLE LABEL ######
 num_classes=5
-tmp1 = np.empty((len(crop_images_list), 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
+# tmp1 = np.empty((len(crop_images_list), 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
 tmp2 = np.empty((N, 64, 64, 1), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel. Nel caso sparse avrò un intero ad indicare la classe
 tmp3 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
 print('Image and label lists dimensions')
@@ -54,8 +54,11 @@ print('Elem1 shuffled: ', crop_images_list[0])
 print('label1: ', crop_labels_list[0])
 
 print('[INFO]Generating images array')
-tmp1 = crop_images_list
+#tmp1 = crop_images_list
 
+#print(tmp1.shape)
+img_labelled=[];
+label_labelled=[];
 
 soil=0;
 bedrock=1;
@@ -87,7 +90,7 @@ for t in range (0,len(crop_labels_list)):
                     break
             if(flag_bigrock==True and flag_sand==True):
                 break
-            if(flag_bigrock==True and flag_soil==True):
+            if(flag_bigrock==True and flag_bedrock==True):
                 break
             elif(flag_bedrock==True and flag_soil==True):
                 break
@@ -101,7 +104,7 @@ for t in range (0,len(crop_labels_list)):
                     break
                 if(flag_bigrock==True and flag_sand==True):
                     break
-                if(flag_bigrock==True and flag_soil==True):
+                if(flag_bigrock==True and flag_bedrock==True):
                     break
                 elif(flag_bedrock==True and flag_soil==True):
                     break
@@ -121,24 +124,24 @@ for t in range (0,len(crop_labels_list)):
             print('Big Rock IN')
             print('Inserted label: ',t)
             crop=crop_labels_list[t]
-            reduct_label = crop[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
-            new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
-            new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
+            # reduct_label = crop[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
+            # new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
+            # new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
             #### CONTROLLO OGNI PIXEL PER ASSEGNARE LA CLASSE #######
             for i in range(0,64):
                 for n in range(0,64): 
                     channels_xy = crop[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
                     if channels_xy[0]==bedrock:       #BEDROCK      
-                        new_label[i,n,:]=1
+                        crop[i,n,:]=1
                     elif channels_xy[0]==sand:     #SAND
-                        new_label[i,n,:]=2
+                        crop[i,n,:]=2
                     elif channels_xy[0]==bigrock:     #BIG ROCK
-                        new_label[i,n,:]=3
+                        crop[i,n,:]=3
                     elif channels_xy[0]==soil:     #SOIL
-                        new_label[i,n,:]=4
+                        crop[i,n,:]=4
                     elif channels_xy[0]==nullo:    #NULL
-                        new_label[i,n,:]=0
-            tmp2[count] = new_label
+                        crop[i,n,:]=0
+            tmp2[count] = crop
             chosen_label.append(t)
             flag_sand=False;
             flag_bedrock=False;
@@ -150,24 +153,24 @@ for t in range (0,len(crop_labels_list)):
             print('Big Rock IN')
             print('Inserted label: ',t)
             crop=crop_labels_list[t]
-            reduct_label = crop[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
-            new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
-            new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
+            # reduct_label = crop[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
+            # new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
+            # new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
             #### CONTROLLO OGNI PIXEL PER ASSEGNARE LA CLASSE #######
             for i in range(0,64):
                 for n in range(0,64): 
                     channels_xy = crop[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
                     if channels_xy[0]==bedrock:       #BEDROCK      
-                        new_label[i,n,:]=1
+                        crop[i,n,:]=1
                     elif channels_xy[0]==sand:     #SAND
-                        new_label[i,n,:]=2
+                        crop[i,n,:]=2
                     elif channels_xy[0]==bigrock:     #BIG ROCK
-                        new_label[i,n,:]=3
+                        crop[i,n,:]=3
                     elif channels_xy[0]==soil:     #SOIL
-                        new_label[i,n,:]=4
+                        crop[i,n,:]=4
                     elif channels_xy[0]==nullo:    #NULL
-                        new_label[i,n,:]=0
-            tmp2[count] = new_label
+                        crop[i,n,:]=0
+            tmp2[count] = crop
             chosen_label.append(t)
             flag_sand=False;
             flag_bedrock=False;
@@ -179,24 +182,24 @@ for t in range (0,len(crop_labels_list)):
             print('Big Rock IN')
             print('Inserted label: ',t)
             crop=crop_labels_list[t]
-            reduct_label = crop[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
-            new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
-            new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
+            # reduct_label = crop[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
+            # new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
+            # new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
             #### CONTROLLO OGNI PIXEL PER ASSEGNARE LA CLASSE #######
             for i in range(0,64):
                 for n in range(0,64): 
                     channels_xy = crop[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
                     if channels_xy[0]==bedrock:       #BEDROCK      
-                        new_label[i,n,:]=1
+                        crop[i,n,:]=1
                     elif channels_xy[0]==sand:     #SAND
-                        new_label[i,n,:]=2
+                        crop[i,n,:]=2
                     elif channels_xy[0]==bigrock:     #BIG ROCK
-                        new_label[i,n,:]=3
+                        crop[i,n,:]=3
                     elif channels_xy[0]==soil:     #SOIL
-                        new_label[i,n,:]=4
+                        crop[i,n,:]=4
                     elif channels_xy[0]==nullo:    #NULL
-                        new_label[i,n,:]=0
-            tmp2[count] = new_label
+                        crop[i,n,:]=0
+            tmp2[count] = crop
             chosen_label.append(t)
             flag_sand=False;
             flag_bedrock=False;
@@ -208,24 +211,24 @@ for t in range (0,len(crop_labels_list)):
             print('BedRock-Sand IN')
             print('Inserted label: ',t)
             crop=crop_labels_list[t]
-            reduct_label = crop[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
-            new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
-            new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
+            # reduct_label = crop[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
+            # new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
+            # new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
             #### CONTROLLO OGNI PIXEL PER ASSEGNARE LA CLASSE #######
             for i in range(0,64):
                 for n in range(0,64): 
                     channels_xy = crop[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
                     if channels_xy[0]==bedrock:       #BEDROCK      
-                        new_label[i,n,:]=1
+                        crop[i,n,:]=1
                     elif channels_xy[0]==sand:     #SAND
-                        new_label[i,n,:]=2
+                        crop[i,n,:]=2
                     elif channels_xy[0]==bigrock:     #BIG ROCK
-                        new_label[i,n,:]=3
+                        crop[i,n,:]=3
                     elif channels_xy[0]==soil:     #SOIL
-                        new_label[i,n,:]=4
+                        crop[i,n,:]=4
                     elif channels_xy[0]==nullo:    #NULL
-                        new_label[i,n,:]=0
-            tmp2[count] = new_label
+                        crop[i,n,:]=0
+            tmp2[count] = crop
             chosen_label.append(t)
             flag_sand=False;
             flag_bedrock=False;
@@ -237,24 +240,24 @@ for t in range (0,len(crop_labels_list)):
             print('BedRock-Soil IN')
             print('Inserted label: ',t)
             crop=crop_labels_list[t]
-            reduct_label = crop[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
-            new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
-            new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
+            # reduct_label = crop[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
+            # new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
+            # new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
             #### CONTROLLO OGNI PIXEL PER ASSEGNARE LA CLASSE #######
             for i in range(0,64):
                 for n in range(0,64): 
                     channels_xy = crop[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
                     if channels_xy[0]==bedrock:       #BEDROCK      
-                        new_label[i,n,:]=1
+                        crop[i,n,:]=1
                     elif channels_xy[0]==sand:     #SAND
-                        new_label[i,n,:]=2
+                        crop[i,n,:]=2
                     elif channels_xy[0]==bigrock:     #BIG ROCK
-                        new_label[i,n,:]=3
+                        crop[i,n,:]=3
                     elif channels_xy[0]==soil:     #SOIL
-                        new_label[i,n,:]=4
+                        crop[i,n,:]=4
                     elif channels_xy[0]==nullo:    #NULL
-                        new_label[i,n,:]=0
-            tmp2[count] = new_label
+                        crop[i,n,:]=0
+            tmp2[count] = crop
             chosen_label.append(t)
             flag_sand=False;
             flag_bedrock=False;
@@ -266,24 +269,24 @@ for t in range (0,len(crop_labels_list)):
             print('Sand-Soil IN')
             print('Inserted label: ',t)
             crop=crop_labels_list[t]
-            reduct_label = crop[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
-            new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
-            new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
+            # reduct_label = crop[:,:,0]                        #definisco una variabile di dimensione 64x64 considerando solo le prime due dimensioni di label
+            # new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
+            # new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
             #### CONTROLLO OGNI PIXEL PER ASSEGNARE LA CLASSE #######
             for i in range(0,64):
                 for n in range(0,64): 
                     channels_xy = crop[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
                     if channels_xy[0]==bedrock:       #BEDROCK      
-                        new_label[i,n,:]=1
+                        crop[i,n,:]=1
                     elif channels_xy[0]==sand:     #SAND
-                        new_label[i,n,:]=2
+                        crop[i,n,:]=2
                     elif channels_xy[0]==bigrock:     #BIG ROCK
-                        new_label[i,n,:]=3
+                        crop[i,n,:]=3
                     elif channels_xy[0]==soil:     #SOIL
-                        new_label[i,n,:]=4
+                        crop[i,n,:]=4
                     elif channels_xy[0]==nullo:    #NULL
-                        new_label[i,n,:]=0
-            tmp2[count] = new_label
+                        crop[i,n,:]=0
+            tmp2[count] = crop
             chosen_label.append(t)
             flag_sand=False;
             flag_bedrock=False;
@@ -292,11 +295,13 @@ for t in range (0,len(crop_labels_list)):
             count+=1
             print('count: ', count)
 print('chosen_label',len(chosen_label))
+
 selected_images=[]
 for k in range (len(chosen_label)):
     index = chosen_label[k]
-    selected_images.append(tmp1[index])
+    selected_images.append(crop_images_list[index])
 print('selected_images',len(selected_images))
+
 print("[INFO] image arrays saved")
 tmp3=np.array(selected_images)
 save_patches_TEST(tmp3)
