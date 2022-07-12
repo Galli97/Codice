@@ -64,7 +64,7 @@ print(shape)
 BATCH = 64
 EPOCHS = 100 
 steps = int(train_set/(EPOCHS))
-weight_decay = 1e-4 #0.0001/2
+weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,3)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 tf.keras.backend.set_image_data_format('channels_last')
