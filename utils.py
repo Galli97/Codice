@@ -344,18 +344,18 @@ def sparse_accuracy_ignoring_last_label(y_true, y_pred):
   
 def add_sample_weights(image, label):
     
-    null_pixels = 850074
-    bedrock_pixels =  801741
-    sand_pixels =  604806
-    bigrock_pixels = 406758
-    soil_pixels = 707629
+    null_pixels = 1981224
+    bedrock_pixels =  1261125
+    sand_pixels =  885248
+    bigrock_pixels = 577428
+    soil_pixels = 1045759
     
 
     PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels+null_pixels ;
     # The weights for each class, with the constraint that:
     #     sum(class_weights) == 1.0
-    #class_weights = tf.constant([PIXELS/null_pixels,PIXELS/bedrock_pixels,PIXELS/sand_pixels,PIXELS/bigrock_pixels,PIXELS/soil_pixels])
-    class_weights = tf.constant([1,1,1,1,1])
+    class_weights = tf.constant([PIXELS/null_pixels,PIXELS/bedrock_pixels,PIXELS/sand_pixels,PIXELS/bigrock_pixels,PIXELS/soil_pixels])
+    #class_weights = tf.constant([1,1,1,1,1])
     class_weights = class_weights/tf.reduce_sum(class_weights)
 
     # Create an image of `sample_weights` by using the label at each pixel as an 
@@ -366,6 +366,12 @@ def add_sample_weights(image, label):
 ########################
 def add_sample_weights_val(image, label):
     
+    # soil:  1045759
+    # null_val:  491958
+    # bedrock_val:  327602
+    # sand_val:  221645
+    # bigrock_val:  149853
+    # soil_val:  250734
     null_pixels = 209301  
     bedrock_pixels =  188958 
     sand_pixels =  165960 
