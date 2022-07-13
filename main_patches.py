@@ -61,7 +61,7 @@ print('label_validation: ',label_validation.shape)
 ###### DEFINISCO IL MODELLO #######
 shape=(64,64,3)
 BATCH = 64
-EPOCHS = 100 
+EPOCHS = 200 
 steps = int(train_set/(EPOCHS))
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,3)
