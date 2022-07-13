@@ -63,6 +63,7 @@ shape=(64,64,3)
 BATCH = 64
 EPOCHS = 200 
 steps = int(train_set/(EPOCHS))
+steps_val = int(len(tmp2)-train_set/(EPOCHS))
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,3)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
@@ -109,7 +110,7 @@ model.compile(optimizer = optimizer, loss = loss_fn , metrics =[UpdatedMeanIoU(n
 ### AVVIO IL TRAINING #####
 model.summary()
 # history = 
-model.fit(x = x_train,batch_size=BATCH, steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation)#,callbacks=[callback])
+model.fit(x = x_train,batch_size=BATCH, steps_per_epoch=steps_val,epochs=EPOCHS,validation_data=x_validation)#,callbacks=[callback])
 model.save('model.h5')
 
 # plt.plot(history.history["loss"])
