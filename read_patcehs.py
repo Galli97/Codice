@@ -19,25 +19,32 @@ from tensorflow.compat.v1 import InteractiveSession
 from keras.preprocessing.image import ImageDataGenerator
 ####### PERCORSO IN LOCALE #########
 path = r"C:\Users\Mattia\Documenti\Github\Codice\final_images.npy"
-path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\final_labels.npy"
+path1 = r"C:\Users\Mattia\Documenti\Github\Codice\final_labels.npy"
+path2 = r"C:\Users\Mattia\Documenti\Github\Codice\final_images_2.npy"
+path3 = r"C:\Users\Mattia\Documenti\Github\Codice\final_labels_2.npy"
 # path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches.npy"
 # path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches.npy"
 # path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches_TEST.npy"
+
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
-#print(type(tmp1))
-print(tmp1.shape)
-
-soil_count=0;
-bedrock_count=0;
-sand_count=0;
-bigrock_count=0;
-null_count=0;
+print('tmp1: ',tmp1.shape)
 
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
-#print(type(tmp2))
-print(tmp2.shape)
+print('tmp2: ',tmp2.shape)
+
+tmp3 = get_np_arrays(path2)          #recupero tmp1 dal file 
+print('tmp3: ',tmp3.shape)
+
+tmp4 = get_np_arrays(path3)          #recupero tmp2 dal file
+print('tmp4: ',tmp4.shape)
+
+tmp1=np.concatenate((tmp1,tmp3))
+tmp2=np.concatenate((tmp2,tmp4))
+
+print('tmp1_new: ',tmp1.shape)
+print('tmp2_new: ',tmp2.shape)
 
 train_set = int(len(tmp2)*80/100)
 
@@ -51,6 +58,11 @@ label_validation = tmp2[train_set:]
 print('label_train: ',label_train.shape)
 print('label_validation: ',label_validation.shape)
 
+soil_count=0;
+bedrock_count=0;
+sand_count=0;
+bigrock_count=0;
+null_count=0;
 # for i in range (0,len(tmp2)):
 #     for r in range(0,64):
 #         for c in range (0,64):

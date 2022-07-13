@@ -50,8 +50,11 @@ print('tmp3: ',tmp3.shape)
 tmp4 = get_np_arrays(path3)          #recupero tmp2 dal file
 print('tmp4: ',tmp4.shape)
 
-tmp1=np.concatenate('tmp1_new: ',tmp1,tmp3)
-tmp2=np.concatenate('tmp2_new: ',tmp2,tmp4)
+tmp1=np.concatenate((tmp1,tmp3))
+tmp2=np.concatenate((tmp2,tmp4))
+
+print('tmp1_new: ',tmp1.shape)
+print('tmp2_new: ',tmp2.shape)
 
 print(tmp1.shape)
 print(tmp2.shape)
