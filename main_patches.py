@@ -28,6 +28,8 @@ session = InteractiveSession(config=config)
 ###### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
 path = r"/content/drive/MyDrive/Tesi/final_images.npy"
 path1 = r"/content/drive/MyDrive/Tesi/final_labels.npy"
+path2 = r"/content/drive/MyDrive/Tesi/final_images_2.npy"
+path3 = r"/content/drive/MyDrive/Tesi/final_labels_2.npy"
 # path = r"/content/drive/MyDrive/Tesi/image_patches.npy"
 # path1 = r"/content/drive/MyDrive/Tesi/label_patches.npy"
 
@@ -37,12 +39,22 @@ path1 = r"/content/drive/MyDrive/Tesi/final_labels.npy"
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
-print(tmp1.shape)
+print('tmp1: ',tmp1.shape)
 
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
+print('tmp2: ',tmp2.shape)
+
+tmp3 = get_np_arrays(path2)          #recupero tmp1 dal file 
+print('tmp3: ',tmp3.shape)
+
+tmp4 = get_np_arrays(path3)          #recupero tmp2 dal file
+print('tmp4: ',tmp4.shape)
+
+tmp1=np.concatenate('tmp1_new: ',tmp1,tmp3)
+tmp2=np.concatenate('tmp2_new: ',tmp2,tmp4)
+
+print(tmp1.shape)
 print(tmp2.shape)
-
-
 # #### PRENDO UNA PARTE DEL DATASET (20%) E LO UTILIZZO PER IL VALIDATION SET #####
 train_set = int(len(tmp2)*80/100)
 

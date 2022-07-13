@@ -142,7 +142,7 @@ def translation(image):
 
 def augment(image_list,label_list,N):
     fix=N-1        #voglio lavorare solo sulle immagini della lista iniziale
-    A = random.randint(200,fix)
+    A = random.randint(int(fix*20/110),fix)
     skipped=0
     indices=[]
     tmp1a = []# np.empty((A, 64, 64, 1), dtype=np.uint8)  #Qui ho A immagini

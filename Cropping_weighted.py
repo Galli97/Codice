@@ -98,7 +98,7 @@ counter_soil_reduce=0;
 count=0;
 
 print('[INFO]Generating labels array')
-for j in range (N):
+for j in range (670,N):
     if(count==3000):
         break
     flag_sand=False;
