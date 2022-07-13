@@ -63,7 +63,7 @@ shape=(64,64,3)
 BATCH = 64
 EPOCHS = 200 
 steps = int(train_set/(EPOCHS))
-steps_val = int((len(tmp2)*20/100)/EPOCHS)
+steps_val = int(len(list_validation)/EPOCHS)
 weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,3)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
