@@ -251,7 +251,7 @@ def rete_vgg16(img_size=None, weight_decay=0., batch_momentum=0.9, batch_shape=N
     #x = Dropout(0.5)(x)
     x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc2', kernel_regularizer=l2(weight_decay))(x)
     #x = Dropout(0.5)(x)
-    x = Conv2D(classes, (3, 3), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(classes, (3, 3), activation='linear',kernel_initializer='he_normal', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     x = keras.layers.Conv2DTranspose(filters=classes, kernel_size=(16,16), strides=(16,16),
                                      padding='same', use_bias=False, activation='softmax',
                                      kernel_initializer=BilinearInitializer(),
@@ -287,9 +287,6 @@ def rete_vgg16_dilation(img_size=None, weight_decay=0., batch_momentum=0.9, batc
     
     x = Activation('softmax')(x)
     model = Model(inputs=vggmodel.input, outputs=x)
-
-    # weights_path = get_weights_path_vgg16()
-    # model.load_weights(weights_path, by_name=True)
 
     return model
 

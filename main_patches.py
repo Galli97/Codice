@@ -60,8 +60,7 @@ print('label_validation: ',label_validation.shape)
 
 ###### DEFINISCO IL MODELLO #######
 shape=(64,64,3)
-print(shape)
-BATCH = 64
+BATCH = 32
 EPOCHS = 100 
 steps = int(train_set/(EPOCHS))
 weight_decay = 0.0001/2
@@ -74,34 +73,25 @@ model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######
 # x_train = datagenerator(list_train,label_train,BATCH)
 # x_validation = datagenerator(list_validation,label_validation,BATCH)
-#print(type(x_train))
+
 
 BUFFER_SIZE=train_set;
-# # Create a Dataset that includes sample weights
-# # (3rd element in the return tuple).
 x_train = tf.data.Dataset.from_tensor_slices((list_train, label_train))
-# #x_train = tf.keras.applications.vgg16.preprocess_input(x_train)
-# x_train = x_train.cache()
-# x_train = x_train.shuffle(BUFFER_SIZE)
-# x_train = x_train.batch(BATCH)
-# x_train = x_train.repeat(EPOCHS)                         ###Ad ogni epoch avrò un numero di batch pari ha len(dataset)/Batch_size. 
-# x_train = x_train.prefetch(buffer_size=tf.data.AUTOTUNE)
 
-# 
-# #print(x_train.shape)
 x_validation = tf.data.Dataset.from_tensor_slices((list_validation, label_validation))
 
  
-x_train = x_train.map(add_sample_weights)
+
 x_train = (
     x_train
     .cache()
     .shuffle(BUFFER_SIZE)
     .batch(BATCH)
-    .repeat(EPOCHS)
+    .repeat(EPOCHS)                         ###Ad ogni epoch avrò un numero di batch pari ha len(dataset)/Batch_size. 
     .prefetch(buffer_size=tf.data.AUTOTUNE))
+x_train = x_train.map(add_sample_weights)
 
-
+print(x_train)
 #x_validation = x_validation.map(add_sample_weights_val)   
 x_validation = x_validation.batch(BATCH)
 
