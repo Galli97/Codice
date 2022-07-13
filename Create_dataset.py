@@ -36,13 +36,14 @@ count=0;
 #Da 3554-4168  prendo immagini che abbiano o la big rock, oppure sand
 #Da 4168 prendo immagini che abbiano o la big rock, oppure almeno altre due classi
 #Da 7000-7140 prendo immagini che abbiano o la big rock, oppure almeno altre due classi
+#7140-8447
 for x in range(7140,len(dir1)):
     print('Label: ', x)
     flag_sand=False;
     flag_bedrock=False;
     flag_bigrock=False;
     flag_soil=False;
-    if(count==100):
+    if(count==500):
         break
     else:
         img=str(dir1[x])
