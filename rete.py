@@ -123,9 +123,9 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     x = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block4_pool')(x)
 
     # Block 5
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='block5_conv1', kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc1', kernel_regularizer=l2(weight_decay))(x)
     #x = Dropout(0.5)(x)
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='block5_conv2', kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc2', kernel_regularizer=l2(weight_decay))(x)
     #x = Dropout(0.5)(x)
     x = Conv2D(classes, (3, 3), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     
