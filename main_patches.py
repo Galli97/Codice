@@ -92,9 +92,9 @@ weight_decay = 0.0001/2
 batch_shape=(BATCH,64,64,3)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 tf.keras.backend.set_image_data_format('channels_last')
-#model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+model = rete_vgg16(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 input_shape = (64, 64, 3)
-model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
+#model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
 
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######
 # x_train = datagenerator(list_train,label_train,BATCH)
