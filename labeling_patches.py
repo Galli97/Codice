@@ -1,3 +1,4 @@
+## Here we take the selected labels and we define the classes of each pixel
 import tensorflow as tf
 from keras.layers import *
 from tensorflow import keras

@@ -1,3 +1,4 @@
+##Here we apply a fucntion to do some data augmentation
 import tensorflow as tf
 from keras.layers import *
 from tensorflow import keras

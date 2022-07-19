@@ -1,3 +1,8 @@
+## Here we crop and select the labels and the corresponding images to be used. we take each 1024x1024 image and we analyze the pixels of 64x64 patches. 
+## This is done by moving on the rows and columns of the image. We start from the image corresponding to 0:64 rows and 0:64 columns, we analyze its pixels
+## and if it contains at least two classe, well defined with a certain number of pixels, then we take it for the training. If the image is taken, we pass
+## to the next rows 64:128. Otherwise, the image is discarded, and we keep moving on the columns considering a stride 5. 
+
 import tensorflow as tf
 from keras.layers import *
 from tensorflow import keras
@@ -74,7 +79,7 @@ num_classes=5
 print('Augmented image list dimension')
 print(N)
 
-
+## INITIALIZE SOME VARIABLES
 crop_images_list=[]
 crop_labels_list=[]
 
@@ -97,6 +102,8 @@ counter_null=0;
 counter_soil_reduce=0;
 count=0;
 
+
+# IMAGE SELECTION PROCESS
 print('[INFO]Generating labels array')
 for j in range (670,N):
     if(count==3000):
@@ -114,13 +121,16 @@ for j in range (670,N):
     counter_null=0;
     counter_soil_reduce=0;
     print(j)
+    #Take the image
     image = cv2.imread(image_list[j])[:,:,[2,1,0]]
     image = image.astype('float32')
     image/=255 
+    #Take the label
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]
     label = cv2.cvtColor(label, cv2.COLOR_BGR2GRAY)
     label=np.expand_dims(label, axis=2)
     label = label.astype('float32')
+    #Start the process
     for r in range (0,16):
         flag_selected=False;
         for k in range (0,192):
