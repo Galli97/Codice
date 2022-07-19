@@ -89,7 +89,7 @@ BATCH = 64
 EPOCHS = 200 
 steps = int(train_set/(EPOCHS))
 steps_val = int(len(list_validation)/EPOCHS)
-weight_decay = 0.0001/2
+weight_decay = 0.00001/2
 batch_shape=(BATCH,64,64,3)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 tf.keras.backend.set_image_data_format('channels_last')
@@ -135,7 +135,6 @@ def lr_scheduler(epoch):
         lr = 0.01
     else:
         lr = 0.1
-
     print('lr: %f' % lr)
     return lr
 

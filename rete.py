@@ -86,16 +86,6 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
         image_size = input_shape[0:2]
     # I1 = Input(input_shape)
 
-    # model = tf.keras.applications.resnet.ResNet101(include_top=False, weights='imagenet', input_tensor=img_input, pooling=None)
-    # model.layers.pop()
-    # # model.outputs = [model.layers[-1].output]
-    # # model.layers[-1]._outbound_nodes = []
-
-    # for layer in model.layers:
-    #     layer._name = layer.name
-    #     layer._trainable = False
-    # x = model.output
-
     # Block 1
     x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1', kernel_regularizer=l2(weight_decay))(img_input)
     x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2', kernel_regularizer=l2(weight_decay))(x)
@@ -131,26 +121,15 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     
     x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
 
-    # x = upsample(512, 3)(x) # 4x4 -> 8x8
-    # x = upsample(256, 3)(x)  # 8x8 -> 16x16
-    # x = upsample(128, 3)(x)  # 16x16 -> 32x32
-    # #x = upsample(64, 3)(x)  # 32x32 -> 64x64
-    # x = tf.keras.layers.Conv2DTranspose(
-    #   filters=classes, kernel_size=3, strides=2,
-    #   padding='same') (x)
-    # img_size=input_shape[0];
-    # x = layers.UpSampling2D(
-    #     size=(img_size // x.shape[1], img_size // x.shape[2]),
-    #     interpolation="bilinear",
-    # )(x)
-    #x = BilinearUpSampling2D(target_size=tuple(image_size))(x)
-    #x = tf.keras.layers.Reshape((64*64,5))(x)
     x = Activation('softmax')(x)
-    #x = tf.keras.layers.Reshape((64,64,1))(x)
+   
     model = Model(img_input, x)
 
     weights_path = os.path.expanduser('./vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5')
     model.load_weights(weights_path, by_name=True)
+    for layer in model.layers[:-7]:      
+        print(layer._name)  
+        layer._trainable = False
     return model
 
 
