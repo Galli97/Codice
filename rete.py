@@ -198,13 +198,13 @@ def rete_vgg16_dilation(img_size=None, weight_decay=0., batch_momentum=0.9, batc
 
     vggmodel = Sequential(vggmodel.layers[:-8])
     for layer in vggmodel.layers:        
-        layer.trainable = False
+        layer._trainable = False
+    for i, layer in enumerate(model.layers):
+        layer._name = 'layer_' + str(i)
     x = vggmodel.output
     
     x = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv1', kernel_regularizer=l2(weight_decay))(x)
-    x = Dropout(0.5)(x)
     x = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv2', kernel_regularizer=l2(weight_decay))(x)
-    x = Dropout(0.5)(x)
     x = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv3', kernel_regularizer=l2(weight_decay))(x)
     
     x = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block4_pool')(x)
