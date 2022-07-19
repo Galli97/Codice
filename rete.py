@@ -127,8 +127,8 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
 
     weights_path = os.path.expanduser('./vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5')
     model.load_weights(weights_path, by_name=True)
-    for layer in model.layers[:-7]:       
-        layer._trainable = False
+    # for layer in model.layers[:-7]:       
+    #     layer._trainable = False
     return model
 
 
