@@ -279,9 +279,9 @@ def rete_vgg16_dilation(img_size=None, weight_decay=0., batch_momentum=0.9, batc
     
     x = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block4_pool')(x)
     x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc1', kernel_regularizer=l2(weight_decay))(x)
-    x = Dropout(0.5)(x)
+    x = Dropout(0.75)(x)
     x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc2', kernel_regularizer=l2(weight_decay))(x)
-    x = Dropout(0.5)(x)
+    x = Dropout(0.75)(x)
     x = Conv2D(classes, (3, 3), activation='linear', padding='valid', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     x = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(x)
     
@@ -338,9 +338,9 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     # b1_pooling = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block5_pool')(b1)
   
     b2 = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc5', kernel_regularizer=l2(weight_decay))(x)
-    #x = Dropout(0.5)(x)
+    x = Dropout(0.5)(x)
     b2 = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc6', kernel_regularizer=l2(weight_decay))(b2)
-    #x = Dropout(0.5)(x)
+    x = Dropout(0.5)(x)
     #b3 = Conv2D(classes, (3, 3), activation='linear', padding='valid', strides=(1, 1), kernel_regularizer=l2(weight_decay))(b2)
     #x = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(x)
     
@@ -357,8 +357,8 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     model = Model(inputs, outputs, name="VGG16_U-Net")
     return model
 
-# if __name__ == "__main__":
-#     input_shape = (64, 64, 3)
-#     model = build_vgg16_unet(input_shape)
-#     model.summary()
+if __name__ == "__main__":
+    input_shape = (512, 512, 3)
+    model = build_vgg16_unet(input_shape)
+    model.summary()
 
