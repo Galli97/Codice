@@ -357,8 +357,8 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     model = Model(inputs, outputs, name="VGG16_U-Net")
     return model
 
-if __name__ == "__main__":
-    input_shape = (512, 512, 3)
-    model = build_vgg16_unet(input_shape)
-    model.summary()
+# if __name__ == "__main__":
+#     input_shape = (512, 512, 3)
+#     model = build_vgg16_unet(input_shape)
+#     model.summary()
 
