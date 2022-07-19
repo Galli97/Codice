@@ -199,7 +199,7 @@ def rete_vgg16_dilation(img_size=None, weight_decay=0., batch_momentum=0.9, batc
     vggmodel = Sequential(vggmodel.layers[:-8])
     for layer in vggmodel.layers:        
         layer._trainable = False
-    for i, layer in enumerate(model.layers):
+    for i, layer in enumerate(vggmodel.layers):
         layer._name = 'layer_' + str(i)
     x = vggmodel.output
     
