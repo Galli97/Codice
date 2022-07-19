@@ -318,7 +318,7 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
 
     """ Pre-trained VGG16 Model """
     vgg16 = VGG16(include_top=False, weights="imagenet", input_tensor=inputs)
-    vgg16 = Sequential(vgg16.layers[:-8])
+    vgg16 = Sequential(vgg16.layers[:-4])
     for layer in vgg16.layers:        
         layer.trainable = False
     x = vgg16.output
@@ -326,18 +326,18 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     s1 = vgg16.get_layer("block1_conv2").output         ## (512 x 512)
     s2 = vgg16.get_layer("block2_conv2").output         ## (256 x 256)
     s3 = vgg16.get_layer("block3_conv3").output         ## (128 x 128)
-    
+    s4 = vgg16.get_layer("block4_conv3").output 
 
     """ Bridge """
     x = vgg16.output
     
-    b1 = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv1', kernel_regularizer=l2(weight_decay))(x)
-    b1 = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv2', kernel_regularizer=l2(weight_decay))(b1)
-    b1 = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv3', kernel_regularizer=l2(weight_decay))(b1)         ## (32 x 32)
-    s4 = b1 ## (64 x 64)
-    b1_pooling = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block5_pool')(b1)
+    # b1 = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv1', kernel_regularizer=l2(weight_decay))(x)
+    # b1 = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv2', kernel_regularizer=l2(weight_decay))(b1)
+    # b1 = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv3', kernel_regularizer=l2(weight_decay))(b1)         ## (32 x 32)
+    # s4 = b1 ## (64 x 64)
+    # b1_pooling = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block5_pool')(b1)
   
-    b2 = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc5', kernel_regularizer=l2(weight_decay))(b1_pooling)
+    b2 = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc5', kernel_regularizer=l2(weight_decay))(x)
     #x = Dropout(0.5)(x)
     b2 = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc6', kernel_regularizer=l2(weight_decay))(b2)
     #x = Dropout(0.5)(x)
