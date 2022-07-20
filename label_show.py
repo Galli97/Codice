@@ -35,34 +35,6 @@ true = decode_masks(tmp2)
 foto = random.randint(0,len(tmp1)-1)
 print('foto: ',foto)
 
-# soil_count=0;
-# bedrock_count=0;
-# sand_count=0;
-# bigrock_count=0;
-# null_count=0;
-
-# for r in range(0,64):
-#     for c in range (0,64):
-#         if tmp2[foto,r,c,:]==4:
-#             soil_count+=1
-#         elif tmp2[foto,r,c,:]==1:
-#             bedrock_count+=1
-#         elif tmp2[foto,r,c,:]==2:
-#             sand_count+=1
-#         elif tmp2[foto,r,c,:]==3:
-#             bigrock_count+=1
-#         elif tmp2[foto,r,c,:]==0:
-#             null_count+=1
-#         else:
-#             print(i)
-            
-#print('null: ', null_count)
-# print('bedrock: ', bedrock_count)
-# print('sand: ', sand_count)
-# print('bigrock: ', bigrock_count)
-# print('soil: ', soil_count)
-
-
 img=cv2.resize(true[foto],(512,512))
 img_prediction=cv2.resize(true[10],(512,512))
 label=cv2.resize(true[5],(512,512))

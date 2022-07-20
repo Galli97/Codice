@@ -142,7 +142,7 @@ def translation(image):
 
 def augment(image_list,label_list,N):
     fix=N-1        #voglio lavorare solo sulle immagini della lista iniziale
-    A = random.randint(int(fix*20/110),fix)
+    A = random.randint(int(fix*40/100),fix)
     skipped=0
     indices=[]
     tmp1a = []# np.empty((A, 64, 64, 1), dtype=np.uint8)  #Qui ho A immagini
@@ -344,11 +344,11 @@ def sparse_accuracy_ignoring_last_label(y_true, y_pred):
   
 def add_sample_weights(image, label):
     
-    null_pixels = 1667361
-    bedrock_pixels =  2143243
-    sand_pixels =  1553591
-    bigrock_pixels = 750886
-    soil_pixels = 1327351
+    null_pixels = 6387716
+    bedrock_pixels =  8870508
+    sand_pixels =  7462167
+    bigrock_pixels = 1795220
+    soil_pixels = 2681829
     
 
     PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels#+null_pixels ;
@@ -367,11 +367,11 @@ def add_sample_weights(image, label):
 def add_sample_weights_val(image, label):
     
 
-    null_pixels = 388903  
-    bedrock_pixels =  685710 
-    sand_pixels =  514451 
-    bigrock_pixels =  110021 
-    soil_pixels = 164595 
+    null_pixels = 1603190  
+    bedrock_pixels =  2258904 
+    sand_pixels =  1854016 
+    bigrock_pixels =  433585 
+    soil_pixels = 666049 
     
 
     PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels#+null_pixels ;
