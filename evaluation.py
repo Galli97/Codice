@@ -24,8 +24,8 @@ from keras.preprocessing.image import ImageDataGenerator
 # path1 = r"/content/drive/MyDrive/Tesi/label_patches_TEST.npy"
 
 # ####### PERCORSO IN LOCALE #########
-path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches_TEST.npy"
-path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches_TEST.npy"
+path = r"C:\Users\Mattia\Desktop\Tentativi128\image_patches_TEST.npy"
+path1 =  r"C:\Users\Mattia\Desktop\Tentativi128\label_patches_TEST.npy"
 # path2= r"C:\Users\Mattia\Documenti\Github\Codice\cropped_images_TEST.npy"
 # path3 =  r"C:\Users\Mattia\Documenti\Github\Codice\cropped_labels_TEST.npy"
 ### RECUPERO LE DUE LISTE SALVATE #####
