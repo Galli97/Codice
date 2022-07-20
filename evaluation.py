@@ -83,11 +83,11 @@ print(matrix)
 
  
 
-null_pixels = 831340 
-bedrock_pixels =  360564
-sand_pixels =  316722
-bigrock_pixels =  16502
-soil_pixels =  522872
+null_pixels = 3212577 
+bedrock_pixels =  1704825
+sand_pixels =  1103243
+bigrock_pixels =  156671
+soil_pixels =  2014684
 
 #percent = 100/np.array([[null_pixels],[bedrock_pixels],[sand_pixels],[bigrock_pixels],[soil_pixels]])
 matrix2 = np.array([[matrix[0]*100/null_pixels],[matrix[1]*100/bedrock_pixels], [matrix[2]*100/sand_pixels],[matrix[3]*100/bigrock_pixels], [matrix[4]*100/soil_pixels]])

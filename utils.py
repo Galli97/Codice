@@ -190,14 +190,17 @@ def decode_masks(tmp2):
     sand=2;
     bigrock=3;
     null=0;
-    decoded_images = np.empty((len(tmp2), 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
+    
+    SHAPE=128;
+
+    decoded_images = np.empty((len(tmp2), SHAPE, SHAPE, 3), dtype=np.uint8)  #Qui ho N immagini
     for n in range (len(tmp2)):
       label = tmp2[n]
       #reduct_label = label[:,:,0]                        
-      image = np.empty((64, 64, 3), dtype=np.uint8) 
+      image = np.empty((SHAPE, SHAPE, 3), dtype=np.uint8) 
       #image[:,:,0]=reduct_label  
-      for i in range(0,64):
-          for j in range(0,64): 
+      for i in range(0,SHAPE):
+          for j in range(0,SHAPE): 
               channels_xy = label[i,j];          #SOIL is kept black, NULL (no label) is white 
               if channels_xy==bedrock:      #BEDROCK --->RED
                   image[i,j,0]=255
@@ -224,12 +227,13 @@ def decode_masks(tmp2):
 
 
 def decode_predictions(tmp2):
-    decoded_images = np.empty((len(tmp2), 64, 64, 1), dtype=np.uint8)  #Qui ho N immagini
+    SHAPE=128;
+    decoded_images = np.empty((len(tmp2), SHAPE, SHAPE, 1), dtype=np.uint8)  #Qui ho N immagini
     for n in range (len(tmp2)):
       label = tmp2[n]                   
-      image = np.empty((64, 64, 1), dtype=np.uint8) 
-      for i in range(0,64):
-          for j in range(0,64): 
+      image = np.empty((SHAPE, SHAPE, 1), dtype=np.uint8) 
+      for i in range(0,SHAPE):
+          for j in range(0,SHAPE): 
               image[i,j,0]=np.argmax(label[i,j])
               decoded_images[n]=image
     return decoded_images

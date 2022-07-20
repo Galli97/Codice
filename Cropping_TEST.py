@@ -83,10 +83,10 @@ for i in range (N):
     print(i)
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
     image = image.astype('float32')
-    image/=255                                    #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
-    for r in range (0,16):
-        for c in range (0,16):
-            cropped_image = image[64*r:64*(r+1),64*c:64*(c+1)]
+    #image/=255                                    #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+    for r in range (0,8):
+        for c in range (0,8):
+            cropped_image = image[128*r:128*(r+1),128*c:128*(c+1)]
             crop_images_list.append(cropped_image)                                #l'i-esimo elmento di tmp1 sarà dato dall'immagine corrispondente all'i-esimo path in image_list
 
 ######## SALVATAGGIO ####
@@ -103,9 +103,9 @@ for j in range (N):
     label = cv2.cvtColor(label, cv2.COLOR_BGR2GRAY)
     label=np.expand_dims(label, axis=2)  
     label = label.astype('float32')
-    for r in range (0,16):
-        for c in range (0,16):
-            cropped_label = label[64*(r):64*(r+1),64*(c):64*(c+1)]
+    for r in range (0,8):
+        for c in range (0,8):
+            cropped_label = label[128*(r):128*(r+1),128*(c):128*(c+1)]
             cropped_label = cropped_label.astype('float32')
             crop_labels_list.append(cropped_label)
 

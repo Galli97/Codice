@@ -123,7 +123,7 @@ for j in range (0,N):
     label = label.astype('float32')
     for r in range (0,8):
         flag_selected=False;
-        for k in range (0,112):
+        for k in range (0,112):  #113 !!!
             flag_sand=False;
             flag_bedrock=False;
             flag_bigrock=False;
