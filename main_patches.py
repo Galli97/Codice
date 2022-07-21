@@ -84,18 +84,19 @@ print('label_validation: ',label_validation.shape)
 
 
 ###### DEFINISCO IL MODELLO #######
-shape=(64,64,3)
+SHAPE=256;
+shape=(SHAPE,SHAPE,3)
 BATCH = 64
 EPOCHS = 400 
 steps = int(train_set/(EPOCHS))
 steps_val = int(len(list_validation)/EPOCHS)
 weight_decay = 0.00001/2
-batch_shape=(BATCH,64,64,3)
+batch_shape=(BATCH,SHAPE,SHAPE,3)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 tf.keras.backend.set_image_data_format('channels_last')
 model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
-input_shape = (64, 64, 3)
+input_shape = (SHAPE, SHAPE, 3)
 #model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
 
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######
