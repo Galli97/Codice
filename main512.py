@@ -90,7 +90,7 @@ EPOCHS = 100
 steps = int(train_set/EPOCHS)
 weight_decay = 0.0001/2
 #batch_shape=(BATCH,64,64,1)
-model = rete(input_shape=shape, weight_decay=weight_decay, , classes=5):
+model = rete(input_shape=shape, weight_decay=weight_decay, classes=5):
 #model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = DeeplabV3Plus(image_size=64,num_classes=5)
 
