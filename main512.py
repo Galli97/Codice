@@ -19,7 +19,7 @@ from utils import *
 from tensorflow.compat.v1 import ConfigProto
 from tensorflow.compat.v1 import InteractiveSession
 from keras.preprocessing.image import ImageDataGenerator
-
+from sklearn.utils import shuffle
 # os.environ['TF_GPU_ALLOCATOR'] = 'cuda_malloc_async'
 # print(os.getenv('TF_GPU_ALLOCATOR'))
 
@@ -42,7 +42,9 @@ print('tmp1: ',tmp1.shape)
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 print('tmp2: ',tmp2.shape)
 
-
+tmp1, tmp2 = shuffle(np.array(tmp1), np.array(tmp2))
+tmp1=tmp1[:100];
+tmp2=tmp2[:100];
 # #### PRENDO UNA PARTE DEL DATASET (20%) E LO UTILIZZO PER IL VALIDATION SET #####
 train_set = int(len(tmp2)*80/100)
 
