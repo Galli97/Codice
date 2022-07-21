@@ -18,7 +18,7 @@ from utils import *
 from tensorflow.compat.v1 import ConfigProto
 from tensorflow.compat.v1 import InteractiveSession
 from keras.preprocessing.image import ImageDataGenerator
-
+from sklearn.utils import shuffle
 # os.environ['TF_GPU_ALLOCATOR'] = 'cuda_malloc_async'
 # print(os.getenv('TF_GPU_ALLOCATOR'))
 
