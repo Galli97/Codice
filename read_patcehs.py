@@ -89,7 +89,7 @@ null_count=0;
 #             else:
 #                 print(i)
 
-SHAPE=512;
+SHAPE=256;
 for i in range (0,len(label_train)):
     for r in range(0,SHAPE):
         for c in range (0,SHAPE):

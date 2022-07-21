@@ -36,6 +36,7 @@ print(tmp2.shape)
 print('0: ',tmp2[0])
 
 N=len(tmp1)
+SHAPE=256;
 ### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
 tmp1a,tmp2a,A = augment(tmp1,tmp2,N);
 # print('A: ',A)
@@ -98,7 +99,7 @@ print(tmp2a[0])
 print(image_dataset.shape)
 print(label_dataset.shape)
 
-masks=decode_masks(tmp2a[0:3])
+masks=decode_masks(tmp2a[0:3],SHAPE)
 label1=cv2.resize(masks[0],(512,512))
 label2=cv2.resize(masks[1],(512,512))
 label3=cv2.resize(masks[2],(512,512))

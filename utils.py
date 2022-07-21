@@ -118,11 +118,12 @@ def brightness(image):
 
 
 def contrast(image):
-    i = random.randint(1,5)
+    i = random.randint(1,4)
     i=i/10
     f = random.randint(5,10)
     f=f/10
-    contrasted = tf.image.stateless_random_contrast(image, i, f)
+    seed = (1, 2)
+    contrasted = tf.image.stateless_random_contrast(image,i,f,seed)
     return contrasted
 
 def cropp(image,central_fraction):
@@ -142,7 +143,7 @@ def translation(image):
 
 def augment(image_list,label_list,N):
     fix=N-1        #voglio lavorare solo sulle immagini della lista iniziale
-    A = random.randint(int(fix*40/100),fix)
+    A = random.randint(int(fix*50/100),fix)
     skipped=0
     indices=[]
     tmp1a = []# np.empty((A, 64, 64, 1), dtype=np.uint8)  #Qui ho A immagini
@@ -155,7 +156,7 @@ def augment(image_list,label_list,N):
         image=image_list[a] 
         label=label_list[a]
         indices.append(a)
-        choose = random.randint(1,3)
+        choose = random.randint(1,5)
         #print(a)
         if(choose == 1):
             new_image = rotate(image)
@@ -167,12 +168,9 @@ def augment(image_list,label_list,N):
             new_image = flip(image)
             new_label = flip(label)
         elif(choose == 4):
-            new_image = grayscale(image)
-            new_label = label
-        elif(choose == 5):
             new_image = saturate(image)
             new_label = label
-        elif(choose == 6):
+        elif(choose == 5):
             new_image = contrast(image)
             new_label = label
         # elif(choose == 4):
@@ -184,14 +182,14 @@ def augment(image_list,label_list,N):
     return tmp1a,tmp2a,A
 
 
-def decode_masks(tmp2):
+def decode_masks(tmp2,SHAPE):
     soil=4;
     bedrock=1;
     sand=2;
     bigrock=3;
     null=0;
     
-    SHAPE=128;
+    SHAPE=256;
 
     decoded_images = np.empty((len(tmp2), SHAPE, SHAPE, 3), dtype=np.uint8)  #Qui ho N immagini
     for n in range (len(tmp2)):
@@ -226,8 +224,7 @@ def decode_masks(tmp2):
     return decoded_images
 
 
-def decode_predictions(tmp2):
-    SHAPE=128;
+def decode_predictions(tmp2,SHAPE):
     decoded_images = np.empty((len(tmp2), SHAPE, SHAPE, 1), dtype=np.uint8)  #Qui ho N immagini
     for n in range (len(tmp2)):
       label = tmp2[n]                   

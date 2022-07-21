@@ -19,16 +19,18 @@ import random
 from sklearn.utils import shuffle
 from sklearn.feature_extraction import image
 # ####### PERCORSO IN LOCALE #########
-# path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches.npy"
-# path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches.npy"
-path = r"C:\Users\Mattia\Documenti\Github\Codice\final_images.npy"
-path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\final_labels.npy"
+path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches.npy"
+path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches.npy"
+# path = r"C:\Users\Mattia\Documenti\Github\Codice\final_images.npy"
+# path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\final_labels.npy"
 
 tmp1 = get_np_arrays(path)
 tmp2 = get_np_arrays(path1)
 
+SHAPE=256;
+
 print(tmp2[10])
-true = decode_masks(tmp2)
+true = decode_masks(tmp2,SHAPE)
 
 
 

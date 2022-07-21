@@ -35,11 +35,12 @@ crop_labels_list = get_np_arrays(path1)          #recupero tmp2 dal file
 
 #N = len(crop_images_list)+A
 N=8000;
+SHAPE = 256;
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI E DELLE LABEL ######
 num_classes=5
-tmp1 = np.empty((len(crop_images_list), 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
-tmp2 = np.empty((N, 64, 64, 1), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel. Nel caso sparse avrò un intero ad indicare la classe
-tmp3 = np.empty((N, 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
+tmp1 = np.empty((len(crop_images_list), SHAPE, SHAPE, 3), dtype=np.uint8)  #Qui ho N immagini
+tmp2 = np.empty((N, SHAPE, SHAPE, 1), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel. Nel caso sparse avrò un intero ad indicare la classe
+tmp3 = np.empty((N, SHAPE, SHAPE, 3), dtype=np.uint8)  #Qui ho N immagini
 print('Image and label lists dimensions')
 print(len(crop_images_list))
 print(len(crop_labels_list))
@@ -99,7 +100,7 @@ for t in range (0,len(crop_labels_list)):
     else:
         image = crop_labels_list[t]
         #print(image.shape)
-        for m in range(0,64):
+        for m in range(0,SHAPE):
             if(flag_bigrock==True and flag_soil==True):
                 break
             elif(flag_bigrock==True and flag_sand==True):
@@ -112,7 +113,7 @@ for t in range (0,len(crop_labels_list)):
                 break
             elif(flag_sand==True and flag_soil==True):
                 break
-            for j in range(0,64): 
+            for j in range(0,SHAPE): 
                 channels_xy = image[m,j];
                 if(flag_bigrock==True and flag_soil==True):
                     break
@@ -142,8 +143,8 @@ for t in range (0,len(crop_labels_list)):
             # new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
             # new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
             #### CONTROLLO OGNI PIXEL PER ASSEGNARE LA CLASSE #######
-            for i in range(0,64):
-                for n in range(0,64): 
+            for i in range(0,SHAPE):
+                for n in range(0,SHAPE): 
                     channels_xy = crop[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
                     if channels_xy[0]==bedrock:       #BEDROCK      
                         crop[i,n,:]=1
@@ -171,8 +172,8 @@ for t in range (0,len(crop_labels_list)):
             # new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
             # new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
             #### CONTROLLO OGNI PIXEL PER ASSEGNARE LA CLASSE #######
-            for i in range(0,64):
-                for n in range(0,64): 
+            for i in range(0,SHAPE):
+                for n in range(0,SHAPE): 
                     channels_xy = crop[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
                     if channels_xy[0]==bedrock:       #BEDROCK      
                         crop[i,n,:]=1
@@ -200,8 +201,8 @@ for t in range (0,len(crop_labels_list)):
             # new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
             # new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
             #### CONTROLLO OGNI PIXEL PER ASSEGNARE LA CLASSE #######
-            for i in range(0,64):
-                for n in range(0,64): 
+            for i in range(0,SHAPE):
+                for n in range(0,SHAPE): 
                     channels_xy = crop[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
                     if channels_xy[0]==bedrock:       #BEDROCK      
                         crop[i,n,:]=1
@@ -229,8 +230,8 @@ for t in range (0,len(crop_labels_list)):
             # new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
             # new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
             #### CONTROLLO OGNI PIXEL PER ASSEGNARE LA CLASSE #######
-            for i in range(0,64):
-                for n in range(0,64): 
+            for i in range(0,SHAPE):
+                for n in range(0,SHAPE): 
                     channels_xy = crop[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
                     if channels_xy[0]==bedrock:       #BEDROCK      
                         crop[i,n,:]=1
@@ -258,8 +259,8 @@ for t in range (0,len(crop_labels_list)):
             # new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
             # new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
             #### CONTROLLO OGNI PIXEL PER ASSEGNARE LA CLASSE #######
-            for i in range(0,64):
-                for n in range(0,64): 
+            for i in range(0,SHAPE):
+                for n in range(0,SHAPE): 
                     channels_xy = crop[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
                     if channels_xy[0]==bedrock:       #BEDROCK      
                         crop[i,n,:]=1
@@ -287,8 +288,8 @@ for t in range (0,len(crop_labels_list)):
             # new_label = np.empty((64, 64, 1), dtype=np.uint8)  #inizializzo una nuova lista che andrà a contenere le informazioni per ogni pixel
             # new_label[:,:,0]=reduct_label                  #associo alle prime 2 dimesnioni di new_label (64x64x1) i valori di reduct_label (64x64)
             #### CONTROLLO OGNI PIXEL PER ASSEGNARE LA CLASSE #######
-            for i in range(0,64):
-                for n in range(0,64): 
+            for i in range(0,SHAPE):
+                for n in range(0,SHAPE): 
                     channels_xy = crop[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
                     if channels_xy[0]==bedrock:       #BEDROCK      
                         crop[i,n,:]=1
@@ -325,7 +326,7 @@ print('tmp3: ', tmp3.shape)
 print('tmp2: ', tmp2.shape)
 print('tmp3[0]: ', tmp3[0])
 print('tmp2[0]: ',tmp2[0])
-masks=decode_masks(tmp2)
+masks=decode_masks(tmp2,SHAPE)
 label1=cv2.resize(masks[0],(512,512))
 label2=cv2.resize(masks[1],(512,512))
 label3=cv2.resize(masks[2],(512,512))

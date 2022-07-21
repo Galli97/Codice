@@ -68,8 +68,8 @@ print('label1: ', label_list[0])
 #A=0;                                              #### METTO A=0 SE NON VOGLIO FARE DATA AUGMENTATION, COMMENTANDO LA RIGA SOPRA
 
 ####NUMERO DI IMMAGINI NEL DATASET + IMMAGINI DOVUTE AL DATA AUGMENTATION ####
-N = len(image_list)           
-#N=163                                 #### UTILIZZARE LA RIGA SOPRA PER USARE TUTTE LE IMMAGINI A DISPOSIZIONE
+#N = len(image_list)           
+N=500                                 #### UTILIZZARE LA RIGA SOPRA PER USARE TUTTE LE IMMAGINI A DISPOSIZIONE
 print('Augmented image list dimension')
 print(N)
 
@@ -82,6 +82,9 @@ print(N)
 ## INITIALIZE SOME VARIABLES
 crop_images_list=[]
 crop_labels_list=[]
+
+SHAPE=256;
+coeff=4;
 
 soil=0;
 bedrock=1;
@@ -103,10 +106,10 @@ counter_soil_reduce=0;
 count=0;
 
 
-# IMAGE SELECTION PROCESS
+# IMAGE SELECTION PROCESS #per le 64 sto a 1170
 print('[INFO]Generating labels array')
-for j in range (670,N):
-    if(count==3000):
+for j in range (0,N):
+    if(count==1000):
         break
     flag_sand=False;
     flag_bedrock=False;
@@ -131,9 +134,9 @@ for j in range (670,N):
     label=np.expand_dims(label, axis=2)
     label = label.astype('float32')
     #Start the process
-    for r in range (0,16):
+    for r in range (0,int(1024/SHAPE)):
         flag_selected=False;
-        for k in range (0,192):
+        for k in range (0,int((1024-SHAPE)/coeff)):
             flag_sand=False;
             flag_bedrock=False;
             flag_bigrock=False;
@@ -149,9 +152,9 @@ for j in range (670,N):
             if(flag_selected==True):
                 break
 
-            cropped_label = label[64*(r):64*(r+1),5*k:64+5*k]           #Passo 5
-            cropped_image = image[64*(r):64*(r+1),5*k:64+5*k]
-            for m in range(0,64):
+            cropped_label = label[SHAPE*(r):SHAPE*(r+1),coeff*k:SHAPE+coeff*k]           #Passo 5
+            cropped_image = image[SHAPE*(r):SHAPE*(r+1),coeff*k:SHAPE+coeff*k]
+            for m in range(0,SHAPE):
                 if(flag_null==True):
                     break
                 # elif(flag_bigrock==True and flag_sand==True):
@@ -166,7 +169,7 @@ for j in range (670,N):
                 #     break
                 # elif(flag_sand==True and flag_soil==True):
                 #     break
-                for s in range(0,64): 
+                for s in range(0,SHAPE): 
                     channels_xy = cropped_label[m,s];
                     if(flag_null==True):
                         break
