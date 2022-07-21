@@ -57,7 +57,7 @@ print(tmp2.shape)
 #     image = image.astype('float32')                                   #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
 #     tmp4[i] = image
 # #### PRENDO UNA PARTE DEL DATASET (20%) E LO UTILIZZO PER IL VALIDATION SET #####
-#train_set = int(len(tmp2)*80/100)
+train_set = int(len(tmp2)*80/100)
 
 # print(tmp3.shape)
 # print(tmp4.shape)
