@@ -92,16 +92,16 @@ EPOCHS = 100
 steps = int(train_set/EPOCHS)
 weight_decay = 0.0001/2
 #batch_shape=(BATCH,64,64,1)
-model = rete(input_shape=shape, weight_decay=weight_decay, classes=5)
+#model = rete(input_shape=shape, weight_decay=weight_decay, classes=5)
 #model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
-#model = DeeplabV3Plus(image_size=64,num_classes=5)
+model = build_vgg16_unet(input_shape=shape,weight_decay=weight_decay,classes=5)
 
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######
 # x_train = datagenerator(list_train,label_train,BATCH)
 # x_validation = datagenerator(list_validation,label_validation,BATCH)
 #print(type(x_train))
 
-BUFFER_SIZE=2 #train_set;
+BUFFER_SIZE=train_set;
 # # Create a Dataset that includes sample weights
 # # (3rd element in the return tuple).
 x_train = tf.data.Dataset.from_tensor_slices((list_train, label_train))
