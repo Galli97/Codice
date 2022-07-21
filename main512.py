@@ -26,8 +26,8 @@ config = ConfigProto()
 config.gpu_options.allow_growth=True
 session = InteractiveSession(config=config)
 ###### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
-path = r"/content/drive/MyDrive/Tesi/images_patches.npy"
-path1 = r"/content/drive/MyDrive/Tesi/images_patches.npy"
+path = r"/content/drive/MyDrive/Tesi/image_patches.npy"
+path1 = r"/content/drive/MyDrive/Tesi/label_patches.npy"
 
 # ####### PERCORSO IN LOCALE #########
 # path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches512.npy"
