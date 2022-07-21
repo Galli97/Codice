@@ -64,7 +64,7 @@ print('label1: ', label_list[0])
 
 ####NUMERO DI IMMAGINI NEL DATASET + IMMAGINI DOVUTE AL DATA AUGMENTATION ####
 #N = len(image_list)           
-N=500                                 #### UTILIZZARE LA RIGA SOPRA PER USARE TUTTE LE IMMAGINI A DISPOSIZIONE
+N=250                                 #### UTILIZZARE LA RIGA SOPRA PER USARE TUTTE LE IMMAGINI A DISPOSIZIONE
 print('Augmented image list dimension')
 print(N)
 
@@ -99,20 +99,20 @@ count=0;
 
 print('[INFO]Generating labels array')
 for j in range (0,N):
-    if(count==3000):
+    if(count==1000):
         break
-    flag_sand=False;
-    flag_bedrock=False;
-    flag_bigrock=False;
-    flag_soil=False;
-    flag_null=False;
-    flag_selected=False;
-    counter_sand=0;
-    counter_bedrock=0;
-    counter_bigrock=0;
-    counter_soil=0;
-    counter_null=0;
-    counter_soil_reduce=0;
+    # flag_sand=False;
+    # flag_bedrock=False;
+    # flag_bigrock=False;
+    # flag_soil=False;
+    # flag_null=False;
+    # flag_selected=False;
+    # counter_sand=0;
+    # counter_bedrock=0;
+    # counter_bigrock=0;
+    # counter_soil=0;
+    # counter_null=0;
+    # counter_soil_reduce=0;
     print(j)
     image = cv2.imread(image_list[j])[:,:,[2,1,0]]
     image = image.astype('float32')
@@ -122,158 +122,164 @@ for j in range (0,N):
     label = np.expand_dims(label, axis=2)
     label = label.astype('float32')
     for r in range (0,2):
-        flag_selected=False;
-        for k in range (0,65):  
-            flag_sand=False;
-            flag_bedrock=False;
-            flag_bigrock=False;
-            flag_soil=False;
-            flag_null=False;
-            counter_sand=0;
-            counter_bedrock=0;
-            counter_bigrock=0;
-            counter_soil=0;
-            counter_null=0;
-            counter_soil_reduce=0;
+        for c in range (0,2):
+            cropped_label = label[512*(r):512*(r+1),512*(c):512*(c+1)]           #Passo 5
+            cropped_image = image[512*(r):512*(r+1),512*(c):512*(c+1)]
+            crop_labels_list.append(cropped_label)
+            crop_images_list.append(cropped_image)
+    # for r in range (0,2):
+    #     flag_selected=False;
+    #     for k in range (0,65):  
+    #         flag_sand=False;
+    #         flag_bedrock=False;
+    #         flag_bigrock=False;
+    #         flag_soil=False;
+    #         flag_null=False;
+    #         counter_sand=0;
+    #         counter_bedrock=0;
+    #         counter_bigrock=0;
+    #         counter_soil=0;
+    #         counter_null=0;
+    #         counter_soil_reduce=0;
         
-            if(flag_selected==True):
-                break
+    #         if(flag_selected==True):
+    #             break
 
-            cropped_label = label[512*(r):512*(r+1),8*k:512+8*k]           #Passo 5
-            cropped_image = image[512*(r):512*(r+1),8*k:512+8*k]
-            for m in range(0,512):
-                if(flag_null==True):
-                    break
-                # elif(flag_bigrock==True and flag_sand==True):
-                #     break
-                # elif(flag_bigrock==True and flag_bedrock==True):
-                #     break
-                # elif(flag_bigrock==True and flag_soil==True):
-                #     break
-                # elif(flag_bedrock==True and flag_soil==True):
-                #     break
-                # elif(flag_bedrock==True and flag_sand==True):
-                #     break
-                # elif(flag_sand==True and flag_soil==True):
-                #     break
-                for s in range(0,512): 
-                    channels_xy = cropped_label[m,s];
-                    if(flag_null==True):
-                        break
-                    # elif(flag_bigrock==True and flag_sand==True):
-                    #     break
-                    # elif(flag_bigrock==True and flag_soil==True):
-                    #     break
-                    # elif(flag_bigrock==True and flag_bedrock==True):
-                    #     break
-                    # elif(flag_bedrock==True and flag_soil==True):
-                    #     break
-                    # elif(flag_bedrock==True and flag_sand==True):
-                    #     break
-                    # elif(flag_sand==True and flag_soil==True):
-                    #     break
-                    elif channels_xy==nullo:    #Null
-                        counter_null+=1;
-                        if (counter_null>65536):
-                            flag_null=True;
-                    elif channels_xy==bedrock:      #BEDROCK
-                        counter_bedrock+=1;
-                        if (counter_bedrock>20000):
-                            flag_bedrock=True
-                    elif channels_xy==sand:    #SAND
-                        counter_sand+=1;
-                        if (counter_sand>20000):
-                            flag_sand=True
-                    elif channels_xy==bigrock:    #BIG ROCK
-                        counter_bigrock+=1;
-                        if (counter_bigrock>20000):
-                            flag_bigrock=True
-                    elif channels_xy==soil:    #SOIL
-                        counter_soil+=1;
-                        if (counter_soil>20000):
-                            counter_soil_reduce+=1;
-                            flag_soil=True;    
-            if(flag_null==True):
-                continue
+    #         cropped_label = label[512*(r):512*(r+1),8*k:512+8*k]           #Passo 5
+    #         cropped_image = image[512*(r):512*(r+1),8*k:512+8*k]
+    #         for m in range(0,512):
+    #             if(flag_null==True):
+    #                 break
+    #             # elif(flag_bigrock==True and flag_sand==True):
+    #             #     break
+    #             # elif(flag_bigrock==True and flag_bedrock==True):
+    #             #     break
+    #             # elif(flag_bigrock==True and flag_soil==True):
+    #             #     break
+    #             # elif(flag_bedrock==True and flag_soil==True):
+    #             #     break
+    #             # elif(flag_bedrock==True and flag_sand==True):
+    #             #     break
+    #             # elif(flag_sand==True and flag_soil==True):
+    #             #     break
+    #             for s in range(0,512): 
+    #                 channels_xy = cropped_label[m,s];
+    #                 if(flag_null==True):
+    #                     break
+    #                 # elif(flag_bigrock==True and flag_sand==True):
+    #                 #     break
+    #                 # elif(flag_bigrock==True and flag_soil==True):
+    #                 #     break
+    #                 # elif(flag_bigrock==True and flag_bedrock==True):
+    #                 #     break
+    #                 # elif(flag_bedrock==True and flag_soil==True):
+    #                 #     break
+    #                 # elif(flag_bedrock==True and flag_sand==True):
+    #                 #     break
+    #                 # elif(flag_sand==True and flag_soil==True):
+    #                 #     break
+    #                 elif channels_xy==nullo:    #Null
+    #                     counter_null+=1;
+    #                     if (counter_null>65536):
+    #                         flag_null=True;
+    #                 elif channels_xy==bedrock:      #BEDROCK
+    #                     counter_bedrock+=1;
+    #                     if (counter_bedrock>20000):
+    #                         flag_bedrock=True
+    #                 elif channels_xy==sand:    #SAND
+    #                     counter_sand+=1;
+    #                     if (counter_sand>20000):
+    #                         flag_sand=True
+    #                 elif channels_xy==bigrock:    #BIG ROCK
+    #                     counter_bigrock+=1;
+    #                     if (counter_bigrock>20000):
+    #                         flag_bigrock=True
+    #                 elif channels_xy==soil:    #SOIL
+    #                     counter_soil+=1;
+    #                     if (counter_soil>20000):
+    #                         counter_soil_reduce+=1;
+    #                         flag_soil=True;    
+    #         if(flag_null==True):
+    #             continue
 
-            if(flag_soil==True):
-                if (counter_soil_reduce>40000):
-                    continue  
-                else:
-                    flag_soil=True;
+    #         if(flag_soil==True):
+    #             if (counter_soil_reduce>40000):
+    #                 continue  
+    #             else:
+    #                 flag_soil=True;
             
-            if (flag_bigrock==True and flag_sand==True):
-                print('Big Rock-sand IN')
-                crop_labels_list.append(cropped_label)
-                crop_images_list.append(cropped_image)
-                flag_selected=True;
-                flag_sand=False;
-                flag_bedrock=False;
-                flag_bigrock=False;
-                flag_soil=False;
-                flag_null=False;
-                count+=1
-                print('count: ', count)
-            elif (flag_bigrock==True and flag_bedrock==True):
-                print('Big Rock-bedrock IN')
-                crop_labels_list.append(cropped_label)
-                crop_images_list.append(cropped_image)
-                flag_selected=True;
-                flag_sand=False;
-                flag_bedrock=False;
-                flag_bigrock=False;
-                flag_soil=False;
-                flag_null=False;
-                count+=1
-                print('count: ', count)
-            elif (flag_bigrock==True and flag_soil==True):
-                print('Big Rock-soil IN')
-                crop_labels_list.append(cropped_label)
-                crop_images_list.append(cropped_image)
-                flag_selected=True;
-                flag_sand=False;
-                flag_bedrock=False;
-                flag_bigrock=False;
-                flag_soil=False;
-                flag_null=False;
-                count+=1
-                print('count: ', count)
-            elif (flag_bedrock==True and flag_sand==True):
-                print('BedRock-Sand IN')
-                crop_labels_list.append(cropped_label)
-                crop_images_list.append(cropped_image)
-                flag_selected=True;
-                flag_sand=False;
-                flag_bedrock=False;
-                flag_bigrock=False;
-                flag_soil=False;
-                flag_null=False;
-                count+=1
-                print('count: ', count)
-            elif (flag_bedrock==True and flag_soil==True):
-                print('BedRock-Soil IN')
-                crop_labels_list.append(cropped_label)
-                crop_images_list.append(cropped_image)
-                flag_selected=True;
-                flag_sand=False;
-                flag_bedrock=False;
-                flag_bigrock=False;
-                flag_soil=False;
-                flag_null=False;
-                count+=1
-                print('count: ', count)
-            elif (flag_sand==True and flag_soil==True):
-                print('Sand-Soil IN')
-                crop_labels_list.append(cropped_label)
-                crop_images_list.append(cropped_image)
-                flag_selected=True;
-                flag_sand=False;
-                flag_bedrock=False;
-                flag_bigrock=False;
-                flag_soil=False;
-                flag_null=False;
-                count+=1
-                print('count: ', count)
+    #         if (flag_bigrock==True and flag_sand==True):
+    #             print('Big Rock-sand IN')
+    #             crop_labels_list.append(cropped_label)
+    #             crop_images_list.append(cropped_image)
+    #             flag_selected=True;
+    #             flag_sand=False;
+    #             flag_bedrock=False;
+    #             flag_bigrock=False;
+    #             flag_soil=False;
+    #             flag_null=False;
+    #             count+=1
+    #             print('count: ', count)
+    #         elif (flag_bigrock==True and flag_bedrock==True):
+    #             print('Big Rock-bedrock IN')
+    #             crop_labels_list.append(cropped_label)
+    #             crop_images_list.append(cropped_image)
+    #             flag_selected=True;
+    #             flag_sand=False;
+    #             flag_bedrock=False;
+    #             flag_bigrock=False;
+    #             flag_soil=False;
+    #             flag_null=False;
+    #             count+=1
+    #             print('count: ', count)
+    #         elif (flag_bigrock==True and flag_soil==True):
+    #             print('Big Rock-soil IN')
+    #             crop_labels_list.append(cropped_label)
+    #             crop_images_list.append(cropped_image)
+    #             flag_selected=True;
+    #             flag_sand=False;
+    #             flag_bedrock=False;
+    #             flag_bigrock=False;
+    #             flag_soil=False;
+    #             flag_null=False;
+    #             count+=1
+    #             print('count: ', count)
+    #         elif (flag_bedrock==True and flag_sand==True):
+    #             print('BedRock-Sand IN')
+    #             crop_labels_list.append(cropped_label)
+    #             crop_images_list.append(cropped_image)
+    #             flag_selected=True;
+    #             flag_sand=False;
+    #             flag_bedrock=False;
+    #             flag_bigrock=False;
+    #             flag_soil=False;
+    #             flag_null=False;
+    #             count+=1
+    #             print('count: ', count)
+    #         elif (flag_bedrock==True and flag_soil==True):
+    #             print('BedRock-Soil IN')
+    #             crop_labels_list.append(cropped_label)
+    #             crop_images_list.append(cropped_image)
+    #             flag_selected=True;
+    #             flag_sand=False;
+    #             flag_bedrock=False;
+    #             flag_bigrock=False;
+    #             flag_soil=False;
+    #             flag_null=False;
+    #             count+=1
+    #             print('count: ', count)
+    #         elif (flag_sand==True and flag_soil==True):
+    #             print('Sand-Soil IN')
+    #             crop_labels_list.append(cropped_label)
+    #             crop_images_list.append(cropped_image)
+    #             flag_selected=True;
+    #             flag_sand=False;
+    #             flag_bedrock=False;
+    #             flag_bigrock=False;
+    #             flag_soil=False;
+    #             flag_null=False;
+    #             count+=1
+    #             print('count: ', count)
 
 ######## SALVATAGGIO ####
 print("[INFO] Cropped images arrays saved")

@@ -20,10 +20,10 @@ from keras.preprocessing.image import ImageDataGenerator
 ####### PERCORSO IN LOCALE #########
 path = r"C:\Users\Mattia\Documenti\Github\Codice\final_images.npy"
 path1 = r"C:\Users\Mattia\Documenti\Github\Codice\final_labels.npy"
-path2 = r"C:\Users\Mattia\Documenti\Github\Codice\final_images_2.npy"
-path3 = r"C:\Users\Mattia\Documenti\Github\Codice\final_labels_2.npy"
-path4 = r"C:\Users\Mattia\Documenti\Github\Codice\final_images_3.npy"
-path5 = r"C:\Users\Mattia\Documenti\Github\Codice\final_labels_3.npy"
+# path2 = r"C:\Users\Mattia\Documenti\Github\Codice\final_images_2.npy"
+# path3 = r"C:\Users\Mattia\Documenti\Github\Codice\final_labels_2.npy"
+# path4 = r"C:\Users\Mattia\Documenti\Github\Codice\final_images_3.npy"
+# path5 = r"C:\Users\Mattia\Documenti\Github\Codice\final_labels_3.npy"
 # path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches.npy"
 # path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches.npy"
 # path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches_TEST.npy"
@@ -36,23 +36,23 @@ print('tmp1: ',tmp1.shape)
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 print('tmp2: ',tmp2.shape)
 
-tmp3 = get_np_arrays(path2)          #recupero tmp1 dal file 
-print('tmp3: ',tmp3.shape)
+# tmp3 = get_np_arrays(path2)          #recupero tmp1 dal file 
+# print('tmp3: ',tmp3.shape)
 
-tmp4 = get_np_arrays(path3)          #recupero tmp2 dal file
-print('tmp4: ',tmp4.shape)
+# tmp4 = get_np_arrays(path3)          #recupero tmp2 dal file
+# print('tmp4: ',tmp4.shape)
 
-tmp5 = get_np_arrays(path4)          #recupero tmp1 dal file 
-print('tmp5: ',tmp5.shape)
+# tmp5 = get_np_arrays(path4)          #recupero tmp1 dal file 
+# print('tmp5: ',tmp5.shape)
 
-tmp6 = get_np_arrays(path5)          #recupero tmp2 dal file
-print('tmp6: ',tmp6.shape)
+# tmp6 = get_np_arrays(path5)          #recupero tmp2 dal file
+# print('tmp6: ',tmp6.shape)
 
-tmp1=np.concatenate((tmp1,tmp3,tmp5))
-tmp2=np.concatenate((tmp2,tmp4,tmp6))
+# tmp1=np.concatenate((tmp1,tmp3,tmp5))
+# tmp2=np.concatenate((tmp2,tmp4,tmp6))
 
-print('tmp1_new: ',tmp1.shape)
-print('tmp2_new: ',tmp2.shape)
+# print('tmp1_new: ',tmp1.shape)
+# print('tmp2_new: ',tmp2.shape)
 
 train_set = int(len(tmp2)*80/100)
 
@@ -89,9 +89,10 @@ null_count=0;
 #             else:
 #                 print(i)
 
+SHAPE=512;
 for i in range (0,len(label_train)):
-    for r in range(0,64):
-        for c in range (0,64):
+    for r in range(0,SHAPE):
+        for c in range (0,SHAPE):
             # if tmp1[i,r,c,:]!=0 and tmp2[i,r,c,:]!=2 and tmp2[i,r,c,:]!=3 and tmp2[i,r,c,:]!=4 and tmp2[i,r,c,:]!=0:
             #     print(tmp1[i,r,c,:])
             if label_train[i,r,c,:]==4:
@@ -120,8 +121,8 @@ bigrock_count_val=0;
 null_count_val=0;
 
 for i in range (0,len(label_validation)):
-    for r in range(0,64):
-        for c in range (0,64):
+    for r in range(0,SHAPE):
+        for c in range (0,SHAPE):
             # if tmp1[i,r,c,:]!=0 and tmp2[i,r,c,:]!=2 and tmp2[i,r,c,:]!=3 and tmp2[i,r,c,:]!=4 and tmp2[i,r,c,:]!=0:
             #     print(tmp1[i,r,c,:])
             if label_validation[i,r,c,:]==4:
