@@ -7,6 +7,7 @@ from keras.layers import Dense,Flatten,Dropout,Lambda
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.models import load_model
 from matplotlib import image
+from keras.callbacks import *
 import cv2
 import numpy as np
 import os
@@ -18,7 +19,7 @@ from utils import *
 from tensorflow.compat.v1 import ConfigProto
 from tensorflow.compat.v1 import InteractiveSession
 from keras.preprocessing.image import ImageDataGenerator
-from sklearn.utils import shuffle
+
 # os.environ['TF_GPU_ALLOCATOR'] = 'cuda_malloc_async'
 # print(os.getenv('TF_GPU_ALLOCATOR'))
 
@@ -26,43 +27,25 @@ config = ConfigProto()
 config.gpu_options.allow_growth=True
 session = InteractiveSession(config=config)
 ###### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
-path = r"/content/drive/MyDrive/Tesi/image_patches.npy"
-path1 = r"/content/drive/MyDrive/Tesi/label_patches.npy"
+path = r"/content/drive/MyDrive/Tesi/final_images.npy"
+path1 = r"/content/drive/MyDrive/Tesi/final_labels.npy"
+
 
 # ####### PERCORSO IN LOCALE #########
-# path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches512.npy"
-# path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches512.npy"
+# path = r"C:\Users\Mattia\Documenti\Github\Codice\final_images.npy"
+# path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\final_labels.npy"
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
-print(tmp1.shape)
+print('tmp1: ',tmp1.shape)
 
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
-print(tmp2.shape)
+print('tmp2: ',tmp2.shape)
 
-tmp1, tmp2 = shuffle(np.array(tmp1), np.array(tmp2))
 
-tmp1=tmp1[:100]
-tmp2=tmp2[:100]
-# tmp3 = np.empty((len(tmp1), 512, 512, 3), dtype=np.uint8)  #Qui ho N immagini
-# tmp4 = np.empty((len(tmp2), 512, 512, 1), dtype=np.uint8)  
-# for i in range (len(tmp1)):
-#     image = tmp1[i]  #leggo le immagini
-#     image = cv2.resize(image, (128,128))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
-#     image = image.astype('float32')                                   #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
-#     tmp3[i] = image
-
-# for i in range (len(tmp2)):
-#     image = tmp2[i]  #leggo le immagini
-#     image = cv2.resize(image, (128,128))              #faccio un resize per far combaciare la dimensione dell'input con quello della rete
-#     image=np.expand_dims(image, axis=2)
-#     image = image.astype('float32')                                   #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
-#     tmp4[i] = image
 # #### PRENDO UNA PARTE DEL DATASET (20%) E LO UTILIZZO PER IL VALIDATION SET #####
 train_set = int(len(tmp2)*80/100)
 
-# print(tmp3.shape)
-# print(tmp4.shape)
 list_train = tmp1[:train_set]
 list_validation = tmp1[train_set:]
 print('list_train: ',list_train.shape)
@@ -74,51 +57,64 @@ print('label_train: ',label_train.shape)
 print('label_validation: ',label_validation.shape)
 
 
-# null:  7098361
-# bedrock:  4205537
-# sand:  2327347
-# bigrock:  2075910
-# soil:  5964781
-
-# PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels+null_pixels ;
-# loss_weights=[soil_pixels/PIXELS,bedrock_pixels/PIXELS,sand_pixels/PIXELS,bigrock_pixels/PIXELS,null_pixels/PIXELS]
-
 
 ###### DEFINISCO IL MODELLO #######
-shape=(64,64,3)
-print(shape)
+shape=(512,512,3)
 BATCH = 64
 EPOCHS = 100 
-steps = int(train_set/EPOCHS)
-weight_decay = 0.0001/2
-#batch_shape=(BATCH,64,64,1)
-#model = rete(input_shape=shape, weight_decay=weight_decay, classes=5)
+steps = int(train_set/(EPOCHS))
+steps_val = int(len(list_validation)/EPOCHS)
+weight_decay = 0.00001/2
+batch_shape=(BATCH,512,512,3)
+#model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+tf.keras.backend.set_image_data_format('channels_last')
+#model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
-model = build_vgg16_unet(input_shape=shape,weight_decay=weight_decay,classes=5)
+input_shape = (512, 512, 3)
+model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
 
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######
 # x_train = datagenerator(list_train,label_train,BATCH)
 # x_validation = datagenerator(list_validation,label_validation,BATCH)
-#print(type(x_train))
+
 
 BUFFER_SIZE=train_set;
-# # Create a Dataset that includes sample weights
-# # (3rd element in the return tuple).
 x_train = tf.data.Dataset.from_tensor_slices((list_train, label_train))
-x_train = x_train.cache()
-x_train = x_train.shuffle(BUFFER_SIZE)
-x_train = x_train.batch(BATCH)
-x_train = x_train.repeat()
-x_train = x_train.prefetch(buffer_size=tf.data.AUTOTUNE)
-#print(x_train.shape)
 
-# x_validation = x_validation.batch(BATCH)
-     
-
-x_train = x_train.map(add_sample_weights)
 x_validation = tf.data.Dataset.from_tensor_slices((list_validation, label_validation))
-x_validation = x_validation.map(add_sample_weights)
 
+ 
+x_train = x_train.map(add_sample_weights)
+x_train = (
+    x_train
+    .cache()
+    .shuffle(BUFFER_SIZE)
+    .batch(BATCH)
+    .repeat(EPOCHS)                         ###Ad ogni epoch avrò un numero di batch pari ha len(dataset)/Batch_size. 
+    .prefetch(buffer_size=tf.data.AUTOTUNE))
+
+
+print(x_train)
+x_validation = x_validation.map(add_sample_weights_val)   
+x_validation = x_validation.batch(BATCH)
+
+
+def lr_scheduler(epoch):
+  
+    # drops as progression proceeds, good for sgd
+    if epoch > 0.9 * EPOCHS:
+        lr = 0.0001
+    elif epoch > 0.75 * EPOCHS:
+        lr = 0.001
+    elif epoch > 0.5 * EPOCHS:
+        lr = 0.01
+    else:
+        lr = 0.1
+    #print('lr: %f' % lr)
+    return lr
+
+scheduler = LearningRateScheduler(lr_scheduler)
+callbacks = [scheduler]
 lr_base = 0.01 * (float(BATCH) / 16)
 
 
@@ -126,14 +122,14 @@ optimizer = SGD(learning_rate=lr_base, momentum=0.)
 #optimizer=keras.optimizers.Adam(learning_rate=0.001)
 loss_fn =keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 
-model.compile(optimizer = optimizer, loss = loss_fn , metrics =[UpdatedMeanIoU(num_classes=5)],sample_weight_mode='temporal')#UpdatedMeanIoU(num_classes=5)#tf.keras.metrics.SparseCategoricalAccuracy()#MyMeanIoU(num_classes=5)#loss_weights=loss_weights#[tf.keras.metrics.SparseCategoricalAccuracy()]#[tf.keras.metrics.MeanIoU(num_classes=5)])#['accuracy'])#[sparse_accuracy_ignoring_last_label])#,sample_weight_mode='temporal')
+model.compile(optimizer = optimizer, loss = loss_fn , metrics =[UpdatedMeanIoU(num_classes=5)])#,sample_weight_mode='temporal')#UpdatedMeanIoU(num_classes=5)#tf.keras.metrics.SparseCategoricalAccuracy()#MyMeanIoU(num_classes=5)#loss_weights=loss_weights#[tf.keras.metrics.SparseCategoricalAccuracy()]#[tf.keras.metrics.MeanIoU(num_classes=5)])#['accuracy'])#[sparse_accuracy_ignoring_last_label])#,sample_weight_mode='temporal')
 
 # checkpoint = ModelCheckpoint(filepath=os.path.join(save_path, 'checkpoint_weights.hdf5'), save_weights_only=True)#.{epoch:d}
 # callbacks.append(checkpoint)
 ### AVVIO IL TRAINING #####
 model.summary()
 # history = 
-model.fit(x = x_train,batch_size=BATCH, steps_per_epoch=steps,epochs=EPOCHS)#,callbacks=[callback])
+model.fit(x = x_train,batch_size=BATCH, steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation)#,callbacks=[callbacks])
 model.save('model.h5')
 
 # plt.plot(history.history["loss"])
