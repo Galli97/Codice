@@ -40,8 +40,10 @@ print(tmp1.shape)
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 print(tmp2.shape)
 
-# tmp1=tmp1[:2]
-# tmp2=tmp2[:2]
+tmp1, tmp2 = shuffle(np.array(tmp1), np.array(tmp2))
+
+tmp1=tmp1[:100]
+tmp2=tmp2[:100]
 # tmp3 = np.empty((len(tmp1), 512, 512, 3), dtype=np.uint8)  #Qui ho N immagini
 # tmp4 = np.empty((len(tmp2), 512, 512, 1), dtype=np.uint8)  
 # for i in range (len(tmp1)):
