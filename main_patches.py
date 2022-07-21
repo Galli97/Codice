@@ -84,7 +84,7 @@ print('label_validation: ',label_validation.shape)
 
 
 ###### DEFINISCO IL MODELLO #######
-SHAPE=256;
+SHAPE=128;
 shape=(SHAPE,SHAPE,3)
 BATCH = 64
 EPOCHS = 400 
