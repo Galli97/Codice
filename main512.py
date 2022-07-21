@@ -43,8 +43,8 @@ tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 print('tmp2: ',tmp2.shape)
 
 tmp1, tmp2 = shuffle(np.array(tmp1), np.array(tmp2))
-tmp1=tmp1[:100];
-tmp2=tmp2[:100];
+tmp1=tmp1[:10];
+tmp2=tmp2[:10];
 # #### PRENDO UNA PARTE DEL DATASET (20%) E LO UTILIZZO PER IL VALIDATION SET #####
 train_set = int(len(tmp2)*80/100)
 
