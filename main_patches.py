@@ -29,8 +29,8 @@ session = InteractiveSession(config=config)
 ###### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
 path = r"/content/drive/MyDrive/Tesi/final_images.npy"
 path1 = r"/content/drive/MyDrive/Tesi/final_labels.npy"
-# path2 = r"/content/drive/MyDrive/Tesi/final_images_2.npy"
-# path3 = r"/content/drive/MyDrive/Tesi/final_labels_2.npy"
+path2 = r"/content/drive/MyDrive/Tesi/final_images_2.npy"
+path3 = r"/content/drive/MyDrive/Tesi/final_labels_2.npy"
 # path4 = r"/content/drive/MyDrive/Tesi/final_images_3.npy"
 # path5 = r"/content/drive/MyDrive/Tesi/final_labels_3.npy"
 # path = r"/content/drive/MyDrive/Tesi/image_patches.npy"
@@ -47,11 +47,11 @@ print('tmp1: ',tmp1.shape)
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 print('tmp2: ',tmp2.shape)
 
-# tmp3 = get_np_arrays(path2)          #recupero tmp1 dal file 
-# print('tmp3: ',tmp3.shape)
+tmp3 = get_np_arrays(path2)          #recupero tmp1 dal file 
+print('tmp3: ',tmp3.shape)
 
-# tmp4 = get_np_arrays(path3)          #recupero tmp2 dal file
-# print('tmp4: ',tmp4.shape)
+tmp4 = get_np_arrays(path3)          #recupero tmp2 dal file
+print('tmp4: ',tmp4.shape)
 
 # tmp5 = get_np_arrays(path4)          #recupero tmp1 dal file 
 # print('tmp5: ',tmp5.shape)
@@ -59,11 +59,11 @@ print('tmp2: ',tmp2.shape)
 # tmp6 = get_np_arrays(path5)          #recupero tmp2 dal file
 # print('tmp6: ',tmp6.shape)
 
-# tmp1=np.concatenate((tmp1,tmp3,tmp5))
-# tmp2=np.concatenate((tmp2,tmp4,tmp6))
+tmp1=np.concatenate((tmp1,tmp3))#,tmp5))
+tmp2=np.concatenate((tmp2,tmp4))#,tmp6))
 
-# print('tmp1_new: ',tmp1.shape)
-# print('tmp2_new: ',tmp2.shape)
+print('tmp1_new: ',tmp1.shape)
+print('tmp2_new: ',tmp2.shape)
 
 
 # print(tmp1.shape)
@@ -81,6 +81,14 @@ label_validation = tmp2[train_set:]
 print('label_train: ',label_train.shape)
 print('label_validation: ',label_validation.shape)
 
+
+
+checkpoint_path = "./cp.ckpt"
+checkpoint_dir = os.path.dirname(checkpoint_path)
+
+cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
+                                                 save_weights_only=True,
+                                                 verbose=1)
 
 
 ###### DEFINISCO IL MODELLO #######
@@ -155,7 +163,7 @@ model.compile(optimizer = optimizer, loss = loss_fn , metrics =[UpdatedMeanIoU(n
 ### AVVIO IL TRAINING #####
 model.summary()
 # history = 
-model.fit(x = x_train,batch_size=BATCH, steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation)#,callbacks=[callbacks])
+model.fit(x = x_train,batch_size=BATCH, steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation, callbacks=[cp_callback])#,callbacks=[callbacks])
 model.save('model.h5')
 
 # plt.plot(history.history["loss"])
