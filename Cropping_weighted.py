@@ -63,10 +63,6 @@ image_list, label_list = shuffle(np.array(image_list), np.array(label_list))
 print('Elem1 shuffled: ', image_list[0])
 print('label1: ', label_list[0])
 
-### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
-#tmp1a,tmp2a,A = augment(image_list,label_list);
-#A=0;                                              #### METTO A=0 SE NON VOGLIO FARE DATA AUGMENTATION, COMMENTANDO LA RIGA SOPRA
-
 ####NUMERO DI IMMAGINI NEL DATASET + IMMAGINI DOVUTE AL DATA AUGMENTATION ####
 #N = len(image_list)           
 N=500                                 #### UTILIZZARE LA RIGA SOPRA PER USARE TUTTE LE IMMAGINI A DISPOSIZIONE
@@ -83,8 +79,8 @@ print(N)
 crop_images_list=[]
 crop_labels_list=[]
 
-SHAPE=256;
-coeff=4;
+SHAPE=128;
+coeff=8;
 
 soil=0;
 bedrock=1;
@@ -127,7 +123,7 @@ for j in range (0,N):
     #Take the image
     image = cv2.imread(image_list[j])[:,:,[2,1,0]]
     image = image.astype('float32')
-    image/=255 
+    image/=510 
     #Take the label
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]
     label = cv2.cvtColor(label, cv2.COLOR_BGR2GRAY)
@@ -152,7 +148,7 @@ for j in range (0,N):
             if(flag_selected==True):
                 break
 
-            cropped_label = label[SHAPE*(r):SHAPE*(r+1),coeff*k:SHAPE+coeff*k]           #Passo 5
+            cropped_label = label[SHAPE*(r):SHAPE*(r+1),coeff*k:SHAPE+coeff*k]           #Passo coeff
             cropped_image = image[SHAPE*(r):SHAPE*(r+1),coeff*k:SHAPE+coeff*k]
             for m in range(0,SHAPE):
                 if(flag_null==True):

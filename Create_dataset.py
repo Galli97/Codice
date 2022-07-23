@@ -37,7 +37,8 @@ count=0;
 #Da 4168 prendo immagini che abbiano o la big rock, oppure almeno altre due classi
 #Da 7000-7140 prendo immagini che abbiano o la big rock, oppure almeno altre due classi
 #7140-8447
-for x in range(7140,len(dir1)):
+#8447-9455
+for x in range(8447,len(dir1)):
     print('Label: ', x)
     flag_sand=False;
     flag_bedrock=False;

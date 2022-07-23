@@ -45,9 +45,7 @@ print('0: ',tmp2[8,:,:,0])
 print('tmp2: ', tmp2.shape)
 # crop_images_list = get_np_arrays(path2)          #recupero tmp1 dal file 
 # crop_labels_list = get_np_arrays(path3) 
-
-shape=(64,64,1)
-print(shape)
+SHAPE=128;
 BATCH= 1
 EPOCHS=10
 
@@ -71,7 +69,7 @@ print(predictions.shape)
 save_predictions(predictions)
 
 #true = decode_masks(tmp2)
-prediction = decode_predictions(predictions)
+prediction = decode_predictions(predictions,SHAPE)
 cm1=np.ravel(tmp2)
 print(cm1.shape)
 cm2=np.ravel(prediction)

@@ -189,8 +189,6 @@ def decode_masks(tmp2,SHAPE):
     bigrock=3;
     null=0;
     
-    SHAPE=256;
-
     decoded_images = np.empty((len(tmp2), SHAPE, SHAPE, 3), dtype=np.uint8)  #Qui ho N immagini
     for n in range (len(tmp2)):
       label = tmp2[n]
