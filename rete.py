@@ -125,9 +125,9 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
    
     model = Model(img_input, x)
 
-    #weights_path = os.path.expanduser('./vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5')
-    checkpoint_path = "Checkpoint/cp.ckpt"
-    model.load_weights(checkpoint_path)
+    weights_path = os.path.expanduser('./vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5')
+    # checkpoint_path = "Checkpoint/cp.ckpt"
+    # model.load_weights(checkpoint_path)
     # for layer in model.layers[:-7]:       
     #     layer._trainable = False
     return model
