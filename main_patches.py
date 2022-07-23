@@ -84,7 +84,7 @@ print('label_validation: ',label_validation.shape)
 
 
 ###### DEFINISCO IL MODELLO #######
-SHAPE=225;
+SHAPE=128;
 shape=(SHAPE,SHAPE,3)
 BATCH = 64
 EPOCHS = 100 
@@ -144,8 +144,8 @@ callbacks = [scheduler]
 lr_base = 0.01 * (float(BATCH) / 16)
 
 
-optimizer = SGD(learning_rate=lr_base, momentum=0.)
-#optimizer=keras.optimizers.Adam(learning_rate=0.001)
+#optimizer = SGD(learning_rate=lr_base, momentum=0.)
+optimizer=keras.optimizers.Adam(learning_rate=0.001)
 loss_fn =keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics =[UpdatedMeanIoU(num_classes=5)])#,sample_weight_mode='temporal')#UpdatedMeanIoU(num_classes=5)#tf.keras.metrics.SparseCategoricalAccuracy()#MyMeanIoU(num_classes=5)#loss_weights=loss_weights#[tf.keras.metrics.SparseCategoricalAccuracy()]#[tf.keras.metrics.MeanIoU(num_classes=5)])#['accuracy'])#[sparse_accuracy_ignoring_last_label])#,sample_weight_mode='temporal')

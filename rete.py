@@ -110,7 +110,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     x = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv2', kernel_regularizer=l2(weight_decay))(x)
     x = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv3', kernel_regularizer=l2(weight_decay))(x)
     #x = tf.keras.layers.BatchNormalization()(x)##########
-    x = tf.keras.layers.AveragePooling2D((2, 2), strides=(2, 2),padding='same', name='block4_pool')(x)
+    x = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block4_pool')(x)
 
     # Block 5
     x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc1', kernel_regularizer=l2(weight_decay))(x)
