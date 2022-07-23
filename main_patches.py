@@ -95,7 +95,7 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 SHAPE=128;
 shape=(SHAPE,SHAPE,3)
 BATCH = 128
-EPOCHS = 50 
+EPOCHS = 100 
 steps = int(train_set/(EPOCHS))
 steps_val = int(len(list_validation)/EPOCHS)
 weight_decay = 0.0001/2
@@ -163,7 +163,7 @@ model.compile(optimizer = optimizer, loss = loss_fn , metrics =[UpdatedMeanIoU(n
 ### AVVIO IL TRAINING #####
 model.summary()
 # history = 
-model.fit(x = x_train,batch_size=BATCH, steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation, callbacks=[cp_callback])#,callbacks=[callbacks])
+model.fit(x = x_train,batch_size=BATCH, steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation)#, callbacks=[cp_callback])#,callbacks=[callbacks])
 model.save('model.h5')
 
 # plt.plot(history.history["loss"])
