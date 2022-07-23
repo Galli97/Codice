@@ -94,7 +94,7 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 ###### DEFINISCO IL MODELLO #######
 SHAPE=128;
 shape=(SHAPE,SHAPE,3)
-BATCH = 128
+BATCH = 64
 EPOCHS = 100 
 steps = int(train_set/(EPOCHS))
 steps_val = int(len(list_validation)/EPOCHS)
@@ -136,14 +136,12 @@ x_validation = x_validation.batch(BATCH)
 def lr_scheduler(epoch):
   
     # drops as progression proceeds, good for sgd
-    if epoch > 0.9 * EPOCHS:
-        lr = 0.0001
-    elif epoch > 0.75 * EPOCHS:
+    if epoch > 0.75 * EPOCHS:
         lr = 0.001
     elif epoch > 0.5 * EPOCHS:
         lr = 0.01
     else:
-        lr = 0.1
+        lr = 0.01
     #print('lr: %f' % lr)
     return lr
 
@@ -163,7 +161,7 @@ model.compile(optimizer = optimizer, loss = loss_fn , metrics =[UpdatedMeanIoU(n
 ### AVVIO IL TRAINING #####
 model.summary()
 # history = 
-model.fit(x = x_train,batch_size=BATCH, steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation)#, callbacks=[cp_callback])#,callbacks=[callbacks])
+model.fit(x = x_train,batch_size=BATCH, steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation,callbacks=[callbacks])#, callbacks=[cp_callback])#,callbacks=[callbacks])
 model.save('model.h5')
 
 # plt.plot(history.history["loss"])
