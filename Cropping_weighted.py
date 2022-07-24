@@ -79,8 +79,8 @@ print(N)
 crop_images_list=[]
 crop_labels_list=[]
 
-SHAPE=128;
-coeff=8;
+SHAPE=64;
+coeff=5;
 
 soil=0;
 bedrock=1;
@@ -183,30 +183,30 @@ for j in range (1170,N):
                     #     break
                     elif channels_xy==nullo:    #Null
                         counter_null+=1;
-                        if (counter_null>4096):
+                        if (counter_null>1024):
                             flag_null=True;
                     elif channels_xy==bedrock:      #BEDROCK
                         counter_bedrock+=1;
-                        if (counter_bedrock>2048):
+                        if (counter_bedrock>1024):
                             flag_bedrock=True
                     elif channels_xy==sand:    #SAND
                         counter_sand+=1;
-                        if (counter_sand>2048):
+                        if (counter_sand>1024):
                             flag_sand=True
                     elif channels_xy==bigrock:    #BIG ROCK
                         counter_bigrock+=1;
-                        if (counter_bigrock>2048):
+                        if (counter_bigrock>682):
                             flag_bigrock=True
                     elif channels_xy==soil:    #SOIL
                         counter_soil+=1;
-                        if (counter_soil>2048):
+                        if (counter_soil>1024):
                             counter_soil_reduce+=1;
                             flag_soil=True;    
             if(flag_null==True):
                 continue
 
             if(flag_soil==True):
-                if (counter_soil_reduce>6144):
+                if (counter_soil_reduce>1024):
                     flag_soil=False;  
                 else:
                     flag_soil=True;
