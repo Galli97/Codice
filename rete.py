@@ -261,7 +261,7 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     x = Dropout(0.5)(x)
     b2 = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc6', kernel_regularizer=l2(weight_decay))(b2)
     x = Dropout(0.5)(x)
-    b3 = Conv2D(classes, (3, 3), activation='linear', padding='valid', strides=(1, 1), kernel_regularizer=l2(weight_decay))(b2)
+    b3 = Conv2D(classes, (3, 3), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(b2)
     #x = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(x)
     
     """ Decoder """
