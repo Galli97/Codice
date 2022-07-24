@@ -202,7 +202,7 @@ def rete_vgg16_dilation(img_size=None, weight_decay=0., batch_momentum=0.9, batc
     x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
     
     x = Conv2D(classes, 1, activation='softmax')(x)
-    
+
     model = Model(inputs=vggmodel.input, outputs=x)
     # weights_path = os.path.expanduser('./vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5')
     # model.load_weights(weights_path, by_name=True)
@@ -254,19 +254,19 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     b1 = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv1', kernel_regularizer=l2(weight_decay))(x)
     b1 = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv2', kernel_regularizer=l2(weight_decay))(b1)
     b1 = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv3', kernel_regularizer=l2(weight_decay))(b1)         ## (32 x 32)
-    s4 = b1 ## (64 x 64)
+    s4 = b1 
     b1_pooling = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block5_pool')(b1)
   
     b2 = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc5', kernel_regularizer=l2(weight_decay))(b1_pooling)
     x = Dropout(0.5)(x)
     b2 = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc6', kernel_regularizer=l2(weight_decay))(b2)
     x = Dropout(0.5)(x)
-    #b3 = Conv2D(classes, (3, 3), activation='linear', padding='valid', strides=(1, 1), kernel_regularizer=l2(weight_decay))(b2)
+    b3 = Conv2D(classes, (3, 3), activation='linear', padding='valid', strides=(1, 1), kernel_regularizer=l2(weight_decay))(b2)
     #x = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(x)
     
     """ Decoder """
            
-    d1 = decoder_block(b2, s4, 512)                     ## (64 x 64)
+    d1 = decoder_block(b3, s4, classes)                     ## (64 x 64)
     d2 = decoder_block(d1, s3, 256)                     ## (128 x 128)
     d3 = decoder_block(d2, s2, 128)                     ## (256 x 256)
     d4 = decoder_block(d3, s1, 64)                      ## (512 x 512)
