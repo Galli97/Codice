@@ -102,7 +102,7 @@ counter_soil_reduce=0;
 count=0;
 
 
-# IMAGE SELECTION PROCESS #per le 64 sto a 1170
+# IMAGE SELECTION PROCESS #per le 64 sto a 1670
 print('[INFO]Generating labels array')
 for j in range (1170,N):
     if(count==1000):

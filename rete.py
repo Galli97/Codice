@@ -114,7 +114,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
 
     # Block 5
     x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc3', kernel_regularizer=l2(weight_decay))(x)
-    x = Dropout(0.5)(x)
+    x = Dropout(0.75)(x)
     x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
     x = Dropout(0.75)(x)
     x = Conv2D(classes, (3, 3), activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
@@ -128,7 +128,6 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
    
     model = Model(img_input, x)
 
-    path = r"/content/drive/MyDrive/Tesi/vgg16_weights_tf_dim_ordering_tf_kernels.h5"
     weights_path = os.path.expanduser('/content/drive/MyDrive/Tesi/vgg16_weights_tf_dim_ordering_tf_kernels.h5')
     #weights_path = os.path.expanduser('./vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5')
     model.load_weights(weights_path,by_name=True)
@@ -199,10 +198,11 @@ def rete_vgg16_dilation(img_size=None, weight_decay=0., batch_momentum=0.9, batc
     x = Dropout(0.75)(x)
     x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc2', kernel_regularizer=l2(weight_decay))(x)
     x = Dropout(0.75)(x)
-    x = Conv2D(classes, (3, 3), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(classes, (3, 3), activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
     
-    x = Activation('softmax')(x)
+    x = Conv2D(classes, 1, activation='softmax')(x)
+    
     model = Model(inputs=vggmodel.input, outputs=x)
     # weights_path = os.path.expanduser('./vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5')
     # model.load_weights(weights_path, by_name=True)
