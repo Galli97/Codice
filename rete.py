@@ -126,7 +126,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     model = Model(img_input, x)
 
     path = r"/content/drive/MyDrive/Tesi/vgg16_weights_tf_dim_ordering_tf_kernels.h5"
-    weights_path = os.path.expanduser(path)
+    weights_path = os.path.expanduser('./content/drive/MyDrive/Tesi/vgg16_weights_tf_dim_ordering_tf_kernels.h5')
     #weights_path = os.path.expanduser('./vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5')
     model.load_weights(weights_path,by_name=True)
 
