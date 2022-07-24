@@ -227,7 +227,7 @@ def conv_block(input, num_filters):
     return x
 
 def decoder_block(input, skip_features, num_filters):
-    x = Conv2DTranspose(num_filters, (1, 1), strides=2, padding="same")(input)
+    x = Conv2DTranspose(num_filters, (2, 2), strides=2, padding="same")(input)
     x = Concatenate()([x, skip_features])
     x = conv_block(x, num_filters)
     return x
@@ -243,11 +243,11 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
         layer.trainable = False
     x = vgg16.output
     """ Encoder """
-    # s1 = vgg16.get_layer("block1_conv2").output         ## (512 x 512)
-    # s2 = vgg16.get_layer("block2_conv2").output         ## (256 x 256)
-    # s3 = vgg16.get_layer("block3_conv3").output         ## (128 x 128)
+    s1 = vgg16.get_layer("block1_conv2").output         ## (512 x 512)
+    s2 = vgg16.get_layer("block2_conv2").output         ## (256 x 256)
+    s3 = vgg16.get_layer("block3_conv3").output         ## (128 x 128)
     #s4 = vgg16.get_layer("block4_conv3").output 
-    s3 = vgg16.get_layer("block3_pool").output
+
     """ Bridge """
     x = vgg16.output
     
@@ -262,17 +262,17 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     b2 = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc6', kernel_regularizer=l2(weight_decay))(b2)
     x = Dropout(0.75)(x)
     b3 = Conv2D(classes, (3, 3), activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(b2)
-    #b3 = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(b3)
+    #x = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(x)
     
     """ Decoder """
            
     d1 = decoder_block(b3, s4, classes)                     ## (64 x 64)
     d2 = decoder_block(d1, s3, 256)                     ## (128 x 128)
-    # d3 = decoder_block(d2, s2, 128)                     ## (256 x 256)
-    # d4 = decoder_block(d3, s1, 64)                      ## (512 x 512)
+    d3 = decoder_block(d2, s2, 128)                     ## (256 x 256)
+    d4 = decoder_block(d3, s1, 64)                      ## (512 x 512)
 
     """ Output """
-    outputs = Conv2D(5, 1, padding="same", activation="softmax")(d2)
+    outputs = Conv2D(5, 1, padding="same", activation="softmax")(d4)
 
     model = Model(inputs, outputs, name="VGG16_U-Net")
     return model
