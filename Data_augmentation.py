@@ -36,7 +36,7 @@ print(tmp2.shape)
 print('0: ',tmp2[0])
 
 N=len(tmp1)
-SHAPE=128;
+SHAPE=64;
 ### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
 tmp1a,tmp2a,A = augment(tmp1,tmp2,N);
 # print('A: ',A)
