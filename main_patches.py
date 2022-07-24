@@ -162,7 +162,7 @@ model.compile(optimizer = optimizer, loss = loss_fn , metrics =[UpdatedMeanIoU(n
 ### AVVIO IL TRAINING #####
 model.summary()
 # history = 
-model.fit(x = x_train,batch_size=BATCH, steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation,callbacks=[callbacks])#, callbacks=[cp_callback])#,callbacks=[callbacks])
+model.fit(x = x_train,batch_size=BATCH, steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation)#,callbacks=[callbacks])#, callbacks=[cp_callback])#,callbacks=[callbacks])
 model.save('model.h5')
 
 # plt.plot(history.history["loss"])
