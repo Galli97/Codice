@@ -38,6 +38,7 @@ count=0;
 #Da 7000-7140 prendo immagini che abbiano o la big rock, oppure almeno altre due classi
 #7140-8447
 #8447-9455
+#10632
 for x in range(9455,len(dir1)):
     print('Label: ', x)
     flag_sand=False;
