@@ -132,6 +132,7 @@ print(x_train)
 x_validation = x_validation.map(add_sample_weights_val)   
 x_validation = x_validation.batch(BATCH)
 
+lr_base = 0.01 * (float(BATCH) / 16)
 
 def lr_scheduler(epoch):
   
@@ -141,13 +142,13 @@ def lr_scheduler(epoch):
     elif epoch > 0.5 * EPOCHS:
         lr = 0.01
     else:
-        lr = 0.01
+        lr = lr_base
     #print('lr: %f' % lr)
     return lr
 
 scheduler = LearningRateScheduler(lr_scheduler)
 callbacks = [scheduler]
-lr_base = 0.01 * (float(BATCH) / 16)
+
 
 
 optimizer = SGD(learning_rate=lr_base, momentum=0.)
@@ -161,7 +162,7 @@ model.compile(optimizer = optimizer, loss = loss_fn , metrics =[UpdatedMeanIoU(n
 ### AVVIO IL TRAINING #####
 model.summary()
 # history = 
-model.fit(x = x_train,batch_size=BATCH, steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation)#,callbacks=[callbacks])#, callbacks=[cp_callback])#,callbacks=[callbacks])
+model.fit(x = x_train,batch_size=BATCH, steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation,callbacks=[callbacks])#, callbacks=[cp_callback])#,callbacks=[callbacks])
 model.save('model.h5')
 
 # plt.plot(history.history["loss"])

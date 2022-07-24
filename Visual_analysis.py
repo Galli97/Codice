@@ -21,17 +21,19 @@ from sklearn.feature_extraction import image
 # ####### PERCORSO IN LOCALE #########
 # path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches.npy"
 # path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches.npy"
-path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches_TEST.npy"
-path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches_TEST.npy"
+path = r"C:\Users\Mattia\Desktop\Tentativi128\image_patches_TEST.npy"
+path1 =  r"C:\Users\Mattia\Desktop\Tentativi128\label_patches_TEST.npy"
 path2 = r"C:\Users\Mattia\Documenti\Github\Codice\predictions.npy"
 
 tmp1 = get_np_arrays(path)
 tmp2 = get_np_arrays(path1)
 predictions = get_np_arrays(path2)
 
-true = decode_masks(tmp2)
-predictions = decode_predictions(predictions)
-prediction = decode_masks(predictions)
+SHAPE=128;
+
+true = decode_masks(tmp2,SHAPE)
+predictions = decode_predictions(predictions,SHAPE)
+prediction = decode_masks(predictions,SHAPE)
 
 
 
