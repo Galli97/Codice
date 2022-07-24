@@ -243,11 +243,11 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
         layer.trainable = False
     x = vgg16.output
     """ Encoder """
-    s1 = vgg16.get_layer("block1_conv2").output         ## (512 x 512)
-    s2 = vgg16.get_layer("block2_conv2").output         ## (256 x 256)
-    s3 = vgg16.get_layer("block3_conv3").output         ## (128 x 128)
+    # s1 = vgg16.get_layer("block1_conv2").output         ## (512 x 512)
+    # s2 = vgg16.get_layer("block2_conv2").output         ## (256 x 256)
+    # s3 = vgg16.get_layer("block3_conv3").output         ## (128 x 128)
     #s4 = vgg16.get_layer("block4_conv3").output 
-
+    s3 = vgg16.get_layer("block3_pool").output
     """ Bridge """
     x = vgg16.output
     
@@ -268,11 +268,11 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
            
     d1 = decoder_block(b3, s4, classes)                     ## (64 x 64)
     d2 = decoder_block(d1, s3, 256)                     ## (128 x 128)
-    d3 = decoder_block(d2, s2, 128)                     ## (256 x 256)
-    d4 = decoder_block(d3, s1, 64)                      ## (512 x 512)
+    # d3 = decoder_block(d2, s2, 128)                     ## (256 x 256)
+    # d4 = decoder_block(d3, s1, 64)                      ## (512 x 512)
 
     """ Output """
-    outputs = Conv2D(5, 1, padding="same", activation="softmax")(d4)
+    outputs = Conv2D(5, 1, padding="same", activation="softmax")(d2)
 
     model = Model(inputs, outputs, name="VGG16_U-Net")
     return model
