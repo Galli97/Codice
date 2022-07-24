@@ -114,10 +114,10 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
 
     # Block 5
     x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc3', kernel_regularizer=l2(weight_decay))(x)
-    x = Dropout(0.6)(x)
+    x = Dropout(0.5)(x)
     x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
-    x = Dropout(0.6)(x)
-    x = Conv2D(classes, (3, 3), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    x = Dropout(0.75)(x)
+    x = Conv2D(classes, (1, 1), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     
     x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
 
@@ -205,6 +205,7 @@ def rete_vgg16_dilation(img_size=None, weight_decay=0., batch_momentum=0.9, batc
     # model.load_weights(weights_path, by_name=True)
     
     return model
+
 
 
 from tensorflow.keras.layers import Conv2D, BatchNormalization, Activation, MaxPool2D, Conv2DTranspose, Concatenate, Input
