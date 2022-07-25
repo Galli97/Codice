@@ -217,11 +217,11 @@ from tensorflow.keras.applications import VGG16
 
 def conv_block(input, num_filters):
     x = Conv2D(num_filters, 3, padding="same")(input)
-    x = BatchNormalization()(x)
+    #x = BatchNormalization()(x)
     x = Activation("relu")(x)
 
     x = Conv2D(num_filters, 3, padding="same")(x)
-    x = BatchNormalization()(x)
+    #x = BatchNormalization()(x)
     x = Activation("relu")(x)
 
     return x

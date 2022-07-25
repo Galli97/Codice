@@ -102,7 +102,7 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 
 
 ###### DEFINISCO IL MODELLO #######
-SHAPE=128;
+SHAPE=64;
 shape=(SHAPE,SHAPE,3)
 BATCH = 64
 EPOCHS = 200 
