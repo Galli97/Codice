@@ -28,20 +28,22 @@ config.gpu_options.allow_growth=True
 session = InteractiveSession(config=config)
 ###### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
 #64x64
-path = r"/content/drive/MyDrive/Tesi/Dataset64/final_images.npy"
-path1 = r"/content/drive/MyDrive/Tesi/Dataset64/final_labels.npy"
-path2 = r"/content/drive/MyDrive/Tesi/Dataset64/final_images_2.npy"
-path3 = r"/content/drive/MyDrive/Tesi/Dataset64/final_labels_2.npy"
-path4 = r"/content/drive/MyDrive/Tesi/Dataset64/final_images_3.npy"
-path5 = r"/content/drive/MyDrive/Tesi/Dataset64/final_labels_3.npy"
-path6 = r"/content/drive/MyDrive/Tesi/Dataset64/final_images_4.npy"
-path7 = r"/content/drive/MyDrive/Tesi/Dataset64/final_labels_4.npy"
+# path = r"/content/drive/MyDrive/Tesi/Dataset64/final_images.npy"
+# path1 = r"/content/drive/MyDrive/Tesi/Dataset64/final_labels.npy"
+# path2 = r"/content/drive/MyDrive/Tesi/Dataset64/final_images_2.npy"
+# path3 = r"/content/drive/MyDrive/Tesi/Dataset64/final_labels_2.npy"
+# path4 = r"/content/drive/MyDrive/Tesi/Dataset64/final_images_3.npy"
+# path5 = r"/content/drive/MyDrive/Tesi/Dataset64/final_labels_3.npy"
+# path6 = r"/content/drive/MyDrive/Tesi/Dataset64/final_images_4.npy"
+# path7 = r"/content/drive/MyDrive/Tesi/Dataset64/final_labels_4.npy"
 
 #128x128
-# path = r"/content/drive/MyDrive/Tesi/Dataset128/final_images.npy"
-# path1 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels.npy"
-# path2 = r"/content/drive/MyDrive/Tesi/Dataset128/final_images_2.npy"
-# path3 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_2.npy"
+path = r"/content/drive/MyDrive/Tesi/Dataset128/final_images.npy"
+path1 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels.npy"
+path2 = r"/content/drive/MyDrive/Tesi/Dataset128/final_images_2.npy"
+path3 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_2.npy"
+path4 = r"/content/drive/MyDrive/Tesi/Dataset128/final_images_3.npy"
+path5 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_3.npy"
 
 
 # path = r"/content/drive/MyDrive/Tesi/image_patches.npy"
@@ -70,15 +72,15 @@ print('tmp5: ',tmp5.shape)
 tmp6 = get_np_arrays(path5)          #recupero tmp2 dal file
 print('tmp6: ',tmp6.shape)
 
-tmp7 = get_np_arrays(path6)          #recupero tmp1 dal file 
-print('tmp5: ',tmp7.shape)
+# tmp7 = get_np_arrays(path6)          #recupero tmp1 dal file 
+# print('tmp5: ',tmp7.shape)
 
-tmp8 = get_np_arrays(path7)          #recupero tmp2 dal file
-print('tmp6: ',tmp8.shape)
+# tmp8 = get_np_arrays(path7)          #recupero tmp2 dal file
+# print('tmp6: ',tmp8.shape)
 
 
-tmp1=np.concatenate((tmp1,tmp3,tmp5,tmp7))
-tmp2=np.concatenate((tmp2,tmp4,tmp6,tmp8))
+tmp1=np.concatenate((tmp1,tmp3,tmp5))#,tmp7))
+tmp2=np.concatenate((tmp2,tmp4,tmp6))#,tmp8))
 
 print('tmp1_new: ',tmp1.shape)
 print('tmp2_new: ',tmp2.shape)
@@ -110,7 +112,7 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 
 
 ###### DEFINISCO IL MODELLO #######
-SHAPE=64;
+SHAPE=128;
 shape=(SHAPE,SHAPE,3)
 BATCH = 64
 EPOCHS = 200 
@@ -120,8 +122,8 @@ weight_decay = 0.0005
 batch_shape=(BATCH,SHAPE,SHAPE,3)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 tf.keras.backend.set_image_data_format('channels_last')
-#model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
-model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+#model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 input_shape = (SHAPE, SHAPE, 3)
 #model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
 
@@ -160,7 +162,7 @@ def lr_scheduler(epoch):
     elif epoch > 0.5 * EPOCHS:
         lr = 0.01
     else:
-        lr = lr_base
+        lr = 0.01 * (float(BATCH) / 16)
     #print('lr: %f' % lr)
     return lr
 
@@ -180,7 +182,7 @@ model.compile(optimizer = optimizer, loss = loss_fn , metrics =[UpdatedMeanIoU(n
 ### AVVIO IL TRAINING #####
 model.summary()
 # history = 
-model.fit(x = x_train,batch_size=BATCH, steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation)#,callbacks=[callbacks])#, callbacks=[cp_callback])#,callbacks=[callbacks])
+model.fit(x = x_train,batch_size=BATCH, steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation,callbacks=[callbacks])#, callbacks=[cp_callback])#,callbacks=[callbacks])
 model.save('model.h5')
 
 # plt.plot(history.history["loss"])

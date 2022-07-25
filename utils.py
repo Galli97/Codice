@@ -357,12 +357,19 @@ def add_sample_weights(image, label):
     # bigrock_pixels = 2480657
     # soil_pixels = 3656203
     
+     #128 1+2+3
+    null_pixels = 9544360  
+    bedrock_pixels =  14466388 
+    sand_pixels =  12127129 
+    bigrock_pixels =  2839387 
+    soil_pixels = 4112656 
+
     #64 1+2+3+4
-    null_pixels = 2297193
-    bedrock_pixels =  3434509
-    sand_pixels =  2483372
-    bigrock_pixels = 914097
-    soil_pixels = 1585965
+    # null_pixels = 2297193
+    # bedrock_pixels =  3434509
+    # sand_pixels =  2483372
+    # bigrock_pixels = 914097
+    # soil_pixels = 1585965
 
     PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels#+null_pixels ;
     #perc_null=1-null_pixels/PIXELS
@@ -398,12 +405,20 @@ def add_sample_weights_val(image, label):
     # bigrock_pixels =  699726 
     # soil_pixels = 771077 
 
+    #128 1+2+3
+    null_pixels = 1095101  
+    bedrock_pixels =  4948477 
+    sand_pixels =  3868889 
+    bigrock_pixels =  509872 
+    soil_pixels = 358333 
+     
+
     #64 1+2+3+4
-    null_pixels = 467714
-    bedrock_pixels =  1055197
-    sand_pixels =  811536
-    bigrock_pixels = 160480
-    soil_pixels = 187953
+    # null_pixels = 467714
+    # bedrock_pixels =  1055197
+    # sand_pixels =  811536
+    # bigrock_pixels = 160480
+    # soil_pixels = 187953
 
     PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels#+null_pixels ;
 
