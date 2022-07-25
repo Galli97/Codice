@@ -114,9 +114,9 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
 
     # Block 5
     x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc3', kernel_regularizer=l2(weight_decay))(x)
-    x = Dropout(0.75)(x)
+    x = Dropout(0.5)(x)
     x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
-    x = Dropout(0.75)(x)
+    x = Dropout(0.5)(x)
     x = Conv2D(classes, (3, 3), activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     
     x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
@@ -269,10 +269,10 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     d1 = decoder_block(b3, s4, classes)                     ## (64 x 64)
     d2 = decoder_block(d1, s3, 256)                     ## (128 x 128)
     d3 = decoder_block(d2, s2, 128)                     ## (256 x 256)
-    #d4 = decoder_block(d3, s1, 64)                      ## (512 x 512)
+    d4 = decoder_block(d3, s1, 64)                      ## (512 x 512)
 
     """ Output """
-    outputs = Conv2D(5, 1, padding="same", activation="softmax")(d3)
+    outputs = Conv2D(5, 1, padding="same", activation="softmax")(d4)
 
     model = Model(inputs, outputs, name="VGG16_U-Net")
     return model

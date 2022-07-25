@@ -24,8 +24,10 @@ from keras.preprocessing.image import ImageDataGenerator
 # path1 = r"/content/drive/MyDrive/Tesi/label_patches_TEST.npy"
 
 # ####### PERCORSO IN LOCALE #########
-path = r"C:\Users\Mattia\Desktop\Tentativi128\image_patches_TEST.npy"
-path1 =  r"C:\Users\Mattia\Desktop\Tentativi128\label_patches_TEST.npy"
+# path = r"C:\Users\Mattia\Desktop\Tentativi128\image_patches_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\Tentativi128\label_patches_TEST.npy"
+path = r"C:\Users\Mattia\Desktop\Tentativi\image_patches_TEST.npy"
+path1 =  r"C:\Users\Mattia\Desktop\Tentativi\label_patches_TEST.npy"
 # path2= r"C:\Users\Mattia\Documenti\Github\Codice\cropped_images_TEST.npy"
 # path3 =  r"C:\Users\Mattia\Documenti\Github\Codice\cropped_labels_TEST.npy"
 ### RECUPERO LE DUE LISTE SALVATE #####
@@ -45,7 +47,7 @@ print('0: ',tmp2[8,:,:,0])
 print('tmp2: ', tmp2.shape)
 # crop_images_list = get_np_arrays(path2)          #recupero tmp1 dal file 
 # crop_labels_list = get_np_arrays(path3) 
-SHAPE=128;
+SHAPE=64;
 BATCH= 1
 EPOCHS=10
 
@@ -80,13 +82,19 @@ matrix = tf.math.confusion_matrix(cm1,cm2,num_classes=5)
 print(matrix)
 
  
+#128
+# null_pixels = 3315038 
+# bedrock_pixels =  1628395
+# sand_pixels =  1241556
+# bigrock_pixels =  66467
+# soil_pixels =  1940544
 
-null_pixels = 3315038 
-bedrock_pixels =  1628395
-sand_pixels =  1241556
-bigrock_pixels =  66467
-soil_pixels =  1940544
-
+#64
+null_pixels = 831340
+bedrock_pixels =  360564
+sand_pixels = 316722
+bigrock_pixels = 16502
+soil_pixels =  522872
 #percent = 100/np.array([[null_pixels],[bedrock_pixels],[sand_pixels],[bigrock_pixels],[soil_pixels]])
 matrix2 = np.array([[matrix[0]*100/null_pixels],[matrix[1]*100/bedrock_pixels], [matrix[2]*100/sand_pixels],[matrix[3]*100/bigrock_pixels], [matrix[4]*100/soil_pixels]])
 np.set_printoptions(suppress=True)
