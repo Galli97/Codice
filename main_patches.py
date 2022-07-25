@@ -112,12 +112,12 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 ###### DEFINISCO IL MODELLO #######
 SHAPE=64;
 shape=(SHAPE,SHAPE,3)
-BATCH = 10
+BATCH = 64
 EPOCHS = 200 
 steps = int(train_set/(EPOCHS))
 steps_val = int(len(list_validation)/EPOCHS)
 weight_decay = 0.0005
-batch_shape=(10,SHAPE,SHAPE,3)
+batch_shape=(BATCH,SHAPE,SHAPE,3)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 tf.keras.backend.set_image_data_format('channels_last')
 model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=batch_shape, classes=5)
