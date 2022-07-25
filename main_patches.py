@@ -27,14 +27,22 @@ config = ConfigProto()
 config.gpu_options.allow_growth=True
 session = InteractiveSession(config=config)
 ###### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
-path = r"/content/drive/MyDrive/Tesi/final_images.npy"
-path1 = r"/content/drive/MyDrive/Tesi/final_labels.npy"
-path2 = r"/content/drive/MyDrive/Tesi/final_images_2.npy"
-path3 = r"/content/drive/MyDrive/Tesi/final_labels_2.npy"
-path4 = r"/content/drive/MyDrive/Tesi/final_images_3.npy"
-path5 = r"/content/drive/MyDrive/Tesi/final_labels_3.npy"
-path6 = r"/content/drive/MyDrive/Tesi/final_images_4.npy"
-path7 = r"/content/drive/MyDrive/Tesi/final_labels_4.npy"
+#64x64
+path = r"/content/drive/MyDrive/Tesi/Dataset64/final_images.npy"
+path1 = r"/content/drive/MyDrive/Tesi/Dataset64/final_labels.npy"
+path2 = r"/content/drive/MyDrive/Tesi/Dataset64/final_images_2.npy"
+path3 = r"/content/drive/MyDrive/Tesi/Dataset64/final_labels_2.npy"
+path4 = r"/content/drive/MyDrive/Tesi/Dataset64/final_images_3.npy"
+path5 = r"/content/drive/MyDrive/Tesi/Dataset64/final_labels_3.npy"
+path6 = r"/content/drive/MyDrive/Tesi/Dataset64/final_images_4.npy"
+path7 = r"/content/drive/MyDrive/Tesi/Dataset64/final_labels_4.npy"
+
+#128x128
+# path = r"/content/drive/MyDrive/Tesi/Dataset128/final_images.npy"
+# path1 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels.npy"
+# path2 = r"/content/drive/MyDrive/Tesi/Dataset128/final_images_2.npy"
+# path3 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_2.npy"
+
 
 # path = r"/content/drive/MyDrive/Tesi/image_patches.npy"
 # path1 = r"/content/drive/MyDrive/Tesi/label_patches.npy"
@@ -109,7 +117,7 @@ EPOCHS = 200
 steps = int(train_set/(EPOCHS))
 steps_val = int(len(list_validation)/EPOCHS)
 weight_decay = 0.0005
-batch_shape=(BATCH,SHAPE,SHAPE,3)
+batch_shape=(10,SHAPE,SHAPE,3)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 tf.keras.backend.set_image_data_format('channels_last')
 model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
