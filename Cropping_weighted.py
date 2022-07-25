@@ -79,8 +79,8 @@ print(N)
 crop_images_list=[]
 crop_labels_list=[]
 
-SHAPE=64;
-coeff=5;
+SHAPE=128;
+coeff=8;
 
 soil=0;
 bedrock=1;
@@ -104,7 +104,7 @@ count=0;
 
 # IMAGE SELECTION PROCESS #per le 64 sto a 1670
 print('[INFO]Generating labels array')
-for j in range (1170,N):
+for j in range (1670,N):
     if(count==1000):
         break
     flag_sand=False;
