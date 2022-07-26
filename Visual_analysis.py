@@ -46,8 +46,8 @@ sand_count=0;
 bigrock_count=0;
 null_count=0;
 
-for r in range(0,64):
-    for c in range (0,64):
+for r in range(0,SHAPE):
+    for c in range (0,SHAPE):
         if tmp2[foto,r,c,:]==4:
             soil_count+=1
         elif tmp2[foto,r,c,:]==1:
