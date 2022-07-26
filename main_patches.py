@@ -115,10 +115,10 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 SHAPE=128;
 shape=(SHAPE,SHAPE,3)
 BATCH = 64
-EPOCHS = 200 
+EPOCHS = 100 
 steps = int(train_set/(100))
 steps_val = int(len(list_validation)/EPOCHS)
-weight_decay = 0.0005
+weight_decay = 0.0006
 batch_shape=(BATCH,SHAPE,SHAPE,3)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 tf.keras.backend.set_image_data_format('channels_last')
@@ -171,7 +171,7 @@ callbacks = [scheduler]
 
 
 
-optimizer = SGD(learning_rate=lr_base, momentum=0.9)
+optimizer = SGD(learning_rate=lr_base, momentum=0.8)
 #optimizer=keras.optimizers.Adam(learning_rate=0.001)
 loss_fn =keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 
