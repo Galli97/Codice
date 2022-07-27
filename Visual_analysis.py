@@ -37,7 +37,7 @@ prediction = decode_masks(predictions,SHAPE)
 
 
 
-foto =199 # random.randint(0,len(tmp1)-1)
+foto = random.randint(0,len(tmp1)-1)
 print('foto: ',foto)
 
 soil_count=0;
