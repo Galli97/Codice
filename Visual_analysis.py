@@ -37,7 +37,7 @@ prediction = decode_masks(predictions,SHAPE)
 
 
 
-foto = random.randint(0,len(tmp1)-1)
+foto =199 # random.randint(0,len(tmp1)-1)
 print('foto: ',foto)
 
 soil_count=0;
@@ -71,6 +71,18 @@ print('soil: ', soil_count)
 img=cv2.resize(tmp1[foto],(512,512))
 img_prediction=cv2.resize(prediction[foto],(512,512))
 label=cv2.resize(true[foto],(512,512))
+
+
+cv2.imshow('image', img) 
+cv2.waitKey(0) 
+cv2.imshow('label',label )
+cv2.waitKey(0) 
+cv2.imshow('predictions',img_prediction)
+cv2.waitKey(0) 
+
+img=cv2.resize(tmp1[int(foto/2)],(512,512))
+img_prediction=cv2.resize(prediction[int(foto/2)],(512,512))
+label=cv2.resize(true[int(foto/2)],(512,512))
 
 
 cv2.imshow('image', img) 

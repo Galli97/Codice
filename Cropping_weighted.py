@@ -64,8 +64,8 @@ print('Elem1 shuffled: ', image_list[0])
 print('label1: ', label_list[0])
 
 ####NUMERO DI IMMAGINI NEL DATASET + IMMAGINI DOVUTE AL DATA AUGMENTATION ####
-N = len(image_list)           
-#N=500                                 #### UTILIZZARE LA RIGA SOPRA PER USARE TUTTE LE IMMAGINI A DISPOSIZIONE
+#N = len(image_list)           
+N=700                                 #### UTILIZZARE LA RIGA SOPRA PER USARE TUTTE LE IMMAGINI A DISPOSIZIONE
 print('Augmented image list dimension')
 print(N)
 
@@ -102,10 +102,10 @@ counter_soil_reduce=0;
 count=0;
 
 
-# IMAGE SELECTION PROCESS #per le 64 sto a 1670
+# IMAGE SELECTION PROCESS #per le 64 sto a 1670-numero attuale
 print('[INFO]Generating labels array')
-for j in range (1670,N):
-    if(count==1000):
+for j in range (0,N):
+    if(count==2000):
         break
     flag_sand=False;
     flag_bedrock=False;
@@ -183,30 +183,30 @@ for j in range (1670,N):
                     #     break
                     elif channels_xy==nullo:    #Null
                         counter_null+=1;
-                        if (counter_null>1024):
+                        if (counter_null>4096):
                             flag_null=True;
                     elif channels_xy==bedrock:      #BEDROCK
                         counter_bedrock+=1;
-                        if (counter_bedrock>1024):
+                        if (counter_bedrock>2048):
                             flag_bedrock=True
                     elif channels_xy==sand:    #SAND
                         counter_sand+=1;
-                        if (counter_sand>1024):
+                        if (counter_sand>2048):
                             flag_sand=True
                     elif channels_xy==bigrock:    #BIG ROCK
                         counter_bigrock+=1;
-                        if (counter_bigrock>682):
+                        if (counter_bigrock>1024):
                             flag_bigrock=True
                     elif channels_xy==soil:    #SOIL
                         counter_soil+=1;
-                        if (counter_soil>1024):
+                        if (counter_soil>2048):
                             counter_soil_reduce+=1;
                             flag_soil=True;    
             if(flag_null==True):
                 continue
 
             if(flag_soil==True):
-                if (counter_soil_reduce>1024):
+                if (counter_soil_reduce>6144):
                     flag_soil=False;  
                 else:
                     flag_soil=True;
