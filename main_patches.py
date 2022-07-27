@@ -118,7 +118,7 @@ BATCH = 64
 EPOCHS = 100 
 steps = int(train_set/(100))
 steps_val = int(len(list_validation)/EPOCHS)
-weight_decay = 0.0006
+weight_decay = 0.0004
 batch_shape=(BATCH,SHAPE,SHAPE,3)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 tf.keras.backend.set_image_data_format('channels_last')
@@ -171,7 +171,7 @@ callbacks = [scheduler]
 
 
 
-optimizer = SGD(learning_rate=lr_base, momentum=0.8)
+optimizer = SGD(learning_rate=lr_base, momentum=0.7)
 #optimizer=keras.optimizers.Adam(learning_rate=0.001)
 loss_fn =keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 
