@@ -144,7 +144,7 @@ x_train = (
     .cache()
     .shuffle(BUFFER_SIZE)
     .batch(BATCH)
-    #.repeat(EPOCHS)                         ###Ad ogni epoch avrò un numero di batch pari ha len(dataset)/Batch_size. 
+    .repeat(EPOCHS)                         ###Ad ogni epoch avrò un numero di batch pari ha len(dataset)/Batch_size. 
     .prefetch(buffer_size=tf.data.AUTOTUNE))
 
 
