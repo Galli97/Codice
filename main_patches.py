@@ -89,7 +89,7 @@ print('tmp2_new: ',tmp2.shape)
 # print(tmp1.shape)
 # print(tmp2.shape)
 # #### PRENDO UNA PARTE DEL DATASET (20%) E LO UTILIZZO PER IL VALIDATION SET #####
-train_set = int(len(tmp2)*80/100)
+train_set = int(len(tmp2)*70/100)
 
 list_train = tmp1[:train_set]
 list_validation = tmp1[train_set:]
@@ -118,12 +118,12 @@ BATCH = 64
 EPOCHS = 100 
 steps = int(train_set/(EPOCHS))
 steps_val = int(len(list_validation)/EPOCHS)
-weight_decay = 0.0006
+weight_decay = 0.0005
 batch_shape=(BATCH,SHAPE,SHAPE,3)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 tf.keras.backend.set_image_data_format('channels_last')
-model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
-#model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+#model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 input_shape = (SHAPE, SHAPE, 3)
 #model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
 
