@@ -113,7 +113,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     x = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block4_pool')(x)
 
     # Block 5
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc3', kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(8,8), name='fc3', kernel_regularizer=l2(weight_decay))(x)
     x = Dropout(0.6)(x)
     x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
     x = Dropout(0.6)(x)
@@ -121,7 +121,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     
     x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
 
-    x = Conv2D(classes, (1, 1), activation='softmax')(x)
+    x = Conv2D(classes, 1, activation='softmax')(x)
     
     
     #x = Activation('softmax')(x)

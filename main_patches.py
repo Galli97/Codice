@@ -116,9 +116,9 @@ SHAPE=128;
 shape=(SHAPE,SHAPE,3)
 BATCH = 64
 EPOCHS = 100 
-steps = int(train_set/(100))
+steps = int(train_set/(EPOCHS))
 steps_val = int(len(list_validation)/EPOCHS)
-weight_decay = 0.0005
+weight_decay = 0.0006
 batch_shape=(BATCH,SHAPE,SHAPE,3)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 tf.keras.backend.set_image_data_format('channels_last')
@@ -158,9 +158,9 @@ def lr_scheduler(epoch):
   
     # drops as progression proceeds, good for sgd
     if epoch > 0.75 * EPOCHS:
-        lr = 0.01
+        lr = 0.001
     elif epoch > 0.5 * EPOCHS:
-        lr = 0.01* (float(BATCH) /32)
+        lr = 0.01
     else:
         lr = 0.01 * (float(BATCH) / 16)
     #print('lr: %f' % lr)
@@ -171,7 +171,7 @@ callbacks = [scheduler]
 
 
 
-optimizer = SGD(learning_rate=lr_base, momentum=0.9)
+optimizer = SGD(learning_rate=lr_base, momentum=0.8)
 #optimizer=keras.optimizers.Adam(learning_rate=0.001)
 loss_fn =keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 
@@ -182,7 +182,7 @@ model.compile(optimizer = optimizer, loss = loss_fn , metrics =[UpdatedMeanIoU(n
 ### AVVIO IL TRAINING #####
 model.summary()
 # history = 
-model.fit(x = x_train,steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation)#,callbacks=[callbacks])#, callbacks=[cp_callback])#,callbacks=[callbacks])
+model.fit(x = x_train,steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation,callbacks=[callbacks])#, callbacks=[cp_callback])#,callbacks=[callbacks])
 model.save('model.h5')
 
 # plt.plot(history.history["loss"])
