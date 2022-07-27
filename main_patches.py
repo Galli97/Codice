@@ -89,7 +89,7 @@ print('tmp2_new: ',tmp2.shape)
 # print(tmp1.shape)
 # print(tmp2.shape)
 # #### PRENDO UNA PARTE DEL DATASET (20%) E LO UTILIZZO PER IL VALIDATION SET #####
-train_set = int(len(tmp2)*70/100)
+train_set = int(len(tmp2)*80/100)
 
 list_train = tmp1[:train_set]
 list_validation = tmp1[train_set:]
