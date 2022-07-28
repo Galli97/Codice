@@ -114,7 +114,7 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 ###### DEFINISCO IL MODELLO #######
 SHAPE=128;
 shape=(SHAPE,SHAPE,3)
-BATCH = 32
+BATCH = 64
 EPOCHS = 250
 steps = int(train_set/(EPOCHS))
 steps_val = int(len(list_validation)/EPOCHS)
@@ -149,7 +149,7 @@ x_train = (
 
 
 print(x_train)
-x_validation = x_validation.map(add_sample_weights_val)   
+#x_validation = x_validation.map(add_sample_weights_val)   
 x_validation = x_validation.batch(BATCH)
 
 lr_base = 0.01 * (float(BATCH) / 16)
