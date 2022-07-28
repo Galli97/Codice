@@ -381,7 +381,7 @@ def add_sample_weights(image, label):
     class_weights = tf.constant([0,perc_bedrock,perc_sand,perc_bigrock,perc_soil])
     #class_weights = tf.constant([0,PIXELS/bedrock_pixels,PIXELS/sand_pixels,PIXELS/bigrock_pixels,PIXELS/soil_pixels])
     #class_weights = tf.constant([1,1,1,1,1])
-    class_weights = class_weights/tf.reduce_sum(class_weights)
+    #class_weights = class_weights/tf.reduce_sum(class_weights)
 
     # Create an image of `sample_weights` by using the label at each pixel as an 
     # index into the `class weights` .
@@ -432,7 +432,7 @@ def add_sample_weights_val(image, label):
     # The weights for each class, with the constraint that:
     #     sum(class_weights) == 1.0
     #class_weights = tf.constant([0, PIXELS/bedrock_pixels,PIXELS/sand_pixels,PIXELS/bigrock_pixels,PIXELS/soil_pixels])
-    class_weights = class_weights/tf.reduce_sum(class_weights)
+    #class_weights = class_weights/tf.reduce_sum(class_weights)
 
     # Create an image of `sample_weights` by using the label at each pixel as an 
     # index into the `class weights` .
