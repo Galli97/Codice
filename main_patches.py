@@ -215,20 +215,3 @@ model.save('model.h5')
 # plt.xlabel("epoch")
 # plt.show()
 
-# x_train=tf.keras.applications.vgg16.preprocess_input(x_train)
-# x_validation=tf.keras.applications.vgg16.preprocess_input(x_validation)
-# sample_weight = np.ones(shape=(len(label_train),64,64))
-# print(sample_weight.shape)
-# sample_weight[:,0] = 1.5
-# sample_weight[:,1] = 0.5
-# sample_weight[:,2] = 1.5
-# sample_weight[:,3] = 3.0
-# sample_weight[:,4] = 0
-
-# val_sample_weight = np.ones(shape=(len(label_validation),64,64))
-# print(val_sample_weight.shape)
-# val_sample_weight[:,0] = 1.5
-# val_sample_weight[:,1] = 0.5
-# val_sample_weight[:,2] = 1.5
-# val_sample_weight[:,3] = 3.0
-# val_sample_weight[:,4] = 0
