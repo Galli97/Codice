@@ -65,9 +65,7 @@ print('label1: ', label_list[0])
 
 ####NUMERO DI IMMAGINI NEL DATASET + IMMAGINI DOVUTE AL DATA AUGMENTATION ####
 #N = len(image_list)           
-N=700                                 #### UTILIZZARE LA RIGA SOPRA PER USARE TUTTE LE IMMAGINI A DISPOSIZIONE
-print('Augmented image list dimension')
-print(N)
+N=1200                                 #### UTILIZZARE LA RIGA SOPRA PER USARE TUTTE LE IMMAGINI A DISPOSIZIONE
 
 num_classes=5
 
@@ -104,7 +102,7 @@ count=0;
 
 # IMAGE SELECTION PROCESS #per le 64 sto a 1670-numero attuale
 print('[INFO]Generating labels array')
-for j in range (0,N):
+for j in range (700,N):
     if(count==2000):
         break
     flag_sand=False;
@@ -206,7 +204,7 @@ for j in range (0,N):
                 continue
 
             if(flag_soil==True):
-                if (counter_soil_reduce>6144):
+                if (counter_soil_reduce>14336):
                     flag_soil=False;  
                 else:
                     flag_soil=True;
