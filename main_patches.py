@@ -119,7 +119,7 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 ###### DEFINISCO IL MODELLO #######
 SHAPE=128;
 shape=(SHAPE,SHAPE,3)
-BATCH = 32
+BATCH = 64
 EPOCHS = 250
 steps = int(train_set/(EPOCHS))
 #steps = int(np.ceil(train_set/ float(BATCH)))
@@ -128,8 +128,8 @@ weight_decay = 0.0005
 batch_shape=(BATCH,SHAPE,SHAPE,3)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 tf.keras.backend.set_image_data_format('channels_last')
-model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
-#model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+#model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 input_shape = (SHAPE, SHAPE, 3)
 #model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
 
@@ -177,8 +177,8 @@ callbacks = [scheduler]
 
 
 
-#optimizer = SGD(learning_rate=lr_base, momentum=0.9)
-optimizer=keras.optimizers.Adam(learning_rate=0.001)
+optimizer = SGD(learning_rate=lr_base, momentum=0.9)
+#optimizer=keras.optimizers.Adam(learning_rate=0.001)
 loss_fn =keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics =[UpdatedMeanIoU(num_classes=5)])#,sample_weight_mode='temporal')#UpdatedMeanIoU(num_classes=5)#tf.keras.metrics.SparseCategoricalAccuracy()#MyMeanIoU(num_classes=5)#loss_weights=loss_weights#[tf.keras.metrics.SparseCategoricalAccuracy()]#[tf.keras.metrics.MeanIoU(num_classes=5)])#['accuracy'])#[sparse_accuracy_ignoring_last_label])#,sample_weight_mode='temporal')
