@@ -124,7 +124,7 @@ EPOCHS = 250
 steps = int(train_set/(EPOCHS))
 #steps = int(np.ceil(train_set/ float(BATCH)))
 steps_val = int(len(list_validation)/EPOCHS)
-weight_decay = 0.005
+weight_decay = 0.0003
 batch_shape=(BATCH,SHAPE,SHAPE,3)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 tf.keras.backend.set_image_data_format('channels_last')
