@@ -121,8 +121,8 @@ SHAPE=128;
 shape=(SHAPE,SHAPE,3)
 BATCH = 64
 EPOCHS = 250
-steps = int(train_set/(EPOCHS))
-#steps = int(np.ceil(train_set/ float(BATCH)))
+#steps = int(train_set/(EPOCHS))
+steps = int(np.ceil(train_set/ float(BATCH)))
 steps_val = int(len(list_validation)/EPOCHS)
 weight_decay = 0.0005
 batch_shape=(BATCH,SHAPE,SHAPE,3)
@@ -164,11 +164,11 @@ def lr_scheduler(epoch):
   
     # drops as progression proceeds, good for sgd
     if epoch > 0.75 * EPOCHS:
-        lr = 0.01
+        lr = 0.001*0.1*0.1
     elif epoch > 0.5 * EPOCHS:
-        lr = 0.02
+        lr = 0.001*0.1
     else:
-        lr = 0.04
+        lr = 0.001
     #print('lr: %f' % lr)
     return lr
 

@@ -35,7 +35,7 @@ tmp1 = get_np_arrays(path)          #recupero tmp1 dal file
 #print(type(tmp1))
 print(tmp1.shape)
 print('0: ',tmp1[1])
-#tmp1=tmp1[0:100]
+#tmp1=tmp1[0:500]
 F=6.10917989e+01
 print('F',F)
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
@@ -43,13 +43,39 @@ tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 print(tmp2.shape)
 print(len(tmp2))
 print('0: ',tmp2[8,:,:,0])
-#tmp2=tmp2[0:100]
+#tmp2=tmp2[0:500]
 print('tmp2: ', tmp2.shape)
 # crop_images_list = get_np_arrays(path2)          #recupero tmp1 dal file 
 # crop_labels_list = get_np_arrays(path3) 
 SHAPE=128;
 BATCH= 1
 EPOCHS=10
+
+
+# soil_count=0;
+# bedrock_count=0;
+# sand_count=0;
+# bigrock_count=0;
+# null_count=0;
+
+# for i in range (0,len(tmp2)):
+#     for r in range(0,SHAPE):
+#         for c in range (0,SHAPE):
+#             # if tmp1[i,r,c,:]!=0 and tmp2[i,r,c,:]!=2 and tmp2[i,r,c,:]!=3 and tmp2[i,r,c,:]!=4 and tmp2[i,r,c,:]!=0:
+#             #     print(tmp1[i,r,c,:])
+#             if tmp2[i,r,c,:]==4:
+#                 soil_count+=1
+#             elif tmp2[i,r,c,:]==1:
+#                 bedrock_count+=1
+#             elif tmp2[i,r,c,:]==2:
+#                 sand_count+=1
+#             elif tmp2[i,r,c,:]==3:
+#                 bigrock_count+=1
+#             elif tmp2[i,r,c,:]==0:
+#                 null_count+=1
+#             else:
+#                 print(i)
+
 
 #x_test = datagenerator(tmp1,tmp2,BATCH)
 x_test = tf.data.Dataset.from_tensor_slices((tmp1, tmp2))
@@ -81,12 +107,19 @@ print(prediction[5])
 matrix = tf.math.confusion_matrix(cm1,cm2,num_classes=5)
 print(matrix)
 
+#128 count the # of pixels
+# null_pixels =  null_count 
+# bedrock_pixels= bedrock_count 
+# sand_pixels= sand_count 
+# bigrock_pixels= bigrock_count 
+# soil_pixels= soil_count 
+
 #128 1500
 null_pixels =  9663358
-bedrock_pixels=  4869205
-sand_pixels=  3679903
+bedrock_pixels= 4869205
+sand_pixels= 3679903
 bigrock_pixels= 348196
-soil_pixels=  6015338
+soil_pixels= 6015338
 
 #128 500
 # null_pixels = 3315038 
@@ -102,9 +135,13 @@ soil_pixels=  6015338
 # bigrock_pixels = 16502
 # soil_pixels =  522872
 
-#percent = 100/np.array([[null_pixels],[bedrock_pixels],[sand_pixels],[bigrock_pixels],[soil_pixels]])
+
 matrix2 = np.array([[matrix[0]*100/null_pixels],[matrix[1]*100/bedrock_pixels], [matrix[2]*100/sand_pixels],[matrix[3]*100/bigrock_pixels], [matrix[4]*100/soil_pixels]])
 np.set_printoptions(suppress=True)
 print(matrix2.astype(float))
+
+# class_names=[0,1,2,3,4]
+# class_names=np.array(class_names)
+#conf=plot_confusion_matrix(cm1, cm2, classes=class_names, normalize=False)
 
 model.evaluate(x_test,steps=len(tmp2))
