@@ -24,8 +24,8 @@ from keras.preprocessing.image import ImageDataGenerator
 # path1 = r"/content/drive/MyDrive/Tesi/label_patches_TEST.npy"
 
 # ####### PERCORSO IN LOCALE #########
-path = r"C:\Users\Mattia\Desktop\Tentativi128\image_patches_TEST.npy"
-path1 =  r"C:\Users\Mattia\Desktop\Tentativi128\label_patches_TEST.npy"
+path = r"C:\Users\Mattia\Desktop\Tentativi128_2\image_patches_TEST.npy"
+path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\label_patches_TEST.npy"
 # path = r"C:\Users\Mattia\Desktop\Tentativi\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi\label_patches_TEST.npy"
 # path2= r"C:\Users\Mattia\Documenti\Github\Codice\cropped_images_TEST.npy"
@@ -81,13 +81,19 @@ print(prediction[5])
 matrix = tf.math.confusion_matrix(cm1,cm2,num_classes=5)
 print(matrix)
 
- 
-#128
-null_pixels = 3315038 
-bedrock_pixels =  1628395
-sand_pixels =  1241556
-bigrock_pixels =  66467
-soil_pixels =  1940544
+#128 1500
+null_pixels =  9663358
+bedrock_pixels=  4869205
+sand_pixels=  3679903
+bigrock_pixels= 348196
+soil_pixels=  6015338
+
+#128 500
+# null_pixels = 3315038 
+# bedrock_pixels =  1628395
+# sand_pixels =  1241556
+# bigrock_pixels =  66467
+# soil_pixels =  1940544
 
 #64
 # null_pixels = 831340

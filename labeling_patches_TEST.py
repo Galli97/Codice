@@ -24,8 +24,8 @@ from sklearn.feature_extraction import image
 # path1 = r"/content/drive/MyDrive/Tesi/cropped_labels_TEST.npys"
 
 # ####### PERCORSO IN LOCALE #########
-path = r"C:\Users\Mattia\Documenti\Github\Codice\cropped_images_TEST.npy"
-path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\cropped_labels_TEST.npy"
+path = r"C:\Users\Mattia\Desktop\Tentativi128\cropped_images_TEST.npy"
+path1 =  r"C:\Users\Mattia\Desktop\Tentativi128\cropped_labels_TEST.npy"
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 crop_images_list = get_np_arrays(path)          #recupero tmp1 dal file 
@@ -35,7 +35,7 @@ crop_labels_list = get_np_arrays(path1)          #recupero tmp2 dal file
 #tmp1a,tmp2a,A = augment(image_list,label_list);
 A=0;
 #N = len(crop_images_list)+A
-N=500;
+N=1500;
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI E DELLE LABEL ######
 num_classes=5
 # tmp1 = np.empty((len(crop_images_list), 64, 64, 3), dtype=np.uint8)  #Qui ho N immagini
