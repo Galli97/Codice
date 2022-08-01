@@ -123,7 +123,8 @@ BATCH = 64
 EPOCHS = 250
 #steps = int(train_set/(EPOCHS))
 steps = int(np.ceil(train_set/ float(BATCH)))
-steps_val = int(len(list_validation)/EPOCHS)
+steps_val = int(np.ceil(len(list_validation)/ float(BATCH)+1))
+#steps_val = int(len(list_validation)/EPOCHS)
 weight_decay = 0.0005
 batch_shape=(BATCH,SHAPE,SHAPE,3)
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
@@ -164,11 +165,11 @@ def lr_scheduler(epoch):
   
     # drops as progression proceeds, good for sgd
     if epoch > 0.75 * EPOCHS:
-        lr = 0.001*0.1*0.1
-    elif epoch > 0.5 * EPOCHS:
         lr = 0.001*0.1
-    else:
+    elif epoch > 0.5 * EPOCHS:
         lr = 0.001
+    else:
+        lr = 0.01
     #print('lr: %f' % lr)
     return lr
 
@@ -188,7 +189,7 @@ model.compile(optimizer = optimizer, loss = loss_fn , metrics =[UpdatedMeanIoU(n
 ### AVVIO IL TRAINING #####
 model.summary()
 # history = 
-model.fit(x = x_train,steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation,callbacks=[callbacks])#, callbacks=[cp_callback])#,callbacks=[callbacks])
+model.fit(x = x_train,steps_per_epoch=steps,epochs=EPOCHS,validation_data=x_validation, validation_steps=steps_val,callbacks=[callbacks])#, callbacks=[cp_callback])#,callbacks=[callbacks])
 model.save('model.h5')
 
 # plt.plot(history.history["loss"])
