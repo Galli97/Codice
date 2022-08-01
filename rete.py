@@ -126,7 +126,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     #x = Activation('softmax')(x)
    
     model = Model(img_input, x)
-    for layer in model.layers[:-7]:        
+    for layer in model.layers[:-9]:        
         layer.trainable = False
         print(layer.name)
 
