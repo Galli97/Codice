@@ -140,6 +140,12 @@ matrix2 = np.array([[matrix[0]*100/null_pixels],[matrix[1]*100/bedrock_pixels], 
 np.set_printoptions(suppress=True)
 print(matrix2.astype(float))
 
+I = np.diag(matrix)
+U = np.sum(matrix, axis=0) + np.sum(matrix, axis=1) - I
+IOU = I/U
+meanIOU = np.mean(IOU)
+
+print(meanIOU)
 # class_names=[0,1,2,3,4]
 # class_names=np.array(class_names)
 #conf=plot_confusion_matrix(cm1, cm2, classes=class_names, normalize=False)
