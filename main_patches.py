@@ -90,7 +90,19 @@ tmp2=np.concatenate((tmp2,tmp4))#,tmp6))#,tmp8))
 print('tmp1_new: ',tmp1.shape)
 print('tmp2_new: ',tmp2.shape)
 
+#################
+class Augment(tf.keras.layers.Layer):
+  def __init__(self, seed=42):
+    super().__init__()
+    # both use the same seed, so they'll make the same random changes.
+    self.augment_inputs = tf.keras.layers.RandomFlip(mode="horizontal", seed=seed)
+    self.augment_labels = tf.keras.layers.RandomFlip(mode="horizontal", seed=seed)
 
+  def call(self, inputs, labels):
+    inputs = self.augment_inputs(inputs)
+    labels = self.augment_labels(labels)
+    return inputs, labels
+####################
 # print(tmp1.shape)
 # print(tmp2.shape)
 # #### PRENDO UNA PARTE DEL DATASET (20%) E LO UTILIZZO PER IL VALIDATION SET #####
@@ -152,6 +164,7 @@ x_train = (
     .shuffle(BUFFER_SIZE)
     .batch(BATCH)
     .repeat(EPOCHS)                         ###Ad ogni epoch avrò un numero di batch pari ha len(dataset)/Batch_size. 
+    .map(Augment())
     .prefetch(buffer_size=tf.data.AUTOTUNE))
 x_train = x_train.map(add_sample_weights)
 
@@ -165,9 +178,9 @@ def lr_scheduler(epoch):
   
     # drops as progression proceeds, good for sgd
     if epoch > 0.75 * EPOCHS:
-        lr = 0.001
-    elif epoch > 0.5 * EPOCHS:
         lr = 0.005
+    elif epoch > 0.5 * EPOCHS:
+        lr = 0.008
     else:
         lr = 0.01
     #print('lr: %f' % lr)
