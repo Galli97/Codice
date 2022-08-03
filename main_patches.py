@@ -165,7 +165,7 @@ x_train = (
     .shuffle(BUFFER_SIZE)
     .batch(BATCH)
     .repeat(EPOCHS)                         ###Ad ogni epoch avrò un numero di batch pari ha len(dataset)/Batch_size. 
-    .map(Augment())
+    #.map(Augment())
     .prefetch(buffer_size=tf.data.AUTOTUNE))
 x_train = x_train.map(add_sample_weights)
 
@@ -179,11 +179,11 @@ def lr_scheduler(epoch):
   
     # drops as progression proceeds, good for sgd
     if epoch > 0.75 * EPOCHS:
-        lr = 0.005
-    elif epoch > 0.5 * EPOCHS:
-        lr = 0.008
-    else:
         lr = 0.01
+    elif epoch > 0.5 * EPOCHS:
+        lr = 0.02
+    else:
+        lr = 0.04
     #print('lr: %f' % lr)
     return lr
 
