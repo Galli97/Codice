@@ -218,11 +218,11 @@ from tensorflow.keras.applications import VGG16
 
 def conv_block(input, num_filters):
     x = Conv2D(num_filters, 3, padding="same")(input)
-    #x = BatchNormalization()(x)
+    x = BatchNormalization()(x)
     x = Activation("relu")(x)
 
     x = Conv2D(num_filters, 3, padding="same")(x)
-    #x = BatchNormalization()(x)
+    x = BatchNormalization()(x)
     x = Activation("relu")(x)
 
     return x
@@ -240,8 +240,8 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     """ Pre-trained VGG16 Model """
     vgg16 = VGG16(include_top=False, weights="imagenet", input_tensor=inputs)
     vgg16 = Sequential(vgg16.layers[:-8])
-    for layer in vgg16.layers:        
-        layer.trainable = False
+    # for layer in vgg16.layers:        
+    #     layer.trainable = False
     x = vgg16.output
     """ Encoder """
     s1 = vgg16.get_layer("block1_conv2").output         ## (512 x 512)
