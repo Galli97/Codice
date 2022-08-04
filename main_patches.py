@@ -38,18 +38,18 @@ session = InteractiveSession(config=config)
 # path7 = r"/content/drive/MyDrive/Tesi/Dataset64/final_labels_4.npy"
 
 #128x128
-path = r"/content/drive/MyDrive/Tesi/Dataset128/final_images.npy"
-path1 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels.npy"
-path2 = r"/content/drive/MyDrive/Tesi/Dataset128/final_images_2.npy"
-path3 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_2.npy"
-path4 = r"/content/drive/MyDrive/Tesi/Dataset128/final_images_3.npy"
-path5 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_3.npy"
+# path = r"/content/drive/MyDrive/Tesi/Dataset128/final_images.npy"
+# path1 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels.npy"
+# path2 = r"/content/drive/MyDrive/Tesi/Dataset128/final_images_2.npy"
+# path3 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_2.npy"
+# path4 = r"/content/drive/MyDrive/Tesi/Dataset128/final_images_3.npy"
+# path5 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_3.npy"
 
 #128x128_2
-# path = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images.npy"
-# path1 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels.npy"
-# path2 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images_2.npy"
-# path3 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels_2.npy"
+path = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images.npy"
+path1 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels.npy"
+path2 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images_2.npy"
+path3 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels_2.npy"
 
 # path = r"/content/drive/MyDrive/Tesi/image_patches.npy"
 # path1 = r"/content/drive/MyDrive/Tesi/label_patches.npy"
