@@ -165,10 +165,7 @@ def rete_Resnet101(img_size=None, weight_decay=0., batch_momentum=0.9, batch_sha
     #     print(layer.name)
     x = res_model.output
     
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc3', kernel_regularizer=l2(weight_decay))(x)
-    x = Dropout(0.5)(x)
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
-    x = Dropout(0.5)(x)
+    
     x = Conv2D(classes, (3, 3), dilation_rate=(2, 2), kernel_initializer='normal', activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     
     #x = Conv2D(classes, (1, 1), kernel_initializer='he_normal', activation='linear', padding='valid', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
@@ -288,7 +285,7 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     s4 = b1 
     b1_pooling = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block5_pool')(b1)
   
-    b2 = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc5', kernel_regularizer=l2(weight_decay))(b1_pooling)
+    b2 = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(8,8), name='fc5', kernel_regularizer=l2(weight_decay))(b1_pooling)
     x = Dropout(0.5)(x)
     b2 = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc6', kernel_regularizer=l2(weight_decay))(b2)
     x = Dropout(0.5)(x)
