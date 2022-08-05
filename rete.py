@@ -166,7 +166,7 @@ def rete_Resnet50(img_size=None, weight_decay=0., batch_momentum=0.9, batch_shap
    
     x = Conv2D(classes, (1, 1), kernel_initializer='he_normal', activation='linear', padding='valid', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
 
-    x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
+    x = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(x)
 
     # x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
     # x = Activation('softmax')(x)
