@@ -283,7 +283,7 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     b1 = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv2', kernel_regularizer=l2(weight_decay))(b1)
     b1 = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv3', kernel_regularizer=l2(weight_decay))(b1)         ## (32 x 32)
     s4 = b1 
-    b1_pooling = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block5_pool')(b1)
+    b1_pooling = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block4_pool')(b1)
   
     b2 = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(8,8), name='fc5', kernel_regularizer=l2(weight_decay))(b1_pooling)
     x = Dropout(0.5)(x)
@@ -301,7 +301,10 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
 
     """ Output """
     outputs = Conv2D(5, 1, padding="valid", activation="softmax",kernel_regularizer=l2(weight_decay))(d4)
-
+    
+    weights_path = os.path.expanduser('/content/drive/MyDrive/Tesi/vgg16_weights_tf_dim_ordering_tf_kernels.h5')
+    #weights_path = os.path.expanduser('./vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5')
+    model.load_weights(weights_path,by_name=True)
     model = Model(inputs, outputs, name="VGG16_U-Net")
     return model
 
