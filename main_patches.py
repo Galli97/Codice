@@ -46,17 +46,19 @@ session = InteractiveSession(config=config)
 # path5 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_3.npy"
 
 #128x128_2
-path = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images.npy"
-path1 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels.npy"
-path2 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images_2.npy"
-path3 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels_2.npy"
+# path = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images.npy"
+# path1 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels.npy"
+# path2 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images_2.npy"
+# path3 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels_2.npy"
 
 # path = r"/content/drive/MyDrive/Tesi/image_patches.npy"
 # path1 = r"/content/drive/MyDrive/Tesi/label_patches.npy"
 
 # ####### PERCORSO IN LOCALE #########
-# path = r"C:\Users\Mattia\Documenti\Github\Codice\final_images.npy"
-# path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\final_labels.npy"
+path = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images.npy"
+path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_labels.npy"
+path2 = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images_2.npy"
+path3 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_labels_2.npy"
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
@@ -150,7 +152,7 @@ tf.keras.backend.set_image_data_format('channels_last')
 #model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
 #model = DeeplabV3Plus(image_size=128, num_classes=5)
 model = rete_Resnet50(img_size=128,weight_decay=weight_decay,batch_shape=None, classes=5)
-
+model = AtrousFCN_Resnet50_16s(input_shape = shape, weight_decay=weight_decay, batch_momentum=0.9, batch_shape=None, classes=5):
 
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######
 # x_train = datagenerator(list_train,label_train,BATCH)

@@ -160,11 +160,14 @@ def rete_Resnet50(img_size=None, weight_decay=0., batch_momentum=0.9, batch_shap
     res_model = ResNet50(weights='imagenet',include_top=False,input_tensor=model_input)
 
     #res_model = Sequential(res_model.layers[:-4])
-    # for layer in res_model.layers:#[:-4]:        
-    #     layer.trainable = False
+    for layer in res_model.layers[:-4]:        
+        layer.trainable = False
+        print(layer.name)
     x = res_model.output
-   
-    x = Conv2D(classes, (1, 1), kernel_initializer='he_normal', activation='linear', padding='valid', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    
+    x = Conv2D(classes, (3, 3), dilation_rate=(2, 2), kernel_initializer='normal', activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    
+    #x = Conv2D(classes, (1, 1), kernel_initializer='he_normal', activation='linear', padding='valid', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
 
     x = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(x)
 
@@ -306,67 +309,46 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
 #     model.summary()
 
 
-def convolution_block(
-    block_input,
-    num_filters=256,
-    kernel_size=3,
-    dilation_rate=1,
-    padding="same",
-    use_bias=False,
-):
-    x = layers.Conv2D(
-        num_filters,
-        kernel_size=kernel_size,
-        dilation_rate=dilation_rate,
-        padding="same",
-        use_bias=use_bias,
-        kernel_initializer=keras.initializers.HeNormal(),
-    )(block_input)
-    x = layers.BatchNormalization()(x)
-    return tf.nn.relu(x)
+def AtrousFCN_Resnet50_16s(input_shape = None, weight_decay=0., batch_momentum=0.9, batch_shape=None, classes=5):
+    if batch_shape:
+        img_input = Input(batch_shape=batch_shape)
+        image_size = batch_shape[1:3]
+    else:
+        img_input = Input(shape=input_shape)
+        image_size = input_shape[0:2]
 
+    bn_axis = 3
 
-def DilatedSpatialPyramidPooling(dspp_input):
-    dims = dspp_input.shape
-    x = layers.AveragePooling2D(pool_size=(dims[-3], dims[-2]))(dspp_input)
-    x = convolution_block(x, kernel_size=1, use_bias=True)
-    out_pool = layers.UpSampling2D(
-        size=(dims[-3] // x.shape[1], dims[-2] // x.shape[2]), interpolation="bilinear",
-    )(x)
+    x = Conv2D(64, (7, 7), strides=(2, 2), padding='same', name='conv1', kernel_regularizer=l2(weight_decay))(img_input)
+    x = BatchNormalization(axis=bn_axis, name='bn_conv1', momentum=batch_momentum)(x)
+    x = Activation('relu')(x)
+    x = MaxPooling2D((3, 3), strides=(2, 2))(x)
 
-    out_1 = convolution_block(dspp_input, kernel_size=1, dilation_rate=1)
-    out_6 = convolution_block(dspp_input, kernel_size=3, dilation_rate=6)
-    out_12 = convolution_block(dspp_input, kernel_size=3, dilation_rate=12)
-    out_18 = convolution_block(dspp_input, kernel_size=3, dilation_rate=18)
+    x = conv_block(3, [64, 64, 256], stage=2, block='a', weight_decay=weight_decay, strides=(1, 1), batch_momentum=batch_momentum)(x)
+    x = identity_block(3, [64, 64, 256], stage=2, block='b', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
+    x = identity_block(3, [64, 64, 256], stage=2, block='c', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
 
-    x = layers.Concatenate(axis=-1)([out_pool, out_1, out_6, out_12, out_18])
-    output = convolution_block(x, kernel_size=1)
-    return output
+    x = conv_block(3, [128, 128, 512], stage=3, block='a', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
+    x = identity_block(3, [128, 128, 512], stage=3, block='b', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
+    x = identity_block(3, [128, 128, 512], stage=3, block='c', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
+    x = identity_block(3, [128, 128, 512], stage=3, block='d', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
 
+    x = conv_block(3, [256, 256, 1024], stage=4, block='a', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
+    x = identity_block(3, [256, 256, 1024], stage=4, block='b', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
+    x = identity_block(3, [256, 256, 1024], stage=4, block='c', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
+    x = identity_block(3, [256, 256, 1024], stage=4, block='d', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
+    x = identity_block(3, [256, 256, 1024], stage=4, block='e', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
+    x = identity_block(3, [256, 256, 1024], stage=4, block='f', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
 
-def DeeplabV3Plus(image_size, num_classes):
-    model_input = keras.Input(shape=(image_size, image_size, 3))
-    resnet50 = ResNet50(
-        weights="imagenet", include_top=False, input_tensor=model_input
-    )
-    x = resnet50.get_layer("conv4_block6_2_relu").output
-    x = DilatedSpatialPyramidPooling(x)
+    x = atrous_conv_block(3, [512, 512, 2048], stage=5, block='a', weight_decay=weight_decay, atrous_rate=(2, 2), batch_momentum=batch_momentum)(x)
+    x = atrous_identity_block(3, [512, 512, 2048], stage=5, block='b', weight_decay=weight_decay, atrous_rate=(2, 2), batch_momentum=batch_momentum)(x)
+    x = atrous_identity_block(3, [512, 512, 2048], stage=5, block='c', weight_decay=weight_decay, atrous_rate=(2, 2), batch_momentum=batch_momentum)(x)
+    #classifying layer
+    #x = Conv2D(classes, (3, 3), dilation_rate=(2, 2), kernel_initializer='normal', activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(classes, (1, 1), kernel_initializer='he_normal', activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    x = BilinearUpSampling2D(target_size=tuple(image_size))(x)
 
-    input_a = layers.UpSampling2D(
-        size=(image_size // 4 // x.shape[1], image_size // 4 // x.shape[2]),
-        interpolation="bilinear",
-    )(x)
-    input_b = resnet50.get_layer("conv2_block3_2_relu").output
-    input_b = convolution_block(input_b, num_filters=48, kernel_size=1)
-
-    x = layers.Concatenate(axis=-1)([input_a, input_b])
-    x = convolution_block(x)
-    x = convolution_block(x)
-    x = layers.UpSampling2D(
-        size=(image_size // x.shape[1], image_size // x.shape[2]),
-        interpolation="bilinear",
-    )(x)
-    model_output = layers.Conv2D(num_classes, kernel_size=(1, 1), padding="same")(x)
-    return keras.Model(inputs=model_input, outputs=model_output)
-
-
+    model = Model(img_input, x)
+    weights_path = os.path.expanduser(os.path.join('~', '.keras/models/fcn_resnet50_weights_tf_dim_ordering_tf_kernels.h5'))
+    model.load_weights(weights_path, by_name=True)
+    return model
