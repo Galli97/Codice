@@ -46,19 +46,19 @@ session = InteractiveSession(config=config)
 # path5 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_3.npy"
 
 #128x128_2
-# path = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images.npy"
-# path1 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels.npy"
-# path2 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images_2.npy"
-# path3 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels_2.npy"
+path = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images.npy"
+path1 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels.npy"
+path2 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images_2.npy"
+path3 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels_2.npy"
 
 # path = r"/content/drive/MyDrive/Tesi/image_patches.npy"
 # path1 = r"/content/drive/MyDrive/Tesi/label_patches.npy"
 
 # ####### PERCORSO IN LOCALE #########
-path = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images.npy"
-path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_labels.npy"
-path2 = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images_2.npy"
-path3 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_labels_2.npy"
+# path = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_labels.npy"
+# path2 = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images_2.npy"
+# path3 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_labels_2.npy"
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
