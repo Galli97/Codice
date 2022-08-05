@@ -159,9 +159,9 @@ def rete_Resnet50(img_size=None, weight_decay=0., batch_momentum=0.9, batch_shap
 
     res_model = ResNet50(weights='imagenet',include_top=False,input_tensor=model_input)
 
-    res_model = Sequential(res_model.layers[:-4])
-    for layer in res_model.layers:#[:-4]:        
-        layer.trainable = False
+    #res_model = Sequential(res_model.layers[:-4])
+    # for layer in res_model.layers:#[:-4]:        
+    #     layer.trainable = False
     x = res_model.output
    
     x = Conv2D(classes, (1, 1), kernel_initializer='he_normal', activation='linear', padding='valid', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
