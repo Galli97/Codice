@@ -155,7 +155,9 @@ def get_weights_path_vgg16():
 
 def rete_Resnet50(img_size=None, weight_decay=0., batch_momentum=0.9, batch_shape=None, classes=5):
     
-    res_model = ResNet50(input_shape=img_size, weights='imagenet',include_top=False)
+    model_input = keras.Input(shape=(img_size, img_size, 3))
+
+    res_model = ResNet50(weights='imagenet',include_top=False,input_tensor=model_input)
 
     res_model = Sequential(res_model.layers[:-4])
     for layer in res_model.layers:#[:-4]:        
