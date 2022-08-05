@@ -46,13 +46,13 @@ session = InteractiveSession(config=config)
 # path5 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_3.npy"
 
 #128x128_2
-path = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images.npy"
-path1 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels.npy"
-path2 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images_2.npy"
-path3 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels_2.npy"
+# path = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images.npy"
+# path1 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels.npy"
+# path2 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images_2.npy"
+# path3 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels_2.npy"
 
-# path = r"/content/drive/MyDrive/Tesi/image_patches.npy"
-# path1 = r"/content/drive/MyDrive/Tesi/label_patches.npy"
+path = r"/content/drive/MyDrive/Tesi/Dataset512/image_patches512.npy"
+path1 = r"/content/drive/MyDrive/Tesi/Dataset512/label_patches512.npy"
 
 # ####### PERCORSO IN LOCALE #########
 # path = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images.npy"
@@ -67,11 +67,11 @@ print('tmp1: ',tmp1.shape)
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 print('tmp2: ',tmp2.shape)
 
-tmp3 = get_np_arrays(path2)          #recupero tmp1 dal file 
-print('tmp3: ',tmp3.shape)
+# tmp3 = get_np_arrays(path2)          #recupero tmp1 dal file 
+# print('tmp3: ',tmp3.shape)
 
-tmp4 = get_np_arrays(path3)          #recupero tmp2 dal file
-print('tmp4: ',tmp4.shape)
+# tmp4 = get_np_arrays(path3)          #recupero tmp2 dal file
+# print('tmp4: ',tmp4.shape)
 
 # tmp5 = get_np_arrays(path4)          #recupero tmp1 dal file 
 # print('tmp5: ',tmp5.shape)
@@ -86,11 +86,11 @@ print('tmp4: ',tmp4.shape)
 # print('tmp6: ',tmp8.shape)
 
 
-tmp1=np.concatenate((tmp1,tmp3))#,tmp5))#,tmp7))
-tmp2=np.concatenate((tmp2,tmp4))#,tmp6))#,tmp8))
+# tmp1=np.concatenate((tmp1,tmp3))#,tmp5))#,tmp7))
+# tmp2=np.concatenate((tmp2,tmp4))#,tmp6))#,tmp8))
 
-print('tmp1_new: ',tmp1.shape)
-print('tmp2_new: ',tmp2.shape)
+# print('tmp1_new: ',tmp1.shape)
+# print('tmp2_new: ',tmp2.shape)
 
 #################
 class Augment(tf.keras.layers.Layer):
@@ -132,7 +132,7 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 
 
 ###### DEFINISCO IL MODELLO #######
-SHAPE=128;
+SHAPE=512;
 shape=(SHAPE,SHAPE,3)
 BATCH = 64
 EPOCHS = 250
@@ -150,7 +150,6 @@ tf.keras.backend.set_image_data_format('channels_last')
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
-#model = DeeplabV3Plus(image_size=128, num_classes=5)
 #model = rete_Resnet50(img_size=128,weight_decay=weight_decay,batch_shape=None, classes=5)
 model = AtrousFCN_Resnet50_16s(input_shape = shape, weight_decay=weight_decay, batch_momentum=0.9, batch_shape=None, classes=5)
 
