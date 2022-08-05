@@ -241,7 +241,7 @@ from tensorflow.keras.layers import Conv2D, BatchNormalization, Activation, MaxP
 from tensorflow.keras.models import Model
 from tensorflow.keras.applications import VGG16
 
-def conv_block(input, num_filters):
+def conv_block_g(input, num_filters):
     x = Conv2D(num_filters, 3, padding="same")(input)
     x = BatchNormalization()(x)
     x = Activation("relu")(x)
@@ -255,7 +255,7 @@ def conv_block(input, num_filters):
 def decoder_block(input, skip_features, num_filters):
     x = Conv2DTranspose(num_filters, (2, 2), strides=2, padding="same")(input)
     x = Concatenate()([x, skip_features])
-    x = conv_block(x, num_filters)
+    x = conv_block_g(x, num_filters)
     return x
 
 def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
