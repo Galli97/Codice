@@ -51,8 +51,8 @@ session = InteractiveSession(config=config)
 # path2 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images_2.npy"
 # path3 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels_2.npy"
 
-path = r"/content/drive/MyDrive/Tesi/Dataset512/image_patches512.npy"
-path1 = r"/content/drive/MyDrive/Tesi/Dataset512/label_patches512.npy"
+path = r"/content/drive/MyDrive/Tesi/Dataset256/final_images.npy"
+path1 = r"/content/drive/MyDrive/Tesi/Dataset256/final_labels.npy"
 
 # ####### PERCORSO IN LOCALE #########
 # path = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images.npy"
@@ -132,7 +132,7 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 
 
 ###### DEFINISCO IL MODELLO #######
-SHAPE=512;
+SHAPE=256;
 shape=(SHAPE,SHAPE,3)
 BATCH = 64
 EPOCHS = 250
