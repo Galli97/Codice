@@ -157,7 +157,7 @@ def rete_Resnet101(img_size=None, weight_decay=0., batch_momentum=0.9, batch_sha
     
     model_input = keras.Input(shape=(img_size, img_size, 3))
 
-    res_model = tensorflow.keras.applications.resnet.ResNet101(weights='imagenet',include_top=False,input_tensor=model_input)
+    res_model = tf.keras.applications.resnet.ResNet101(weights='imagenet',include_top=False,input_tensor=model_input)
 
     #res_model = Sequential(res_model.layers[:-4])
     # for layer in res_model.layers[:-4]:        
