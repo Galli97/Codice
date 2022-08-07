@@ -267,8 +267,8 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     """ Pre-trained VGG16 Model """
     vgg16 = VGG16(include_top=False, weights="imagenet", input_tensor=inputs)
     vgg16 = Sequential(vgg16.layers[:-8])
-    # for layer in vgg16.layers:        
-    #     layer.trainable = False
+    for layer in vgg16.layers:        
+        layer.trainable = False
     x = vgg16.output
     """ Encoder """
     s1 = vgg16.get_layer("block1_conv2").output         ## (512 x 512)
