@@ -285,7 +285,7 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     s4 = b1 
     b1_pooling = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block4_pool')(b1)
   
-    b2 = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(8,8), name='fc5', kernel_regularizer=l2(weight_decay))(b1_pooling)
+    b2 = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(6,6), name='fc5', kernel_regularizer=l2(weight_decay))(b1_pooling)
     x = Dropout(0.5)(x)
     b2 = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc6', kernel_regularizer=l2(weight_decay))(b2)
     x = Dropout(0.5)(x)
