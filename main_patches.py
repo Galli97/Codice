@@ -46,13 +46,16 @@ session = InteractiveSession(config=config)
 # path5 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_3.npy"
 
 #128x128_2
-path = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images.npy"
-path1 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels.npy"
-path2 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images_2.npy"
-path3 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels_2.npy"
+# path = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images.npy"
+# path1 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels.npy"
+# path2 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images_2.npy"
+# path3 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels_2.npy"
 
 # path = r"/content/drive/MyDrive/Tesi/Dataset256/final_images.npy"
 # path1 = r"/content/drive/MyDrive/Tesi/Dataset256/final_labels.npy"
+
+path = r"/content/drive/MyDrive/Tesi/Dataset512/final_images.npy"
+path1 = r"/content/drive/MyDrive/Tesi/Dataset512/final_labels.npy"
 
 # ####### PERCORSO IN LOCALE #########
 # path = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images.npy"
@@ -132,13 +135,13 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 
 
 ###### DEFINISCO IL MODELLO #######
-SHAPE=128;
+SHAPE=512;
 shape=(SHAPE,SHAPE,3)
 BATCH = 64
-EPOCHS = 250
+EPOCHS = 100
 #steps = int(train_set/(EPOCHS))
 steps = int(np.ceil(train_set/ float(BATCH)))
-weight_decay = 0.0005
+weight_decay = 0.00005#0.0005
 
 steps_val = int(np.ceil(len(list_validation)/ float(BATCH)+1))
 #steps_val = int(len(list_validation)/EPOCHS)
@@ -149,9 +152,9 @@ tf.keras.backend.set_image_data_format('channels_last')
 
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
-model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
+#model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
 #model = rete_Resnet101(img_size=128,weight_decay=weight_decay,batch_shape=None, classes=5)
-#model = AtrousFCN_Resnet50_16s(input_shape = shape, weight_decay=weight_decay, batch_momentum=0.9, batch_shape=None, classes=5)
+model = AtrousFCN_Resnet50_16s(input_shape = shape, weight_decay=weight_decay, batch_momentum=0.9, batch_shape=None, classes=5)
 
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######
 # x_train = datagenerator(list_train,label_train,BATCH)
@@ -187,9 +190,9 @@ def lr_scheduler(epoch):
     if epoch > 0.75 * EPOCHS:
         lr = 0.001
     elif epoch > 0.5 * EPOCHS:
-        lr = 0.005
-    else:
         lr = 0.01
+    else:
+        lr = 0.02
     #print('lr: %f' % lr)
     return lr
 
