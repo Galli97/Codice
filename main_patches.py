@@ -65,9 +65,11 @@ path1 = r"/content/drive/MyDrive/Tesi/Dataset512/final_labels.npy"
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
+tmp1=tmp1[:50]
 print('tmp1: ',tmp1.shape)
 
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
+tmp2=tmp2[:50]
 print('tmp2: ',tmp2.shape)
 
 # tmp3 = get_np_arrays(path2)          #recupero tmp1 dal file 
