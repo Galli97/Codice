@@ -20,8 +20,8 @@ from tensorflow.compat.v1 import ConfigProto
 from tensorflow.compat.v1 import InteractiveSession
 from keras.preprocessing.image import ImageDataGenerator
 
-os.environ['TF_GPU_ALLOCATOR'] = 'cuda_malloc_async'
-print(os.getenv('TF_GPU_ALLOCATOR'))
+# os.environ['TF_GPU_ALLOCATOR'] = 'cuda_malloc_async'
+# print(os.getenv('TF_GPU_ALLOCATOR'))
 
 config = ConfigProto()
 config.gpu_options.allow_growth=True
@@ -46,16 +46,13 @@ session = InteractiveSession(config=config)
 # path5 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_3.npy"
 
 #128x128_2
-# path = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images.npy"
-# path1 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels.npy"
-# path2 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images_2.npy"
-# path3 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels_2.npy"
+path = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images.npy"
+path1 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels.npy"
+path2 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images_2.npy"
+path3 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels_2.npy"
 
 # path = r"/content/drive/MyDrive/Tesi/Dataset256/final_images.npy"
 # path1 = r"/content/drive/MyDrive/Tesi/Dataset256/final_labels.npy"
-
-path = r"/content/drive/MyDrive/Tesi/Dataset512/final_images.npy"
-path1 = r"/content/drive/MyDrive/Tesi/Dataset512/final_labels.npy"
 
 # ####### PERCORSO IN LOCALE #########
 # path = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images.npy"
@@ -65,18 +62,16 @@ path1 = r"/content/drive/MyDrive/Tesi/Dataset512/final_labels.npy"
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
-tmp1=tmp1[:50]
 print('tmp1: ',tmp1.shape)
 
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
-tmp2=tmp2[:50]
 print('tmp2: ',tmp2.shape)
 
-# tmp3 = get_np_arrays(path2)          #recupero tmp1 dal file 
-# print('tmp3: ',tmp3.shape)
+tmp3 = get_np_arrays(path2)          #recupero tmp1 dal file 
+print('tmp3: ',tmp3.shape)
 
-# tmp4 = get_np_arrays(path3)          #recupero tmp2 dal file
-# print('tmp4: ',tmp4.shape)
+tmp4 = get_np_arrays(path3)          #recupero tmp2 dal file
+print('tmp4: ',tmp4.shape)
 
 # tmp5 = get_np_arrays(path4)          #recupero tmp1 dal file 
 # print('tmp5: ',tmp5.shape)
@@ -91,11 +86,11 @@ print('tmp2: ',tmp2.shape)
 # print('tmp6: ',tmp8.shape)
 
 
-# tmp1=np.concatenate((tmp1,tmp3))#,tmp5))#,tmp7))
-# tmp2=np.concatenate((tmp2,tmp4))#,tmp6))#,tmp8))
+tmp1=np.concatenate((tmp1,tmp3))#,tmp5))#,tmp7))
+tmp2=np.concatenate((tmp2,tmp4))#,tmp6))#,tmp8))
 
-# print('tmp1_new: ',tmp1.shape)
-# print('tmp2_new: ',tmp2.shape)
+print('tmp1_new: ',tmp1.shape)
+print('tmp2_new: ',tmp2.shape)
 
 #################
 class Augment(tf.keras.layers.Layer):
@@ -137,13 +132,13 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 
 
 ###### DEFINISCO IL MODELLO #######
-SHAPE=512;
+SHAPE=128;
 shape=(SHAPE,SHAPE,3)
 BATCH = 64
-EPOCHS = 100
+EPOCHS = 250
 #steps = int(train_set/(EPOCHS))
 steps = int(np.ceil(train_set/ float(BATCH)))
-weight_decay = 0.00005#0.0005
+weight_decay = 0.0005
 
 steps_val = int(np.ceil(len(list_validation)/ float(BATCH)+1))
 #steps_val = int(len(list_validation)/EPOCHS)
@@ -154,9 +149,9 @@ tf.keras.backend.set_image_data_format('channels_last')
 
 #model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
-#model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
+model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
 #model = rete_Resnet101(img_size=128,weight_decay=weight_decay,batch_shape=None, classes=5)
-model = AtrousFCN_Resnet50_16s(input_shape = shape, weight_decay=weight_decay, batch_momentum=0.9, batch_shape=None, classes=5)
+#model = AtrousFCN_Resnet50_16s(input_shape = shape, weight_decay=weight_decay, batch_momentum=0.9, batch_shape=None, classes=5)
 
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######
 # x_train = datagenerator(list_train,label_train,BATCH)
@@ -192,9 +187,9 @@ def lr_scheduler(epoch):
     if epoch > 0.75 * EPOCHS:
         lr = 0.001
     elif epoch > 0.5 * EPOCHS:
-        lr = 0.01
+        lr = 0.005
     else:
-        lr = 0.02
+        lr = 0.01
     #print('lr: %f' % lr)
     return lr
 
