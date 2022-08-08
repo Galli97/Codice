@@ -286,11 +286,11 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     b1_pooling = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block4_pool')(b1)
   
     b2 = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(8,8), name='fc5', kernel_regularizer=l2(weight_decay))(b1_pooling)
-    x = Dropout(0.5)(x)
+    b2 = Dropout(0.5)(b2)
     b2 = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc6', kernel_regularizer=l2(weight_decay))(b2)
-    x = Dropout(0.5)(x)
+    b2 = Dropout(0.5)(b2)
     b3 = Conv2D(classes, (3, 3), activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(b2)
-    #x = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(x)
+    #b3 = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(b3)
     
     
     """ Decoder """
@@ -346,9 +346,9 @@ def AtrousFCN_Resnet50_16s(input_shape = None, weight_decay=0., batch_momentum=0
     x = identity_block(3, [256, 256, 1024], stage=4, block='e', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
     x = identity_block(3, [256, 256, 1024], stage=4, block='f', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
 
-    x = atrous_conv_block(3, [512, 512, 2048], stage=5, block='a', weight_decay=weight_decay, atrous_rate=(6, 6), batch_momentum=batch_momentum)(x)
-    x = atrous_identity_block(3, [512, 512, 2048], stage=5, block='b', weight_decay=weight_decay, atrous_rate=(8, 8), batch_momentum=batch_momentum)(x)
-    x = atrous_identity_block(3, [512, 512, 2048], stage=5, block='c', weight_decay=weight_decay, atrous_rate=(12, 12), batch_momentum=batch_momentum)(x)
+    x = atrous_conv_block(3, [512, 512, 2048], stage=5, block='a', weight_decay=weight_decay, atrous_rate=(2, 2), batch_momentum=batch_momentum)(x)
+    x = atrous_identity_block(3, [512, 512, 2048], stage=5, block='b', weight_decay=weight_decay, atrous_rate=(12, 12), batch_momentum=batch_momentum)(x)
+    x = atrous_identity_block(3, [512, 512, 2048], stage=5, block='c', weight_decay=weight_decay, atrous_rate=(2, 2), batch_momentum=batch_momentum)(x)
     #classifying layer
     x = Conv2D(classes, (3, 3), kernel_initializer='normal', activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     #x = Conv2D(classes, (1, 1), kernel_initializer='he_normal', activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
