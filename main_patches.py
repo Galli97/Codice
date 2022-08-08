@@ -20,8 +20,8 @@ from tensorflow.compat.v1 import ConfigProto
 from tensorflow.compat.v1 import InteractiveSession
 from keras.preprocessing.image import ImageDataGenerator
 
-# os.environ['TF_GPU_ALLOCATOR'] = 'cuda_malloc_async'
-# print(os.getenv('TF_GPU_ALLOCATOR'))
+os.environ['TF_GPU_ALLOCATOR'] = 'cuda_malloc_async'
+print(os.getenv('TF_GPU_ALLOCATOR'))
 
 config = ConfigProto()
 config.gpu_options.allow_growth=True
