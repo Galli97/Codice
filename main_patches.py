@@ -138,7 +138,7 @@ BATCH = 32
 EPOCHS = 250
 #steps = int(train_set/(EPOCHS))
 steps = int(np.ceil(train_set/ float(BATCH)))
-weight_decay = 0.00005
+weight_decay = 0.0005
 
 steps_val = int(np.ceil(len(list_validation)/ float(BATCH)+1))
 #steps_val = int(len(list_validation)/EPOCHS)
@@ -151,7 +151,7 @@ tf.keras.backend.set_image_data_format('channels_last')
 #model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
 #model = rete_Resnet101(img_size=128,weight_decay=weight_decay,batch_shape=None, classes=5)
-model = AtrousFCN_Resnet50_16s(input_shape = shape, weight_decay=weight_decay, batch_momentum=0.9, batch_shape=None, classes=5)
+model = AtrousFCN_Resnet50_16s(input_shape = shape, weight_decay=weight_decay, batch_momentum=0.95, batch_shape=None, classes=5)
 
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######
 # x_train = datagenerator(list_train,label_train,BATCH)
@@ -187,9 +187,9 @@ def lr_scheduler(epoch):
     if epoch > 0.75 * EPOCHS:
         lr = 0.001
     elif epoch > 0.5 * EPOCHS:
-        lr = 0.005
+        lr = 0.002
     else:
-        lr = 0.01
+        lr = 0.005
     #print('lr: %f' % lr)
     return lr
 
