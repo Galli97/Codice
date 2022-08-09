@@ -350,8 +350,8 @@ def AtrousFCN_Resnet50_16s(input_shape = None, weight_decay=0., batch_momentum=0
     x = atrous_identity_block(3, [512, 512, 2048], stage=5, block='b', weight_decay=weight_decay, atrous_rate=(8, 8), batch_momentum=batch_momentum)(x)
     x = atrous_identity_block(3, [512, 512, 2048], stage=5, block='c', weight_decay=weight_decay, atrous_rate=(2, 2), batch_momentum=batch_momentum)(x)
     #classifying layer
-    #x = Conv2D(classes, (3, 3), kernel_initializer='normal',dilation_rate=(2,2), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
-    x = Conv2D(classes, (1, 1), kernel_initializer='he_normal', activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(classes, (3, 3), kernel_initializer='normal',dilation_rate=(2,2), activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    #x = Conv2D(classes, (1, 1), kernel_initializer='he_normal', activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
     
     x = Activation('softmax')(x)
