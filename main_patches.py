@@ -195,7 +195,7 @@ def lr_scheduler(epoch):
 
 scheduler = LearningRateScheduler(lr_scheduler)
 callbacks = [scheduler]
-callbacks.append(tf.keras.callbacks.EarlyStopping(monitor='val_updated_mean_io_u', min_delta=0.001,verbose=1,mode="max",restore_best_weights=False, patience=20))
+callbacks.append(tf.keras.callbacks.EarlyStopping(monitor='val_updated_mean_io_u', min_delta=0.0001,verbose=1,mode="max",restore_best_weights=False, patience=20))
 
 
 optimizer = SGD(learning_rate=lr_base, momentum=0.9)
