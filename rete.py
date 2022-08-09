@@ -122,9 +122,9 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     
     x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
 
-    #x = Conv2D(classes, 1,strides=(1, 1), activation='softmax', padding='valid',kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(classes, 1,strides=(1, 1), activation='softmax', padding='valid',kernel_regularizer=l2(weight_decay))(x)
     
-    x = Activation('softmax')(x)
+    #x = Activation('softmax')(x)
    
     model = Model(img_input, x)
     # for layer in model.layers[:-15]:        
