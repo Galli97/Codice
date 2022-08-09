@@ -117,7 +117,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     x = Dropout(0.5)(x)
     x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
     x = Dropout(0.5)(x)
-    x = Conv2D(classes, (3, 3),  kernel_initializer='normal',dilation_rate=(2,2), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(classes, (3, 3),  kernel_initializer='normal',dilation_rate=(2,2), activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     #x = Conv2D(classes, (1, 1),kernel_initializer='he_normal', activation='linear', padding='valid', kernel_regularizer=l2(weight_decay))(x)
     
     x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
@@ -289,7 +289,7 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     b2 = Dropout(0.5)(b2)
     b2 = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc6', kernel_regularizer=l2(weight_decay))(b2)
     b2 = Dropout(0.5)(b2)
-    b3 = Conv2D(classes, (3, 3),  kernel_initializer='normal',dilation_rate=(2,2), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(b2)
+    b3 = Conv2D(classes, (3, 3),  kernel_initializer='normal',dilation_rate=(2,2), activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(b2)
     #b3 = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(b3)
     
     
@@ -350,7 +350,7 @@ def AtrousFCN_Resnet50_16s(input_shape = None, weight_decay=0., batch_momentum=0
     x = atrous_identity_block(3, [512, 512, 2048], stage=5, block='b', weight_decay=weight_decay, atrous_rate=(8, 8), batch_momentum=batch_momentum)(x)
     x = atrous_identity_block(3, [512, 512, 2048], stage=5, block='c', weight_decay=weight_decay, atrous_rate=(2, 2), batch_momentum=batch_momentum)(x)
     #classifying layer
-    x = Conv2D(classes, (3, 3), kernel_initializer='normal',dilation_rate=(2,2), activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(classes, (3, 3), kernel_initializer='normal',dilation_rate=(2,2), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     #x = Conv2D(classes, (1, 1), kernel_initializer='he_normal', activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
     
