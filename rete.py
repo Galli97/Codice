@@ -127,9 +127,9 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     x = Activation('softmax')(x)
    
     model = Model(img_input, x)
-    for layer in model.layers[:-15]:        
+    for layer in model.layers[:-9]:        
         layer.trainable = False
-    #     print(layer.name)
+        print(layer.name)
 
     weights_path = os.path.expanduser('/content/drive/MyDrive/Tesi/vgg16_weights_tf_dim_ordering_tf_kernels.h5')
     #weights_path = os.path.expanduser('./vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5')
