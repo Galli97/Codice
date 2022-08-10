@@ -140,7 +140,7 @@ EPOCHS = 250
 steps = int(np.ceil(train_set/ float(BATCH)))
 weight_decay = 0.0005
 
-steps_val = int(np.ceil(len(list_validation)/ float(BATCH)+1))
+#steps_val = int(np.ceil(len(list_validation)/ float(BATCH)+1))
 #steps_val = int(len(list_validation)/EPOCHS)
 
 batch_shape=(BATCH,SHAPE,SHAPE,3)
