@@ -134,7 +134,7 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 ###### DEFINISCO IL MODELLO #######
 SHAPE=128;
 shape=(SHAPE,SHAPE,3)
-BATCH = 32
+BATCH = 64
 EPOCHS = 250 
 #steps = int(train_set/(EPOCHS))
 steps = int(np.ceil(train_set/ float(BATCH)))
@@ -147,9 +147,9 @@ batch_shape=(BATCH,SHAPE,SHAPE,3)
 input_shape = (SHAPE, SHAPE, 3)
 tf.keras.backend.set_image_data_format('channels_last')
 
-model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+#model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
-#model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
+model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
 #model = rete_Resnet101(img_size=128,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = AtrousFCN_Resnet50_16s(input_shape = shape, weight_decay=weight_decay, batch_momentum=0.95, batch_shape=None, classes=5)
 
@@ -185,11 +185,11 @@ def lr_scheduler(epoch):
   
     # drops as progression proceeds, good for sgd
     if epoch > 0.75 * EPOCHS:
-        lr = 0.0001
-    elif epoch > 0.5 * EPOCHS:
-        lr = 0.0005
-    else:
         lr = 0.001
+    elif epoch > 0.5 * EPOCHS:
+        lr = 0.005
+    else:
+        lr = 0.01
     #print('lr: %f' % lr)
     return lr
 
