@@ -184,9 +184,9 @@ lr_base = 0.01 * (float(BATCH) / 16)
 def lr_scheduler(epoch):
   
     # drops as progression proceeds, good for sgd
-    if epoch > 0.75 * EPOCHS:
+    if epoch > 0.7 * EPOCHS:
         lr = 0.001
-    elif epoch > 0.5 * EPOCHS:
+    elif epoch > 0.3 * EPOCHS:
         lr = 0.005
     else:
         lr = 0.01
