@@ -134,8 +134,8 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 ###### DEFINISCO IL MODELLO #######
 SHAPE=128;
 shape=(SHAPE,SHAPE,3)
-BATCH = 16
-EPOCHS = 100 
+BATCH = 32
+EPOCHS = 250 
 #steps = int(train_set/(EPOCHS))
 steps = int(np.ceil(train_set/ float(BATCH)))
 weight_decay = 0.0005
@@ -185,11 +185,11 @@ def lr_scheduler(epoch):
   
     # drops as progression proceeds, good for sgd
     if epoch > 0.7 * EPOCHS:
-        lr = 0.0001
-    elif epoch > 0.3 * EPOCHS:
-        lr = 0.0005
-    else:
         lr = 0.001
+    elif epoch > 0.3 * EPOCHS:
+        lr = 0.005
+    else:
+        lr = 0.01
     #print('lr: %f' % lr)
     return lr
 
