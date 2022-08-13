@@ -160,13 +160,13 @@ def rete_Resnet101(img_size=None, weight_decay=0., batch_momentum=0.9, batch_sha
     res_model = tf.keras.applications.resnet.ResNet101(weights='imagenet',include_top=False,input_tensor=model_input)
 
     #res_model = Sequential(res_model.layers[:-4])
-    for layer in res_model.layers: #[:-4]:        
-        layer.trainable = False
+    # for layer in res_model.layers: #[:-4]:        
+    #     layer.trainable = False
     #     print(layer.name)
     x = res_model.output
     
     
-    x = Conv2D(classes, (3, 3), dilation_rate=(2, 2), kernel_initializer='normal', activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(classes, (3, 3), dilation_rate=(2, 2), kernel_initializer='normal', activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     
     #x = Conv2D(classes, (1, 1), kernel_initializer='he_normal', activation='linear', padding='valid', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
 
@@ -340,15 +340,21 @@ def AtrousFCN_Resnet50_16s(input_shape = None, weight_decay=0., batch_momentum=0
     x = identity_block(3, [128, 128, 512], stage=3, block='d', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
 
     x = conv_block(3, [256, 256, 1024], stage=4, block='a', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
-    x = identity_block(3, [256, 256, 1024], stage=4, block='b', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
-    x = identity_block(3, [256, 256, 1024], stage=4, block='c', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
-    x = identity_block(3, [256, 256, 1024], stage=4, block='d', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
-    x = identity_block(3, [256, 256, 1024], stage=4, block='e', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
-    x = identity_block(3, [256, 256, 1024], stage=4, block='f', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
+    x = atrous_identity_block(3, [256, 256, 1024], stage=4, block='b', weight_decay=weight_decay,atrous_rate=(2, 2), batch_momentum=batch_momentum)(x)
+    x = atrous_identity_block(3, [256, 256, 1024], stage=4, block='c', weight_decay=weight_decay,atrous_rate=(2, 2), batch_momentum=batch_momentum)(x)
+    x = atrous_identity_block(3, [256, 256, 1024], stage=4, block='d', weight_decay=weight_decay,atrous_rate=(2, 2), batch_momentum=batch_momentum)(x)
+    x = atrous_identity_block(3, [256, 256, 1024], stage=4, block='e', weight_decay=weight_decay,atrous_rate=(2, 2), batch_momentum=batch_momentum)(x)
+    x = atrous_identity_block(3, [256, 256, 1024], stage=4, block='f', weight_decay=weight_decay,atrous_rate=(2, 2), batch_momentum=batch_momentum)(x)
 
-    x = atrous_conv_block(3, [512, 512, 2048], stage=5, block='a', weight_decay=weight_decay, atrous_rate=(2, 2), batch_momentum=batch_momentum)(x)
-    x = atrous_identity_block(3, [512, 512, 2048], stage=5, block='b', weight_decay=weight_decay, atrous_rate=(8, 8), batch_momentum=batch_momentum)(x)
-    x = atrous_identity_block(3, [512, 512, 2048], stage=5, block='c', weight_decay=weight_decay, atrous_rate=(2, 2), batch_momentum=batch_momentum)(x)
+    # x = identity_block(3, [256, 256, 1024], stage=4, block='b', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
+    # x = identity_block(3, [256, 256, 1024], stage=4, block='c', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
+    # x = identity_block(3, [256, 256, 1024], stage=4, block='d', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
+    # x = identity_block(3, [256, 256, 1024], stage=4, block='e', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
+    # x = identity_block(3, [256, 256, 1024], stage=4, block='f', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
+
+    x = atrous_conv_block(3, [512, 512, 2048], stage=5, block='a', weight_decay=weight_decay, atrous_rate=(10, 10), batch_momentum=batch_momentum)(x)
+    x = atrous_identity_block(3, [512, 512, 2048], stage=5, block='b', weight_decay=weight_decay, atrous_rate=(10, 10), batch_momentum=batch_momentum)(x)
+    x = atrous_identity_block(3, [512, 512, 2048], stage=5, block='c', weight_decay=weight_decay, atrous_rate=(10, 10), batch_momentum=batch_momentum)(x)
     #classifying layer
     x = Conv2D(classes, (3, 3), kernel_initializer='normal',dilation_rate=(2,2), activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     #x = Conv2D(classes, (1, 1), kernel_initializer='he_normal', activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)

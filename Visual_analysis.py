@@ -29,6 +29,8 @@ tmp1 = get_np_arrays(path)
 tmp2 = get_np_arrays(path1)
 predictions = get_np_arrays(path2)
 
+tmp2=tmp2[:10]
+predictions=predictions[:10]
 SHAPE=128;
 
 true = decode_masks(tmp2,SHAPE)
@@ -37,7 +39,7 @@ prediction = decode_masks(predictions,SHAPE)
 
 
 
-foto = random.randint(0,len(tmp1)-1)
+foto = random.randint(0,len(tmp2)-1)
 print('foto: ',foto)
 
 soil_count=0;
@@ -92,9 +94,9 @@ cv2.waitKey(0)
 cv2.imshow('predictions',img_prediction)
 cv2.waitKey(0) 
 
-img=cv2.resize(tmp1[100],(512,512))
-img_prediction=cv2.resize(prediction[100],(512,512))
-label=cv2.resize(true[100],(512,512))
+img=cv2.resize(tmp1[7],(512,512))
+img_prediction=cv2.resize(prediction[7],(512,512))
+label=cv2.resize(true[7],(512,512))
 
 cv2.imshow('image', img) 
 cv2.waitKey(0) 
