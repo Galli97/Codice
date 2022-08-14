@@ -23,24 +23,8 @@ def get_weights_path_resnet():
     weights_path = get_file('resnet50_weights_tf_dim_ordering_tf_kernels.h5',TF_WEIGHTS_PATH,cache_subdir='models')
     return weights_path
 
-def upsample(filters, size, apply_dropout=False):
-  initializer = tf.random_normal_initializer(0., 0.02)
 
-  result = tf.keras.Sequential()
-  result.add(
-    tf.keras.layers.Conv2DTranspose(filters, size, strides=2,
-                                    padding='same',
-                                    kernel_initializer=initializer,
-                                    use_bias=False))
 
-  result.add(tf.keras.layers.BatchNormalization())
-
-  if apply_dropout:
-      result.add(tf.keras.layers.Dropout(0.5))
-
-  result.add(tf.keras.layers.ReLU())
-
-  return result
 
 class BilinearInitializer(keras.initializers.Initializer):
     '''Initializer for Conv2DTranspose to perform bilinear interpolation on each channel.'''
@@ -61,22 +45,9 @@ class BilinearInitializer(keras.initializers.Initializer):
         return tf.convert_to_tensor(arr, dtype=dtype)
 
 
-# class UpSampling2D(Layer):
-#     def __init__(self, size=(1, 1), target_size=None, data_format='default', **kwargs):
-#         if data_format == 'default':
-#             data_format = K.image_data_format()
-#         self.size = tuple(size)
-#         if target_size is not None:
-#             self.target_size = tuple(target_size)
-#         else:
-#             self.target_size = None
-#         assert data_format in {'channels_last', 'channels_first'}, 'data_format must be in {tf, th}'
-#         self.data_format = data_format
-#         self.input_spec = [InputSpec(ndim=4)]
-#         super(UpSampling2D, self).__init__(**kwargs)
 
 
-##### IN QUESTA RETE SEGUO LA STRUTTURA DEL PAPER ###
+##### IN QUESTA RETE SEGUO LA STRUTTURA DEL PAPER #############
 def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     if batch_shape:
         img_input = Input(batch_shape=batch_shape)
@@ -140,6 +111,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
 
     return model
 
+##############################################################
 
 
 from tensorflow.keras.applications.vgg16 import VGG16
@@ -153,6 +125,7 @@ def get_weights_path_vgg16():
     return weights_path
 
 
+##############################################################
 def rete_Resnet101(img_size=None, weight_decay=0., batch_momentum=0.9, batch_shape=None, classes=5):
     
     model_input = keras.Input(shape=(img_size, img_size, 3))
@@ -179,7 +152,9 @@ def rete_Resnet101(img_size=None, weight_decay=0., batch_momentum=0.9, batch_sha
 
     return model
 
+##############################################################
 
+##############################################################
 def rete_vgg16(img_size=None, weight_decay=0., batch_momentum=0.9, batch_shape=None, classes=5):
     
     vggmodel = tf.keras.applications.vgg16.VGG16(input_shape=img_size, weights='imagenet',include_top=False)
@@ -204,7 +179,9 @@ def rete_vgg16(img_size=None, weight_decay=0., batch_momentum=0.9, batch_shape=N
     model = Model(inputs=vggmodel.input, outputs=x)
 
     return model
+##############################################################
 
+##############################################################
 def rete_vgg16_dilation(img_size=None, weight_decay=0., batch_momentum=0.9, batch_shape=None, classes=5):
     
     
@@ -236,9 +213,9 @@ def rete_vgg16_dilation(img_size=None, weight_decay=0., batch_momentum=0.9, batc
     # model.load_weights(weights_path, by_name=True)
     
     return model
+##############################################################
 
-
-
+##############################################################
 from tensorflow.keras.layers import Conv2D, BatchNormalization, Activation, MaxPool2D, Conv2DTranspose, Concatenate, Input
 from tensorflow.keras.models import Model
 from tensorflow.keras.applications import VGG16
@@ -308,11 +285,9 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     #weights_path = os.path.expanduser('./vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5')
     model.load_weights(weights_path,by_name=True)
     return model
+##############################################################
 
-# if __name__ == "__main__":
-#     input_shape = (512, 512, 3)
-#     model = build_vgg16_unet(input_shape)
-#     model.summary()
+##############################################################
 
 
 def AtrousFCN_Resnet50_16s(input_shape = None, weight_decay=0., batch_momentum=0.9, batch_shape=None, classes=5):
@@ -371,3 +346,5 @@ def AtrousFCN_Resnet50_16s(input_shape = None, weight_decay=0., batch_momentum=0
     model.load_weights(weights_path,by_name=True)
 
     return model
+
+    ##############################################################
