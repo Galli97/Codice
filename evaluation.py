@@ -158,11 +158,13 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 # plt.show()
 matconf = confusion_matrix(cm1, cm2)
 matconf = matconf.astype('float')*100.00 / matconf.sum(axis=1)[:, np.newaxis]
+np.set_printoptions(precision=2)
 cmd_obj = ConfusionMatrixDisplay(matconf, display_labels=['null', 'bedrock', 'sand','bigrock','soil'])
-cmd_obj.plot()
+cmd_obj.plot(values_format=".1f")
 cmd_obj.ax_.set(
-                title='Confusion Matrix!!', 
+                title='Confusion Matrix', 
                 xlabel='Predicted', 
                 ylabel='Actual')
 plt.show()
+
 model.evaluate(x_test,steps=len(tmp2))
