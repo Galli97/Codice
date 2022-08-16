@@ -146,8 +146,23 @@ IOU = I/U
 meanIOU = np.mean(IOU)
 
 print(meanIOU)
-# class_names=[0,1,2,3,4]
-# class_names=np.array(class_names)
-#conf=plot_confusion_matrix(cm1, cm2, classes=class_names, normalize=False)
 
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+# matconf = matrix2
+# cmd_obj = ConfusionMatrixDisplay(matconf, display_labels=['null', 'bedrock', 'sand','bigrock','soil'])
+# cmd_obj.plot()
+# cmd_obj.ax_.set(
+#                 title='Sklearn Confusion Matrix with labels!!', 
+#                 xlabel='Predicted', 
+#                 ylabel='Actual')
+# plt.show()
+matconf = confusion_matrix(cm1, cm2)
+matconf = matconf.astype('float')*100.00 / matconf.sum(axis=1)[:, np.newaxis]
+cmd_obj = ConfusionMatrixDisplay(matconf, display_labels=['null', 'bedrock', 'sand','bigrock','soil'])
+cmd_obj.plot()
+cmd_obj.ax_.set(
+                title='Confusion Matrix!!', 
+                xlabel='Predicted', 
+                ylabel='Actual')
+plt.show()
 model.evaluate(x_test,steps=len(tmp2))

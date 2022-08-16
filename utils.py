@@ -14,7 +14,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.utils.multiclass import unique_labels
 import matplotlib.pyplot as plt
 
-def plot_confusion_matrix(y_true, y_pred, classes,
+def plot_confusion_matrix(cm, classes,
                           normalize=False,
                           title=None,
                           cmap=plt.cm.Blues):
@@ -28,16 +28,16 @@ def plot_confusion_matrix(y_true, y_pred, classes,
         else:
             title = 'Confusion matrix, without normalization'
 
-    # Compute confusion matrix
-    cm = confusion_matrix(y_true, y_pred)
-    # Only use the labels that appear in the data
-    classes = classes[unique_labels(y_true, y_pred)]
-    if normalize:
-        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
-        #print("Normalized confusion matrix")
-    else:
-        pass
-        #print('Confusion matrix, without normalization')
+    # # Compute confusion matrix
+    # cm = confusion_matrix(y_true, y_pred)
+    # # Only use the labels that appear in the data
+    # classes = classes[unique_labels(y_true, y_pred)]
+    # if normalize:
+    #     cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+    #     #print("Normalized confusion matrix")
+    # else:
+    #     pass
+    #     #print('Confusion matrix, without normalization')
 
     #print(cm)
 
@@ -68,6 +68,7 @@ def plot_confusion_matrix(y_true, y_pred, classes,
                     ha="center", va="center",
                     color="white" if cm[i, j] > thresh else "black")
     fig.tight_layout()
+    plt.show()
     return ax
 
 
