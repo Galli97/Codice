@@ -313,7 +313,7 @@ def AtrousFCN_Resnet50_16s(input_shape = None, weight_decay=0., batch_momentum=0
     x = atrous_conv_block(3, [128, 128, 512], stage=3, block='a', weight_decay=weight_decay,atrous_rate=(2, 2), batch_momentum=batch_momentum)(x)
     x = atrous_identity_block(3, [128, 128, 512], stage=3, block='b', weight_decay=weight_decay,atrous_rate=(2, 2), batch_momentum=batch_momentum)(x)
     x = atrous_identity_block(3, [128, 128, 512], stage=3, block='c', weight_decay=weight_decay,atrous_rate=(2, 2), batch_momentum=batch_momentum)(x)
-    x = atrous_identity_block(3, [128, 128, 512], stage=3, block='d', weight_decay=weight_decay,atrous_rate=(2, 2), batch_momentum=batch_momentum)(x)
+    #x = atrous_identity_block(3, [128, 128, 512], stage=3, block='d', weight_decay=weight_decay,atrous_rate=(2, 2), batch_momentum=batch_momentum)(x)
 
     # x = identity_block(3, [128, 128, 512], stage=3, block='b', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
     # x = identity_block(3, [128, 128, 512], stage=3, block='c', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
