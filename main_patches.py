@@ -138,7 +138,7 @@ BATCH = 32
 EPOCHS = 250 
 #steps = int(train_set/(EPOCHS))
 steps = int(np.ceil(train_set/ float(BATCH)))
-weight_decay =0.0005 #0.0001/2 
+weight_decay =0.0003 #0.0001/2 
 
 #steps_val = int(np.ceil(len(list_validation)/ float(BATCH)+1))
 #steps_val = int(len(list_validation)/EPOCHS)
@@ -187,9 +187,9 @@ def lr_scheduler(epoch):
     if epoch > 0.7 * EPOCHS:
         lr = 0.0001
     elif epoch > 0.3 * EPOCHS:
-        lr = 0.001
+        lr = 0.0005
     else:
-        lr = 0.01
+        lr = 0.001
     #print('lr: %f' % lr)
     return lr
 
@@ -198,7 +198,7 @@ callbacks = [scheduler]
 callbacks.append(tf.keras.callbacks.EarlyStopping(monitor='val_updated_mean_io_u', min_delta=0.0001,verbose=1,mode="max",restore_best_weights=False, patience=30))
 
 
-optimizer = SGD(learning_rate=lr_base, momentum=0.9)
+optimizer = SGD(learning_rate=lr_base, momentum=0.8)
 #optimizer=keras.optimizers.Adam(learning_rate=0.001)
 loss_fn =keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 
