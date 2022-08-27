@@ -198,7 +198,7 @@ callbacks = [scheduler]
 callbacks.append(tf.keras.callbacks.EarlyStopping(monitor='val_updated_mean_io_u', min_delta=0.0001,verbose=1,mode="max",restore_best_weights=False, patience=30))
 
 
-optimizer = SGD(learning_rate=lr_base, momentum=0.8)
+optimizer = SGD(learning_rate=lr_base, momentum=0.87)
 #optimizer=keras.optimizers.Adam(learning_rate=0.001)
 loss_fn =keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 

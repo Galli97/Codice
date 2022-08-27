@@ -185,37 +185,37 @@ for j in range (0,N):
                     #     break
                     elif channels_xy==nullo:    #Null
                         counter_null+=1;
-                        if (counter_null>65536):
+                        if (counter_null>5461):
                             flag_null=True;
                     elif channels_xy==bedrock:      #BEDROCK
                         counter_bedrock+=1;
-                        if (counter_bedrock>32758):
+                        if (counter_bedrock>4096):
                             counter_bedrock_reduce+=1;
                             flag_bedrock=True
                     elif channels_xy==sand:    #SAND
                         counter_sand+=1;
-                        if (counter_sand>32758):
+                        if (counter_sand>4096):
                             flag_sand=True
                     elif channels_xy==bigrock:    #BIG ROCK
                         counter_bigrock+=1;
-                        if (counter_bigrock>16383):
+                        if (counter_bigrock>2048):
                             flag_bigrock=True
                     elif channels_xy==soil:    #SOIL
                         counter_soil+=1;
-                        if (counter_soil>32758):
+                        if (counter_soil>4096):
                             counter_soil_reduce+=1;
                             flag_soil=True;    
             if(flag_null==True):
                 continue
 
             if(flag_soil==True):
-                if (counter_soil_reduce>55000):
+                if (counter_soil_reduce>1500):
                     flag_soil=False;  
                 else:
                     flag_soil=True;
             
             if(flag_bedrock==True):
-                if (counter_bedrock_reduce>55000):
+                if (counter_bedrock_reduce>1500):
                     flag_bedrock=False;  
                 else:
                     flag_bedrock=True;
