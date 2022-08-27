@@ -39,9 +39,11 @@ from keras.preprocessing.image import ImageDataGenerator
 # path2 = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images_2.npy"
 # path3 = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_labels_2.npy"
 
+path = r"C:\Users\Mattia\Desktop\TentativiBR_128\DATASET\final_images.npy"
+path1 = r"C:\Users\Mattia\Desktop\TentativiBR_128\DATASET\final_labels.npy"
 
-path = r"C:\Users\Mattia\Documenti\Github\Codice\final_images.npy"
-path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\final_labels.npy"
+# path = r"C:\Users\Mattia\Documenti\Github\Codice\final_images.npy"
+# path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\final_labels.npy"
 # path = r"C:\Users\Mattia\Desktop\Tentativi128_2\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\label_patches_TEST.npy"
 
@@ -95,7 +97,7 @@ sand_count=0;
 bigrock_count=0;
 null_count=0;
 
-SHAPE=512;
+SHAPE=128;
 # for i in range (0,len(tmp2)):
 #     for r in range(0,SHAPE):
 #         for c in range (0,SHAPE):
