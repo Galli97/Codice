@@ -77,7 +77,7 @@ print(N)
 crop_images_list=[]
 crop_labels_list=[]
 
-SHAPE=512;
+SHAPE=128;
 coeff=8;
 
 soil=0;
@@ -97,7 +97,9 @@ counter_bigrock=0;
 counter_soil=0;
 counter_null=0;
 counter_soil_reduce=0;
+counter_bedrock_reduce=0;
 count=0;
+
 
 
 # IMAGE SELECTION PROCESS #per le 64 sto a 1670-numero attuale
@@ -117,6 +119,7 @@ for j in range (0,N):
     counter_soil=0;
     counter_null=0;
     counter_soil_reduce=0;
+    counter_bedrock_reduce=0;
     print(j)
     #Take the image
     image = cv2.imread(image_list[j])[:,:,[2,1,0]]
@@ -142,6 +145,7 @@ for j in range (0,N):
             counter_soil=0;
             counter_null=0;
             counter_soil_reduce=0;
+            counter_bedrock_reduce=0;
         
             if(flag_selected==True):
                 break
@@ -186,6 +190,7 @@ for j in range (0,N):
                     elif channels_xy==bedrock:      #BEDROCK
                         counter_bedrock+=1;
                         if (counter_bedrock>32758):
+                            counter_bedrock_reduce+=1;
                             flag_bedrock=True
                     elif channels_xy==sand:    #SAND
                         counter_sand+=1;
@@ -208,6 +213,12 @@ for j in range (0,N):
                     flag_soil=False;  
                 else:
                     flag_soil=True;
+            
+            if(flag_bedrock==True):
+                if (counter_bedrock_reduce>55000):
+                    flag_bedrock=False;  
+                else:
+                    flag_bedrock=True;
             
             if (flag_bigrock==True and flag_sand==True):
                 print('Big Rock-sand IN')
