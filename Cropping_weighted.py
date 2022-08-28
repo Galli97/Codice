@@ -104,7 +104,7 @@ count=0;
 
 # IMAGE SELECTION PROCESS #per le 64 sto a 1670-numero attuale
 print('[INFO]Generating labels array')
-for j in range (0,N):
+for j in range (500,N+500):
     if(count==500):
         break
     flag_sand=False;
