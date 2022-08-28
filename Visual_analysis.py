@@ -29,8 +29,8 @@ tmp1 = get_np_arrays(path)
 tmp2 = get_np_arrays(path1)
 predictions = get_np_arrays(path2)
 
-tmp2=tmp2[:100]
-predictions=predictions[:100]
+tmp2=tmp2[:50]
+predictions=predictions[:50]
 SHAPE=128;
 
 true = decode_masks(tmp2,SHAPE)
