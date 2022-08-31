@@ -492,8 +492,7 @@ def add_sample_weights(image, label):
     # Create an image of `sample_weights` by using the label at each pixel as an 
     # index into the `class weights` .
     sample_weights = tf.gather(class_weights, indices=tf.cast(label, tf.int32))
-    sample_wei = np.empty((len(image), 128, 128, 5), dtype=np.uint8)
-    sample_wei[:,:,:] = sample_weights
+
     return image, label, sample_weights
 ########################
 def add_sample_weights_val(image, label):

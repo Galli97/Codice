@@ -186,7 +186,7 @@ x_train = (
     .repeat(EPOCHS)                         ###Ad ogni epoch avrò un numero di batch pari ha len(dataset)/Batch_size. 
     .map(Augment())
     .prefetch(buffer_size=tf.data.AUTOTUNE))
-x_train = x_train.map(add_sample_weights)
+#x_train = x_train.map(add_sample_weights)
 
 print(x_train)
 ##x_validation = x_validation.map(add_sample_weights_val)   
