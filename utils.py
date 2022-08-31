@@ -246,6 +246,44 @@ def augment(image_list,label_list,N):
     A=A-skipped
     return tmp1a,tmp2a,A
 
+def decode_masks_Notsparse(tmp2,SHAPE):
+    soil=[0,0,0,0,1];
+    bedrock=[0,1,0,0,0];
+    sand=[0,0,1,0,0];
+    bigrock=[0,0,0,1,0];
+    null=[1,0,0,0,0];
+    
+    decoded_images = np.empty((len(tmp2), SHAPE, SHAPE, 3), dtype=np.uint8)  #Qui ho N immagini
+    for n in range (len(tmp2)):
+      label = tmp2[n]
+      #reduct_label = label[:,:,0]                        
+      image = np.empty((SHAPE, SHAPE, 3), dtype=np.uint8) 
+      #image[:,:,0]=reduct_label  
+      for i in range(0,SHAPE):
+          for j in range(0,SHAPE): 
+              channels_xy = label[i,j];          #SOIL is kept black, NULL (no label) is white 
+              if all(channels_xy==bedrock):      #BEDROCK --->RED
+                  image[i,j,0]=255
+                  image[i,j,1]=0
+                  image[i,j,2]=0
+              elif all(channels_xy==sand):    #SAND --->GREEN
+                  image[i,j,0]=0
+                  image[i,j,1]=255
+                  image[i,j,2]=0
+              elif all(channels_xy==bigrock):    #BIG ROCK ---> BLUE
+                  image[i,j,0]=0
+                  image[i,j,1]=0
+                  image[i,j,2]=255
+              elif all(channels_xy==soil):    #SOIL ---> BLACK
+                  image[i,j,0]=0
+                  image[i,j,1]=0
+                  image[i,j,2]=0
+              elif all(channels_xy==null):    #NULL ---> WHITE
+                  image[i,j,0]=255
+                  image[i,j,1]=255
+                  image[i,j,2]=255
+              decoded_images[n]=image
+    return decoded_images
 
 def decode_masks(tmp2,SHAPE):
     soil=4;
@@ -411,11 +449,11 @@ def add_sample_weights(image, label):
    
     
     #128 1+2+3
-    null_pixels = 9544360  
-    bedrock_pixels =  14466388 
-    sand_pixels =  12127129 
-    bigrock_pixels =  2839387 
-    soil_pixels = 4112656 
+    # null_pixels = 9544360  
+    # bedrock_pixels =  14466388 
+    # sand_pixels =  12127129 
+    # bigrock_pixels =  2839387 
+    # soil_pixels = 4112656 
     
 
     # #128_2 1+2 
@@ -426,11 +464,11 @@ def add_sample_weights(image, label):
     # soil_pixels = 2133053 
 
     # #128_BR 1+2+3
-    # null_pixels = 5215384  
-    # bedrock_pixels =  6628250 
-    # sand_pixels =  12057351 
-    # bigrock_pixels =  2014647 
-    # soil_pixels = 986896 
+    null_pixels = 5215384  
+    bedrock_pixels =  6628250 
+    sand_pixels =  12057351 
+    bigrock_pixels =  2014647 
+    soil_pixels = 986896 
 
     PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels#+null_pixels ;
     #perc_null=1-null_pixels/PIXELS
