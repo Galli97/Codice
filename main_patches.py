@@ -38,24 +38,20 @@ session = InteractiveSession(config=config)
 # path7 = r"/content/drive/MyDrive/Tesi/Dataset64/final_labels_4.npy"
 
 #128x128
-path = r"/content/drive/MyDrive/Tesi/Dataset128/final_images.npy"
-path1 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels.npy"
-path2 = r"/content/drive/MyDrive/Tesi/Dataset128/final_images_2.npy"
-path3 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_2.npy"
-path4 = r"/content/drive/MyDrive/Tesi/Dataset128/final_images_3.npy"
-path5 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_3.npy"
+# path = r"/content/drive/MyDrive/Tesi/Dataset128/final_images.npy"
+# path1 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels.npy"
+# path2 = r"/content/drive/MyDrive/Tesi/Dataset128/final_images_2.npy"
+# path3 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_2.npy"
+# path4 = r"/content/drive/MyDrive/Tesi/Dataset128/final_images_3.npy"
+# path5 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_3.npy"
 
-# #128 BR
-# path = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images.npy"
-# path1 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels.npy"
-# path2 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images_2.npy"
-# path3 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels_2.npy"
-# path4 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images_3.npy"
-# path5 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels_3.npy"
-
-#128 BR_NOTsparse
-# path = r"/content/drive/MyDrive/Tesi/Dataset128_BRNotsparse/final_images.npy"
-# path1 = r"/content/drive/MyDrive/Tesi/Dataset128_BRNotsparse/final_labels.npy"
+#128 BR
+path = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images.npy"
+path1 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels.npy"
+path2 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images_2.npy"
+path3 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels_2.npy"
+path4 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images_3.npy"
+path5 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels_3.npy"
 
 
 #128x128_2
@@ -92,11 +88,11 @@ print('tmp5: ',tmp5.shape)
 tmp6 = get_np_arrays(path5)          #recupero tmp2 dal file
 print('tmp6: ',tmp6.shape)
 
-# # tmp7 = get_np_arrays(path6)          #recupero tmp1 dal file 
-# # print('tmp5: ',tmp7.shape)
+# tmp7 = get_np_arrays(path6)          #recupero tmp1 dal file 
+# print('tmp5: ',tmp7.shape)
 
-# # tmp8 = get_np_arrays(path7)          #recupero tmp2 dal file
-# # print('tmp6: ',tmp8.shape)
+# tmp8 = get_np_arrays(path7)          #recupero tmp2 dal file
+# print('tmp6: ',tmp8.shape)
 
 
 tmp1=np.concatenate((tmp1,tmp3,tmp5))#,tmp7))
@@ -213,7 +209,7 @@ callbacks.append(tf.keras.callbacks.EarlyStopping(monitor='val_updated_mean_io_u
 
 optimizer = SGD(learning_rate=lr_base, momentum=0.9)
 #optimizer=keras.optimizers.Adam(learning_rate=0.001)
-loss_fn =keras.losses.CategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
+loss_fn =keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 
 model.compile(optimizer = optimizer, loss = loss_fn , metrics =[UpdatedMeanIoU(num_classes=5)])#,sample_weight_mode='temporal')#UpdatedMeanIoU(num_classes=5)#tf.keras.metrics.SparseCategoricalAccuracy()#MyMeanIoU(num_classes=5)#loss_weights=loss_weights#[tf.keras.metrics.SparseCategoricalAccuracy()]#[tf.keras.metrics.MeanIoU(num_classes=5)])#['accuracy'])#[sparse_accuracy_ignoring_last_label])#,sample_weight_mode='temporal')
 
