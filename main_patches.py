@@ -45,13 +45,17 @@ session = InteractiveSession(config=config)
 # path4 = r"/content/drive/MyDrive/Tesi/Dataset128/final_images_3.npy"
 # path5 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_3.npy"
 
-#128 BR
-path = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images.npy"
-path1 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels.npy"
-path2 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images_2.npy"
-path3 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels_2.npy"
-path4 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images_3.npy"
-path5 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels_3.npy"
+# #128 BR
+# path = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images.npy"
+# path1 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels.npy"
+# path2 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images_2.npy"
+# path3 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels_2.npy"
+# path4 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images_3.npy"
+# path5 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels_3.npy"
+
+#128 BR_NOTsparse
+path = r"C:\Users\Mattia\Desktop\TentativiBR_128\DATASET\final_images.npy"
+path1 = r"C:\Users\Mattia\Desktop\TentativiBR_128\DATASET\final_labels.npy"
 
 
 #128x128_2
@@ -76,27 +80,27 @@ print('tmp1: ',tmp1.shape)
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 print('tmp2: ',tmp2.shape)
 
-tmp3 = get_np_arrays(path2)          #recupero tmp1 dal file 
-print('tmp3: ',tmp3.shape)
+# tmp3 = get_np_arrays(path2)          #recupero tmp1 dal file 
+# print('tmp3: ',tmp3.shape)
 
-tmp4 = get_np_arrays(path3)          #recupero tmp2 dal file
-print('tmp4: ',tmp4.shape)
+# tmp4 = get_np_arrays(path3)          #recupero tmp2 dal file
+# print('tmp4: ',tmp4.shape)
 
-tmp5 = get_np_arrays(path4)          #recupero tmp1 dal file 
-print('tmp5: ',tmp5.shape)
+# tmp5 = get_np_arrays(path4)          #recupero tmp1 dal file 
+# print('tmp5: ',tmp5.shape)
 
-tmp6 = get_np_arrays(path5)          #recupero tmp2 dal file
-print('tmp6: ',tmp6.shape)
+# tmp6 = get_np_arrays(path5)          #recupero tmp2 dal file
+# print('tmp6: ',tmp6.shape)
 
-# tmp7 = get_np_arrays(path6)          #recupero tmp1 dal file 
-# print('tmp5: ',tmp7.shape)
+# # tmp7 = get_np_arrays(path6)          #recupero tmp1 dal file 
+# # print('tmp5: ',tmp7.shape)
 
-# tmp8 = get_np_arrays(path7)          #recupero tmp2 dal file
-# print('tmp6: ',tmp8.shape)
+# # tmp8 = get_np_arrays(path7)          #recupero tmp2 dal file
+# # print('tmp6: ',tmp8.shape)
 
 
-tmp1=np.concatenate((tmp1,tmp3,tmp5))#,tmp7))
-tmp2=np.concatenate((tmp2,tmp4,tmp6))#,tmp8))
+# tmp1=np.concatenate((tmp1,tmp3,tmp5))#,tmp7))
+# tmp2=np.concatenate((tmp2,tmp4,tmp6))#,tmp8))
 
 print('tmp1_new: ',tmp1.shape)
 print('tmp2_new: ',tmp2.shape)
