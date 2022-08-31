@@ -54,8 +54,8 @@ session = InteractiveSession(config=config)
 # path5 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels_3.npy"
 
 #128 BR_NOTsparse
-path = r"C:\Users\Mattia\Desktop\TentativiBR_128\DATASET\final_images.npy"
-path1 = r"C:\Users\Mattia\Desktop\TentativiBR_128\DATASET\final_labels.npy"
+path = r"/content/drive/MyDrive/Tesi/Dataset128_BRNotsparse/final_images.npy"
+path1 = r"/content/drive/MyDrive/Tesi/Dataset128_BRNotsparse/final_labels.npy"
 
 
 #128x128_2
