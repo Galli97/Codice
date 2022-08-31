@@ -65,7 +65,7 @@ print('label1: ', label_list[0])
 
 ####NUMERO DI IMMAGINI NEL DATASET + IMMAGINI DOVUTE AL DATA AUGMENTATION ####
 #N = len(image_list)           
-N=500                                 #### UTILIZZARE LA RIGA SOPRA PER USARE TUTTE LE IMMAGINI A DISPOSIZIONE
+N=1000                                 #### UTILIZZARE LA RIGA SOPRA PER USARE TUTTE LE IMMAGINI A DISPOSIZIONE
 
 num_classes=5
 
@@ -98,14 +98,15 @@ counter_soil=0;
 counter_null=0;
 counter_soil_reduce=0;
 counter_bedrock_reduce=0;
+counter_sand_reduce=0;
 count=0;
 
 
 
 # IMAGE SELECTION PROCESS #per le 64 sto a 1670-numero attuale
 print('[INFO]Generating labels array')
-for j in range (1000,N+1000):
-    if(count==500):
+for j in range (0,N):
+    if(count==1500):
         break
     flag_sand=False;
     flag_bedrock=False;
@@ -120,6 +121,7 @@ for j in range (1000,N+1000):
     counter_null=0;
     counter_soil_reduce=0;
     counter_bedrock_reduce=0;
+    counter_sand_reduce=0;
     print(j)
     #Take the image
     image = cv2.imread(image_list[j])[:,:,[2,1,0]]
@@ -146,6 +148,7 @@ for j in range (1000,N+1000):
             counter_null=0;
             counter_soil_reduce=0;
             counter_bedrock_reduce=0;
+            counter_sand_reduce=0;
         
             if(flag_selected==True):
                 break
@@ -195,6 +198,7 @@ for j in range (1000,N+1000):
                     elif channels_xy==sand:    #SAND
                         counter_sand+=1;
                         if (counter_sand>4096):
+                            counter_sand_reduce+=1;
                             flag_sand=True
                     elif channels_xy==bigrock:    #BIG ROCK
                         counter_bigrock+=1;
@@ -209,13 +213,19 @@ for j in range (1000,N+1000):
                 continue
 
             if(flag_soil==True):
-                if (counter_soil_reduce>1500):
+                if (counter_soil_reduce>2300):
                     flag_soil=False;  
                 else:
                     flag_soil=True;
             
+            if(flag_sand==True):
+                if (counter_sand_reduce>2000):
+                    flag_sand=False;  
+                else:
+                    flag_sand=True;
+
             if(flag_bedrock==True):
-                if (counter_bedrock_reduce>1500):
+                if (counter_bedrock_reduce>2000):
                     flag_bedrock=False;  
                 else:
                     flag_bedrock=True;
