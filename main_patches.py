@@ -38,20 +38,20 @@ session = InteractiveSession(config=config)
 # path7 = r"/content/drive/MyDrive/Tesi/Dataset64/final_labels_4.npy"
 
 #128x128
-# path = r"/content/drive/MyDrive/Tesi/Dataset128/final_images.npy"
-# path1 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels.npy"
-# path2 = r"/content/drive/MyDrive/Tesi/Dataset128/final_images_2.npy"
-# path3 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_2.npy"
-# path4 = r"/content/drive/MyDrive/Tesi/Dataset128/final_images_3.npy"
-# path5 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_3.npy"
+path = r"/content/drive/MyDrive/Tesi/Dataset128/final_images.npy"
+path1 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels.npy"
+path2 = r"/content/drive/MyDrive/Tesi/Dataset128/final_images_2.npy"
+path3 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_2.npy"
+path4 = r"/content/drive/MyDrive/Tesi/Dataset128/final_images_3.npy"
+path5 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_3.npy"
 
 #128 BR
-path = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images.npy"
-path1 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels.npy"
-path2 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images_2.npy"
-path3 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels_2.npy"
-path4 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images_3.npy"
-path5 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels_3.npy"
+# path = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images.npy"
+# path1 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels.npy"
+# path2 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images_2.npy"
+# path3 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels_2.npy"
+# path4 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images_3.npy"
+# path5 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels_3.npy"
 
 
 #128x128_2
@@ -143,11 +143,11 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 ###### DEFINISCO IL MODELLO #######
 SHAPE=128;
 shape=(SHAPE,SHAPE,3)
-BATCH = 32
-EPOCHS = 250 
-#steps = int(train_set/(EPOCHS))
-steps = int(np.ceil(train_set/ float(BATCH)))
-weight_decay =0.0005 #0.0001/2 
+BATCH = 64
+EPOCHS = 100 
+steps = int(train_set/(EPOCHS))
+#steps = int(np.ceil(train_set/ float(BATCH)))
+weight_decay =0.0006 #0.0001/2 
 
 #steps_val = int(np.ceil(len(list_validation)/ float(BATCH)+1))
 #steps_val = int(len(list_validation)/EPOCHS)
@@ -156,9 +156,9 @@ batch_shape=(BATCH,SHAPE,SHAPE,3)
 input_shape = (SHAPE, SHAPE, 3)
 tf.keras.backend.set_image_data_format('channels_last')
 
-#model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
-model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
+#model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
 #model = rete_Resnet101(img_size=128,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = AtrousFCN_Resnet50_16s(input_shape = shape, weight_decay=weight_decay, batch_momentum=0.95, batch_shape=None, classes=5)
 
@@ -194,11 +194,11 @@ def lr_scheduler(epoch):
   
     # drops as progression proceeds, good for sgd
     if epoch > 0.7 * EPOCHS:
-        lr = 0.0005
-    elif epoch > 0.3 * EPOCHS:
         lr = 0.001
-    else:
+    elif epoch > 0.3 * EPOCHS:
         lr = 0.01
+    else:
+        lr = 0.04
     #print('lr: %f' % lr)
     return lr
 
@@ -207,7 +207,7 @@ callbacks = [scheduler]
 callbacks.append(tf.keras.callbacks.EarlyStopping(monitor='val_updated_mean_io_u', min_delta=0.0001,verbose=1,mode="max",restore_best_weights=False, patience=30))
 
 
-optimizer = SGD(learning_rate=lr_base, momentum=0.9)
+optimizer = SGD(learning_rate=lr_base, momentum=0.8)
 #optimizer=keras.optimizers.Adam(learning_rate=0.001)
 loss_fn =keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 
