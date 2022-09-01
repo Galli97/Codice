@@ -144,7 +144,7 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 SHAPE=128;
 shape=(SHAPE,SHAPE,3)
 BATCH = 64
-EPOCHS = 100 
+EPOCHS = 250
 steps = int(train_set/(EPOCHS))
 #steps = int(np.ceil(train_set/ float(BATCH)))
 weight_decay =0.0006 #0.0001/2 
