@@ -108,7 +108,7 @@ print(prediction[5].shape)
 print(prediction[5])
 matrix = tf.math.confusion_matrix(cm1,cm2,num_classes=5)
 print(matrix)
-
+matrix_nonull=matrix[1:4,1:4]
 #128 count the # of pixels
 # null_pixels =  null_count 
 # bedrock_pixels= bedrock_count 
@@ -142,8 +142,8 @@ matrix2 = np.array([[matrix[0]*100/null_pixels],[matrix[1]*100/bedrock_pixels], 
 np.set_printoptions(suppress=True)
 print(matrix2.astype(float))
 
-I = np.diag(matrix)
-U = np.sum(matrix, axis=0) + np.sum(matrix, axis=1) - I
+I = np.diag(matrix_nonull)
+U = np.sum(matrix_nonull, axis=0) + np.sum(matrix_nonull, axis=1) - I
 IOU = I/U
 meanIOU = np.mean(IOU)
 
