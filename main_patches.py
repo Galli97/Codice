@@ -143,7 +143,7 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 ###### DEFINISCO IL MODELLO #######
 SHAPE=128;
 shape=(SHAPE,SHAPE,3)
-BATCH = 64
+BATCH = 32
 EPOCHS = 250
 steps = int(train_set/(EPOCHS))
 #steps = int(np.ceil(train_set/ float(BATCH)))
@@ -180,7 +180,7 @@ x_train = (
     .shuffle(BUFFER_SIZE)
     .batch(BATCH)
     .repeat(EPOCHS)                         ###Ad ogni epoch avrò un numero di batch pari ha len(dataset)/Batch_size. 
-    #.map(Augment())
+    .map(Augment())
     .prefetch(buffer_size=tf.data.AUTOTUNE))
 x_train = x_train.map(add_sample_weights)
 
