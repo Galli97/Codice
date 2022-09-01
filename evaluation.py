@@ -26,6 +26,8 @@ from keras.preprocessing.image import ImageDataGenerator
 # ####### PERCORSO IN LOCALE #########
 path = r"C:\Users\Mattia\Desktop\Tentativi128_2\image_patches_TEST.npy"
 path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\label_patches_TEST.npy"
+# path = r"C:\Users\Mattia\Desktop\Tentativi128\image_patches_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\Tentativi128\label_patches_TEST.npy"
 # path = r"C:\Users\Mattia\Desktop\Tentativi\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi\label_patches_TEST.npy"
 # path2= r"C:\Users\Mattia\Documenti\Github\Codice\cropped_images_TEST.npy"

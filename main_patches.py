@@ -180,7 +180,7 @@ x_train = (
     .shuffle(BUFFER_SIZE)
     .batch(BATCH)
     .repeat(EPOCHS)                         ###Ad ogni epoch avrò un numero di batch pari ha len(dataset)/Batch_size. 
-    .map(Augment())
+    #.map(Augment())
     .prefetch(buffer_size=tf.data.AUTOTUNE))
 x_train = x_train.map(add_sample_weights)
 
