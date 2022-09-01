@@ -24,13 +24,19 @@ from sklearn.feature_extraction import image
 # path = r"C:\Users\Mattia\Documenti\Github\Codice\final_images.npy"
 # path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\final_labels.npy"
 
-path = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images.npy"
-path1 = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_labels.npy"
-path2 = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images_2.npy"
-path3 = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_labels_2.npy"
+# path = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images.npy"
+# path1 = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_labels.npy"
+# path2 = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images_2.npy"
+# path3 = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_labels_2.npy"
 # path4 = r"C:\Users\Mattia\Desktop\Tentativi128\DATASET\final_images_3.npy"
 # path5 = r"C:\Users\Mattia\Desktop\Tentativi128\DATASET\final_labels_3.npy"
 
+path = r"C:\Users\Mattia\Desktop\TentativiBR_128\DATASET\final_images.npy"
+path1 = r"C:\Users\Mattia\Desktop\TentativiBR_128\DATASET\final_labels.npy"
+path2 = r"C:\Users\Mattia\Desktop\TentativiBR_128\DATASET\final_images_2.npy"
+path3 = r"C:\Users\Mattia\Desktop\TentativiBR_128\DATASET\final_labels_2.npy"
+path4 = r"C:\Users\Mattia\Desktop\TentativiBR_128\DATASET\final_images_3.npy"
+path5 = r"C:\Users\Mattia\Desktop\TentativiBR_128\DATASET\final_labels_3.npy"
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
 print('tmp1: ',tmp1.shape)
