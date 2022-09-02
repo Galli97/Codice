@@ -473,7 +473,7 @@ def add_sample_weights(image, label):
 
 
 
-    PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels#+null_pixels ;
+    PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels+null_pixels ;
     #perc_null=1-null_pixels/PIXELS
     perc_bedrock=1-bedrock_pixels/PIXELS
     perc_sand=1-sand_pixels/PIXELS
