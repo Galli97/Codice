@@ -69,7 +69,8 @@ path4 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_images_3.npy"
 path5 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_labels_3.npy"
 path6 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_images_4.npy"
 path7 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_labels_4.npy"
-
+path8 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_images_4.npy"
+path9 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_labels_4.npy"
 # ####### PERCORSO IN LOCALE #########
 # path = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_labels.npy"
@@ -96,14 +97,19 @@ tmp6 = get_np_arrays(path5)          #recupero tmp2 dal file
 print('tmp6: ',tmp6.shape)
 
 tmp7 = get_np_arrays(path6)          #recupero tmp1 dal file 
-print('tmp5: ',tmp7.shape)
+print('tmp7: ',tmp7.shape)
 
 tmp8 = get_np_arrays(path7)          #recupero tmp2 dal file
-print('tmp6: ',tmp8.shape)
+print('tmp8: ',tmp8.shape)
 
+tmp9 = get_np_arrays(path8)          #recupero tmp1 dal file 
+print('tmp9: ',tmp7.shape)
 
-tmp1=np.concatenate((tmp1,tmp3,tmp5,tmp7))
-tmp2=np.concatenate((tmp2,tmp4,tmp6,tmp8))
+tmp10 = get_np_arrays(path9)          #recupero tmp2 dal file
+print('tmp10: ',tmp8.shape)
+
+tmp1=np.concatenate((tmp1,tmp3,tmp5,tmp7,tmp9))
+tmp2=np.concatenate((tmp2,tmp4,tmp6,tmp8,tmp10))
 
 print('tmp1_new: ',tmp1.shape)
 print('tmp2_new: ',tmp2.shape)
@@ -163,9 +169,9 @@ batch_shape=(BATCH,SHAPE,SHAPE,3)
 input_shape = (SHAPE, SHAPE, 3)
 tf.keras.backend.set_image_data_format('channels_last')
 
-model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+#model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
-#model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
+model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
 #model = rete_Resnet101(img_size=128,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = AtrousFCN_Resnet50_16s(input_shape = shape, weight_decay=weight_decay, batch_momentum=0.95, batch_shape=None, classes=5)
 
