@@ -213,7 +213,7 @@ for j in range (2500,N+2600):
                 continue
 
             if(flag_soil==True):
-                if (counter_soil_reduce>4000):
+                if (counter_soil_reduce>8000):
                     flag_soil=False;  
                 else:
                     flag_soil=True;
