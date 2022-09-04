@@ -39,7 +39,7 @@ count=0;
 #7140-8447
 #8447-9455
 #10632 11317 11948
-for x in range(11317,len(dir1)-1500):
+for x in range(11948,len(dir1)-1500):
     print('Label: ', x)
     flag_sand=False;
     flag_bedrock=False;
