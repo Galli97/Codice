@@ -490,8 +490,8 @@ def add_sample_weights(image, label):
     perc_bigrock=1-bigrock_pixels/PIXELS
     perc_soil=1-soil_pixels/PIXELS
 
-    #class_weights = tf.constant([0,perc_bedrock,perc_sand,perc_bigrock,perc_soil])
-    class_weights = tf.constant([0,PIXELS/bedrock_pixels,PIXELS/sand_pixels,PIXELS/bigrock_pixels,PIXELS/soil_pixels])
+    class_weights = tf.constant([0,perc_bedrock,perc_sand,perc_bigrock,perc_soil])
+    #class_weights = tf.constant([0,PIXELS/bedrock_pixels,PIXELS/sand_pixels,PIXELS/bigrock_pixels,PIXELS/soil_pixels])
     #class_weights = tf.constant([1,1,1,1,1])
     class_weights = class_weights/tf.reduce_sum(class_weights)
 
