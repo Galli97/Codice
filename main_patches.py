@@ -69,8 +69,10 @@ path4 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_images_3.npy"
 path5 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_labels_3.npy"
 path6 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_images_4.npy"
 path7 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_labels_4.npy"
-path8 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_images_4.npy"
-path9 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_labels_4.npy"
+path8 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_images_5.npy"
+path9 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_labels_5.npy"
+path10 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_images_6.npy"
+path11= r"/content/drive/MyDrive/Tesi/DatasetNew/final_labels_6.npy"
 # ####### PERCORSO IN LOCALE #########
 # path = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_labels.npy"
@@ -108,8 +110,16 @@ print('tmp9: ',tmp7.shape)
 tmp10 = get_np_arrays(path9)          #recupero tmp2 dal file
 print('tmp10: ',tmp8.shape)
 
-tmp1=np.concatenate((tmp1,tmp3,tmp5,tmp7,tmp9))
-tmp2=np.concatenate((tmp2,tmp4,tmp6,tmp8,tmp10))
+tmp11 = get_np_arrays(path10)          #recupero tmp1 dal file 
+print('tmp11: ',tmp11.shape)
+
+tmp12 = get_np_arrays(path11)          #recupero tmp2 dal file
+print('tmp12: ',tmp12.shape)
+
+
+tmp1=np.concatenate((tmp1,tmp3,tmp5,tmp7,tmp9,tmp11))
+tmp2=np.concatenate((tmp2,tmp4,tmp6,tmp8,tmp10,tmp12))
+
 
 print('tmp1_new: ',tmp1.shape)
 print('tmp2_new: ',tmp2.shape)
@@ -160,7 +170,7 @@ BATCH = 32
 EPOCHS = 250
 #steps = int(train_set/(EPOCHS))
 steps = int(np.ceil(train_set/ float(BATCH)))
-weight_decay =0.0008 #0.0001/2 
+weight_decay =0.0005 #0.0001/2 
 
 #steps_val = int(np.ceil(len(list_validation)/ float(BATCH)+1))
 #steps_val = int(len(list_validation)/EPOCHS)
@@ -220,7 +230,7 @@ callbacks = [scheduler]
 callbacks.append(tf.keras.callbacks.EarlyStopping(monitor='val_updated_mean_io_u', min_delta=0.0001,verbose=1,mode="max",restore_best_weights=False, patience=30))
 
 
-optimizer = SGD(learning_rate=lr_base, momentum=0.95)
+optimizer = SGD(learning_rate=lr_base, momentum=0.9)
 #optimizer=keras.optimizers.Adam(learning_rate=0.001)
 loss_fn =keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 
