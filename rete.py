@@ -394,17 +394,18 @@ def mobileNET(shape = (224,224,3),weight_decay=0.0005):
     x = ReLU()(x)
 
     # main part of the model
-    x = mobilnet_block(x, filters = 64, strides = 1,weight_decay)
-    x = mobilnet_block(x, filters = 128, strides = 2,weight_decay)
-    x = mobilnet_block(x, filters = 128, strides = 1,weight_decay)
-    x = mobilnet_block(x, filters = 256, strides = 2,weight_decay)
-    x = mobilnet_block(x, filters = 256, strides = 1,weight_decay)
-    x = mobilnet_block(x, filters = 512, strides = 2,weight_decay)
+    x = mobilnet_block(x, filters = 64, strides = 1,weight_decay=weight_decay)
+    x = mobilnet_block(x, filters = 128, strides = 2,weight_decay=weight_decay)
+    x = mobilnet_block(x, filters = 128, strides = 1,weight_decay=weight_decay)
+    x = mobilnet_block(x, filters = 256, strides = 2,weight_decay=weight_decay)
+    x = mobilnet_block(x, filters = 256, strides = 1,weight_decay=weight_decay)
+    x = mobilnet_block(x, filters = 512, strides = 2,weight_decay=weight_decay)
     for _ in range (5):
-        x = mobilnet_block_dilation(x, filters = 512, strides = 1,weight_decay,dilation=(2,2))
-    x = mobilnet_block_dilation(x, filters = 1024, strides = 2,weight_decay,dilation=(10,10))
-    x = mobilnet_block(x, filters = 1024, strides = 1,weight_decay)
+        x = mobilnet_block_dilation(x, filters = 512, strides = 1,weight_decay=weight_decay,dilation=(2,2))
+    x = mobilnet_block_dilation(x, filters = 1024, strides = 2,weight_decay=weight_decay,dilation=(10,10))
+    x = mobilnet_block(x, filters = 1024, strides = 1,weight_decay=weight_decay)
     x = AvgPool2D (pool_size = 7, strides = 1, data_format='channels_first')(x)
     output = Dense (units = 5, activation = 'softmax')(x)
     model = Model(inputs=input, outputs=output)
     #model.summary()
+    return model
