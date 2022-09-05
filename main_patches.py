@@ -71,8 +71,8 @@ path6 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_images_4.npy"
 path7 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_labels_4.npy"
 path8 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_images_5.npy"
 path9 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_labels_5.npy"
-path10 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_images_6.npy"
-path11= r"/content/drive/MyDrive/Tesi/DatasetNew/final_labels_6.npy"
+# path10 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_images_6.npy"
+# path11= r"/content/drive/MyDrive/Tesi/DatasetNew/final_labels_6.npy"
 # ####### PERCORSO IN LOCALE #########
 # path = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_labels.npy"
@@ -110,15 +110,15 @@ print('tmp9: ',tmp9.shape)
 tmp10 = get_np_arrays(path9)          #recupero tmp2 dal file
 print('tmp10: ',tmp10.shape)
 
-tmp11 = get_np_arrays(path10)          #recupero tmp1 dal file 
-print('tmp11: ',tmp11.shape)
+# tmp11 = get_np_arrays(path10)          #recupero tmp1 dal file 
+# print('tmp11: ',tmp11.shape)
 
-tmp12 = get_np_arrays(path11)          #recupero tmp2 dal file
-print('tmp12: ',tmp12.shape)
+# tmp12 = get_np_arrays(path11)          #recupero tmp2 dal file
+# print('tmp12: ',tmp12.shape)
 
 
-tmp1=np.concatenate((tmp1,tmp3,tmp5,tmp7,tmp9,tmp11))
-tmp2=np.concatenate((tmp2,tmp4,tmp6,tmp8,tmp10,tmp12))
+tmp1=np.concatenate((tmp1,tmp3,tmp5,tmp7,tmp9))#,tmp11))
+tmp2=np.concatenate((tmp2,tmp4,tmp6,tmp8,tmp10))#,tmp12))
 
 
 print('tmp1_new: ',tmp1.shape)
