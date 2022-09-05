@@ -404,8 +404,8 @@ def mobileNET(shape = (224,224,3),weight_decay=0.0005):
         x = mobilnet_block_dilation(x, filters = 512, strides = 1,weight_decay=weight_decay,dilation=(2,2))
     x = mobilnet_block_dilation(x, filters = 1024, strides = 2,weight_decay=weight_decay,dilation=(10,10))
     x = mobilnet_block(x, filters = 1024, strides = 1,weight_decay=weight_decay)
-    x = AvgPool2D (pool_size = 7, strides = 1, data_format='channels_last')(x)
-    output = Conv2D(5, 4, padding="valid", activation="softmax",kernel_regularizer=l2(weight_decay))(x)
+    #x = AvgPool2D (pool_size = 7, strides = 1, data_format='channels_last')(x)
+    output = Conv2D(5, 1, padding="valid", activation="softmax",kernel_regularizer=l2(weight_decay))(x)
     model = Model(inputs=input, outputs=output)
     #model.summary()
     return model
