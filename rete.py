@@ -409,6 +409,9 @@ def mobileNET(shape = (224,224,3),weight_decay=0.0005):
     output = Conv2D(5, 1, padding="valid", activation="softmax",kernel_regularizer=l2(weight_decay))(x)
     model = Model(inputs=input, outputs=output)
     #model.summary()
+    weights_path = os.path.expanduser('/content/drive/MyDrive/Tesi/mobilenet_v2_weights_tf_dim_ordering_tf_kernels_1.0_128_no_top.h5')
+    #weights_path = os.path.expanduser('./vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5')
+    model.load_weights(weights_path)
     return model
 
 def mobile(shape=None,weight_decay=0.0005):
