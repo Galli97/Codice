@@ -354,3 +354,57 @@ def AtrousFCN_Resnet50_16s(input_shape = None, weight_decay=0., batch_momentum=0
     return model
 
     ##############################################################
+
+import tensorflow as tf
+#import all necessary layers
+from tensorflow.keras.layers import Input, DepthwiseConv2D
+from tensorflow.keras.layers import Conv2D, BatchNormalization
+from tensorflow.keras.layers import ReLU, AvgPool2D, Flatten, Dense
+from tensorflow.keras import Model
+
+# MobileNet block
+def mobilnet_block (x, filters, strides,weight_decay):
+    
+    x = DepthwiseConv2D(kernel_size = 3, strides = strides, padding = 'same',kernel_regularizer=l2(weight_decay))(x)
+    x = BatchNormalization()(x)
+    x = ReLU()(x)
+    
+    x = Conv2D(filters = filters, kernel_size = 1, strides = 1,kernel_regularizer=l2(weight_decay))(x)
+    x = BatchNormalization()(x)
+    x = ReLU()(x)
+    
+    return x
+
+def mobilnet_block_dilation (x, filters, strides,weight_decay,dilation):
+    
+    x = DepthwiseConv2D(kernel_size = 3, strides = strides, padding = 'same',kernel_regularizer=l2(weight_decay),dilation_rate=dilation)(x)
+    x = BatchNormalization()(x)
+    x = ReLU()(x)
+    
+    x = Conv2D(filters = filters, kernel_size = 1, strides = 1,kernel_regularizer=l2(weight_decay),dilation_rate=dilation)(x)
+    x = BatchNormalization()(x)
+    x = ReLU()(x)
+    
+    return x
+
+def mobileNET(shape = (224,224,3),weight_decay=0.0005): 
+    input = Input(shape)
+    x = Conv2D(filters = 32, kernel_size = 3, strides = 2, padding = 'same',kernel_regularizer=l2(weight_decay))(input)
+    x = BatchNormalization()(x)
+    x = ReLU()(x)
+
+    # main part of the model
+    x = mobilnet_block(x, filters = 64, strides = 1,weight_decay)
+    x = mobilnet_block(x, filters = 128, strides = 2,weight_decay)
+    x = mobilnet_block(x, filters = 128, strides = 1,weight_decay)
+    x = mobilnet_block(x, filters = 256, strides = 2,weight_decay)
+    x = mobilnet_block(x, filters = 256, strides = 1,weight_decay)
+    x = mobilnet_block(x, filters = 512, strides = 2,weight_decay)
+    for _ in range (5):
+        x = mobilnet_block_dilation(x, filters = 512, strides = 1,weight_decay,dilation=(2,2))
+    x = mobilnet_block_dilation(x, filters = 1024, strides = 2,weight_decay,dilation=(10,10))
+    x = mobilnet_block(x, filters = 1024, strides = 1,weight_decay)
+    x = AvgPool2D (pool_size = 7, strides = 1, data_format='channels_first')(x)
+    output = Dense (units = 5, activation = 'softmax')(x)
+    model = Model(inputs=input, outputs=output)
+    #model.summary()
