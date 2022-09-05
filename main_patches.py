@@ -105,10 +105,10 @@ tmp8 = get_np_arrays(path7)          #recupero tmp2 dal file
 print('tmp8: ',tmp8.shape)
 
 tmp9 = get_np_arrays(path8)          #recupero tmp1 dal file 
-print('tmp9: ',tmp7.shape)
+print('tmp9: ',tmp9.shape)
 
 tmp10 = get_np_arrays(path9)          #recupero tmp2 dal file
-print('tmp10: ',tmp8.shape)
+print('tmp10: ',tmp10.shape)
 
 tmp11 = get_np_arrays(path10)          #recupero tmp1 dal file 
 print('tmp11: ',tmp11.shape)
