@@ -110,15 +110,15 @@ print('tmp9: ',tmp9.shape)
 tmp10 = get_np_arrays(path9)          #recupero tmp2 dal file
 print('tmp10: ',tmp10.shape)
 
-# tmp11 = get_np_arrays(path10)          #recupero tmp1 dal file 
-# print('tmp11: ',tmp11.shape)
+tmp11 = get_np_arrays(path10)          #recupero tmp1 dal file 
+print('tmp11: ',tmp11.shape)
 
-# tmp12 = get_np_arrays(path11)          #recupero tmp2 dal file
-# print('tmp12: ',tmp12.shape)
+tmp12 = get_np_arrays(path11)          #recupero tmp2 dal file
+print('tmp12: ',tmp12.shape)
 
 
-tmp1=np.concatenate((tmp1,tmp3,tmp5,tmp7,tmp9))#,tmp11))
-tmp2=np.concatenate((tmp2,tmp4,tmp6,tmp8,tmp10))#,tmp12))
+tmp1=np.concatenate((tmp1,tmp3,tmp5,tmp7,tmp9,tmp11))
+tmp2=np.concatenate((tmp2,tmp4,tmp6,tmp8,tmp10,tmp12))
 
 
 print('tmp1_new: ',tmp1.shape)
@@ -166,7 +166,7 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 ###### DEFINISCO IL MODELLO #######
 SHAPE=128;
 shape=(SHAPE,SHAPE,3)
-BATCH = 32
+BATCH = 64
 EPOCHS = 250
 #steps = int(train_set/(EPOCHS))
 steps = int(np.ceil(train_set/ float(BATCH)))
@@ -203,7 +203,7 @@ x_train = (
     .shuffle(BUFFER_SIZE)
     .batch(BATCH)
     .repeat(EPOCHS)                         ###Ad ogni epoch avrò un numero di batch pari ha len(dataset)/Batch_size. 
-    #.map(Augment())
+    .map(Augment())
     .prefetch(buffer_size=tf.data.AUTOTUNE))
 x_train = x_train.map(add_sample_weights)
 
