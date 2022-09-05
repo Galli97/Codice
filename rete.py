@@ -411,7 +411,7 @@ def mobileNET(shape = (224,224,3),weight_decay=0.0005):
     #model.summary()
     return model
 
-def mobile(shape=None):
+def mobile(shape=None,weight_decay=0.0005):
     mob = tf.keras.applications.mobilenet_v2.MobileNetV2(input_shape=shape,include_top=False,weights='imagenet',classes=5)
     x=mob.output
     x = tf.keras.layers.UpSampling2D(64,interpolation='bilinear')(x)
