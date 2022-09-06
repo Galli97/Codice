@@ -138,13 +138,17 @@ def rete_Resnet101(img_size=None, weight_decay=0., batch_momentum=0.9, batch_sha
     #     print(layer.name)
     x = res_model.output
     
+    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(10,10), name='fc3', kernel_regularizer=l2(weight_decay))(x)
+    x = Dropout(0.5)(x)
+    x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
+    x = Dropout(0.5)(x)
+    x = Conv2D(classes, (3, 3),  kernel_initializer='normal', dilation_rate=(2,2),activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    #x = Conv2D(classes, (1, 1),kernel_initializer='he_normal', activation='linear', padding='same', kernel_regularizer=l2(weight_decay))(x)
     
-    x = Conv2D(classes, (3, 3), dilation_rate=(2, 2), kernel_initializer='normal', activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
-    
-    #x = Conv2D(classes, (1, 1), kernel_initializer='he_normal', activation='linear', padding='valid', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
 
-    x = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(x)
-    x = Activation('softmax')(x)
+    x = Conv2D(classes, 1,strides=(1, 1), activation='softmax', padding='valid',kernel_regularizer=l2(weight_decay))(x)
+    
    
     # x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
     # x = Activation('softmax')(x)
@@ -154,66 +158,6 @@ def rete_Resnet101(img_size=None, weight_decay=0., batch_momentum=0.9, batch_sha
 
 ##############################################################
 
-##############################################################
-def rete_vgg16(img_size=None, weight_decay=0., batch_momentum=0.9, batch_shape=None, classes=5):
-    
-    vggmodel = tf.keras.applications.vgg16.VGG16(input_shape=img_size, weights='imagenet',include_top=False)
-
-    vggmodel = Sequential(vggmodel.layers[:-4])
-    for layer in vggmodel.layers:#[:-4]:        
-        layer.trainable = False
-    x = vggmodel.output
-   
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc1', kernel_regularizer=l2(weight_decay))(x)
-    x = Dropout(0.5)(x)
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc2', kernel_regularizer=l2(weight_decay))(x)
-    x = Dropout(0.5)(x)
-    x = Conv2D(classes, (3, 3), activation='linear',kernel_initializer='he_normal', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
-    x = keras.layers.Conv2DTranspose(filters=classes, kernel_size=(16,16), strides=(16,16),
-                                     padding='same', use_bias=False, activation='softmax',
-                                     kernel_initializer=BilinearInitializer(),
-                                     kernel_regularizer=l2(weight_decay),
-                                     name='fc3')(x)
-    # x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
-    # x = Activation('softmax')(x)
-    model = Model(inputs=vggmodel.input, outputs=x)
-
-    return model
-##############################################################
-
-##############################################################
-def rete_vgg16_dilation(img_size=None, weight_decay=0., batch_momentum=0.9, batch_shape=None, classes=5):
-    
-    
-    vggmodel = tf.keras.applications.vgg16.VGG16(input_shape=img_size, weights='imagenet',include_top=False)
-
-    vggmodel = Sequential(vggmodel.layers[:-8])
-    for layer in vggmodel.layers:        
-        layer._trainable = False
-    # for i, layer in enumerate(vggmodel.layers):
-    #     layer._name = 'layer_' + str(i)
-    x = vggmodel.output
-    
-    x = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv1', kernel_regularizer=l2(weight_decay))(x)
-    x = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv2', kernel_regularizer=l2(weight_decay))(x)
-    x = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv3', kernel_regularizer=l2(weight_decay))(x)
-    
-    x = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block4_pool')(x)
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc1', kernel_regularizer=l2(weight_decay))(x)
-    x = Dropout(0.75)(x)
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc2', kernel_regularizer=l2(weight_decay))(x)
-    x = Dropout(0.75)(x)
-    x = Conv2D(classes, (3, 3), activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
-    x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
-    
-    x = Conv2D(classes, 1, activation='softmax',padding='valid',kernel_regularizer=l2(weight_decay))(x)
-
-    model = Model(inputs=vggmodel.input, outputs=x)
-    # weights_path = os.path.expanduser('./vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5')
-    # model.load_weights(weights_path, by_name=True)
-    
-    return model
-##############################################################
 
 ##############################################################
 from tensorflow.keras.layers import Conv2D, BatchNormalization, Activation, MaxPool2D, Conv2DTranspose, Concatenate, Input
@@ -346,7 +290,7 @@ def AtrousFCN_Resnet50_16s(input_shape = None, weight_decay=0., batch_momentum=0
     x = Dropout(0.5)(x)
     x = Conv2D(5, (3, 3),  kernel_initializer='normal', dilation_rate=(2,2),activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     #x = Conv2D(classes, (1, 1), kernel_initializer='he_normal', activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
-    x = tf.keras.layers.UpSampling2D(8,interpolation='bilinear')(x)
+    x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
     
     x = Activation('softmax')(x)
 
@@ -440,3 +384,64 @@ def mobile(shape=None,weight_decay=0.0005):
     output = Conv2D(5, 1, padding="valid", activation="softmax",kernel_regularizer=l2(weight_decay))(x)
     model = Model(inputs=mob.input, outputs=output)
     return model
+
+##############################################################
+def rete_vgg16(img_size=None, weight_decay=0., batch_momentum=0.9, batch_shape=None, classes=5):
+    
+    vggmodel = tf.keras.applications.vgg16.VGG16(input_shape=img_size, weights='imagenet',include_top=False)
+
+    vggmodel = Sequential(vggmodel.layers[:-4])
+    for layer in vggmodel.layers:#[:-4]:        
+        layer.trainable = False
+    x = vggmodel.output
+   
+    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc1', kernel_regularizer=l2(weight_decay))(x)
+    x = Dropout(0.5)(x)
+    x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc2', kernel_regularizer=l2(weight_decay))(x)
+    x = Dropout(0.5)(x)
+    x = Conv2D(classes, (3, 3), activation='linear',kernel_initializer='he_normal', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    x = keras.layers.Conv2DTranspose(filters=classes, kernel_size=(16,16), strides=(16,16),
+                                     padding='same', use_bias=False, activation='softmax',
+                                     kernel_initializer=BilinearInitializer(),
+                                     kernel_regularizer=l2(weight_decay),
+                                     name='fc3')(x)
+    # x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
+    # x = Activation('softmax')(x)
+    model = Model(inputs=vggmodel.input, outputs=x)
+
+    return model
+##############################################################
+
+##############################################################
+def rete_vgg16_dilation(img_size=None, weight_decay=0., batch_momentum=0.9, batch_shape=None, classes=5):
+    
+    
+    vggmodel = tf.keras.applications.vgg16.VGG16(input_shape=img_size, weights='imagenet',include_top=False)
+
+    vggmodel = Sequential(vggmodel.layers[:-8])
+    for layer in vggmodel.layers:        
+        layer._trainable = False
+    # for i, layer in enumerate(vggmodel.layers):
+    #     layer._name = 'layer_' + str(i)
+    x = vggmodel.output
+    
+    x = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv1', kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv2', kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(512, (3, 3), activation='relu', padding='same',dilation_rate=(2,2), name='block4_conv3', kernel_regularizer=l2(weight_decay))(x)
+    
+    x = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block4_pool')(x)
+    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc1', kernel_regularizer=l2(weight_decay))(x)
+    x = Dropout(0.75)(x)
+    x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc2', kernel_regularizer=l2(weight_decay))(x)
+    x = Dropout(0.75)(x)
+    x = Conv2D(classes, (3, 3), activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
+    
+    x = Conv2D(classes, 1, activation='softmax',padding='valid',kernel_regularizer=l2(weight_decay))(x)
+
+    model = Model(inputs=vggmodel.input, outputs=x)
+    # weights_path = os.path.expanduser('./vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5')
+    # model.load_weights(weights_path, by_name=True)
+    
+    return model
+##############################################################
