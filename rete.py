@@ -427,7 +427,7 @@ def mobileNET(shape = (224,224,3),weight_decay=0.0005):
     return model
 
 def mobile(shape=None,weight_decay=0.0005):
-    mob = tf.keras.applications.mobilenet_v2.MobileNetV2(input_shape=shape,include_top=False,weights='imagenet',classes=5)
+    mob = tf.keras.applications.mobilenet_v2.MobileNetV2(input_shape=shape,include_top=False,weights='imagenet',classes=5,classifier_activation=None)
     x=mob.output
 
     x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(10,10), name='fc3', kernel_regularizer=l2(weight_decay))(x)
