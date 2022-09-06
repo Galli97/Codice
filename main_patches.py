@@ -219,11 +219,11 @@ def lr_scheduler(epoch):
   
     # drops as progression proceeds, good for sgd
     if epoch > 0.7 * EPOCHS:
-        lr = 0.001
+        lr = 0.0001
     elif epoch > 0.3 * EPOCHS:
-        lr = 0.005
+        lr = 0.0005
     else:
-        lr = 0.01
+        lr = 0.001
     #print('lr: %f' % lr)
     return lr
 
