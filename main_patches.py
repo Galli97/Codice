@@ -119,7 +119,7 @@ print('tmp6: ',tmp6.shape)
 
 
 tmp1=np.concatenate((tmp1,tmp3,tmp5))#,tmp7,tmp9,tmp11))
-tmp2=np.concatenate((tmp2,tmp4,tmp6)##,tmp8,tmp10,tmp12))
+tmp2=np.concatenate((tmp2,tmp4,tmp6))##,tmp8,tmp10,tmp12))
 
 
 print('tmp1_new: ',tmp1.shape)
