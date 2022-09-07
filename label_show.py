@@ -68,7 +68,8 @@ tmp2=np.concatenate((tmp2,tmp4))#,tmp6))#,tmp8))
 
 print('tmp1_new: ',tmp1.shape)
 print('tmp2_new: ',tmp2.shape)
-
+tmp1=tmp1[:20]
+tmp2=tmp2[:20]
 SHAPE=128;
 
 print(tmp2[10])
@@ -89,4 +90,8 @@ cv2.waitKey(0)
 cv2.imshow('label',label )
 cv2.waitKey(0) 
 cv2.imshow('predictions',img_prediction)
+cv2.waitKey(0) 
+
+overlay = cv2.addWeighted(img, 1, label, 1, 0)
+cv2.imshow('overlay',overlay)
 cv2.waitKey(0) 
