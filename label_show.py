@@ -92,6 +92,20 @@ cv2.waitKey(0)
 cv2.imshow('predictions',img_prediction)
 cv2.waitKey(0) 
 
-overlay = cv2.addWeighted(img, 1, label, 1, 0)
-cv2.imshow('overlay',overlay)
-cv2.waitKey(0) 
+# true_image=tmp1[5]
+# true_image = np.asarray(true_image, np.float64)
+# print(true_image.shape)
+# immagine=cv2.resize(true_image,(512,512))
+# print(immagine.shape)
+# cv2.imshow('image', immagine) 
+# cv2.waitKey(0) 
+
+# label_img=cv2.resize(true[5],(512,512))
+# label_img = np.asarray(label_img, np.float64)
+# print(label_img.shape)
+# cv2.imshow('image', label_img) 
+# cv2.waitKey(0) 
+
+# overlay = cv2.addWeighted(immagine, 1, label_img, 0.0008, 0)
+# cv2.imshow('overlay',overlay)
+# cv2.waitKey(0) 
