@@ -354,11 +354,11 @@ def mobileNET(shape = (224,224,3),weight_decay=0.0005):
     x = mobilnet_block(x, filters = 1024, strides = 1,weight_decay=weight_decay)
     x = AvgPool2D (pool_size = 7, strides = 1, data_format='channels_last')(x)
 
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(10,10), name='fc3', kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc3', kernel_regularizer=l2(weight_decay))(x)
     x = Dropout(0.5)(x)
     x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
     x = Dropout(0.5)(x)
-    x = Conv2D(5, (3, 3),  kernel_initializer='normal', dilation_rate=(2,2),activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(5, (3, 3),  kernel_initializer='normal', activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     
 
     x = tf.keras.layers.UpSampling2D(64,interpolation='bilinear')(x)
