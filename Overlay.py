@@ -19,53 +19,168 @@ import random
 from sklearn.utils import shuffle
 from sklearn.feature_extraction import image
 
-path = r"C:\Users\Mattia\Desktop\Tentativi128\image_patches_TEST.npy"
-path1 =  r"C:\Users\Mattia\Desktop\Tentativi128\label_patches_TEST.npy"
-path2 = r"C:\Users\Mattia\Documenti\Github\Codice\predictions.npy"
+# path = r"C:\Users\Mattia\Desktop\Tentativi128\image_patches_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\Tentativi128\label_patches_TEST.npy"
+# path2 = r"C:\Users\Mattia\Documenti\Github\Codice\predictions.npy"
 
-tmp1 = get_np_arrays(path)
-tmp2 = get_np_arrays(path1)
-predictions = get_np_arrays(path2)
+# tmp1 = get_np_arrays(path)
+# tmp2 = get_np_arrays(path1)
+# predictions = get_np_arrays(path2)
 
-tmp1=tmp1[:64]
-tmp2=tmp2[:64]
-predictions=predictions[:64]
+# tmp1=tmp1[:64]
+# tmp2=tmp2[:64]
+# predictions=predictions[:64]
+####### PERCORSO IN LOCALE #########
+path = r"C:\Users\Mattia\Desktop\Tesi\Dataset\Test-images"
+path1 =  r"C:\Users\Mattia\Desktop\Tesi\Dataset\Test-labels"
+
+####### CREO UNA LISTA CON ELEMENTI DATI DA QUELLI NELLA CARTELLA DEL PERCORSO ######
+dir = os.listdir(path)       #immagini in input
+dir1 = os.listdir(path1)     #labels date dalle maschere
+
+###### INIZIALIZO DUE LISTE, UNA PER LE IMMAGINI E UNA PER LE LABELS ########
+image_list = []
+label_list = []
+
+#### CICLO FOR PER INSERIRE NELLA LISTA DELLE IMMAGINI IL PERCORSO CORRISPONDENTE ########
+for elem in dir:
+    new_dir = os.path.join(path,elem)
+    if new_dir not in image_list : image_list.append(new_dir)
+    #image=np.expand_dims(image, axis=2)
+    
+#### CICLO FOR PER INSERIRE NELLA LISTA DELLE LABELS IL PERCORSO CORRISPONDENTE ########
+for lab in dir1:
+    new_dir1 = os.path.join(path1,lab)
+    if new_dir1 not in label_list : label_list.append(new_dir1)
+    #label=np.expand_dims(label, axis=2)
+
+print('Image and label lists dimensions')
+print(len(image_list))
+print(len(label_list))
+
+crop_images_list=[]
+###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
+print('[INFO]Generating images array')
+i =random.randint(0,len(image_list)-1)
+print(i)
+image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
+image = image.astype('float32')
+image/=255                                    #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+for r in range (0,8):
+    for c in range (0,8):
+        cropped_image = image[128*r:128*(r+1),128*c:128*(c+1)]
+        crop_images_list.append(cropped_image) 
+        
+crop_labels_list=[]
+
+print('[INFO]Generating labels array')
+    
+label = cv2.imread(label_list[i])[:,:,[2,1,0]]
+label = cv2.cvtColor(label, cv2.COLOR_BGR2GRAY)
+label=np.expand_dims(label, axis=2)  
+label = label.astype('float32')
+for r in range (0,8):
+    for c in range (0,8):
+        cropped_label = label[128*(r):128*(r+1),128*(c):128*(c+1)]
+        crop_labels_list.append(cropped_label)
+img_real=cv2.imread(image_list[i])[:,:,[2,1,0]] 
+cv2.imshow('real image',img_real)
+cv2.waitKey(0)
+
+
+soil=0;
+bedrock=1;
+sand=2;
+bigrock=3;
+null=255;
+label_real=cv2.imread(label_list[i])[:,:,[2,1,0]] 
+lab = np.empty((1024, 1024, 3), dtype=np.uint8) 
+for r in range(0,1024):
+    for c in range(0,1024): 
+        channels_xy = label_real[r,c];          #SOIL is kept black, NULL (no label) is white 
+        if channels_xy[0]==bedrock:      #BEDROCK --->RED
+            lab[r,c,0]=255
+            lab[r,c,1]=0
+            lab[r,c,2]=0
+        elif channels_xy[0]==sand:    #SAND --->GREEN
+            lab[r,c,0]=0
+            lab[r,c,1]=255
+            lab[r,c,2]=0
+        elif channels_xy[0]==bigrock:    #BIG ROCK ---> BLUE
+            lab[r,c,0]=0
+            lab[r,c,1]=0
+            lab[r,c,2]=255
+        elif channels_xy[0]==soil:    #SOIL ---> BLACK
+            lab[r,c,0]=0
+            lab[r,c,1]=0
+            lab[r,c,2]=0
+        elif channels_xy[0]==null:    #NULL ---> WHITE
+            lab[r,c,0]=255
+            lab[r,c,1]=255
+            lab[r,c,2]=255
+#lab=cv2.resize(lab,(512,512))
+cv2.imshow('real label',lab)
+cv2.waitKey(0)
 
 SHAPE=128;
 
-tmp2 = decode_masks(tmp2,SHAPE)
+tmp1 = crop_images_list
+tmp2 = decode_masks(crop_labels_list,SHAPE)
 
-predictions = decode_predictions(predictions,SHAPE)
-predictions = decode_masks(predictions,SHAPE)
+# predictions = decode_predictions(predictions,SHAPE)
+# predictions = decode_masks(predictions,SHAPE)
 
 overlay=[];
 
-for i in range (len(tmp2)):
-    true_image = tmp1[i]
+for j in range (len(tmp2)):
+    true_image = tmp1[j]
     true_image = np.asarray(true_image, np.float64)
-    label_img = tmp2[i]
+    label_img = tmp2[j]
     label_img = np.asarray(label_img, np.float64)
-    overlay_img = cv2.addWeighted(true_image, 1, label_img, 0.001, 0)
+    overlay_img = cv2.addWeighted(true_image, 1, label_img,  0.002, 0)
     overlay.append(overlay_img)
 
-# true_image=tmp1[5]
-# true_image = np.asarray(true_image, np.float64)
-# print(true_image.shape)
-# immagine=cv2.resize(true_image,(512,512))
-# print(immagine.shape)
-# cv2.imshow('image', immagine) 
-# cv2.waitKey(0) 
 
-# label_img=cv2.resize(true[5],(512,512))
-# label_img = np.asarray(label_img, np.float64)
-# print(label_img.shape)
-# cv2.imshow('image', label_img) 
-# cv2.waitKey(0) 
+img1 = np.hstack((overlay[0], overlay[1],overlay[2], overlay[3],overlay[4], overlay[5],overlay[6], overlay[7]))
+img2 = np.hstack((overlay[0+8],overlay[1+8], overlay[2+8],overlay[3+8], overlay[4+8],overlay[5+8], overlay[6+8],overlay[7+8]))
+img3 = np.hstack((overlay[0+2*8],overlay[1+2*8], overlay[2+2*8],overlay[3+2*8], overlay[4+2*8],overlay[5+2*8], overlay[6+2*8],overlay[7+2*8]))
+img4 = np.hstack((overlay[0+3*8],overlay[1+3*8], overlay[2+3*8],overlay[3+3*8], overlay[4+3*8],overlay[5+3*8], overlay[6+3*8],overlay[7+3*8]))
+img5 = np.hstack((overlay[0+4*8],overlay[1+4*8], overlay[2+4*8],overlay[3+4*8], overlay[4+4*8],overlay[5+4*8], overlay[6+4*8],overlay[7+4*8]))
+img6 = np.hstack((overlay[0+5*8],overlay[1+5*8], overlay[2+5*8],overlay[3+5*8], overlay[4+5*8],overlay[5+5*8], overlay[6+5*8],overlay[7+5*8]))
+img7 = np.hstack((overlay[0+6*8],overlay[1+6*8], overlay[2+6*8],overlay[3+6*8], overlay[4+6*8],overlay[5+6*8], overlay[6+6*8],overlay[7+6*8]))
+img8 = np.hstack((overlay[0+7*8],overlay[1+7*8], overlay[2+7*8],overlay[3+7*8], overlay[4+7*8],overlay[5+7*8], overlay[6+7*8],overlay[7+7*8]))
 
-# overlay = cv2.addWeighted(immagine, 1, label_img, 0.0008, 0)
-# cv2.imshow('overlay',overlay)
-# cv2.waitKey(0) 
+result = np.vstack((img1,img2,img3,img4,img5,img6,img7,img8))
 
+
+cv2.imshow('overlay',result)
+cv2.waitKey(0)
+
+BATCH=1
+x_test = tf.data.Dataset.from_tensor_slices((tmp1, tmp2))
+x_test = (
+    x_test
+    .batch(BATCH)
+)
+
+model = tf.keras.models.load_model('model.h5',custom_objects={"UpdatedMeanIoU": UpdatedMeanIoU })
+
+print("[INFO] Starting Evaluation")
+
+predictions = model.predict(x_test,verbose=1,steps=len(tmp2))
+predictions = decode_predictions(predictions,SHAPE)
+predictions = decode_masks(predictions,SHAPE)
+
+
+overlay=[];
+
+for d in range (len(tmp2)):
+    true_image = tmp1[d]
+    true_image = np.asarray(true_image, np.float64)
+    label_img = predictions[d]
+    label_img = np.asarray(label_img, np.float64)
+    overlay_img = cv2.addWeighted(true_image, 1, label_img, 0.002, 0)
+    overlay.append(overlay_img)
 
 img1 = np.hstack((overlay[0], overlay[1],overlay[2], overlay[3],overlay[4], overlay[5],overlay[6], overlay[7]))
 img2 = np.hstack((overlay[0+8],overlay[1+8], overlay[2+8],overlay[3+8], overlay[4+8],overlay[5+8], overlay[6+8],overlay[7+8]))
@@ -80,3 +195,4 @@ result = np.vstack((img1,img2,img3,img4,img5,img6,img7,img8))
 
 cv2.imshow('overlay',result)
 cv2.waitKey(0)
+
