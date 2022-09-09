@@ -122,8 +122,8 @@ print('tmp6: ',tmp6.shape)
 # tmp11 = get_np_arrays(path10)          #recupero tmp1 dal file 
 # print('tmp11: ',tmp11.shape)
 
-tmp12 = get_np_arrays(path11)          #recupero tmp2 dal file
-print('tmp12: ',tmp12.shape)
+# tmp12 = get_np_arrays(path11)          #recupero tmp2 dal file
+# print('tmp12: ',tmp12.shape)
 
 
 tmp1=np.concatenate((tmp1,tmp3,tmp5))#,tmp7,tmp9,tmp11))
