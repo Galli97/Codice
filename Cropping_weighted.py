@@ -59,9 +59,9 @@ print('Elem1: ', image_list[0])
 print('label1: ', label_list[0])
 
 ####RESHUFFLE DELLA LISTA DELLE IMMAGINI E DELLE LABEL####
-image_list, label_list = shuffle(np.array(image_list), np.array(label_list))
-print('Elem1 shuffled: ', image_list[0])
-print('label1: ', label_list[0])
+# image_list, label_list = shuffle(np.array(image_list), np.array(label_list))
+# print('Elem1 shuffled: ', image_list[0])
+# print('label1: ', label_list[0])
 
 ####NUMERO DI IMMAGINI NEL DATASET + IMMAGINI DOVUTE AL DATA AUGMENTATION ####
 #N = len(image_list)           
@@ -105,7 +105,7 @@ count=0;
 
 # IMAGE SELECTION PROCESS #per le 64 sto a 1670-numero attuale
 print('[INFO]Generating labels array')
-for j in range (2000,N+2000):
+for j in range (0,N):
     if(count==1500):
         break
     flag_sand=False;
