@@ -24,8 +24,11 @@ from sklearn.feature_extraction import image
 # path1 = r"/content/drive/MyDrive/Tesi/cropped_labels_TEST.npys"
 
 # ####### PERCORSO IN LOCALE #########
-path = r"C:\Users\Mattia\Desktop\Tentativi128\cropped_images_TEST.npy"
-path1 =  r"C:\Users\Mattia\Desktop\Tentativi128\cropped_labels_TEST.npy"
+# path = r"C:\Users\Mattia\Desktop\Tentativi128\cropped_images_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\Tentativi128\cropped_labels_TEST.npy"
+
+path = r"C:\Users\Mattia\Documenti\github\Codice\cropped_images_TEST.npy"
+path1 =  r"C:\Users\Mattia\Documenti\github\Codice\cropped_labels_TEST.npy"
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 crop_images_list = get_np_arrays(path)          #recupero tmp1 dal file 
@@ -48,10 +51,10 @@ print(len(crop_labels_list))
 print('Elem1: ', crop_images_list[0])
 print('label1: ', crop_labels_list[0])
 
-####RESHUFFLE DELLA LISTA DELLE IMMAGINI E DELLE LABEL####
-crop_images_list, crop_labels_list = shuffle(crop_images_list, crop_labels_list)
-print('Elem1 shuffled: ', crop_images_list[0])
-print('label1: ', crop_labels_list[0])
+# ####RESHUFFLE DELLA LISTA DELLE IMMAGINI E DELLE LABEL####
+# crop_images_list, crop_labels_list = shuffle(crop_images_list, crop_labels_list)
+# print('Elem1 shuffled: ', crop_images_list[0])
+# print('label1: ', crop_labels_list[0])
 
 print('[INFO]Generating images array')
 #tmp1 = crop_images_list

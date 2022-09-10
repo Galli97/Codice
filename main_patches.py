@@ -53,13 +53,13 @@ session = InteractiveSession(config=config)
 # path4 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images_3.npy"
 # path5 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels_3.npy"
 
-#128 soil
-path = r"/content/drive/MyDrive/Tesi/DatasetSoil/final_images.npy"
-path1 = r"/content/drive/MyDrive/Tesi/DatasetSoil/final_labels.npy"
-path2 = r"/content/drive/MyDrive/Tesi/DatasetSoil/final_images_2.npy"
-path3 = r"/content/drive/MyDrive/Tesi/DatasetSoil/final_labels_2.npy"
-path4 = r"/content/drive/MyDrive/Tesi/DatasetSoil/final_images_3.npy"
-path5 = r"/content/drive/MyDrive/Tesi/DatasetSoil/final_labels_3.npy"
+# #128 soil
+# path = r"/content/drive/MyDrive/Tesi/DatasetSoil/final_images.npy"
+# path1 = r"/content/drive/MyDrive/Tesi/DatasetSoil/final_labels.npy"
+# path2 = r"/content/drive/MyDrive/Tesi/DatasetSoil/final_images_2.npy"
+# path3 = r"/content/drive/MyDrive/Tesi/DatasetSoil/final_labels_2.npy"
+# path4 = r"/content/drive/MyDrive/Tesi/DatasetSoil/final_images_3.npy"
+# path5 = r"/content/drive/MyDrive/Tesi/DatasetSoil/final_labels_3.npy"
 
 
 #128x128_2
@@ -82,6 +82,13 @@ path5 = r"/content/drive/MyDrive/Tesi/DatasetSoil/final_labels_3.npy"
 # path10 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_images_6.npy"
 # path11= r"/content/drive/MyDrive/Tesi/DatasetNew/final_labels_6.npy"
 
+#128 dataset_1
+path = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images.npy"
+path1 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels.npy"
+path2 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images_2.npy"
+path3 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels_2.npy"
+
+
 # ####### PERCORSO IN LOCALE #########
 # path = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_labels.npy"
@@ -101,11 +108,11 @@ print('tmp3: ',tmp3.shape)
 tmp4 = get_np_arrays(path3)          #recupero tmp2 dal file
 print('tmp4: ',tmp4.shape)
 
-tmp5 = get_np_arrays(path4)          #recupero tmp1 dal file 
-print('tmp5: ',tmp5.shape)
+# tmp5 = get_np_arrays(path4)          #recupero tmp1 dal file 
+# print('tmp5: ',tmp5.shape)
 
-tmp6 = get_np_arrays(path5)          #recupero tmp2 dal file
-print('tmp6: ',tmp6.shape)
+# tmp6 = get_np_arrays(path5)          #recupero tmp2 dal file
+# print('tmp6: ',tmp6.shape)
 
 # tmp7 = get_np_arrays(path6)          #recupero tmp1 dal file 
 # print('tmp7: ',tmp7.shape)
@@ -126,8 +133,8 @@ print('tmp6: ',tmp6.shape)
 # print('tmp12: ',tmp12.shape)
 
 
-tmp1=np.concatenate((tmp1,tmp3,tmp5))#,tmp7,tmp9,tmp11))
-tmp2=np.concatenate((tmp2,tmp4,tmp6))#,tmp8,tmp10,tmp12))
+tmp1=np.concatenate((tmp1,tmp3))#,tmp5))#,tmp7,tmp9,tmp11))
+tmp2=np.concatenate((tmp2,tmp4))#,tmp6))#,tmp8,tmp10,tmp12))
 
 
 print('tmp1_new: ',tmp1.shape)

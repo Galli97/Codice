@@ -24,22 +24,27 @@ from keras.preprocessing.image import ImageDataGenerator
 # path1 = r"/content/drive/MyDrive/Tesi/label_patches_TEST.npy"
 
 # ####### PERCORSO IN LOCALE #########
-path = r"C:\Users\Mattia\Desktop\Tentativi128_2\image_patches_TEST.npy"
-path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\label_patches_TEST.npy"
+# path = r"C:\Users\Mattia\Desktop\Tentativi128_2\image_patches_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\label_patches_TEST.npy"
+
 # path = r"C:\Users\Mattia\Desktop\Tentativi128\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi128\label_patches_TEST.npy"
+
 # path = r"C:\Users\Mattia\Desktop\Tentativi\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi\label_patches_TEST.npy"
 # path2= r"C:\Users\Mattia\Documenti\Github\Codice\cropped_images_TEST.npy"
 # path3 =  r"C:\Users\Mattia\Documenti\Github\Codice\cropped_labels_TEST.npy"
+
+path = r"C:\Users\Mattia\Desktop\image_patches_TEST.npy"
+path1 =  r"C:\Users\Mattia\Desktop\label_patches_TEST.npy"
+
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
 #print(type(tmp1))
 print(tmp1.shape)
 print('0: ',tmp1[1])
 #tmp1=tmp1[0:500]
-F=6.10917989e+01
-print('F',F)
+
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 #print(type(tmp2))
 print(tmp2.shape)
@@ -116,12 +121,19 @@ matrix_nonull=matrix[1:4,1:4]
 # bigrock_pixels= bigrock_count 
 # soil_pixels= soil_count 
 
+#128 1500 delle merged
+null_pixels =  8041245
+bedrock_pixels= 2058089
+sand_pixels= 5135
+bigrock_pixels= 6072
+soil_pixels= 14465459
+
 #128 1500
-null_pixels =  9663358
-bedrock_pixels= 4869205
-sand_pixels= 3679903
-bigrock_pixels= 348196
-soil_pixels= 6015338
+# null_pixels =  9663358
+# bedrock_pixels= 4869205
+# sand_pixels= 3679903
+# bigrock_pixels= 348196
+# soil_pixels= 6015338
 
 #128 500
 # null_pixels = 3315038 

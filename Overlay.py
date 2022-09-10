@@ -31,8 +31,11 @@ from sklearn.feature_extraction import image
 # tmp2=tmp2[:64]
 # predictions=predictions[:64]
 ####### PERCORSO IN LOCALE #########
-path = r"C:\Users\Mattia\Desktop\Tesi\Dataset\Test-images"
-path1 =  r"C:\Users\Mattia\Desktop\Tesi\Dataset\Test-labels"
+# path = r"C:\Users\Mattia\Desktop\Tesi\Dataset\Test-images"
+# path1 =  r"C:\Users\Mattia\Desktop\Tesi\Dataset\Test-labels"
+
+path = r"C:\Users\Mattia\Desktop\TEST_images"
+path1 =  r"C:\Users\Mattia\Desktop\TEST_labels"
 
 ####### CREO UNA LISTA CON ELEMENTI DATI DA QUELLI NELLA CARTELLA DEL PERCORSO ######
 dir = os.listdir(path)       #immagini in input
@@ -61,7 +64,7 @@ print(len(label_list))
 crop_images_list=[]
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
 print('[INFO]Generating images array')
-i =random.randint(0,len(image_list)-1)
+i =  1#random.randint(0,len(image_list)-1)
 print(i)
 image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
 image = image.astype('float32')
@@ -125,7 +128,7 @@ cv2.waitKey(0)
 SHAPE=128;
 
 tmp1 = crop_images_list
-tmp2 = decode_masks(crop_labels_list,SHAPE)
+tmp2 = decode_labels_overlay(crop_labels_list,SHAPE)
 
 # predictions = decode_predictions(predictions,SHAPE)
 # predictions = decode_masks(predictions,SHAPE)
@@ -134,9 +137,9 @@ overlay=[];
 
 for j in range (len(tmp2)):
     true_image = tmp1[j]
-    true_image = np.asarray(true_image, np.float64)
+    true_image = np.asarray(true_image, np.float32)
     label_img = tmp2[j]
-    label_img = np.asarray(label_img, np.float64)
+    label_img = np.asarray(label_img, np.float32)
     overlay_img = cv2.addWeighted(true_image, 1, label_img,  0.002, 0)
     overlay.append(overlay_img)
 
@@ -176,9 +179,9 @@ overlay=[];
 
 for d in range (len(tmp2)):
     true_image = tmp1[d]
-    true_image = np.asarray(true_image, np.float64)
+    true_image = np.asarray(true_image, np.float32)
     label_img = predictions[d]
-    label_img = np.asarray(label_img, np.float64)
+    label_img = np.asarray(label_img, np.float32)
     overlay_img = cv2.addWeighted(true_image, 1, label_img, 0.002, 0)
     overlay.append(overlay_img)
 

@@ -324,6 +324,45 @@ def decode_masks(tmp2,SHAPE):
               decoded_images[n]=image
     return decoded_images
 
+def decode_labels_overlay(tmp2,SHAPE):
+    soil=0;
+    bedrock=1;
+    sand=2;
+    bigrock=3;
+    null=255;
+    
+    decoded_images = np.empty((len(tmp2), SHAPE, SHAPE, 3), dtype=np.uint8)  #Qui ho N immagini
+    for n in range (len(tmp2)):
+      label = tmp2[n]
+      #reduct_label = label[:,:,0]                        
+      image = np.empty((SHAPE, SHAPE, 3), dtype=np.uint8) 
+      #image[:,:,0]=reduct_label  
+      for i in range(0,SHAPE):
+          for j in range(0,SHAPE): 
+              channels_xy = label[i,j];          #SOIL is kept black, NULL (no label) is white 
+              if channels_xy==bedrock:      #BEDROCK --->RED
+                  image[i,j,0]=255
+                  image[i,j,1]=0
+                  image[i,j,2]=0
+              elif channels_xy==sand:    #SAND --->GREEN
+                  image[i,j,0]=0
+                  image[i,j,1]=255
+                  image[i,j,2]=0
+              elif channels_xy==bigrock:    #BIG ROCK ---> BLUE
+                  image[i,j,0]=0
+                  image[i,j,1]=0
+                  image[i,j,2]=255
+              elif channels_xy==soil:    #SOIL ---> BLACK
+                  image[i,j,0]=0
+                  image[i,j,1]=0
+                  image[i,j,2]=0
+              elif channels_xy==null:    #NULL ---> WHITE
+                  image[i,j,0]=255
+                  image[i,j,1]=255
+                  image[i,j,2]=255
+              decoded_images[n]=image
+    return decoded_images
+
 
 def decode_predictions(tmp2,SHAPE):
     decoded_images = np.empty((len(tmp2), SHAPE, SHAPE, 1), dtype=np.uint8)  #Qui ho N immagini
@@ -488,13 +527,19 @@ def add_sample_weights(image, label):
     # bigrock_pixels =  5898122 
     # soil_pixels = 3547592 
 
-    #128_soil
-    null_pixels = 8716821  
-    bedrock_pixels =  8384303 
-    sand_pixels =  7912362 
-    bigrock_pixels =  3598517 
-    soil_pixels = 5499485 
-
+    # #128_soil
+    # null_pixels = 8716821  
+    # bedrock_pixels =  8384303 
+    # sand_pixels =  7912362 
+    # bigrock_pixels =  3598517 
+    # soil_pixels = 5499485 
+    
+    #128 Dataset_1
+    null_pixels = 7219653  
+    bedrock_pixels =  6570255 
+    sand_pixels =  5706402 
+    bigrock_pixels =  3551623 
+    soil_pixels = 6525187 
 
 
     PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels#+null_pixels ;

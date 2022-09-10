@@ -19,8 +19,11 @@ import random
 from sklearn.utils import shuffle
 from sklearn.feature_extraction import image
 ####### PERCORSO IN LOCALE #########
-path = r"C:\Users\Mattia\Desktop\Tesi\Dataset\Test-images"
-path1 =  r"C:\Users\Mattia\Desktop\Tesi\Dataset\Test-labels"
+# path = r"C:\Users\Mattia\Desktop\Tesi\Dataset\Test-images"
+# path1 =  r"C:\Users\Mattia\Desktop\Tesi\Dataset\Test-labels"
+
+path = r"C:\Users\Mattia\Desktop\TEST_images"
+path1 =  r"C:\Users\Mattia\Desktop\TEST_labels"
 
 ####### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
 # path = r"/content/drive/MyDrive/Tesi/Dataset/Test_images"
@@ -55,16 +58,12 @@ print('Elem1: ', image_list[0])
 print('label1: ', label_list[0])
 
 ####RESHUFFLE DELLA LISTA DELLE IMMAGINI E DELLE LABEL####
-image_list, label_list = shuffle(np.array(image_list), np.array(label_list))
-print('Elem1 shuffled: ', image_list[0])
-print('label1: ', label_list[0])
-
-# ### DATA AUGMENTATION CON LA FUNZIONE DEFINITA IN UTILS #####
-# #tmp1a,tmp2a,A = augment(image_list,label_list);
-# A=0;                                              #### METTO A=0 SE NON VOGLIO FARE DATA AUGMENTATION, COMMENTANDO LA RIGA SOPRA
+# image_list, label_list = shuffle(np.array(image_list), np.array(label_list))
+# print('Elem1 shuffled: ', image_list[0])
+# print('label1: ', label_list[0])
 
 ####NUMERO DI IMMAGINI NEL DATASET + IMMAGINI DOVUTE AL DATA AUGMENTATION ####
-N = 2000#len(image_list)+A           
+N = len(image_list)       
 #N=163                                 #### UTILIZZARE LA RIGA SOPRA PER USARE TUTTE LE IMMAGINI A DISPOSIZIONE
 print('Augmented image list dimension')
 print(N)
