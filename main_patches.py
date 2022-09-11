@@ -87,8 +87,8 @@ path = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images.npy"
 path1 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels.npy"
 path2 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images_2.npy"
 path3 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels_2.npy"
-path2 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images_3.npy"
-path3 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels_3.npy"
+path4 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images_3.npy"
+path5 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels_3.npy"
 
 
 # ####### PERCORSO IN LOCALE #########
