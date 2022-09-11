@@ -90,7 +90,6 @@ path3 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels_2.npy"
 path4 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images_3.npy"
 path5 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels_3.npy"
 
-
 # ####### PERCORSO IN LOCALE #########
 # path = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_labels.npy"
