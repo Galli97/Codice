@@ -87,8 +87,8 @@ path = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images.npy"
 path1 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels.npy"
 path2 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images_2.npy"
 path3 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels_2.npy"
-# path4 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images_3.npy"
-# path5 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels_3.npy"
+path4 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images_3.npy"
+path5 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels_3.npy"
 
 # ####### PERCORSO IN LOCALE #########
 # path = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images.npy"
@@ -109,11 +109,11 @@ print('tmp3: ',tmp3.shape)
 tmp4 = get_np_arrays(path3)          #recupero tmp2 dal file
 print('tmp4: ',tmp4.shape)
 
-# tmp5 = get_np_arrays(path4)          #recupero tmp1 dal file 
-# print('tmp5: ',tmp5.shape)
+tmp5 = get_np_arrays(path4)          #recupero tmp1 dal file 
+print('tmp5: ',tmp5.shape)
 
-# tmp6 = get_np_arrays(path5)          #recupero tmp2 dal file
-# print('tmp6: ',tmp6.shape)
+tmp6 = get_np_arrays(path5)          #recupero tmp2 dal file
+print('tmp6: ',tmp6.shape)
 
 # tmp7 = get_np_arrays(path6)          #recupero tmp1 dal file 
 # print('tmp7: ',tmp7.shape)
@@ -134,8 +134,8 @@ print('tmp4: ',tmp4.shape)
 # print('tmp12: ',tmp12.shape)
 
 
-tmp1=np.concatenate((tmp1,tmp3))#,tmp5))#,tmp7,tmp9,tmp11))
-tmp2=np.concatenate((tmp2,tmp4))#,tmp6))#,tmp8,tmp10,tmp12))
+tmp1=np.concatenate((tmp1,tmp3,tmp5))#,tmp7,tmp9,tmp11))
+tmp2=np.concatenate((tmp2,tmp4,tmp6))#,tmp8,tmp10,tmp12))
 
 
 print('tmp1_new: ',tmp1.shape)
@@ -187,7 +187,7 @@ BATCH = 32
 EPOCHS = 250
 #steps = int(train_set/(EPOCHS))
 steps = int(np.ceil(train_set/ float(BATCH)))
-weight_decay =0.0004#0.0001/2 
+weight_decay =0.0005#0.0001/2 
 
 #steps_val = int(np.ceil(len(list_validation)/ float(BATCH)+1))
 #steps_val = int(len(list_validation)/EPOCHS)
@@ -196,13 +196,13 @@ batch_shape=(BATCH,SHAPE,SHAPE,3)
 input_shape = (SHAPE, SHAPE, 3)
 tf.keras.backend.set_image_data_format('channels_last')
 
-#model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
 #model = rete_Resnet101(img_size=128,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = AtrousFCN_Resnet50_16s(input_shape = shape, weight_decay=weight_decay, batch_momentum=0.95, batch_shape=None, classes=5)
 #model=mobileNET(shape=input_shape,weight_decay=weight_decay)
-model=mobile(shape=input_shape,weight_decay=weight_decay)
+#model=mobile(shape=input_shape,weight_decay=weight_decay)
 
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######
 # x_train = datagenerator(list_train,label_train,BATCH)
@@ -251,7 +251,7 @@ callbacks = [scheduler]
 callbacks.append(tf.keras.callbacks.EarlyStopping(monitor='val_updated_mean_io_u', min_delta=0.0001,verbose=1,mode="max",restore_best_weights=False, patience=30))
 
 
-optimizer = SGD(learning_rate=lr_base, momentum=0.0004)
+optimizer = SGD(learning_rate=lr_base, momentum=0.9)
 #optimizer=tf.keras.optimizers.Adam(learning_rate=0.001)
 loss_fn =keras.losses.SparseCategoricalCrossentropy()#keras.losses.SparseCategoricalCrossentropy(from_logits=True) #iou_coef #softmax_sparse_crossentropy_ignoring_last_label
 
