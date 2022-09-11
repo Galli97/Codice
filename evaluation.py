@@ -24,8 +24,8 @@ from keras.preprocessing.image import ImageDataGenerator
 # path1 = r"/content/drive/MyDrive/Tesi/label_patches_TEST.npy"
 
 # ####### PERCORSO IN LOCALE #########
-# path = r"C:\Users\Mattia\Desktop\Tentativi128_2\image_patches_TEST.npy"
-# path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\label_patches_TEST.npy"
+path = r"C:\Users\Mattia\Desktop\Tentativi128_2\image_patches_TEST.npy"
+path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\label_patches_TEST.npy"
 
 # path = r"C:\Users\Mattia\Desktop\Tentativi128\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi128\label_patches_TEST.npy"
@@ -35,8 +35,8 @@ from keras.preprocessing.image import ImageDataGenerator
 # path2= r"C:\Users\Mattia\Documenti\Github\Codice\cropped_images_TEST.npy"
 # path3 =  r"C:\Users\Mattia\Documenti\Github\Codice\cropped_labels_TEST.npy"
 
-path = r"C:\Users\Mattia\Desktop\image_patches_TEST.npy"
-path1 =  r"C:\Users\Mattia\Desktop\label_patches_TEST.npy"
+# path = r"C:\Users\Mattia\Desktop\image_patches_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\label_patches_TEST.npy"
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
@@ -122,18 +122,18 @@ matrix_nonull=matrix[1:4,1:4]
 # soil_pixels= soil_count 
 
 #128 1500 delle merged
-null_pixels =  220661911
-bedrock_pixels= 26192939
-sand_pixels= 30639905
-bigrock_pixels= 77698
-soil_pixels= 60069019
+# null_pixels =  220661911
+# bedrock_pixels= 26192939
+# sand_pixels= 30639905
+# bigrock_pixels= 77698
+# soil_pixels= 60069019
 
 #128 1500
-# null_pixels =  9663358
-# bedrock_pixels= 4869205
-# sand_pixels= 3679903
-# bigrock_pixels= 348196
-# soil_pixels= 6015338
+null_pixels =  9663358
+bedrock_pixels= 4869205
+sand_pixels= 3679903
+bigrock_pixels= 348196
+soil_pixels= 6015338
 
 #128 500
 # null_pixels = 3315038 
