@@ -535,18 +535,18 @@ def add_sample_weights(image, label):
     # soil_pixels = 5499485 
     
     #128 Dataset_1
-    # null_pixels = 7219653  
-    # bedrock_pixels =  6570255 
-    # sand_pixels =  5706402 
-    # bigrock_pixels =  3551623 
-    # soil_pixels = 6525187 
+    null_pixels = 7219653  
+    bedrock_pixels =  6570255 
+    sand_pixels =  5706402 
+    bigrock_pixels =  3551623 
+    soil_pixels = 6525187 
 
     #128 Dataset_1 (1-2-3)
-    null_pixels = 10820337  
-    bedrock_pixels =  10198222 
-    sand_pixels =  9388960 
-    bigrock_pixels =  4857642 
-    soil_pixels = 7464311 
+    # null_pixels = 10820337  
+    # bedrock_pixels =  10198222 
+    # sand_pixels =  9388960 
+    # bigrock_pixels =  4857642 
+    # soil_pixels = 7464311 
 
     PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels#+null_pixels ;
     #perc_null=1-null_pixels/PIXELS
