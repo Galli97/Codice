@@ -134,8 +134,8 @@ print('tmp6: ',tmp6.shape)
 # print('tmp12: ',tmp12.shape)
 
 
-tmp1=np.concatenate((tmp1,tmp3))#,tmp5))#,tmp7,tmp9,tmp11))
-tmp2=np.concatenate((tmp2,tmp4))#,tmp6))#,tmp8,tmp10,tmp12))
+tmp1=np.concatenate((tmp1,tmp3,tmp5))#,tmp7,tmp9,tmp11))
+tmp2=np.concatenate((tmp2,tmp4,tmp6))#,tmp8,tmp10,tmp12))
 
 
 print('tmp1_new: ',tmp1.shape)
@@ -196,9 +196,9 @@ batch_shape=(BATCH,SHAPE,SHAPE,3)
 input_shape = (SHAPE, SHAPE, 3)
 tf.keras.backend.set_image_data_format('channels_last')
 
-model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+#model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = rete_vgg16_dilation(img_size=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
-#model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
+model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
 #model = rete_Resnet101(img_size=128,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = AtrousFCN_Resnet50_16s(input_shape = shape, weight_decay=weight_decay, batch_momentum=0.95, batch_shape=None, classes=5)
 #model=mobileNET(shape=input_shape,weight_decay=weight_decay)
