@@ -105,9 +105,10 @@ path1 = r"/content/drive/MyDrive/Tesi/Dataset512/final_labels.npy"
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
 print('tmp1: ',tmp1.shape)
 
+tmp1=tmp1[:10]
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 print('tmp2: ',tmp2.shape)
-
+tmp2=tmp2[:10]
 # tmp3 = get_np_arrays(path2)          #recupero tmp1 dal file 
 # print('tmp3: ',tmp3.shape)
 
