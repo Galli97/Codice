@@ -64,7 +64,7 @@ print(len(label_list))
 crop_images_list=[]
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
 print('[INFO]Generating images array')
-i = random.randint(0,len(image_list)-1)
+i = 1 #random.randint(0,len(image_list)-1) #229
 print(i)
 image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
 image = image.astype('float32')
