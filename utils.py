@@ -285,6 +285,63 @@ def decode_masks_Notsparse(tmp2,SHAPE):
               decoded_images[n]=image
     return decoded_images
 
+def decode_null(tmp2,SHAPE):
+    soil=0;
+    bedrock=1;
+    sand=2;
+    bigrock=3;
+    null=255;
+    
+    decoded_images = np.empty((len(tmp2), SHAPE, SHAPE, 3), dtype=np.uint8)  #Qui ho N immagini
+    
+    label = tmp2
+    #reduct_label = label[:,:,0]                        
+    image = np.empty((SHAPE, SHAPE, 3), dtype=np.uint8) 
+    #image[:,:,0]=reduct_label  
+    for i in range(0,SHAPE):
+        for j in range(0,SHAPE): 
+            channels_xy = label[i,j];          #SOIL is kept black, NULL (no label) is white 
+            if channels_xy[0]==bedrock:      #BEDROCK --->BLUE
+                image[i,j,0]=0
+                image[i,j,1]=0
+                image[i,j,2]=0
+            elif channels_xy[0]==sand:    #SAND --->GREEN
+                image[i,j,0]=0
+                image[i,j,1]=0
+                image[i,j,2]=0
+            elif channels_xy[0]==bigrock:    #BIG ROCK ---> RED
+                image[i,j,0]=0
+                image[i,j,1]=0
+                image[i,j,2]=0
+            elif channels_xy[0]==soil:    #SOIL ---> BLACK
+                image[i,j,0]=0
+                image[i,j,1]=0
+                image[i,j,2]=0
+            elif channels_xy[0]==null:    #NULL ---> WHITE
+                image[i,j,0]=255
+                image[i,j,1]=255
+                image[i,j,2]=255
+            decoded_images=image
+    return decoded_images
+
+def New_label(img1,img2,SHAPE):
+    
+    soil=0;
+    null= 255;
+                            
+    image = np.empty((SHAPE, SHAPE, 3), dtype=np.uint8) 
+    #image[:,:,0]=reduct_label  
+    for i in range(0,SHAPE):
+        for j in range(0,SHAPE): 
+            channels_xy = img1[i,j];          #SOIL is kept black, NULL (no label) is white 
+            if channels_xy[0]==soil:    #SOIL ---> BLACK
+                image[i,j] = img2[i,j]
+            elif channels_xy[0]==null:    #NULL ---> WHITE
+                image[i,j,0]=255
+                image[i,j,1]=255
+                image[i,j,2]=255
+    return image
+    
 def decode_masks(tmp2,SHAPE):
     soil=4;
     bedrock=1;
@@ -301,7 +358,7 @@ def decode_masks(tmp2,SHAPE):
       for i in range(0,SHAPE):
           for j in range(0,SHAPE): 
               channels_xy = label[i,j];          #SOIL is kept black, NULL (no label) is white 
-              if channels_xy==bedrock:      #BEDROCK --->RED
+              if channels_xy==bedrock:      #BEDROCK --->BLUE
                   image[i,j,0]=255
                   image[i,j,1]=0
                   image[i,j,2]=0
@@ -309,7 +366,7 @@ def decode_masks(tmp2,SHAPE):
                   image[i,j,0]=0
                   image[i,j,1]=255
                   image[i,j,2]=0
-              elif channels_xy==bigrock:    #BIG ROCK ---> BLUE
+              elif channels_xy==bigrock:    #BIG ROCK ---> RED
                   image[i,j,0]=0
                   image[i,j,1]=0
                   image[i,j,2]=255
@@ -340,7 +397,7 @@ def decode_labels_overlay(tmp2,SHAPE):
       for i in range(0,SHAPE):
           for j in range(0,SHAPE): 
               channels_xy = label[i,j];          #SOIL is kept black, NULL (no label) is white 
-              if channels_xy==bedrock:      #BEDROCK --->RED
+              if channels_xy==bedrock:      #BEDROCK --->BLUE
                   image[i,j,0]=255
                   image[i,j,1]=0
                   image[i,j,2]=0
@@ -348,7 +405,7 @@ def decode_labels_overlay(tmp2,SHAPE):
                   image[i,j,0]=0
                   image[i,j,1]=255
                   image[i,j,2]=0
-              elif channels_xy==bigrock:    #BIG ROCK ---> BLUE
+              elif channels_xy==bigrock:    #BIG ROCK ---> RED
                   image[i,j,0]=0
                   image[i,j,1]=0
                   image[i,j,2]=255

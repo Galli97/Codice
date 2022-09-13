@@ -64,7 +64,7 @@ print(len(label_list))
 crop_images_list=[]
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
 print('[INFO]Generating images array')
-i = 1 #random.randint(0,len(image_list)-1) #229
+i = 1#random.randint(0,len(image_list)-1)
 print(i)
 image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
 image = image.astype('float32')
@@ -101,7 +101,7 @@ lab = np.empty((1024, 1024, 3), dtype=np.uint8)
 for r in range(0,1024):
     for c in range(0,1024): 
         channels_xy = label_real[r,c];          #SOIL is kept black, NULL (no label) is white 
-        if channels_xy[0]==bedrock:      #BEDROCK --->RED
+        if channels_xy[0]==bedrock:      #BEDROCK --->BLUE
             lab[r,c,0]=255
             lab[r,c,1]=0
             lab[r,c,2]=0
@@ -109,7 +109,7 @@ for r in range(0,1024):
             lab[r,c,0]=0
             lab[r,c,1]=255
             lab[r,c,2]=0
-        elif channels_xy[0]==bigrock:    #BIG ROCK ---> BLUE
+        elif channels_xy[0]==bigrock:    #BIG ROCK ---> RED
             lab[r,c,0]=0
             lab[r,c,1]=0
             lab[r,c,2]=255
@@ -122,6 +122,7 @@ for r in range(0,1024):
             lab[r,c,1]=255
             lab[r,c,2]=255
 #lab=cv2.resize(lab,(512,512))
+
 cv2.imshow('real label',lab)
 cv2.waitKey(0)
 
@@ -176,7 +177,7 @@ predictions = decode_masks(predictions,SHAPE)
 
 
 overlay=[];
-
+pred = [];
 for d in range (len(tmp2)):
     true_image = tmp1[d]
     true_image = np.asarray(true_image, np.float32)
@@ -184,6 +185,7 @@ for d in range (len(tmp2)):
     label_img = np.asarray(label_img, np.float32)
     overlay_img = cv2.addWeighted(true_image, 1, label_img, 0.002, 0)
     overlay.append(overlay_img)
+    pred.append(label_img)
 
 img1 = np.hstack((overlay[0], overlay[1],overlay[2], overlay[3],overlay[4], overlay[5],overlay[6], overlay[7]))
 img2 = np.hstack((overlay[0+8],overlay[1+8], overlay[2+8],overlay[3+8], overlay[4+8],overlay[5+8], overlay[6+8],overlay[7+8]))
@@ -196,6 +198,55 @@ img8 = np.hstack((overlay[0+7*8],overlay[1+7*8], overlay[2+7*8],overlay[3+7*8], 
 
 result = np.vstack((img1,img2,img3,img4,img5,img6,img7,img8))
 
+pred1 = np.hstack((pred[0], pred[1],pred[2], pred[3],pred[4], pred[5],pred[6], pred[7]))
+pred2 = np.hstack((pred[0+8],pred[1+8], pred[2+8],pred[3+8], pred[4+8],pred[5+8], pred[6+8],pred[7+8]))
+pred3 = np.hstack((pred[0+2*8],pred[1+2*8], pred[2+2*8],pred[3+2*8], pred[4+2*8],pred[5+2*8], pred[6+2*8],pred[7+2*8]))
+pred4 = np.hstack((pred[0+3*8],pred[1+3*8], pred[2+3*8],pred[3+3*8], pred[4+3*8],pred[5+3*8], pred[6+3*8],pred[7+3*8]))
+pred5 = np.hstack((pred[0+4*8],pred[1+4*8], pred[2+4*8],pred[3+4*8], pred[4+4*8],pred[5+4*8], pred[6+4*8],pred[7+4*8]))
+pred6 = np.hstack((pred[0+5*8],pred[1+5*8], pred[2+5*8],pred[3+5*8], pred[4+5*8],pred[5+5*8], pred[6+5*8],pred[7+5*8]))
+pred7 = np.hstack((pred[0+6*8],pred[1+6*8], pred[2+6*8],pred[3+6*8], pred[4+6*8],pred[5+6*8], pred[6+6*8],pred[7+6*8]))
+pred8 = np.hstack((pred[0+7*8],pred[1+7*8], pred[2+7*8],pred[3+7*8], pred[4+7*8],pred[5+7*8], pred[6+7*8],pred[7+7*8]))
+
+result_pred = np.vstack((pred1,pred2,pred3,pred4,pred5,pred6,pred7,pred8))
+
 cv2.imshow('overlay',result)
 cv2.waitKey(0)
 
+null_image = decode_null(label_real,1024)
+null_image = np.asarray(null_image, np.float32)
+cv2.imshow('overlay',null_image)
+cv2.waitKey(0)
+
+# result_pred = np.asarray(result_pred, np.float32)
+# overlay_final = cv2.addWeighted(result_pred, 1, null_image, 0.005, 0)
+# cv2.imshow('overlay2',overlay_final)
+# cv2.waitKey(0)
+#overlay_final = np.asarray(overlay_final, np.float32)
+
+label_new = New_label(null_image,result_pred,1024)
+
+img_real=cv2.imread(image_list[i])[:,:,[2,1,0]]
+cv2.imshow('label_new',label_new)
+cv2.waitKey(0)
+
+overlay2=[]
+for d in range (len(tmp2)):
+    true_image = tmp1[d]
+    true_image = np.asarray(true_image, np.float32)
+    overlay2.append(true_image)
+
+img_1 = np.hstack((overlay2[0], overlay2[1],overlay2[2], overlay2[3],overlay2[4], overlay2[5],overlay2[6], overlay2[7]))
+img_2 = np.hstack((overlay2[0+8],overlay2[1+8], overlay2[2+8],overlay2[3+8], overlay2[4+8],overlay2[5+8], overlay2[6+8],overlay2[7+8]))
+img_3 = np.hstack((overlay2[0+2*8],overlay2[1+2*8], overlay2[2+2*8],overlay2[3+2*8], overlay2[4+2*8],overlay2[5+2*8], overlay2[6+2*8],overlay2[7+2*8]))
+img_4 = np.hstack((overlay2[0+3*8],overlay2[1+3*8], overlay2[2+3*8],overlay2[3+3*8], overlay2[4+3*8],overlay2[5+3*8], overlay2[6+3*8],overlay2[7+3*8]))
+img_5 = np.hstack((overlay2[0+4*8],overlay2[1+4*8], overlay2[2+4*8],overlay2[3+4*8], overlay2[4+4*8],overlay2[5+4*8], overlay2[6+4*8],overlay2[7+4*8]))
+img_6 = np.hstack((overlay2[0+5*8],overlay2[1+5*8], overlay2[2+5*8],overlay2[3+5*8], overlay2[4+5*8],overlay2[5+5*8], overlay2[6+5*8],overlay2[7+5*8]))
+img_7 = np.hstack((overlay2[0+6*8],overlay2[1+6*8], overlay2[2+6*8],overlay2[3+6*8], overlay2[4+6*8],overlay2[5+6*8], overlay2[6+6*8],overlay2[7+6*8]))
+img_8 = np.hstack((overlay2[0+7*8],overlay2[1+7*8], overlay2[2+7*8],overlay2[3+7*8], overlay2[4+7*8],overlay2[5+7*8], overlay2[6+7*8],overlay2[7+7*8]))
+
+result2 = np.vstack((img_1,img_2,img_3,img_4,img_5,img_6,img_7,img_8))
+
+label_new = np.asarray(label_new, np.float32)
+overlay_final2 = cv2.addWeighted(label_new, 0.002,result2, 1, 0)
+cv2.imshow('overlay3',overlay_final2)
+cv2.waitKey(0)
