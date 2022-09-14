@@ -66,13 +66,13 @@ from keras.preprocessing.image import ImageDataGenerator
 # path4 = r"C:\Users\Mattia\Desktop\DatasetSoil\final_images_3.npy"
 # path5 = r"C:\Users\Mattia\Desktop\DatasetSoil\final_labels_3.npy"
 
-# path = r"C:\Users\Mattia\Documenti\Github\Codice\final_images.npy"
-# path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\final_labels.npy"
+path = r"C:\Users\Mattia\Documenti\Github\Codice\final_images.npy"
+path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\final_labels.npy"
 # path = r"C:\Users\Mattia\Desktop\Tentativi128_2\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\label_patches_TEST.npy"
 
-path = r"C:\Users\Mattia\Desktop\Resized_Test\image_patches_TEST.npy"
-path1 =  r"C:\Users\Mattia\Desktop\Resized_Test\label_patches_TEST.npy"
+# path = r"C:\Users\Mattia\Desktop\Resized_Test\image_patches_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\Resized_Test\label_patches_TEST.npy"
 
 # path = r"C:\Users\Mattia\Desktop\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\label_patches_TEST.npy"
