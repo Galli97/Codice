@@ -219,13 +219,13 @@ pred8 = np.hstack((pred[0+7*8],pred[1+7*8], pred[2+7*8],pred[3+7*8], pred[4+7*8]
 
 result_pred = np.vstack((pred1,pred2,pred3,pred4,pred5,pred6,pred7,pred8))
 
-cv2.imshow('overlay',result)
+cv2.imshow('overlay_prediction',result)
 cv2.waitKey(0)
 
 null_image = decode_null(label_real,1024)
 null_image = np.asarray(null_image, np.float32)
-cv2.imshow('overlay',null_image)
-cv2.waitKey(0)
+# cv2.imshow('overlay',null_image)
+# cv2.waitKey(0)
 
 # result_pred = np.asarray(result_pred, np.float32)
 # overlay_final = cv2.addWeighted(result_pred, 1, null_image, 0.005, 0)
@@ -236,8 +236,8 @@ cv2.waitKey(0)
 label_new = New_label(null_image,result_pred,1024)
 
 img_real=cv2.imread(image_list[i])[:,:,[2,1,0]]
-cv2.imshow('label_new',label_new)
-cv2.waitKey(0)
+# cv2.imshow('label_new',label_new)
+# cv2.waitKey(0)
 
 overlay2=[]
 for d in range (len(tmp2)):
