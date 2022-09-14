@@ -27,11 +27,11 @@ from sklearn.feature_extraction import image
 # path = r"C:\Users\Mattia\Desktop\Tentativi128\cropped_images_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi128\cropped_labels_TEST.npy"
 
-# path = r"C:\Users\Mattia\Documenti\github\Codice\cropped_images_TEST.npy"
-# path1 =  r"C:\Users\Mattia\Documenti\github\Codice\cropped_labels_TEST.npy"
+path = r"C:\Users\Mattia\Documenti\github\Codice\cropped_images_TEST.npy"
+path1 =  r"C:\Users\Mattia\Documenti\github\Codice\cropped_labels_TEST.npy"
 
-path = r"C:\Users\Mattia\Desktop\cropped_images_TEST.npy"
-path1 =  r"C:\Users\Mattia\Desktop\cropped_labels_TEST.npy"
+# path = r"C:\Users\Mattia\Desktop\cropped_images_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\cropped_labels_TEST.npy"
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 crop_images_list = get_np_arrays(path)          #recupero tmp1 dal file 
@@ -69,10 +69,6 @@ sand=2;
 bigrock=3;
 nullo=255;
 
-flag_sand=False;
-flag_bedrock=False;
-flag_bigrock=False;
-flag_soil=False;
 count=0;
 
 chosen_label=[];
@@ -83,15 +79,15 @@ for t in range (0,len(crop_labels_list)):
     for i in range(0,128):
         for n in range(0,128): 
             channels_xy = crop[i,n];           #prendo i valori del pixel [i,j] e li valuto per definire la classe di appartenenza del pixel
-            if channels_xy[0]==bedrock:       #BEDROCK      
+            if channels_xy==bedrock:       #BEDROCK      
                 crop[i,n,:]=1
-            elif channels_xy[0]==sand:     #SAND
+            elif channels_xy==sand:     #SAND
                 crop[i,n,:]=2
-            elif channels_xy[0]==bigrock:     #BIG ROCK
+            elif channels_xy==bigrock:     #BIG ROCK
                 crop[i,n,:]=3
-            elif channels_xy[0]==soil:     #SOIL
+            elif channels_xy==soil:     #SOIL
                 crop[i,n,:]=4
-            elif channels_xy[0]==nullo:    #NULL
+            elif channels_xy==nullo:    #NULL
                 crop[i,n,:]=0
     tmp2[count] = crop
     chosen_label.append(t)

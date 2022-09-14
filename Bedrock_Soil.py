@@ -85,6 +85,7 @@ nullo=255;
 
 flag_soil=False;
 counter_soil=0;
+counter_bedrock=0;
 count=0;
 
 
@@ -131,6 +132,9 @@ for j in range (1120,1220):
             flag_selected=False;
             for k in range (0,int((1024-SHAPE)/coeff)):
                 counter_soil=0;
+                counter_bedrock=0;
+                take_soil=False;
+                take_bedrock=False;
                 if(flag_selected==True):
                     break
                 cropped_label = label[SHAPE*(v):SHAPE*(v+1),coeff*k:SHAPE+coeff*k]           #Passo coeff
@@ -143,7 +147,7 @@ for j in range (1120,1220):
                         channels = cropped_label[m,s];
                         if channels==soil:    #BIG ROCK
                             counter_soil+=1;
-                            if (counter_soil>3000):
+                            if (counter_soil>5000):
                                 take_soil=True;
                         elif channels==bedrock:    #BIG ROCK
                             counter_bedrock+=1;
@@ -153,6 +157,8 @@ for j in range (1120,1220):
                             continue
                 if (take_soil==True and take_bedrock==True):
                     print('Bedrock-Soil IN')
+                    print(counter_bedrock)
+                    print(counter_soil)
                     cropped_image = image[SHAPE*(v):SHAPE*(v+1),coeff*k:SHAPE+coeff*k]
                     crop_labels_list.append(cropped_label)
                     crop_images_list.append(cropped_image)

@@ -19,12 +19,7 @@ import random
 from sklearn.utils import shuffle
 from sklearn.feature_extraction import image
 
-# import os, psutil
-# process = psutil.Process(os.getpid())
-# print(process.memory_info().vms)
-# print('MB: ',psutil.Process(os.getpid()).memory_info().vms / 1024 ** 2)
-# print('The CPU usage is: ', psutil.cpu_percent(4))
-# print('RAM memory % used:', psutil.virtual_memory()[2])
+
 # path = r"C:\Users\Mattia\Desktop\Tentativi128\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi128\label_patches_TEST.npy"
 # path2 = r"C:\Users\Mattia\Documenti\Github\Codice\predictions.npy"
@@ -70,11 +65,11 @@ print(len(label_list))
 crop_images_list=[]
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
 print('[INFO]Generating images array')
-i = 1#random.randint(0,len(image_list)-1)
+i = 229 #random.randint(0,len(image_list)-1)
 print(i)
 image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
 image = image.astype('float32')
-image/=255                                    #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+image/=510                                    #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
 for r in range (0,8):
     for c in range (0,8):
         cropped_image = image[128*r:128*(r+1),128*c:128*(c+1)]
@@ -166,8 +161,9 @@ result = np.vstack((img1,img2,img3,img4,img5,img6,img7,img8))
 cv2.imshow('overlay',result)
 cv2.waitKey(0)
 
+tmp3 = crop_labels_list
 BATCH=1
-x_test = tf.data.Dataset.from_tensor_slices((tmp1, tmp2))
+x_test = tf.data.Dataset.from_tensor_slices((tmp1, tmp3))
 x_test = (
     x_test
     .batch(BATCH)
