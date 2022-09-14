@@ -91,7 +91,7 @@ count=0;
 
 # IMAGE SELECTION PROCESS #per le 64 sto a 1670-numero attuale
 print('[INFO]Generating labels array')
-for j in range (1000,1100):
+for j in range (1120,1220):
 
     if(count==1500):
         break
@@ -143,11 +143,11 @@ for j in range (1000,1100):
                         channels = cropped_label[m,s];
                         if channels==soil:    #BIG ROCK
                             counter_soil+=1;
-                            if (counter_soil>5000):
+                            if (counter_soil>3000):
                                 take_soil=True;
                         elif channels==bedrock:    #BIG ROCK
                             counter_bedrock+=1;
-                            if (counter_bedrock>5000):
+                            if (counter_bedrock>3000):
                                 take_bedrock=True;
                         else:
                             continue

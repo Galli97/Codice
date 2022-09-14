@@ -19,6 +19,12 @@ import random
 from sklearn.utils import shuffle
 from sklearn.feature_extraction import image
 
+# import os, psutil
+# process = psutil.Process(os.getpid())
+# print(process.memory_info().vms)
+# print('MB: ',psutil.Process(os.getpid()).memory_info().vms / 1024 ** 2)
+# print('The CPU usage is: ', psutil.cpu_percent(4))
+# print('RAM memory % used:', psutil.virtual_memory()[2])
 # path = r"C:\Users\Mattia\Desktop\Tentativi128\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi128\label_patches_TEST.npy"
 # path2 = r"C:\Users\Mattia\Documenti\Github\Codice\predictions.npy"
@@ -171,7 +177,15 @@ model = tf.keras.models.load_model('model.h5',custom_objects={"UpdatedMeanIoU": 
 
 print("[INFO] Starting Evaluation")
 
-predictions = model.predict(x_test,verbose=1,steps=len(tmp2))
+from memory_profiler import profile      #The output displays the memory consumed by each line in the code. Implementation of finding the memory consumption is very easy using a memory profiler as we directly call the decorator instead of writing a whole new code. 
+# instantiating the decorator
+@profile
+def prediction(x_test,tmp2):
+   predictions = model.predict(x_test,verbose=1,steps=len(tmp2))
+   return predictions
+
+predictions = prediction(x_test,tmp2)
+
 predictions = decode_predictions(predictions,SHAPE)
 predictions = decode_masks(predictions,SHAPE)
 
