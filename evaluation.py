@@ -27,6 +27,9 @@ from keras.preprocessing.image import ImageDataGenerator
 path = r"C:\Users\Mattia\Desktop\Tentativi128_2\image_patches_TEST.npy"
 path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\label_patches_TEST.npy"
 
+# path = r"C:\Users\Mattia\Desktop\Resized_Test\image_patches_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\Resized_Test\label_patches_TEST.npy"
+
 # path = r"C:\Users\Mattia\Desktop\Tentativi128\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi128\label_patches_TEST.npy"
 
@@ -142,12 +145,13 @@ soil_pixels= 6015338
 # bigrock_pixels =  66467
 # soil_pixels =  1940544
 
-#64
-# null_pixels = 831340
-# bedrock_pixels =  360564
-# sand_pixels = 316722
-# bigrock_pixels = 16502
-# soil_pixels =  522872
+
+#128 resized
+# null_pixels =  12314115
+# bedrock_pixels =  5000050
+# sand_pixels =  863492
+# bigrock_pixels =  41557
+# soil_pixels = 6356786
 
 
 matrix2 = np.array([[matrix[0]*100/null_pixels],[matrix[1]*100/bedrock_pixels], [matrix[2]*100/sand_pixels],[matrix[3]*100/bigrock_pixels], [matrix[4]*100/soil_pixels]])
