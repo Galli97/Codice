@@ -26,8 +26,8 @@ from sklearn.feature_extraction import image
 # path5 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches.npy"
 path = r"C:\Users\Mattia\Desktop\Datase_BigRock\Dataset_Bigrock\final_images.npy"
 path1 = r"C:\Users\Mattia\Desktop\Datase_BigRock\Dataset_Bigrock\final_labels.npy"
-path2 = r"C:\Users\Mattia\Desktop\Spazio\image_patches.npy"
-path3 = r"C:\Users\Mattia\Desktop\Spazio\label_patches.npy"
+path2= r"C:\Users\Mattia\Documenti\Github\Codice\image_patches.npy"
+path3 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches.npy"
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
 print('tmp1: ',tmp1.shape)
