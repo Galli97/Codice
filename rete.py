@@ -235,16 +235,22 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     x = MaxPooling2D((2, 2), strides=(2, 2),padding='same',name='block3_pool')(x)
 
     b1 = Conv2D(512, (3, 3), activation='relu', padding='same', name='block4_conv1',dilation_rate=(2,2), kernel_regularizer=l2(weight_decay))(x)
+    x = BatchNormalization()(x)
     b1 = Conv2D(512, (3, 3), activation='relu', padding='same', name='block4_conv2',dilation_rate=(2,2), kernel_regularizer=l2(weight_decay))(b1)
-    b1 = Conv2D(512, (3, 3), activation='relu', padding='same', name='block4_conv3',dilation_rate=(2,2), kernel_regularizer=l2(weight_decay))(b1)         ## (32 x 32)
+    x = BatchNormalization()(x)
+    b1 = Conv2D(512, (3, 3), activation='relu', padding='same', name='block4_conv3',dilation_rate=(2,2), kernel_regularizer=l2(weight_decay))(b1) 
+    x = BatchNormalization()(x)        ## (32 x 32)
     s4 = b1 
     b1_pooling = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block4_pool')(b1)
   
     b2 = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(10,10), name='fc5', kernel_regularizer=l2(weight_decay))(b1_pooling)
+    x = BatchNormalization()(x)
     b2 = Dropout(0.5)(b2)
     b2 = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc6', kernel_regularizer=l2(weight_decay))(b2)
+    x = BatchNormalization()(x)
     b2 = Dropout(0.5)(b2)
     b3 = Conv2D(classes, (3, 3),  kernel_initializer='normal',dilation_rate=(2,2), activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(b2)
+    x = BatchNormalization()(x)
     #b3 = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(b3)
     
     
