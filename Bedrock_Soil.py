@@ -92,7 +92,7 @@ count=0;
 
 # IMAGE SELECTION PROCESS #per le 64 sto a 1670-numero attuale
 print('[INFO]Generating labels array')
-for j in range (1120,1500):
+for j in range (1120,2000):
 
     if(count==1500):
         break
