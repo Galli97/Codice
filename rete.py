@@ -324,15 +324,17 @@ def AtrousFCN_Resnet50_16s(input_shape = None, weight_decay=0., batch_momentum=0
     # x = identity_block(3, [512, 512, 2048], stage=5, block='b', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
     # x = identity_block(3, [512, 512, 2048], stage=5, block='c', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
     #classifying layer
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(10,10), name='fc3', kernel_regularizer=l2(weight_decay))(x)
-    x = Dropout(0.5)(x)
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
-    x = Dropout(0.5)(x)
+    # x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(10,10), name='fc3', kernel_regularizer=l2(weight_decay))(x)
+    # x = Dropout(0.5)(x)
+    # x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
+    # x = Dropout(0.5)(x)
     x = Conv2D(5, (3, 3),  kernel_initializer='normal',dilation_rate=(2,2),activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     #x = Conv2D(classes, (1, 1), kernel_initializer='he_normal', activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
     
-    x = Activation('softmax')(x)
+    x = Conv2D(classes, 1,strides=(1, 1), activation='softmax', padding='valid',kernel_regularizer=l2(weight_decay))(x)
+    
+   # x = Activation('softmax')(x)
 
     
     model = Model(img_input, x)
@@ -549,6 +551,6 @@ def DeeplabV3Plus(image_size, num_classes):
         size=(image_size // x.shape[1], image_size // x.shape[2]),
         interpolation="bilinear",
     )(x)
-    
+
     model_output = layers.Conv2D(num_classes, kernel_size=(1, 1), padding="same",activation='softmax')(x)
     return keras.Model(inputs=model_input, outputs=model_output)
