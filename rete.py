@@ -517,9 +517,9 @@ def DilatedSpatialPyramidPooling(dspp_input):
     )(x)
 
     out_1 = convolution_block(dspp_input, kernel_size=1, dilation_rate=1)
-    out_6 = convolution_block(dspp_input, kernel_size=3, dilation_rate=6)
-    out_12 = convolution_block(dspp_input, kernel_size=3, dilation_rate=12)
-    out_18 = convolution_block(dspp_input, kernel_size=3, dilation_rate=18)
+    out_6 = convolution_block(dspp_input, kernel_size=3, dilation_rate=4)
+    out_12 = convolution_block(dspp_input, kernel_size=3, dilation_rate=8)
+    out_18 = convolution_block(dspp_input, kernel_size=3, dilation_rate=10)
 
     x = layers.Concatenate(axis=-1)([out_pool, out_1, out_6, out_12, out_18])
     output = convolution_block(x, kernel_size=1)
