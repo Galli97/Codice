@@ -194,21 +194,46 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     """ Input """
     inputs = Input(input_shape)
 
-    """ Pre-trained VGG16 Model """
-    vgg16 = VGG16(include_top=False, weights="imagenet", input_tensor=inputs)
-    vgg16 = Sequential(vgg16.layers[:-8])
-    # for layer in vgg16.layers:        
-    #     layer.trainable = False
-    #x = vgg16.output
-    """ Encoder """
-    s1 = vgg16.get_layer("block1_conv2").output         ## (512 x 512)
-    s2 = vgg16.get_layer("block2_conv2").output         ## (256 x 256)
-    s3 = vgg16.get_layer("block3_conv3").output         ## (128 x 128)
-    #s4 = vgg16.get_layer("block4_conv3").output 
+    # """ Pre-trained VGG16 Model """
+    # vgg16 = VGG16(include_top=False, weights="imagenet", input_tensor=inputs)
+    # vgg16 = Sequential(vgg16.layers[:-8])
+    # # for layer in vgg16.layers:        
+    # #     layer.trainable = False
+    # #x = vgg16.output
+    # """ Encoder """
+    # s1 = vgg16.get_layer("block1_conv2").output         ## (512 x 512)
+    # s2 = vgg16.get_layer("block2_conv2").output         ## (256 x 256)
+    # s3 = vgg16.get_layer("block3_conv3").output         ## (128 x 128)
+    # #s4 = vgg16.get_layer("block4_conv3").output 
 
-    """ Bridge """
-    x = vgg16.output
+    # """ Bridge """
+    # x = vgg16.output
+     # Block 1
+    x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1', kernel_regularizer=l2(weight_decay))(inputs)
+    x = BatchNormalization()(x)
+    x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2', kernel_regularizer=l2(weight_decay))(x)
+    x = BatchNormalization()(x)
+    s1=x
+    x = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block1_pool')(x)
     
+    # Block 2
+    x = Conv2D(128, (3, 3), activation='relu', padding='same', name='block2_conv1', kernel_regularizer=l2(weight_decay))(x)
+    x = BatchNormalization()(x)
+    x = Conv2D(128, (3, 3), activation='relu', padding='same', name='block2_conv2', kernel_regularizer=l2(weight_decay))(x)
+    x = BatchNormalization()(x)
+    s2=x
+    x = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block2_pool')(x)
+
+    # Block 3
+    x = Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv1', kernel_regularizer=l2(weight_decay))(x)
+    x = BatchNormalization()(x)
+    x = Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv2', kernel_regularizer=l2(weight_decay))(x)
+    x = BatchNormalization()(x)
+    x = Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv3', kernel_regularizer=l2(weight_decay))(x)
+    x = BatchNormalization()(x)
+    s3=x
+    x = MaxPooling2D((2, 2), strides=(2, 2),padding='same',name='block3_pool')(x)
+
     b1 = Conv2D(512, (3, 3), activation='relu', padding='same', name='block4_conv1',dilation_rate=(2,2), kernel_regularizer=l2(weight_decay))(x)
     b1 = Conv2D(512, (3, 3), activation='relu', padding='same', name='block4_conv2',dilation_rate=(2,2), kernel_regularizer=l2(weight_decay))(b1)
     b1 = Conv2D(512, (3, 3), activation='relu', padding='same', name='block4_conv3',dilation_rate=(2,2), kernel_regularizer=l2(weight_decay))(b1)         ## (32 x 32)
