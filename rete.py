@@ -160,7 +160,7 @@ def rete_Resnet101(img_size=None, weight_decay=0., batch_momentum=0.9, batch_sha
     
     #x = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(x)
     x = keras.layers.Conv2DTranspose(filters=classes, kernel_size=(16,16), strides=(16,16),
-                                     padding='same', use_bias=False, activation='softmax',
+                                     padding='same', use_bias=False,
                                      kernel_initializer=BilinearInitializer(),
                                      kernel_regularizer=l2(weight_decay),
                                      name='fc3')(x)
@@ -193,7 +193,7 @@ def conv_block_g(input, num_filters):
     return x
 
 def decoder_block(input, skip_features, num_filters):
-    x = Conv2DTranspose(num_filters, (2, 2), strides=2, padding="same")(input)
+    x = Conv2DTranspose(num_filters, (2, 2), strides=2, padding="same",kernel_initializer=BilinearInitializer())(input)
     x = Concatenate()([x, skip_features])
     x = conv_block_g(x, num_filters)
     return x
@@ -338,8 +338,12 @@ def AtrousFCN_Resnet50_16s(input_shape = None, weight_decay=0., batch_momentum=0
     # x = Dropout(0.5)(x)
     x = Conv2D(5, (3, 3),  kernel_initializer='normal',dilation_rate=(2,2),activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     #x = Conv2D(classes, (1, 1), kernel_initializer='he_normal', activation='linear', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
-    x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
-    
+    #x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
+    x = keras.layers.Conv2DTranspose(filters=classes, kernel_size=(16,16), strides=(16,16),
+                                     padding='same', use_bias=False,
+                                     kernel_initializer=BilinearInitializer(),
+                                     kernel_regularizer=l2(weight_decay),
+                                     name='trans')(x)
     x = Conv2D(classes, 1,strides=(1, 1), activation='softmax', padding='valid',kernel_regularizer=l2(weight_decay))(x)
     
    # x = Activation('softmax')(x)
@@ -431,7 +435,12 @@ def mobile(shape=None,weight_decay=0.0005):
     x = Dropout(0.5)(x)
     x = Conv2D(5, (3, 3),  kernel_initializer='normal', dilation_rate=(2,2),activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     
-    x = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(x)
+    x = keras.layers.Conv2DTranspose(filters=classes, kernel_size=(32,32), strides=(16,16),
+                                     padding='same', use_bias=False,
+                                     kernel_initializer=BilinearInitializer(),
+                                     kernel_regularizer=l2(weight_decay),
+                                     name='trans')(x)
+    #x = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(x)
     output = Conv2D(5, 1, padding="valid", activation="softmax",kernel_regularizer=l2(weight_decay))(x)
     model = Model(inputs=mob.input, outputs=output)
     return model
@@ -554,10 +563,15 @@ def DeeplabV3Plus(image_size, num_classes):
     x = layers.Concatenate(axis=-1)([input_a, input_b])
     x = convolution_block(x)
     x = convolution_block(x)
-    x = layers.UpSampling2D(
-        size=(image_size // x.shape[1], image_size // x.shape[2]),
-        interpolation="bilinear",
-    )(x)
+    # x = layers.UpSampling2D(
+    #     size=(image_size // x.shape[1], image_size // x.shape[2]),
+    #     interpolation="bilinear",
+    # )(x)
+    x = keras.layers.Conv2DTranspose(filters=classes, kernel_size=((image_size // x.shape[1], image_size // x.shape[2]),(image_size // x.shape[1], image_size // x.shape[2])), strides=(16,16),
+                                     padding='same', use_bias=False, activation='softmax',
+                                     kernel_initializer=BilinearInitializer(),
+                                     kernel_regularizer=l2(weight_decay),
+                                     name='trans')(x)
 
     model_output = layers.Conv2D(num_classes, kernel_size=(1, 1), padding="same",activation='softmax')(x)
     return keras.Model(inputs=model_input, outputs=model_output)
