@@ -105,7 +105,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
                                      padding='same', use_bias=False,
                                      kernel_initializer=BilinearInitializer(),
                                      kernel_regularizer=l2(weight_decay),
-                                     name='fc3')(x)
+                                     name='fc4')(x)
     x = Conv2D(classes, 1,strides=(1, 1), activation='softmax', padding='valid',kernel_regularizer=l2(weight_decay))(x)
     
     #x = Activation('softmax')(x)
