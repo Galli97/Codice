@@ -212,7 +212,7 @@ tf.keras.backend.set_image_data_format('channels_last')
 #model = rete_Resnet101(img_size=128,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = AtrousFCN_Resnet50_16s(input_shape = shape, weight_decay=weight_decay, batch_momentum=0.95, batch_shape=None, classes=5)
 #model=mobile(shape=input_shape,weight_decay=weight_decay)
-model = DeeplabV3Plus(image_size=SHAPE, num_classes=5)
+model = DeeplabV3Plus(image_size=SHAPE, num_classes=5,weight_decay=weight_decay)
 
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######
 # x_train = datagenerator(list_train,label_train,BATCH)
