@@ -193,7 +193,7 @@ def conv_block_g(input, num_filters):
     return x
 
 def decoder_block(input, skip_features, num_filters):
-    x = Conv2DTranspose(num_filters, (2, 2), strides=2, padding="same",kernel_initializer=BilinearInitializer())(input)
+    x = Conv2DTranspose(num_filters, (2, 2), strides=2, padding="same")(input)
     x = Concatenate()([x, skip_features])
     x = conv_block_g(x, num_filters)
     return x
@@ -264,15 +264,11 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     
     """ Decoder """
            
-    # d1 = decoder_block(b3, s4, classes)                 ## (64 x 64)
-    # d2 = decoder_block(d1, s3, 256)                     ## (128 x 128)
-    # d3 = decoder_block(d2, s2, 128)                     ## (256 x 256)
-    # d4 = decoder_block(d3, s1, 64)                      ## (512 x 512)
-    
-    d1 = decoder_block(b3, s4, 256)                 ## (64 x 64)
-    d2 = decoder_block(d1, s3, 128)                     ## (128 x 128)
-    d3 = decoder_block(d2, s2, 64)                     ## (256 x 256)
-    d4 = decoder_block(d3, s1, 32)     
+    d1 = decoder_block(b3, s4, classes)                 ## (64 x 64)
+    d2 = decoder_block(d1, s3, 256)                     ## (128 x 128)
+    d3 = decoder_block(d2, s2, 128)                     ## (256 x 256)
+    d4 = decoder_block(d3, s1, 64)                      ## (512 x 512)
+
     """ Output """
     outputs = Conv2D(5, 1, padding="valid", activation="softmax",kernel_regularizer=l2(weight_decay))(d4)
     
