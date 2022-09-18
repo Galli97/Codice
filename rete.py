@@ -563,15 +563,15 @@ def DeeplabV3Plus(image_size, num_classes,weight_decay):
     x = layers.Concatenate(axis=-1)([input_a, input_b])
     x = convolution_block(x)
     x = convolution_block(x)
-    # x = layers.UpSampling2D(
-    #     size=(image_size // x.shape[1], image_size // x.shape[2]),
-    #     interpolation="bilinear",
-    # )(x)
-    x = keras.layers.Conv2DTranspose(filters=5, kernel_size=((image_size // x.shape[1], image_size // x.shape[2])), strides=((image_size // x.shape[1], image_size // x.shape[2])),
-                                     padding='same', use_bias=False, activation='softmax',
-                                     kernel_initializer=BilinearInitializer(),
-                                     kernel_regularizer=l2(weight_decay),
-                                     name='trans')(x)
+    x = layers.UpSampling2D(
+        size=(image_size // x.shape[1], image_size // x.shape[2]),
+        interpolation="bilinear",
+    )(x)
+    # x = keras.layers.Conv2DTranspose(filters=5, kernel_size=((image_size // x.shape[1], image_size // x.shape[2])), strides=((image_size // x.shape[1], image_size // x.shape[2])),
+    #                                  padding='same', use_bias=False, activation='softmax',
+    #                                  kernel_initializer=BilinearInitializer(),
+    #                                  kernel_regularizer=l2(weight_decay),
+    #                                  name='trans')(x)
 
     model_output = layers.Conv2D(num_classes, kernel_size=(1, 1), padding="same",activation='softmax')(x)
     return keras.Model(inputs=model_input, outputs=model_output)
