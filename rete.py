@@ -567,7 +567,7 @@ def DeeplabV3Plus(image_size, num_classes,weight_decay):
     #     size=(image_size // x.shape[1], image_size // x.shape[2]),
     #     interpolation="bilinear",
     # )(x)
-    x = keras.layers.Conv2DTranspose(filters=5, kernel_size=((image_size // x.shape[1], image_size // x.shape[2]),(image_size // x.shape[1], image_size // x.shape[2])), strides=(16,16),
+    x = keras.layers.Conv2DTranspose(filters=5, kernel_size=((image_size // x.shape[1], image_size // x.shape[2])), strides=(16,16),
                                      padding='same', use_bias=False, activation='softmax',
                                      kernel_initializer=BilinearInitializer(),
                                      kernel_regularizer=l2(weight_decay),
