@@ -193,7 +193,7 @@ def conv_block_g(input, num_filters):
     return x
 
 def decoder_block(input, skip_features, num_filters):
-    x = Conv2DTranspose(num_filters, (2, 2), strides=2, padding="same")(input)
+    x = Conv2DTranspose(num_filters, (2, 2), strides=2, padding="same",kernel_initializer=BilinearInitializer())(input)
     x = Concatenate()([x, skip_features])
     x = conv_block_g(x, num_filters)
     return x
