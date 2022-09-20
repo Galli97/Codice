@@ -66,8 +66,12 @@ from keras.preprocessing.image import ImageDataGenerator
 # path4 = r"C:\Users\Mattia\Desktop\DatasetSoil\final_images_3.npy"
 # path5 = r"C:\Users\Mattia\Desktop\DatasetSoil\final_labels_3.npy"
 
-path = r"C:\Users\Mattia\Documenti\Github\Codice\final_images.npy"
-path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\final_labels.npy"
+# path = r"C:\Users\Mattia\Documenti\Github\Codice\final_images.npy"
+# path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\final_labels.npy"
+
+path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches.npy"
+path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches.npy"
+
 # path = r"C:\Users\Mattia\Desktop\Tentativi128_2\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\label_patches_TEST.npy"
 
@@ -176,14 +180,16 @@ for i in range (0,len(label_train)):
             #     print(tmp1[i,r,c,:])
             if label_train[i,r,c,:]==4:
                 soil_count+=1
-            if label_train[i,r,c,:]==1:
+            elif label_train[i,r,c,:]==1:
                 bedrock_count+=1
-            if label_train[i,r,c,:]==2:
+            elif label_train[i,r,c,:]==2:
                 sand_count+=1
-            if label_train[i,r,c,:]==3:
+            elif label_train[i,r,c,:]==3:
                 bigrock_count+=1
-            if label_train[i,r,c,:]==0:
+            elif label_train[i,r,c,:]==0:
                 null_count+=1
+            else:
+                print(i)
 
 print('null: ', null_count)
 print('bedrock: ', bedrock_count)

@@ -221,7 +221,7 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     x = BatchNormalization()(x)
     x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2', kernel_regularizer=l2(weight_decay))(x)
     x = BatchNormalization()(x)
-    s1=x
+    s1=x #128
     x = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block1_pool')(x)
     
     # Block 2
@@ -229,7 +229,7 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     x = BatchNormalization()(x)
     x = Conv2D(128, (3, 3), activation='relu', padding='same', name='block2_conv2', kernel_regularizer=l2(weight_decay))(x)
     x = BatchNormalization()(x)
-    s2=x
+    s2=x #64
     x = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block2_pool')(x)
 
     # Block 3
@@ -239,7 +239,7 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     x = BatchNormalization()(x)
     x = Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv3', kernel_regularizer=l2(weight_decay))(x)
     x = BatchNormalization()(x)
-    s3=x
+    s3=x #32
     x = MaxPooling2D((2, 2), strides=(2, 2),padding='same',name='block3_pool')(x)
 
     b1 = Conv2D(512, (3, 3), activation='relu', padding='same', name='block4_conv1',dilation_rate=(2,2), kernel_regularizer=l2(weight_decay))(x)
@@ -248,7 +248,7 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     x = BatchNormalization()(x)
     b1 = Conv2D(512, (3, 3), activation='relu', padding='same', name='block4_conv3',dilation_rate=(2,2), kernel_regularizer=l2(weight_decay))(b1) 
     x = BatchNormalization()(x)        ## (32 x 32)
-    s4 = b1 
+    s4 = b1 #16
     b1_pooling = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block4_pool')(b1)
   
     b2 = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(10,10), name='fc5', kernel_regularizer=l2(weight_decay))(b1_pooling)
@@ -264,10 +264,15 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     
     """ Decoder """
            
-    d1 = decoder_block(b3, s4, classes)                 ## (64 x 64)
-    d2 = decoder_block(d1, s3, 256)                     ## (128 x 128)
-    d3 = decoder_block(d2, s2, 128)                     ## (256 x 256)
-    d4 = decoder_block(d3, s1, 64)                      ## (512 x 512)
+    # d1 = decoder_block(b3, s4, classes)                
+    # d2 = decoder_block(d1, s3, 256)                     
+    # d3 = decoder_block(d2, s2, 128)                     
+    # d4 = decoder_block(d3, s1, 64)            
+
+    d1 = decoder_block(b3, s4, 128)                
+    d2 = decoder_block(d1, s3, 64)                     
+    d3 = decoder_block(d2, s2, 32)                     
+    d4 = decoder_block(d3, s1, 16)                    
 
     """ Output """
     outputs = Conv2D(5, 1, padding="valid", activation="softmax",kernel_regularizer=l2(weight_decay))(d4)
