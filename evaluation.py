@@ -96,99 +96,102 @@ x_test = (
 
 model = tf.keras.models.load_model('model.h5',custom_objects={"UpdatedMeanIoU": UpdatedMeanIoU , "BilinearInitializer":BilinearInitializer})
 
-print("[INFO] Starting Evaluation")
+# print("[INFO] Starting Evaluation")
 
-predictions = model.predict(x_test,verbose=1,steps=len(tmp2))
-print(predictions[5])
-#print(np.argmax(predictions[0,0,0,:]))
-# predictions = np.squeeze(predictions)
-# predictions = np.argmax(predictions, axis=2)
-print(predictions.shape)
-save_predictions(predictions)
+# predictions = model.predict(x_test,verbose=1,steps=len(tmp2))
+# print(predictions[5])
+# #print(np.argmax(predictions[0,0,0,:]))
+# # predictions = np.squeeze(predictions)
+# # predictions = np.argmax(predictions, axis=2)
+# print(predictions.shape)
+# save_predictions(predictions)
 
-#true = decode_masks(tmp2)
-prediction = decode_predictions(predictions,SHAPE)
-cm1=np.ravel(tmp2)
-print(cm1.shape)
-cm2=np.ravel(prediction)
-print(cm2.shape)
-print(prediction[5].shape)
-print(prediction[5])
-matrix = tf.math.confusion_matrix(cm1,cm2,num_classes=5)
-print(matrix)
-matrix_nonull=matrix[1:4,1:4]
-#128 count the # of pixels
-# null_pixels =  null_count 
-# bedrock_pixels= bedrock_count 
-# sand_pixels= sand_count 
-# bigrock_pixels= bigrock_count 
-# soil_pixels= soil_count 
+# #true = decode_masks(tmp2)
+# prediction = decode_predictions(predictions,SHAPE)
+# cm1=np.ravel(tmp2)
+# print(cm1.shape)
+# cm2=np.ravel(prediction)
+# print(cm2.shape)
+# print(prediction[5].shape)
+# print(prediction[5])
+# matrix = tf.math.confusion_matrix(cm1,cm2,num_classes=5)
+# print(matrix)
+# matrix_nonull=matrix[1:4,1:4]
+# #128 count the # of pixels
+# # null_pixels =  null_count 
+# # bedrock_pixels= bedrock_count 
+# # sand_pixels= sand_count 
+# # bigrock_pixels= bigrock_count 
+# # soil_pixels= soil_count 
 
-#128 1500 delle merged
-# null_pixels =  220661911
-# bedrock_pixels= 26192939
-# sand_pixels= 30639905
-# bigrock_pixels= 77698
-# soil_pixels= 60069019
+# #128 1500 delle merged
+# # null_pixels =  220661911
+# # bedrock_pixels= 26192939
+# # sand_pixels= 30639905
+# # bigrock_pixels= 77698
+# # soil_pixels= 60069019
 
-#128 1500
-null_pixels =  9663358
-bedrock_pixels= 4869205
-sand_pixels= 3679903
-bigrock_pixels= 348196
-soil_pixels= 6015338
+# #128 1500
+# null_pixels =  9663358
+# bedrock_pixels= 4869205
+# sand_pixels= 3679903
+# bigrock_pixels= 348196
+# soil_pixels= 6015338
 
-#128 500
-# null_pixels = 3315038 
-# bedrock_pixels =  1628395
-# sand_pixels =  1241556
-# bigrock_pixels =  66467
-# soil_pixels =  1940544
+# #128 500
+# # null_pixels = 3315038 
+# # bedrock_pixels =  1628395
+# # sand_pixels =  1241556
+# # bigrock_pixels =  66467
+# # soil_pixels =  1940544
 
-#64
-# null_pixels = 831340
-# bedrock_pixels =  360564
-# sand_pixels = 316722
-# bigrock_pixels = 16502
-# soil_pixels =  522872
+# #64
+# # null_pixels = 831340
+# # bedrock_pixels =  360564
+# # sand_pixels = 316722
+# # bigrock_pixels = 16502
+# # soil_pixels =  522872
 
-#128 resized
-# null_pixels =  12314115
-# bedrock_pixels =  5000050
-# sand_pixels =  863492
-# bigrock_pixels =  41557
-# soil_pixels = 6356786
+# #128 resized
+# # null_pixels =  12314115
+# # bedrock_pixels =  5000050
+# # sand_pixels =  863492
+# # bigrock_pixels =  41557
+# # soil_pixels = 6356786
 
 
-matrix2 = np.array([[matrix[0]*100/null_pixels],[matrix[1]*100/bedrock_pixels], [matrix[2]*100/sand_pixels],[matrix[3]*100/bigrock_pixels], [matrix[4]*100/soil_pixels]])
-np.set_printoptions(suppress=True)
-print(matrix2.astype(float))
+# matrix2 = np.array([[matrix[0]*100/null_pixels],[matrix[1]*100/bedrock_pixels], [matrix[2]*100/sand_pixels],[matrix[3]*100/bigrock_pixels], [matrix[4]*100/soil_pixels]])
+# np.set_printoptions(suppress=True)
+# print(matrix2.astype(float))
 
-I = np.diag(matrix_nonull)
-U = np.sum(matrix_nonull, axis=0) + np.sum(matrix_nonull, axis=1) - I
-IOU = I/U
-meanIOU = np.mean(IOU)
+# I = np.diag(matrix_nonull)
+# U = np.sum(matrix_nonull, axis=0) + np.sum(matrix_nonull, axis=1) - I
+# IOU = I/U
+# meanIOU = np.mean(IOU)
 
-print(meanIOU)
+# print(meanIOU)
 
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
-# matconf = matrix2
+# from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+# # matconf = matrix2
+# # cmd_obj = ConfusionMatrixDisplay(matconf, display_labels=['null', 'bedrock', 'sand','bigrock','soil'])
+# # cmd_obj.plot()
+# # cmd_obj.ax_.set(
+# #                 title='Sklearn Confusion Matrix with labels!!', 
+# #                 xlabel='Predicted', 
+# #                 ylabel='Actual')
+# # plt.show()
+# matconf = confusion_matrix(cm1, cm2)
+# matconf = matconf.astype('float')*100.00 / matconf.sum(axis=1)[:, np.newaxis]
+# np.set_printoptions(precision=2)
 # cmd_obj = ConfusionMatrixDisplay(matconf, display_labels=['null', 'bedrock', 'sand','bigrock','soil'])
-# cmd_obj.plot()
+# cmd_obj.plot(values_format=".1f")
 # cmd_obj.ax_.set(
-#                 title='Sklearn Confusion Matrix with labels!!', 
+#                 title='Confusion Matrix', 
 #                 xlabel='Predicted', 
 #                 ylabel='Actual')
 # plt.show()
-matconf = confusion_matrix(cm1, cm2)
-matconf = matconf.astype('float')*100.00 / matconf.sum(axis=1)[:, np.newaxis]
-np.set_printoptions(precision=2)
-cmd_obj = ConfusionMatrixDisplay(matconf, display_labels=['null', 'bedrock', 'sand','bigrock','soil'])
-cmd_obj.plot(values_format=".1f")
-cmd_obj.ax_.set(
-                title='Confusion Matrix', 
-                xlabel='Predicted', 
-                ylabel='Actual')
-plt.show()
 
-model.evaluate(x_test,steps=len(tmp2))
+# model.evaluate(x_test,steps=len(tmp2))
+
+dot_img_file = 'model_1.png'
+tf.keras.utils.plot_model(model, to_file=dot_img_file, show_shapes=True)
