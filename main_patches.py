@@ -83,12 +83,12 @@ session = InteractiveSession(config=config)
 # path11= r"/content/drive/MyDrive/Tesi/DatasetNew/final_labels_6.npy"
 
 #128 dataset_1
-path = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images.npy"
-path1 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels.npy"
-path2 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images_2.npy"
-path3 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels_2.npy"
-path4 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images_3.npy"
-path5 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels_3.npy"
+# path = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images.npy"
+# path1 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels.npy"
+# path2 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images_2.npy"
+# path3 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels_2.npy"
+# path4 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images_3.npy"
+# path5 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels_3.npy"
 
 #128 resize
 # path = r"/content/drive/MyDrive/Tesi/Dataset_resize/final_images.npy"
@@ -99,8 +99,8 @@ path5 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels_3.npy"
 # path1 = r"/content/drive/MyDrive/Tesi/Dataset_BBS/final_labels.npy"
 
 #128 Dataset_Bigrock
-# path = r"/content/drive/MyDrive/Tesi/Dataset_Bigrock/final_images.npy"
-# path1 = r"/content/drive/MyDrive/Tesi/Dataset_Bigrock/final_labels.npy"
+path = r"/content/drive/MyDrive/Tesi/Dataset_Bigrock/final_images.npy"
+path1 = r"/content/drive/MyDrive/Tesi/Dataset_Bigrock/final_labels.npy"
 # ####### PERCORSO IN LOCALE #########
 # path = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_labels.npy"
