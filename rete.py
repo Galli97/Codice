@@ -277,7 +277,7 @@ def build_vgg16_unet(input_shape,weight_decay=0.,classes=5):
     """ Output """
     outputs = Conv2D(5, 1, padding="valid", activation="softmax",kernel_regularizer=l2(weight_decay))(d4)
     
-    model = Model(inputs, outputs, name="VGG16_U-Net")
+    model = Model(inputs, outputs, name="VGG16_Skip")
     weights_path = os.path.expanduser('/content/drive/MyDrive/Tesi/vgg16_weights_tf_dim_ordering_tf_kernels.h5')
     #weights_path = os.path.expanduser('./vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5')
     model.load_weights(weights_path,by_name=True)

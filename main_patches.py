@@ -99,8 +99,8 @@ path3 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels_2.npy"
 # path1 = r"/content/drive/MyDrive/Tesi/Dataset_BBS/final_labels.npy"
 
 #128 Dataset_Bigrock
-path = r"/content/drive/MyDrive/Tesi/Dataset_Bigrock/final_images.npy"
-path1 = r"/content/drive/MyDrive/Tesi/Dataset_Bigrock/final_labels.npy"
+# path = r"/content/drive/MyDrive/Tesi/Dataset_Bigrock/final_images.npy"
+# path1 = r"/content/drive/MyDrive/Tesi/Dataset_Bigrock/final_labels.npy"
 # ####### PERCORSO IN LOCALE #########
 # path = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_labels.npy"
@@ -114,11 +114,11 @@ print('tmp1: ',tmp1.shape)
 tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 print('tmp2: ',tmp2.shape)
 
-# tmp3 = get_np_arrays(path2)          #recupero tmp1 dal file 
-# print('tmp3: ',tmp3.shape)
+tmp3 = get_np_arrays(path2)          #recupero tmp1 dal file 
+print('tmp3: ',tmp3.shape)
 
-# tmp4 = get_np_arrays(path3)          #recupero tmp2 dal file
-# print('tmp4: ',tmp4.shape)
+tmp4 = get_np_arrays(path3)          #recupero tmp2 dal file
+print('tmp4: ',tmp4.shape)
 
 # tmp5 = get_np_arrays(path4)          #recupero tmp1 dal file 
 # print('tmp5: ',tmp5.shape)
@@ -145,12 +145,12 @@ print('tmp2: ',tmp2.shape)
 # print('tmp12: ',tmp12.shape)
 
 
-# tmp1=np.concatenate((tmp1,tmp3,tmp5))#,tmp7,tmp9,tmp11))
-# tmp2=np.concatenate((tmp2,tmp4,tmp6))#,tmp8,tmp10,tmp12))
+tmp1=np.concatenate((tmp1,tmp3))#,tmp5))#,tmp7,tmp9,tmp11))
+tmp2=np.concatenate((tmp2,tmp4))#,tmp6))#,tmp8,tmp10,tmp12))
 
 
-# print('tmp1_new: ',tmp1.shape)
-# print('tmp2_new: ',tmp2.shape)
+print('tmp1_new: ',tmp1.shape)
+print('tmp2_new: ',tmp2.shape)
 
 #################
 class Augment(tf.keras.layers.Layer):
