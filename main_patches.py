@@ -120,11 +120,11 @@ print('tmp3: ',tmp3.shape)
 tmp4 = get_np_arrays(path3)          #recupero tmp2 dal file
 print('tmp4: ',tmp4.shape)
 
-tmp5 = get_np_arrays(path4)          #recupero tmp1 dal file 
-print('tmp5: ',tmp5.shape)
+# tmp5 = get_np_arrays(path4)          #recupero tmp1 dal file 
+# print('tmp5: ',tmp5.shape)
 
-tmp6 = get_np_arrays(path5)          #recupero tmp2 dal file
-print('tmp6: ',tmp6.shape)
+# tmp6 = get_np_arrays(path5)          #recupero tmp2 dal file
+# print('tmp6: ',tmp6.shape)
 
 # tmp7 = get_np_arrays(path6)          #recupero tmp1 dal file 
 # print('tmp7: ',tmp7.shape)
@@ -145,8 +145,8 @@ print('tmp6: ',tmp6.shape)
 # print('tmp12: ',tmp12.shape)
 
 
-tmp1=np.concatenate((tmp1,tmp3,tmp5))#,tmp7,tmp9,tmp11))
-tmp2=np.concatenate((tmp2,tmp4,tmp6))#,tmp8,tmp10,tmp12))
+tmp1=np.concatenate((tmp1,tmp3))#,tmp5))#,tmp7,tmp9,tmp11))
+tmp2=np.concatenate((tmp2,tmp4))#,tmp6))#,tmp8,tmp10,tmp12))
 
 
 print('tmp1_new: ',tmp1.shape)
