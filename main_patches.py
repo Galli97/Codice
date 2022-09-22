@@ -27,68 +27,20 @@ config = ConfigProto()
 config.gpu_options.allow_growth=True
 session = InteractiveSession(config=config)
 ###### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
-#64x64
-# path = r"/content/drive/MyDrive/Tesi/Dataset64/final_images.npy"
-# path1 = r"/content/drive/MyDrive/Tesi/Dataset64/final_labels.npy"
-# path2 = r"/content/drive/MyDrive/Tesi/Dataset64/final_images_2.npy"
-# path3 = r"/content/drive/MyDrive/Tesi/Dataset64/final_labels_2.npy"
-# path4 = r"/content/drive/MyDrive/Tesi/Dataset64/final_images_3.npy"
-# path5 = r"/content/drive/MyDrive/Tesi/Dataset64/final_labels_3.npy"
-# path6 = r"/content/drive/MyDrive/Tesi/Dataset64/final_images_4.npy"
-# path7 = r"/content/drive/MyDrive/Tesi/Dataset64/final_labels_4.npy"
-
-#128x128
-# path = r"/content/drive/MyDrive/Tesi/Dataset128/final_images.npy"
-# path1 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels.npy"
-# path2 = r"/content/drive/MyDrive/Tesi/Dataset128/final_images_2.npy"
-# path3 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_2.npy"
-# path4 = r"/content/drive/MyDrive/Tesi/Dataset128/final_images_3.npy"
-# path5 = r"/content/drive/MyDrive/Tesi/Dataset128/final_labels_3.npy"
-
-#128 BR
-# path = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images.npy"
-# path1 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels.npy"
-# path2 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images_2.npy"
-# path3 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels_2.npy"
-# path4 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_images_3.npy"
-# path5 = r"/content/drive/MyDrive/Tesi/Dataset128_BR/final_labels_3.npy"
-
-# #128 soil
-# path = r"/content/drive/MyDrive/Tesi/DatasetSoil/final_images.npy"
-# path1 = r"/content/drive/MyDrive/Tesi/DatasetSoil/final_labels.npy"
-# path2 = r"/content/drive/MyDrive/Tesi/DatasetSoil/final_images_2.npy"
-# path3 = r"/content/drive/MyDrive/Tesi/DatasetSoil/final_labels_2.npy"
-# path4 = r"/content/drive/MyDrive/Tesi/DatasetSoil/final_images_3.npy"
-# path5 = r"/content/drive/MyDrive/Tesi/DatasetSoil/final_labels_3.npy"
-
-
-#128x128_2
-# path = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images.npy"
-# path1 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels.npy"
-# path2 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_images_2.npy"
-# path3 = r"/content/drive/MyDrive/Tesi/Dataset128_2/final_labels_2.npy"
-
-#128x128_new
-# path = r"/content/drive/MyDrive/Tesi/DatasetNew/final_images.npy"
-# path1 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_labels.npy"
-# path2 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_images_2.npy"
-# path3 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_labels_2.npy"
-# path4 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_images_3.npy"
-# path5 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_labels_3.npy"
-# path6 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_images_4.npy"
-# path7 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_labels_4.npy"
-# path8 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_images_5.npy"
-# path9 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_labels_5.npy"
-# path10 = r"/content/drive/MyDrive/Tesi/DatasetNew/final_images_6.npy"
-# path11= r"/content/drive/MyDrive/Tesi/DatasetNew/final_labels_6.npy"
 
 #128 dataset_1
-path = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images.npy"
-path1 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels.npy"
-path2 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images_2.npy"
-path3 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels_2.npy"
-path4 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images_3.npy"
-path5 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels_3.npy"
+# path = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images.npy"
+# path1 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels.npy"
+# path2 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images_2.npy"
+# path3 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels_2.npy"
+# path4 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_images_3.npy"
+# path5 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels_3.npy"
+
+#128 dataset_1 255
+path = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_images.npy"
+path1 = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_labels.npy"
+path2 = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_images_2.npy"
+path3 = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_labels_2.npy"
 
 #128 resize
 # path = r"/content/drive/MyDrive/Tesi/Dataset_resize/final_images.npy"
@@ -101,11 +53,6 @@ path5 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels_3.npy"
 #128 Dataset_Bigrock
 # path = r"/content/drive/MyDrive/Tesi/Dataset_Bigrock/final_images.npy"
 # path1 = r"/content/drive/MyDrive/Tesi/Dataset_Bigrock/final_labels.npy"
-# ####### PERCORSO IN LOCALE #########
-# path = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images.npy"
-# path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_labels.npy"
-# path2 = r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_images_2.npy"
-# path3 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\DATASET\final_labels_2.npy"
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
