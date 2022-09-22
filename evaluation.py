@@ -24,20 +24,19 @@ from keras.preprocessing.image import ImageDataGenerator
 # path1 = r"/content/drive/MyDrive/Tesi/label_patches_TEST.npy"
 
 # ####### PERCORSO IN LOCALE #########
-path = r"C:\Users\Mattia\Desktop\Tentativi128_2\image_patches_TEST.npy"
-path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\label_patches_TEST.npy"
+#128-510 Norm
+# path = r"C:\Users\Mattia\Desktop\Tentativi128_2\image_patches_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\label_patches_TEST.npy"
 
+#128-255 Norm
+path = r"C:\Users\Mattia\Desktop\Dataset_1\Test255\image_patches_TEST.npy"
+path1 =  r"C:\Users\Mattia\Desktop\Dataset_1\Test255\label_patches_TEST.npy"
+
+#128-Resized 510 norm
 # path = r"C:\Users\Mattia\Desktop\Resized_Test\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Resized_Test\label_patches_TEST.npy"
 
-# path = r"C:\Users\Mattia\Desktop\Tentativi128\image_patches_TEST.npy"
-# path1 =  r"C:\Users\Mattia\Desktop\Tentativi128\label_patches_TEST.npy"
-
-# path = r"C:\Users\Mattia\Desktop\Tentativi\image_patches_TEST.npy"
-# path1 =  r"C:\Users\Mattia\Desktop\Tentativi\label_patches_TEST.npy"
-# path2= r"C:\Users\Mattia\Documenti\Github\Codice\cropped_images_TEST.npy"
-# path3 =  r"C:\Users\Mattia\Documenti\Github\Codice\cropped_labels_TEST.npy"
-
+#128-Test set gold 510 norm
 # path = r"C:\Users\Mattia\Desktop\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\label_patches_TEST.npy"
 
