@@ -541,55 +541,6 @@ def sparse_accuracy_ignoring_last_label(y_true, y_pred):
 #######################################################
   
 def add_sample_weights(image, label):
-
-    #128 1+2+3
-    # null_pixels = 9544360  
-    # bedrock_pixels =  14466388 
-    # sand_pixels =  12127129 
-    # bigrock_pixels =  2839387 
-    # soil_pixels = 4112656 
-
-    # #128_2 1+2 
-    # null_pixels = 5114962  
-    # bedrock_pixels =  12172808 
-    # sand_pixels =  9374888 
-    # bigrock_pixels =  1596609 
-    # soil_pixels = 2133053 
-
-    # #128_BR 1+2+3
-    # null_pixels = 5215384  
-    # bedrock_pixels =  6628250 
-    # sand_pixels =  12057351 
-    # bigrock_pixels =  2014647 
-    # soil_pixels = 986896 
-
-    #128 new (1-4)
-    # null_pixels = 5233587  
-    # bedrock_pixels =  4800530 
-    # sand_pixels =  4012461 
-    # bigrock_pixels =  3461519 
-    # soil_pixels = 1677567 
-
-    # #128 new (1-5)
-    # null_pixels = 6920547  
-    # bedrock_pixels =  6398757 
-    # sand_pixels =  5320105 
-    # bigrock_pixels =  4517999 
-    # soil_pixels = 2139488 
-
-    #128 new (1-6)
-    # null_pixels = 10010555  
-    # bedrock_pixels =  9388968 
-    # sand_pixels =  8018763 
-    # bigrock_pixels =  5898122 
-    # soil_pixels = 3547592 
-
-    # #128_soil
-    # null_pixels = 8716821  
-    # bedrock_pixels =  8384303 
-    # sand_pixels =  7912362 
-    # bigrock_pixels =  3598517 
-    # soil_pixels = 5499485 
     
     #128 Dataset_1
     null_pixels = 7219653  
@@ -619,12 +570,13 @@ def add_sample_weights(image, label):
     # bigrock_pixels =  7407219 
     # soil_pixels = 5942906  
 
-    #128 Dataset_BBS
-    # null_pixels = 10002587  
-    # bedrock_pixels =  7195644 
-    # sand_pixels =  6100869 
-    # bigrock_pixels =  7418830 
-    # soil_pixels = 6096918  
+    #128 Dataset_1 255
+    null_pixels = 7438103  
+    bedrock_pixels =  7015639 
+    sand_pixels =  6191210 
+    bigrock_pixels =  3382388 
+    soil_pixels = 5529396  
+
 
     PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels#+null_pixels ;
     #perc_null=1-null_pixels/PIXELS
