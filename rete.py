@@ -90,7 +90,7 @@ def rete(input_shape=None, weight_decay=0., batch_shape=None, classes=5):
     x = MaxPooling2D((2, 2), strides=(2, 2),padding='same', name='block4_pool')(x)
 
     # Block 5
-    x = Conv2D(128, (3, 3), activation='relu', padding='same',dilation_rate=(8,8), name='fc3', kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(128, (3, 3), activation='relu', padding='same',dilation_rate=(10,10), name='fc3', kernel_regularizer=l2(weight_decay))(x)
     x = BatchNormalization()(x)
     x = Dropout(0.5)(x)
     x = Conv2D(128, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
@@ -151,9 +151,9 @@ def rete_Resnet101(img_size=None, weight_decay=0., batch_momentum=0.9, batch_sha
     #     print(layer.name)
     x = res_model.output
     
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc3', kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(128, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc3', kernel_regularizer=l2(weight_decay))(x)
     x = Dropout(0.5)(x)
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(128, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
     x = Dropout(0.5)(x)
     x = Conv2D(classes, (3, 3),  kernel_initializer='normal',dilation_rate=(2,2),activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     #x = Conv2D(classes, (1, 1),kernel_initializer='he_normal', activation='linear', padding='same', kernel_regularizer=l2(weight_decay))(x)
@@ -337,10 +337,10 @@ def AtrousFCN_Resnet50_16s(input_shape = None, weight_decay=0., batch_momentum=0
     # x = identity_block(3, [512, 512, 2048], stage=5, block='b', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
     # x = identity_block(3, [512, 512, 2048], stage=5, block='c', weight_decay=weight_decay, batch_momentum=batch_momentum)(x)
     #classifying layer
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(10,10), name='fc3', kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(128, (3, 3), activation='relu', padding='same',dilation_rate=(10,10), name='fc3', kernel_regularizer=l2(weight_decay))(x)
     x = BatchNormalization()(x)
     x = Dropout(0.5)(x)
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(128, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
     x = BatchNormalization()(x)
     x = Dropout(0.5)(x)
     x = Conv2D(5, (3, 3),  kernel_initializer='normal',dilation_rate=(2,2),activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
@@ -437,9 +437,9 @@ def mobile(shape=None,weight_decay=0.0005):
     mob = tf.keras.applications.mobilenet_v2.MobileNetV2(input_shape=shape,include_top=False,weights='imagenet',classes=5,classifier_activation=None)
     x=mob.output
 
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(10,10), name='fc3', kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(128, (3, 3), activation='relu', padding='same',dilation_rate=(10,10), name='fc3', kernel_regularizer=l2(weight_decay))(x)
     x = Dropout(0.5)(x)
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(128, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
     x = Dropout(0.5)(x)
     x = Conv2D(5, (3, 3),  kernel_initializer='normal', dilation_rate=(2,2),activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     
