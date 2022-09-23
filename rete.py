@@ -365,90 +365,25 @@ def AtrousFCN_Resnet50_16s(input_shape = None, weight_decay=0., batch_momentum=0
 
     ##############################################################
 
-import tensorflow as tf
-#import all necessary layers
-from tensorflow.keras.layers import Input, DepthwiseConv2D
-from tensorflow.keras.layers import Conv2D, BatchNormalization
-from tensorflow.keras.layers import ReLU, AvgPool2D, Flatten, Dense
-from tensorflow.keras import Model
-###########################
-# MobileNet block
-def mobilnet_block (x, filters, strides,weight_decay):
-    
-    x = DepthwiseConv2D(kernel_size = 3, strides = strides, padding = 'same',kernel_regularizer=l2(weight_decay))(x)
-    x = BatchNormalization()(x)
-    x = ReLU()(x)
-    
-    x = Conv2D(filters = filters, kernel_size = 1, strides = 1,kernel_regularizer=l2(weight_decay))(x)
-    x = BatchNormalization()(x)
-    x = ReLU()(x)
-    
-    return x
 
-def mobilnet_block_dilation (x, filters, strides,weight_decay,dilation):
-    
-    x = DepthwiseConv2D(kernel_size = 3, strides = strides, padding = 'same',kernel_regularizer=l2(weight_decay),dilation_rate=dilation)(x)
-    x = BatchNormalization()(x)
-    x = ReLU()(x)
-    
-    x = Conv2D(filters = filters, kernel_size = 1, strides = 1,kernel_regularizer=l2(weight_decay),dilation_rate=dilation)(x)
-    x = BatchNormalization()(x)
-    x = ReLU()(x)
-    
-    return x
-
-def mobileNET(shape = (224,224,3),weight_decay=0.0005): 
-    input = Input(shape)
-    x = Conv2D(filters = 32, kernel_size = 3, strides = 2, padding = 'same',kernel_regularizer=l2(weight_decay))(input)
-    x = BatchNormalization()(x)
-    x = ReLU()(x)
-
-    # main part of the model
-    x = mobilnet_block(x, filters = 64, strides = 1,weight_decay=weight_decay)
-    x = mobilnet_block(x, filters = 128, strides = 2,weight_decay=weight_decay)
-    x = mobilnet_block(x, filters = 128, strides = 1,weight_decay=weight_decay)
-    x = mobilnet_block(x, filters = 256, strides = 2,weight_decay=weight_decay)
-    x = mobilnet_block(x, filters = 256, strides = 1,weight_decay=weight_decay)
-    x = mobilnet_block(x, filters = 512, strides = 2,weight_decay=weight_decay)
-    for _ in range (5):
-        x = mobilnet_block_dilation(x, filters = 512, strides = 1,weight_decay=weight_decay,dilation=(2,2))
-    x = mobilnet_block_dilation(x, filters = 1024, strides = 2,weight_decay=weight_decay,dilation=(10,10))
-    x = mobilnet_block(x, filters = 1024, strides = 1,weight_decay=weight_decay)
-    x = AvgPool2D (pool_size = 7, strides = 1, data_format='channels_last')(x)
-
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc3', kernel_regularizer=l2(weight_decay))(x)
-    x = Dropout(0.5)(x)
-    x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
-    x = Dropout(0.5)(x)
-    x = Conv2D(5, (3, 3),  kernel_initializer='normal', activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
-    
-
-    x = tf.keras.layers.UpSampling2D(64,interpolation='bilinear')(x)
-    output = Conv2D(5, 1, padding="valid", activation="softmax",kernel_regularizer=l2(weight_decay))(x)
-    model = Model(inputs=input, outputs=output)
-    #model.summary()
-    weights_path = os.path.expanduser('/content/drive/MyDrive/Tesi/mobilenet_v2_weights_tf_dim_ordering_tf_kernels_1.0_128_no_top.h5')
-    #weights_path = os.path.expanduser('./vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5')
-    model.load_weights(weights_path,by_name=True)
-    return model
 #########################
 
 def mobile(shape=None,weight_decay=0.0005):
     mob = tf.keras.applications.mobilenet_v2.MobileNetV2(input_shape=shape,include_top=False,weights='imagenet',classes=5,classifier_activation=None)
     x=mob.output
 
-    x = Conv2D(128, (3, 3), activation='relu', padding='same',dilation_rate=(10,10), name='fc3', kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(10,10), name='fc3', kernel_regularizer=l2(weight_decay))(x)
     x = Dropout(0.5)(x)
-    x = Conv2D(128, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
+    x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
     x = Dropout(0.5)(x)
     x = Conv2D(5, (3, 3),  kernel_initializer='normal', dilation_rate=(2,2),activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     
-    x = keras.layers.Conv2DTranspose(filters=classes, kernel_size=(32,32), strides=(16,16),
-                                     padding='same', use_bias=False,
-                                     kernel_initializer=BilinearInitializer(),
-                                     kernel_regularizer=l2(weight_decay),
-                                     name='trans')(x)
-    #x = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(x)
+    # x = keras.layers.Conv2DTranspose(filters=classes, kernel_size=(32,32), strides=(16,16),
+    #                                  padding='same', use_bias=False,
+    #                                  kernel_initializer=BilinearInitializer(),
+    #                                  kernel_regularizer=l2(weight_decay),
+    #                                  name='trans')(x)
+    x = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(x)
     output = Conv2D(5, 1, padding="valid", activation="softmax",kernel_regularizer=l2(weight_decay))(x)
     model = Model(inputs=mob.input, outputs=output)
     return model
@@ -583,3 +518,71 @@ def DeeplabV3Plus(image_size, num_classes,weight_decay):
 
     model_output = layers.Conv2D(num_classes, kernel_size=(1, 1), padding="same",activation='softmax')(x)
     return keras.Model(inputs=model_input, outputs=model_output)
+
+    ##################
+    import tensorflow as tf
+#import all necessary layers
+from tensorflow.keras.layers import Input, DepthwiseConv2D
+from tensorflow.keras.layers import Conv2D, BatchNormalization
+from tensorflow.keras.layers import ReLU, AvgPool2D, Flatten, Dense
+from tensorflow.keras import Model
+###########################
+# MobileNet block
+def mobilnet_block (x, filters, strides,weight_decay):
+    
+    x = DepthwiseConv2D(kernel_size = 3, strides = strides, padding = 'same',kernel_regularizer=l2(weight_decay))(x)
+    x = BatchNormalization()(x)
+    x = ReLU()(x)
+    
+    x = Conv2D(filters = filters, kernel_size = 1, strides = 1,kernel_regularizer=l2(weight_decay))(x)
+    x = BatchNormalization()(x)
+    x = ReLU()(x)
+    
+    return x
+
+def mobilnet_block_dilation (x, filters, strides,weight_decay,dilation):
+    
+    x = DepthwiseConv2D(kernel_size = 3, strides = strides, padding = 'same',kernel_regularizer=l2(weight_decay),dilation_rate=dilation)(x)
+    x = BatchNormalization()(x)
+    x = ReLU()(x)
+    
+    x = Conv2D(filters = filters, kernel_size = 1, strides = 1,kernel_regularizer=l2(weight_decay),dilation_rate=dilation)(x)
+    x = BatchNormalization()(x)
+    x = ReLU()(x)
+    
+    return x
+
+def mobileNET(shape = (224,224,3),weight_decay=0.0005): 
+    input = Input(shape)
+    x = Conv2D(filters = 32, kernel_size = 3, strides = 2, padding = 'same',kernel_regularizer=l2(weight_decay))(input)
+    x = BatchNormalization()(x)
+    x = ReLU()(x)
+
+    # main part of the model
+    x = mobilnet_block(x, filters = 64, strides = 1,weight_decay=weight_decay)
+    x = mobilnet_block(x, filters = 128, strides = 2,weight_decay=weight_decay)
+    x = mobilnet_block(x, filters = 128, strides = 1,weight_decay=weight_decay)
+    x = mobilnet_block(x, filters = 256, strides = 2,weight_decay=weight_decay)
+    x = mobilnet_block(x, filters = 256, strides = 1,weight_decay=weight_decay)
+    x = mobilnet_block(x, filters = 512, strides = 2,weight_decay=weight_decay)
+    for _ in range (5):
+        x = mobilnet_block_dilation(x, filters = 512, strides = 1,weight_decay=weight_decay,dilation=(2,2))
+    x = mobilnet_block_dilation(x, filters = 1024, strides = 2,weight_decay=weight_decay,dilation=(10,10))
+    x = mobilnet_block(x, filters = 1024, strides = 1,weight_decay=weight_decay)
+    x = AvgPool2D (pool_size = 7, strides = 1, data_format='channels_last')(x)
+
+    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(12,12), name='fc3', kernel_regularizer=l2(weight_decay))(x)
+    x = Dropout(0.5)(x)
+    x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
+    x = Dropout(0.5)(x)
+    x = Conv2D(5, (3, 3),  kernel_initializer='normal', activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    
+
+    x = tf.keras.layers.UpSampling2D(64,interpolation='bilinear')(x)
+    output = Conv2D(5, 1, padding="valid", activation="softmax",kernel_regularizer=l2(weight_decay))(x)
+    model = Model(inputs=input, outputs=output)
+    #model.summary()
+    weights_path = os.path.expanduser('/content/drive/MyDrive/Tesi/mobilenet_v2_weights_tf_dim_ordering_tf_kernels_1.0_128_no_top.h5')
+    #weights_path = os.path.expanduser('./vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5')
+    model.load_weights(weights_path,by_name=True)
+    return model
