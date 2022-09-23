@@ -31,8 +31,9 @@ tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
 print('tmp2: ',tmp2.shape)
 
 SHAPE=128
-masks=decode_masks(tmp2[10:14],SHAPE)
+masks=decode_masks(tmp2[20:25],SHAPE)
 
+overlay=[];
 for d in range (len(masks)):
     true_image = tmp1[d]
     true_image = np.asarray(true_image, np.float32)
@@ -45,10 +46,12 @@ for d in range (len(masks)):
 label1=cv2.resize(masks[0],(512,512))
 label2=cv2.resize(masks[1],(512,512))
 label3=cv2.resize(masks[2],(512,512))
+label4=cv2.resize(masks[3],(512,512))
 
 image1=cv2.resize(overlay[0],(512,512))
 image2=cv2.resize(overlay[1],(512,512))
 image3=cv2.resize(overlay[2],(512,512))
+image4=cv2.resize(overlay[3],(512,512))
 
 cv2.imshow('image', image1)
 cv2.waitKey(0) 
@@ -61,4 +64,8 @@ cv2.waitKey(0)
 cv2.imshow('image', image3)
 cv2.waitKey(0) 
 cv2.imshow('label', label3)
+cv2.waitKey(0)  
+cv2.imshow('image', image4)
+cv2.waitKey(0) 
+cv2.imshow('label', label4)
 cv2.waitKey(0)  
