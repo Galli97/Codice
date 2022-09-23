@@ -24,36 +24,36 @@ import random
 from sklearn.utils import shuffle
 from sklearn.feature_extraction import image
 ####### PERCORSO IN LOCALE #########
-path = r"C:\Users\Mattia\Documenti\github\Codice\cropped_images_resize.npy"
-path1 =  r"C:\Users\Mattia\Documenti\github\Codice\cropped_labels_resize.npy"
+path = r"C:\Users\Mattia\Desktop\TEST_images"
+path1 =  r"C:\Users\Mattia\Desktop\TEST_labels"
 
 ####### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
 # path = r"/content/drive/MyDrive/Tesi/Dataset/Train_images"
 # path1 = r"/content/drive/MyDrive/Tesi/Dataset/Train_labels"
 
 # ####### CREO UNA LISTA CON ELEMENTI DATI DA QUELLI NELLA CARTELLA DEL PERCORSO ######
-# dir = os.listdir(path)       #immagini in input
-# dir1 = os.listdir(path1)     #labels date dalle maschere
+dir = os.listdir(path)       #immagini in input
+dir1 = os.listdir(path1)     #labels date dalle maschere
 
-# ###### INIZIALIZO DUE LISTE, UNA PER LE IMMAGINI E UNA PER LE LABELS ########
-# image_list = []
-# label_list = []
+###### INIZIALIZO DUE LISTE, UNA PER LE IMMAGINI E UNA PER LE LABELS ########
+image_list = []
+label_list = []
 
-# #### CICLO FOR PER INSERIRE NELLA LISTA DELLE IMMAGINI IL PERCORSO CORRISPONDENTE ########
-# for elem in dir:
-#     new_dir = os.path.join(path,elem)
-#     if new_dir not in image_list : image_list.append(new_dir)
-#     #image=np.expand_dims(image, axis=2)
+#### CICLO FOR PER INSERIRE NELLA LISTA DELLE IMMAGINI IL PERCORSO CORRISPONDENTE ########
+for elem in dir:
+    new_dir = os.path.join(path,elem)
+    if new_dir not in image_list : image_list.append(new_dir)
+    #image=np.expand_dims(image, axis=2)
     
-# #### CICLO FOR PER INSERIRE NELLA LISTA DELLE LABELS IL PERCORSO CORRISPONDENTE ########
-# for lab in dir1:
-#     new_dir1 = os.path.join(path1,lab)
-#     if new_dir1 not in label_list : label_list.append(new_dir1)
-#     #label=np.expand_dims(label, axis=2)
+#### CICLO FOR PER INSERIRE NELLA LISTA DELLE LABELS IL PERCORSO CORRISPONDENTE ########
+for lab in dir1:
+    new_dir1 = os.path.join(path1,lab)
+    if new_dir1 not in label_list : label_list.append(new_dir1)
+    #label=np.expand_dims(label, axis=2)
 
-# print('Image and label lists dimensions')
-# print(len(image_list))
-# print(len(label_list))
+print('Image and label lists dimensions')
+print(len(image_list))
+print(len(label_list))
 
 # print('Elem1: ', image_list[0])
 # print('label1: ', label_list[0])
@@ -65,11 +65,11 @@ path1 =  r"C:\Users\Mattia\Documenti\github\Codice\cropped_labels_resize.npy"
 
 ####NUMERO DI IMMAGINI NEL DATASET + IMMAGINI DOVUTE AL DATA AUGMENTATION ####
 #N = len(image_list)    
-tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
-print('tmp1: ',tmp1.shape)
+# tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
+# print('tmp1: ',tmp1.shape)
 
-tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
-print('tmp2: ',tmp2.shape)
+# tmp2 = get_np_arrays(path1)          #recupero tmp2 dal file
+# print('tmp2: ',tmp2.shape)
 
 N=1000                                 #### UTILIZZARE LA RIGA SOPRA PER USARE TUTTE LE IMMAGINI A DISPOSIZIONE
 
@@ -111,8 +111,8 @@ count=0;
 
 # IMAGE SELECTION PROCESS #per le 64 sto a 1670-numero attuale
 print('[INFO]Generating labels array')
-for j in range (0,len(tmp2)):
-    if(count==2000):
+for j in range (0,len(label_list)):
+    if(count==1500):
         break
     flag_sand=False;
     flag_bedrock=False;
@@ -130,18 +130,18 @@ for j in range (0,len(tmp2)):
     counter_sand_reduce=0;
     print(j)
     #Take the image
-    image = tmp1[j]
+    image = cv2.imread(image_list[j])[:,:,[2,1,0]]#tmp1[j]
     image = image.astype('float32')
     image/=510 
     #Take the label
-    label = tmp2[j]
+    label = cv2.imread(label_list[j])[:,:,[2,1,0]]#tmp2[j]
     #label = cv2.cvtColor(label, cv2.COLOR_BGR2GRAY)
     #label=np.expand_dims(label, axis=2)
     label = label.astype('float32')
     #Start the process
-    for r in range (0,int(256/SHAPE)):
+    for r in range (0,int(1024/SHAPE)):
         flag_selected=False;
-        for k in range (0,int((256-SHAPE)/coeff)):
+        for k in range (0,int((1024-SHAPE)/coeff)):
             flag_sand=False;
             flag_bedrock=False;
             flag_bigrock=False;
@@ -192,27 +192,27 @@ for j in range (0,len(tmp2)):
                     #     break
                     # elif(flag_sand==True and flag_soil==True):
                     #     break
-                    elif channels_xy==nullo:    #Null
+                    elif channels_xy[0]==nullo:    #Null
                         counter_null+=1;
                         if (counter_null>10000):
                             flag_null=True;
-                    elif channels_xy==bedrock:      #BEDROCK
+                    elif channels_xy[0]==bedrock:      #BEDROCK
                         counter_bedrock+=1;
-                        if (counter_bedrock>4096):
+                        if (counter_bedrock>1000):
                             counter_bedrock_reduce+=1;
                             flag_bedrock=True
-                    elif channels_xy==sand:    #SAND
+                    elif channels_xy[0]==sand:    #SAND
                         counter_sand+=1;
-                        if (counter_sand>4096):
+                        if (counter_sand>1000):
                             counter_sand_reduce+=1;
                             flag_sand=True
-                    elif channels_xy==bigrock:    #BIG ROCK
+                    elif channels_xy[0]==bigrock:    #BIG ROCK
                         counter_bigrock+=1;
-                        if (counter_bigrock>2048):
+                        if (counter_bigrock>500):
                             flag_bigrock=True
-                    elif channels_xy==soil:    #SOIL
+                    elif channels_xy[0]==soil:    #SOIL
                         counter_soil+=1;
-                        if (counter_soil>4096):
+                        if (counter_soil>1000):
                             counter_soil_reduce+=1;
                             flag_soil=True;    
             if(flag_null==True):

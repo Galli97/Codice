@@ -34,10 +34,12 @@ from sklearn.feature_extraction import image
 # path = r"C:\Users\Mattia\Desktop\Dataset_Resize\Selezionate2000\Dataset_resize\final_images.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Dataset_Resize\Selezionate2000\Dataset_resize\final_labels.npy"
 
-path = r"C:\Users\Mattia\Desktop\Resized_Test\Test510\image_patches_TEST.npy"
-path1 =  r"C:\Users\Mattia\Desktop\Resized_Test\Test510\label_patches_TEST.npy"
+# path = r"C:\Users\Mattia\Desktop\Resized_Test\Test510\image_patches_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\Resized_Test\Test510\label_patches_TEST.npy"
 
 
+path = r"C:\Users\Mattia\Desktop\image_patches_TEST.npy"
+path1 =  r"C:\Users\Mattia\Desktop\label_patches_TEST.npy"
 
 
 ### RECUPERO LE DUE LISTE SALVATE #####
@@ -72,6 +74,9 @@ print('tmp2: ',tmp2.shape)
 # print('Image and label lists dimensions')
 # print('tmp1_new: ',tmp1.shape)
 # print('tmp2_new: ',tmp2.shape)
+
+tmp1=tmp1[0:1500]
+tmp2=tmp2[0:1500]
 
 # ####RESHUFFLE DELLA LISTA DELLE IMMAGINI E DELLE LABEL####
 # image_list, label_list = shuffle(tmp1, tmp2)

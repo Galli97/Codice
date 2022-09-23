@@ -28,7 +28,7 @@ from keras.preprocessing.image import ImageDataGenerator
 # path = r"C:\Users\Mattia\Desktop\Tentativi128_2\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\label_patches_TEST.npy"
 
-#128-255 Norm
+# #128-255 Norm
 path = r"C:\Users\Mattia\Desktop\Dataset_1\Test255\image_patches_TEST.npy"
 path1 =  r"C:\Users\Mattia\Desktop\Dataset_1\Test255\label_patches_TEST.npy"
 
@@ -43,6 +43,10 @@ path1 =  r"C:\Users\Mattia\Desktop\Dataset_1\Test255\label_patches_TEST.npy"
 #128-Test set gold 510 norm
 # path = r"C:\Users\Mattia\Desktop\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\label_patches_TEST.npy"
+
+#128-1500 Test set gold 255 norm
+# path = r"C:\Users\Mattia\Desktop\image_patches_TEST255_1500.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\label_patches_TEST255_1500.npy"
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
@@ -173,7 +177,7 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 matconf = confusion_matrix(cm1, cm2)
 matconf = matconf.astype('float')*100.00 / matconf.sum(axis=1)[:, np.newaxis]
 np.set_printoptions(precision=2)
-cmd_obj = ConfusionMatrixDisplay(matconf, display_labels=['null', 'bedrock', 'sand','bigrock','soil'])
+cmd_obj = ConfusionMatrixDisplay(matconf, display_labels=['null','bedrock', 'sand','bigrock','soil'])
 cmd_obj.plot(values_format=".1f")
 cmd_obj.ax_.set(
                 title='Confusion Matrix', 
