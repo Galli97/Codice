@@ -47,12 +47,12 @@ session = InteractiveSession(config=config)
 # path1 = r"/content/drive/MyDrive/Tesi/Dataset_resize/final_labels.npy"
 
 #128 Dataset_Bigrock
-# path = r"/content/drive/MyDrive/Tesi/Dataset_Bigrock/final_images.npy"
-# path1 = r"/content/drive/MyDrive/Tesi/Dataset_Bigrock/final_labels.npy"
+path = r"/content/drive/MyDrive/Tesi/Dataset_Bigrock/final_images.npy"
+path1 = r"/content/drive/MyDrive/Tesi/Dataset_Bigrock/final_labels.npy"
 
 #128 Dataset_Bigrock255
-path = r"/content/drive/MyDrive/Tesi/Dataset_bigrock255/final_images.npy"
-path1 = r"/content/drive/MyDrive/Tesi/Dataset_bigrock255/final_labels.npy"
+# path = r"/content/drive/MyDrive/Tesi/Dataset_bigrock255/final_images.npy"
+# path1 = r"/content/drive/MyDrive/Tesi/Dataset_bigrock255/final_labels.npy"
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 

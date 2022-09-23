@@ -23,8 +23,11 @@ from keras.preprocessing.image import ImageDataGenerator
 # path = r"C:\Users\Mattia\Desktop\Dataset_1\255Data\1\Dataset_1_255\final_images.npy"
 # path1 = r"C:\Users\Mattia\Desktop\Dataset_1\255Data\1\Dataset_1_255\final_labels.npy"
 
-path = r"C:\Users\Mattia\Desktop\Datase_BigRock\Data510\image_patches.npy"
-path1 = r"C:\Users\Mattia\Desktop\Datase_BigRock\Data510\label_patches.npy"
+# path = r"C:\Users\Mattia\Desktop\Datase_BigRock\Data510\image_patches.npy"
+# path1 = r"C:\Users\Mattia\Desktop\Datase_BigRock\Data510\label_patches.npy"
+
+path = r"C:\Users\Mattia\Desktop\Dataset_Resize\Selezionate2000\Data255\final_images.npy"
+path1 = r"C:\Users\Mattia\Desktop\Dataset_Resize\Selezionate2000\Data255\final_labels.npy"
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 

@@ -32,6 +32,10 @@ from keras.preprocessing.image import ImageDataGenerator
 path = r"C:\Users\Mattia\Desktop\Dataset_1\Test255\image_patches_TEST.npy"
 path1 =  r"C:\Users\Mattia\Desktop\Dataset_1\Test255\label_patches_TEST.npy"
 
+#128-Resized 255 Norm
+# path = r"C:\Users\Mattia\Desktop\Resized_Test\Test255\image_patches_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\Resized_Test\Test255\label_patches_TEST.npy"
+
 #128-Resized 510 norm
 # path = r"C:\Users\Mattia\Desktop\Resized_Test\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Resized_Test\label_patches_TEST.npy"
@@ -137,19 +141,6 @@ sand_pixels= 3679903
 bigrock_pixels= 348196
 soil_pixels= 6015338
 
-#128 500
-# null_pixels = 3315038 
-# bedrock_pixels =  1628395
-# sand_pixels =  1241556
-# bigrock_pixels =  66467
-# soil_pixels =  1940544
-
-#64
-# null_pixels = 831340
-# bedrock_pixels =  360564
-# sand_pixels = 316722
-# bigrock_pixels = 16502
-# soil_pixels =  522872
 
 #128 resized
 # null_pixels =  12314115
