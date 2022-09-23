@@ -25,8 +25,12 @@ from sklearn.feature_extraction import image
 # path4 = r"C:\Users\Mattia\Desktop\Dataset_1\510Data\cropped_images_3.npy"
 # path5 = r"C:\Users\Mattia\Desktop\Dataset_1\510Data\cropped_labels_3.npy"
 
-path = r"C:\Users\Mattia\Desktop\Tentativi128_2\image_patches_TEST.npy"
-path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\label_patches_TEST.npy"
+# path = r"C:\Users\Mattia\Desktop\Tentativi128_2\image_patches_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\label_patches_TEST.npy"
+
+path = r"C:\Users\Mattia\Desktop\Datase_BigRock\Dataset_Bigrock\final_images.npy"
+path1 =  r"C:\Users\Mattia\Desktop\Datase_BigRock\Dataset_Bigrock\final_labels.npy"
+
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
@@ -79,11 +83,18 @@ print(tmp1[0,0,0,0])
 # save_cropped_labels(tmp2) 
 
 
-######## SALVATAGGIO ####
+# ######## SALVATAGGIO ####
+# print("[INFO] Cropped images arrays saved")
+# save_patches_TEST(tmp1) 
+
+# ######## SALVATAGGIO ####
+# print("[INFO] Cropped labels arrays saved")
+# save_label_patches_TEST(tmp2) 
+
+# ######## SALVATAGGIO ####
 print("[INFO] Cropped images arrays saved")
-save_patches_TEST(tmp1) 
+save_final_images(tmp1) 
 
 ######## SALVATAGGIO ####
 print("[INFO] Cropped labels arrays saved")
-save_label_patches_TEST(tmp2) 
-
+save_final_labels(tmp2)
