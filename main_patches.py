@@ -37,8 +37,8 @@ session = InteractiveSession(config=config)
 # path5 = r"/content/drive/MyDrive/Tesi/Dataset_1/final_labels_3.npy"
 
 #128 dataset_1 255
-path = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_images.npy"
-path1 = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_labels.npy"
+# path = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_images.npy"
+# path1 = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_labels.npy"
 # path2 = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_images_2.npy"
 # path3 = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_labels_2.npy"
 
@@ -46,13 +46,13 @@ path1 = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_labels.npy"
 # path = r"/content/drive/MyDrive/Tesi/Dataset_resize/final_images.npy"
 # path1 = r"/content/drive/MyDrive/Tesi/Dataset_resize/final_labels.npy"
 
-#128 BBS
-# path = r"/content/drive/MyDrive/Tesi/Dataset_BBS/final_images.npy"
-# path1 = r"/content/drive/MyDrive/Tesi/Dataset_BBS/final_labels.npy"
-
 #128 Dataset_Bigrock
 # path = r"/content/drive/MyDrive/Tesi/Dataset_Bigrock/final_images.npy"
 # path1 = r"/content/drive/MyDrive/Tesi/Dataset_Bigrock/final_labels.npy"
+
+#128 Dataset_Bigrock255
+path = r"/content/drive/MyDrive/Tesi/Dataset_bigrock255/final_images.npy"
+path1 = r"/content/drive/MyDrive/Tesi/Dataset_bigrock255/final_labels.npy"
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
@@ -145,7 +145,7 @@ BATCH = 32
 EPOCHS = 250
 #steps = int(train_set/(EPOCHS))
 steps = int(np.ceil(train_set/ float(BATCH)))
-weight_decay =0.0004 #0.0001/2 
+weight_decay =0.0005 #0.0001/2 
 
 #steps_val = int(np.ceil(len(list_validation)/ float(BATCH)+1))
 #steps_val = int(len(list_validation)/EPOCHS)
@@ -154,11 +154,11 @@ batch_shape=(BATCH,SHAPE,SHAPE,3)
 input_shape = (SHAPE, SHAPE, 3)
 tf.keras.backend.set_image_data_format('channels_last')
 
-#model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
 #model = rete_Resnet101(img_size=128,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = AtrousFCN_Resnet50_16s(input_shape = shape, weight_decay=weight_decay, batch_momentum=0.95, batch_shape=None, classes=5)
-model=mobile(shape=input_shape,weight_decay=weight_decay)
+#model=mobile(shape=input_shape,weight_decay=weight_decay)
 #model = DeeplabV3Plus(image_size=SHAPE, num_classes=5)
 
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######
