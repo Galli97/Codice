@@ -29,12 +29,12 @@ from keras.preprocessing.image import ImageDataGenerator
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\label_patches_TEST.npy"
 
 # #128-255 Norm
-# path = r"C:\Users\Mattia\Desktop\Dataset_1\Test255\image_patches_TEST.npy"
-# path1 =  r"C:\Users\Mattia\Desktop\Dataset_1\Test255\label_patches_TEST.npy"
+path = r"C:\Users\Mattia\Desktop\Dataset_1\Test255\image_patches_TEST.npy"
+path1 =  r"C:\Users\Mattia\Desktop\Dataset_1\Test255\label_patches_TEST.npy"
 
 #128-Resized 255 Norm
-path = r"C:\Users\Mattia\Desktop\Resized_Test\Test255\image_patches_TEST.npy"
-path1 =  r"C:\Users\Mattia\Desktop\Resized_Test\Test255\label_patches_TEST.npy"
+# path = r"C:\Users\Mattia\Desktop\Resized_Test\Test255\image_patches_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\Resized_Test\Test255\label_patches_TEST.npy"
 
 #128-Resized 510 norm
 # path = r"C:\Users\Mattia\Desktop\Resized_Test\image_patches_TEST.npy"
