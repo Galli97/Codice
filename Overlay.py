@@ -172,7 +172,7 @@ x_test = (
     .batch(BATCH)
 )
 
-model = tf.keras.models.load_model('model.h5',custom_objects={"UpdatedMeanIoU": UpdatedMeanIoU,"BilinearInitializer":BilinearInitializer })
+model = tf.keras.models.load_model('model.h5',custom_objects={"UpdatedMeanIoU": UpdatedMeanIoU})
 
 print("[INFO] Starting Evaluation")
 
