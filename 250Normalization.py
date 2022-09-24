@@ -75,8 +75,8 @@ print('tmp2: ',tmp2.shape)
 # print('tmp1_new: ',tmp1.shape)
 # print('tmp2_new: ',tmp2.shape)
 
-tmp1=tmp1[0:1500]
-tmp2=tmp2[0:1500]
+# tmp1=tmp1[0:1500]
+# tmp2=tmp2[0:1500]
 
 # ####RESHUFFLE DELLA LISTA DELLE IMMAGINI E DELLE LABEL####
 # image_list, label_list = shuffle(tmp1, tmp2)

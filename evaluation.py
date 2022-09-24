@@ -40,7 +40,7 @@ path1 =  r"C:\Users\Mattia\Desktop\Dataset_1\Test255\label_patches_TEST.npy"
 # path = r"C:\Users\Mattia\Desktop\Resized_Test\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Resized_Test\label_patches_TEST.npy"
 
-#128-Test set gold 510 norm
+#128-all Test set gold 255 norm
 # path = r"C:\Users\Mattia\Desktop\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\label_patches_TEST.npy"
 
