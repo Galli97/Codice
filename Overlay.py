@@ -38,8 +38,8 @@ from sklearn.feature_extraction import image
 path = r"C:\Users\Mattia\Desktop\TEST_images"
 path1 =  r"C:\Users\Mattia\Desktop\TEST_labels"
 
-path = r"C:\Users\Mattia\Desktop\Train_images"
-path1 =  r"C:\Users\Mattia\Desktop\Train_labels"
+# path = r"C:\Users\Mattia\Desktop\Train_images"
+# path1 =  r"C:\Users\Mattia\Desktop\Train_labels"
 
 ####### CREO UNA LISTA CON ELEMENTI DATI DA QUELLI NELLA CARTELLA DEL PERCORSO ######
 dir = os.listdir(path)       #immagini in input
@@ -72,7 +72,7 @@ i = random.randint(0,len(image_list)-1) #229
 print(i)
 image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
 image = image.astype('float32')
-image/=510                                    #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+image/=255                                    #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
 for r in range (0,8):
     for c in range (0,8):
         cropped_image = image[128*r:128*(r+1),128*c:128*(c+1)]

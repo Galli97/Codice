@@ -47,12 +47,12 @@ session = InteractiveSession(config=config)
 # path1 = r"/content/drive/MyDrive/Tesi/Dataset_resize/final_labels.npy"
 
 #128 Dataset_Bigrock
-path = r"/content/drive/MyDrive/Tesi/Dataset_Bigrock/final_images.npy"
-path1 = r"/content/drive/MyDrive/Tesi/Dataset_Bigrock/final_labels.npy"
+# path = r"/content/drive/MyDrive/Tesi/Dataset_Bigrock/final_images.npy"
+# path1 = r"/content/drive/MyDrive/Tesi/Dataset_Bigrock/final_labels.npy"
 
 #128 Dataset_Bigrock255
-# path = r"/content/drive/MyDrive/Tesi/Dataset_bigrock255/final_images.npy"
-# path1 = r"/content/drive/MyDrive/Tesi/Dataset_bigrock255/final_labels.npy"
+path = r"/content/drive/MyDrive/Tesi/Dataset_bigrock255/final_images.npy"
+path1 = r"/content/drive/MyDrive/Tesi/Dataset_bigrock255/final_labels.npy"
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
@@ -154,11 +154,11 @@ batch_shape=(BATCH,SHAPE,SHAPE,3)
 input_shape = (SHAPE, SHAPE, 3)
 tf.keras.backend.set_image_data_format('channels_last')
 
-#model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
 #model = rete_Resnet101(img_size=128,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = AtrousFCN_Resnet50_16s(input_shape = shape, weight_decay=weight_decay, batch_momentum=0.95, batch_shape=None, classes=5)
-model=mobile(shape=input_shape,weight_decay=weight_decay)
+#model=mobile(shape=input_shape,weight_decay=weight_decay)
 #model = DeeplabV3Plus(image_size=SHAPE, num_classes=5)
 
 ##### USO DATAGENERATOR PER PREPARARE I DATI DA MANDARE NELLA RETE #######

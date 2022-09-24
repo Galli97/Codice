@@ -72,7 +72,7 @@ i = random.randint(0,len(image_list)-1) #229
 print(i)
 image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
 image = image.astype('float32')
-image/=510                                    #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+image/=255                                    #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
 for r in range (0,8):
     for c in range (0,8):
         cropped_image = image[128*r:128*(r+1),128*c:128*(c+1)]
