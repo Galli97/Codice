@@ -69,8 +69,9 @@ from keras.preprocessing.image import ImageDataGenerator
 # path = r"C:\Users\Mattia\Documenti\Github\Codice\final_images.npy"
 # path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\final_labels.npy"
 
-path = r"C:\Users\Mattia\Desktop\image_patches_TEST255_1500.npy"
-path1 =  r"C:\Users\Mattia\Desktop\label_patches_TEST255_1500.npy"
+path = r"C:\Users\Mattia\Documenti\Github\Codice\cropped_images.npy"
+path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\cropped_labels.npy"
+
 # path = r"C:\Users\Mattia\Documenti\Github\Codice\image_patches.npy"
 # path1 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches.npy"
 

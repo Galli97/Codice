@@ -194,7 +194,7 @@ for j in range (0,len(label_list)):
                     #     break
                     elif channels_xy[0]==nullo:    #Null
                         counter_null+=1;
-                        if (counter_null>10000):
+                        if (counter_null>15000):
                             flag_null=True;
                     elif channels_xy[0]==bedrock:      #BEDROCK
                         counter_bedrock+=1;
