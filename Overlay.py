@@ -160,7 +160,7 @@ img8 = np.hstack((overlay[0+7*8],overlay[1+7*8], overlay[2+7*8],overlay[3+7*8], 
 
 result = np.vstack((img1,img2,img3,img4,img5,img6,img7,img8))
 
-
+result = cv2.resize(result, (512, 512))
 cv2.imshow('overlay',result)
 cv2.waitKey(0)
 
@@ -222,6 +222,7 @@ pred8 = np.hstack((pred[0+7*8],pred[1+7*8], pred[2+7*8],pred[3+7*8], pred[4+7*8]
 
 result_pred = np.vstack((pred1,pred2,pred3,pred4,pred5,pred6,pred7,pred8))
 
+result = cv2.resize(result, (512, 512))
 cv2.imshow('overlay_prediction',result)
 cv2.waitKey(0)
 
@@ -261,5 +262,6 @@ result2 = np.vstack((img_1,img_2,img_3,img_4,img_5,img_6,img_7,img_8))
 
 label_new = np.asarray(label_new, np.float32)
 overlay_final2 = cv2.addWeighted(label_new, 0.002,result2, 1, 0)
+overlay_final2 = cv2.resize(overlay_final2, (512, 512))
 cv2.imshow('overlay3',overlay_final2)
 cv2.waitKey(0)
