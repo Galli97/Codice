@@ -41,8 +41,12 @@ from keras.preprocessing.image import ImageDataGenerator
 # path1 =  r"C:\Users\Mattia\Desktop\Resized_Test\label_patches_TEST.npy"
 
 #128-all Test set gold 255 norm
-path = r"C:\Users\Mattia\Desktop\image_patches_TEST.npy"
-path1 =  r"C:\Users\Mattia\Desktop\label_patches_TEST.npy"
+# path = r"C:\Users\Mattia\Desktop\image_patches_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\label_patches_TEST.npy"
+
+#128-all Test set gold 255 norm COLAB
+path = r"/content/drive/MyDrive/Tesi/image_patches_TEST.npy"
+path1 =  r"/content/drive/MyDrive/Tesi/label_patches_TEST.npy"
 
 #128-1500 Test set gold 255 norm
 # path = r"C:\Users\Mattia\Desktop\image_patches_TEST255_1500.npy"
