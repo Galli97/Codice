@@ -29,8 +29,8 @@ from keras.preprocessing.image import ImageDataGenerator
 # path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\label_patches_TEST.npy"
 
 # #128-255 Norm
-path = r"C:\Users\Mattia\Desktop\Dataset_1\Test255\image_patches_TEST.npy"
-path1 =  r"C:\Users\Mattia\Desktop\Dataset_1\Test255\label_patches_TEST.npy"
+# path = r"C:\Users\Mattia\Desktop\Dataset_1\Test255\image_patches_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\Dataset_1\Test255\label_patches_TEST.npy"
 
 #128-Resized 255 Norm
 # path = r"C:\Users\Mattia\Desktop\Resized_Test\Test255\image_patches_TEST.npy"
@@ -41,8 +41,8 @@ path1 =  r"C:\Users\Mattia\Desktop\Dataset_1\Test255\label_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Resized_Test\label_patches_TEST.npy"
 
 #128-all Test set gold 255 norm
-# path = r"C:\Users\Mattia\Desktop\image_patches_TEST.npy"
-# path1 =  r"C:\Users\Mattia\Desktop\label_patches_TEST.npy"
+path = r"C:\Users\Mattia\Desktop\image_patches_TEST.npy"
+path1 =  r"C:\Users\Mattia\Desktop\label_patches_TEST.npy"
 
 #128-1500 Test set gold 255 norm
 # path = r"C:\Users\Mattia\Desktop\image_patches_TEST255_1500.npy"
@@ -132,18 +132,18 @@ matrix_nonull=matrix[1:4,1:4]
 # soil_pixels= soil_count 
 
 #128 tutte le 322 croppate (20000 immagini) delle merged
-# null_pixels =  220661911
-# bedrock_pixels= 26192939
-# sand_pixels= 30639905
-# bigrock_pixels= 77698
-# soil_pixels= 60069019
+null_pixels =  220661911
+bedrock_pixels= 26192939
+sand_pixels= 30639905
+bigrock_pixels= 77698
+soil_pixels= 60069019
 
 #128 1500
-null_pixels =  9663358
-bedrock_pixels= 4869205
-sand_pixels= 3679903
-bigrock_pixels= 348196
-soil_pixels= 6015338
+# null_pixels =  9663358
+# bedrock_pixels= 4869205
+# sand_pixels= 3679903
+# bigrock_pixels= 348196
+# soil_pixels= 6015338
 
 #1500 delle gold da 128
 # null_pixels =   16007021

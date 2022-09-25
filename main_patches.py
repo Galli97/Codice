@@ -39,8 +39,8 @@ session = InteractiveSession(config=config)
 #128 dataset_1 255
 path = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_images.npy"
 path1 = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_labels.npy"
-path2 = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_images_2.npy"
-path3 = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_labels_2.npy"
+# path2 = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_images_2.npy"
+# path3 = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_labels_2.npy"
 
 #128 resize
 # path = r"/content/drive/MyDrive/Tesi/Dataset_resize/final_images.npy"
