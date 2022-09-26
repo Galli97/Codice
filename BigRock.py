@@ -99,6 +99,9 @@ for j in range (0,1000):
     flag_bigrock=False;
     take_bigrock=False;
     flag_selected=False;
+    flag_soil=False;
+    flag_sand=False;
+    flag_bedrock=False;
     counter_bigrock=0;
    
     print(j)
@@ -142,15 +145,24 @@ for j in range (0,1000):
                             if (counter_bigrock>8000):
                                 take_bigrock=True;
                                 break
+                        elif channels==bedrock:    
+                            flag_bedrock=True;
+                        elif channels==sand:    
+                            flag_sand=True;
+                        elif channels==soil:    
+                            flag_soil=True;
                         else:
                             continue
-                if (take_bigrock==True):
+                if (take_bigrock==True and flag_soil==True or take_bigrock==True and flag_sand==True or take_bigrock==True and flag_bedrock==True):
                     print('Big Rock IN')
                     cropped_image = image[SHAPE*(v):SHAPE*(v+1),coeff*k:SHAPE+coeff*k]
                     crop_labels_list.append(cropped_label)
                     crop_images_list.append(cropped_image)
                     flag_selected=True;
                     take_bigrock=False;
+                    flag_soil=False;
+                    flag_sand=False;
+                    flag_bedrock=False;
                     count+=1
                     print('count: ', count)
 
