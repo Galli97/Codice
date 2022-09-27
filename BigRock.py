@@ -84,7 +84,14 @@ nullo=255;
 
 
 flag_bigrock=False;
+flag_bedrock=False;
+flag_sand=False;
+flag_soil=False;
+
 counter_bigrock=0;
+counter_bedrock=0;
+counter_sand=0;
+counter_soil=0;
 count=0;
 
 
@@ -103,6 +110,9 @@ for j in range (0,1000):
     flag_sand=False;
     flag_bedrock=False;
     counter_bigrock=0;
+    counter_bedrock=0;
+    counter_sand=0;
+    counter_soil=0;
    
     print(j)
 
@@ -132,6 +142,9 @@ for j in range (0,1000):
             flag_selected=False;
             for k in range (0,int((1024-SHAPE)/coeff)):
                 counter_bigrock=0;
+                counter_bedrock=0;
+                counter_sand=0;
+                counter_soil=0;
                 if(flag_selected==True):
                     break
                 cropped_label = label[SHAPE*(v):SHAPE*(v+1),coeff*k:SHAPE+coeff*k]           #Passo coeff
@@ -145,12 +158,18 @@ for j in range (0,1000):
                             if (counter_bigrock>8000):
                                 take_bigrock=True;
                                 break
-                        elif channels==bedrock:    
-                            flag_bedrock=True;
-                        elif channels==sand:    
-                            flag_sand=True;
-                        elif channels==soil:    
-                            flag_soil=True;
+                        if channels==bedrock:
+                            counter_bedrock+=1;
+                            if (counter_bedrock>500):
+                                flag_bedrock=True;
+                        if channels==sand:    
+                            counter_sand+=1;
+                            if (counter_sand>500):
+                                flag_sand=True;
+                        if channels==soil:    
+                            counter_soil+=1;
+                            if (counter_soil>500):
+                                flag_bedrock=True;
                         else:
                             continue
                 if (take_bigrock==True and flag_soil==True or take_bigrock==True and flag_sand==True or take_bigrock==True and flag_bedrock==True):
@@ -158,6 +177,10 @@ for j in range (0,1000):
                     cropped_image = image[SHAPE*(v):SHAPE*(v+1),coeff*k:SHAPE+coeff*k]
                     crop_labels_list.append(cropped_label)
                     crop_images_list.append(cropped_image)
+                    print('flag_bedrock:',flag_bedrock)
+                    print('flag_bigrock:',flag_bigrock)
+                    print('flag_sand:',flag_sand)
+                    print('flag_soil:',flag_soil)
                     flag_selected=True;
                     take_bigrock=False;
                     flag_soil=False;
