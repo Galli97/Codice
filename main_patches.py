@@ -207,7 +207,7 @@ def lr_scheduler(epoch):
     elif epoch > 0.2 * EPOCHS:
         lr = 0.005
     else:
-        lr = 0.01
+        lr = 0.04
     #print('lr: %f' % lr)
     return lr
 
