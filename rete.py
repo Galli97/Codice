@@ -405,7 +405,8 @@ def AtrousFCN_Resnet50_16s(input_shape = None, weight_decay=0., batch_momentum=0
 
 def mobile(shape=None,weight_decay=0.0005):
     mob = tf.keras.applications.mobilenet_v2.MobileNetV2(input_shape=shape,include_top=False,weights='imagenet',classes=5,classifier_activation=None)
-    x=mob.output
+    #x=mob.output
+    x=mob.get_layer('out_relu').output
 
     x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(10,10), name='fc3', kernel_regularizer=l2(weight_decay))(x)
     x = Dropout(0.5)(x)
