@@ -149,7 +149,8 @@ def rete_Resnet101(img_size=None, weight_decay=0., batch_momentum=0.9, batch_sha
     # for layer in res_model.layers: #[:-4]:        
     #     layer.trainable = False
     #     print(layer.name)
-    x = res_model.output
+    x = res_model.get_layer("conv4_block6_2_relu").output
+    #x = res_model.output
     
     x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(10,10), name='fc3', kernel_regularizer=l2(weight_decay))(x)
     x = Dropout(0.5)(x)
