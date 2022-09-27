@@ -159,7 +159,7 @@ def rete_Resnet101(img_size=None, weight_decay=0., batch_momentum=0.9, batch_sha
     x = Conv2D(classes, (3, 3),  kernel_initializer='normal',dilation_rate=(2,2),activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
     #x = Conv2D(classes, (1, 1),kernel_initializer='he_normal', activation='linear', padding='same', kernel_regularizer=l2(weight_decay))(x)
     
-    x = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(x)
+    x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
     # x = keras.layers.Conv2DTranspose(filters=classes, kernel_size=(16,16), strides=(16,16),
     #                                  padding='same', use_bias=False,
     #                                  kernel_initializer=BilinearInitializer(),
