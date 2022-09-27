@@ -175,7 +175,42 @@ def rete_Resnet101(img_size=None, weight_decay=0., batch_momentum=0.9, batch_sha
 
 ##############################################################
 
+def rete_Res50(img_size=None, weight_decay=0., batch_momentum=0.9, batch_shape=None, classes=5):
+    
+    model_input = keras.Input(shape=(img_size, img_size, 3))
 
+    res_model = tf.keras.applications.resnet.ResNet50(weights='imagenet',include_top=False,input_tensor=model_input)
+
+    #res_model = Sequential(res_model.layers[:-4])
+    # for layer in res_model.layers: #[:-4]:        
+    #     layer.trainable = False
+    #     print(layer.name)
+    #x = res_model.output
+    x = res_model.get_layer("conv4_block6_2_relu").output
+    
+    x = Conv2D(1024, (3, 3), activation='relu', padding='same',dilation_rate=(10,10), name='fc3', kernel_regularizer=l2(weight_decay))(x)
+    x = Dropout(0.5)(x)
+    x = Conv2D(1024, (3, 3), activation='relu', padding='same', name='fc4', kernel_regularizer=l2(weight_decay))(x)
+    x = Dropout(0.5)(x)
+    x = Conv2D(classes, (3, 3),  kernel_initializer='normal',dilation_rate=(2,2),activation='relu', padding='same', strides=(1, 1), kernel_regularizer=l2(weight_decay))(x)
+    #x = Conv2D(classes, (1, 1),kernel_initializer='he_normal', activation='linear', padding='same', kernel_regularizer=l2(weight_decay))(x)
+    
+    x = tf.keras.layers.UpSampling2D(32,interpolation='bilinear')(x)
+    # x = keras.layers.Conv2DTranspose(filters=classes, kernel_size=(16,16), strides=(16,16),
+    #                                  padding='same', use_bias=False,
+    #                                  kernel_initializer=BilinearInitializer(),
+    #                                  kernel_regularizer=l2(weight_decay),
+    #                                  name='fc3')(x)
+    x = Conv2D(classes, 1,strides=(1, 1), activation='softmax', padding='valid',kernel_regularizer=l2(weight_decay))(x)
+    
+   
+    # x = tf.keras.layers.UpSampling2D(16,interpolation='bilinear')(x)
+    # x = Activation('softmax')(x)
+    model = Model(inputs=res_model.input, outputs=x)
+
+    return model
+
+##############################################################
 ##############################################################
 from tensorflow.keras.layers import Conv2D, BatchNormalization, Activation, MaxPool2D, Conv2DTranspose, Concatenate, Input
 from tensorflow.keras.models import Model
