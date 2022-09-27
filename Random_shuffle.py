@@ -30,8 +30,14 @@ from sklearn.feature_extraction import image
 # path2= r"C:\Users\Mattia\Documenti\Github\Codice\image_patches.npy"
 # path3 =  r"C:\Users\Mattia\Documenti\Github\Codice\label_patches.npy"
 
-path = r"C:\Users\Mattia\Desktop\image_patches_TEST.npy"
-path1 =  r"C:\Users\Mattia\Desktop\label_patches_TEST.npy"
+# path = r"C:\Users\Mattia\Desktop\image_patches_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\label_patches_TEST.npy"
+
+path = r"C:\Users\Mattia\Desktop\Resize512_crop128\Dataset_Res512\final_images.npy"
+path1 =  r"C:\Users\Mattia\Desktop\Resize512_crop128\Dataset_Res512\final_labels.npy"
+
+# path = r"C:\Users\Mattia\Desktop\Resize256_crop128\Dataset_Res256\final_images.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\Resize256_crop128\Dataset_Res256\final_labels.npy"
 
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
@@ -69,13 +75,15 @@ print('tmp2: ',tmp2.shape)
 ####RESHUFFLE DELLA LISTA DELLE IMMAGINI E DELLE LABEL####
 image_list, label_list = shuffle(tmp1, tmp2)
 
-image_list=image_list[0:1500]
-label_list=label_list[0:1500]
+# image_list=image_list[0:1500]
+# label_list=label_list[0:1500]
 
-######## SALVATAGGIO ####
-print("[INFO] Cropped images arrays saved")
-save_cropped_images(image_list) 
+# ######## SALVATAGGIO ####
+# print("[INFO] Cropped images arrays saved")
+# save_cropped_images(image_list) 
 
-######## SALVATAGGIO ####
-print("[INFO] Cropped labels arrays saved")
-save_cropped_labels(label_list) 
+# ######## SALVATAGGIO ####
+# print("[INFO] Cropped labels arrays saved")
+# save_cropped_labels(label_list) 
+save_final_images(image_list)
+save_final_labels(label_list)
