@@ -101,7 +101,7 @@ count=0;
 print('[INFO]Generating labels array')
 for j in range (0,len(image_list)):
     print(j)
-    if(count==3000):
+    if(count==4):
         break
     flag_sand=False;
     flag_bedrock=False;
