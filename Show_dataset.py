@@ -29,11 +29,11 @@ from keras.preprocessing.image import ImageDataGenerator
 # path = r"C:\Users\Mattia\Desktop\Dataset_Resize\Selezionate2000\Data255\final_images.npy"
 # path1 = r"C:\Users\Mattia\Desktop\Dataset_Resize\Selezionate2000\Data255\final_labels.npy"
 
-path = r"C:\Users\Mattia\Desktop\Resize512_crop128\Dataset_Res512\final_images.npy"
-path1 = r"C:\Users\Mattia\Desktop\Resize512_crop128\Dataset_Res512\final_labels.npy"
+# path = r"C:\Users\Mattia\Desktop\Resize512_crop128\Dataset_Res512\final_images.npy"
+# path1 = r"C:\Users\Mattia\Desktop\Resize512_crop128\Dataset_Res512\final_labels.npy"
 
-# path = r"C:\Users\Mattia\Desktop\Resize256_crop128\Dataset_Res256\final_images.npy"
-# path1 = r"C:\Users\Mattia\Desktop\Resize256_crop128\Dataset_Res256\final_labels.npy"
+path = r"C:\Users\Mattia\Desktop\Resize256_crop128\Dataset_Res256\final_images.npy"
+path1 = r"C:\Users\Mattia\Desktop\Resize256_crop128\Dataset_Res256\final_labels.npy"
 ### RECUPERO LE DUE LISTE SALVATE #####
 tmp1 = get_np_arrays(path)          #recupero tmp1 dal file 
 print('tmp1: ',tmp1.shape)

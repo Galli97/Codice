@@ -37,11 +37,11 @@ from sklearn.feature_extraction import image
 # path = r"C:\Users\Mattia\Desktop\Resized_Test\Test510\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Resized_Test\Test510\label_patches_TEST.npy"
 
-# path = r"C:\Users\Mattia\Desktop\Resize512_crop128\Dataset_Res512\final_images.npy"
-# path1 =  r"C:\Users\Mattia\Desktop\Resize512_crop128\Dataset_Res512\final_labels.npy"
+path = r"C:\Users\Mattia\Desktop\Resize512_crop128\Dataset_Res512\final_images.npy"
+path1 =  r"C:\Users\Mattia\Desktop\Resize512_crop128\Dataset_Res512\final_labels.npy"
 
-path = r"C:\Users\Mattia\Desktop\Resize256_crop128\Dataset_Res256\final_images.npy"
-path1 =  r"C:\Users\Mattia\Desktop\Resize256_crop128\Dataset_Res256\final_labels.npy"
+# path = r"C:\Users\Mattia\Desktop\Resize256_crop128\Dataset_Res256\final_images.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\Resize256_crop128\Dataset_Res256\final_labels.npy"
 
 # path = r"C:\Users\Mattia\Desktop\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\label_patches_TEST.npy"
@@ -88,7 +88,7 @@ print('tmp2: ',tmp2.shape)
 print(tmp1[0,0,0,0])
 for j in range (0,len(tmp1)):
     image = tmp1[j]
-    image*=2
+    image*=2*510
     tmp1[j]=image
 
 print(tmp1[0,0,0,0])
