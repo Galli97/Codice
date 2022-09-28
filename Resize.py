@@ -20,8 +20,11 @@ from sklearn.utils import shuffle
 from sklearn.feature_extraction import image
 
 ####### PERCORSO IN LOCALE #########
-path = r"C:\Users\Mattia\Desktop\Train_images"
-path1 =  r"C:\Users\Mattia\Desktop\Train_labels"
+# path = r"C:\Users\Mattia\Desktop\Train_images"
+# path1 =  r"C:\Users\Mattia\Desktop\Train_labels"
+
+path = r"C:\Users\Mattia\Desktop\Tesi\Dataset\Test-images"
+path1 =  r"C:\Users\Mattia\Desktop\Tesi\Dataset\Test-labels"
 
 ####### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
 # path = r"/content/drive/MyDrive/Tesi/Dataset/Train_images"
@@ -69,7 +72,7 @@ num_classes=5
 print('Augmented image list dimension')
 print(N)
 
-SHAPE=256
+SHAPE=512
 ## INITIALIZE SOME VARIABLES
 crop_images_list=[]
 crop_labels_list=[]
@@ -101,8 +104,8 @@ count=0;
 print('[INFO]Generating labels array')
 for j in range (0,len(image_list)):
     print(j)
-    if(count==4):
-        break
+    # if(count==1500):
+    #     break
     flag_sand=False;
     flag_bedrock=False;
     flag_bigrock=False;
@@ -119,7 +122,7 @@ for j in range (0,len(image_list)):
     #Take the image
     image = cv2.imread(image_list[j])[:,:,[2,1,0]]
     image = image.astype('float32')
-    image/=510 
+    image/=255 
     resized_image = cv2.resize(image, (SHAPE, SHAPE))
     #Take the label
     label = cv2.imread(label_list[j])[:,:,[2,1,0]]

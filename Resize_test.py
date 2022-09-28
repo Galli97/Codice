@@ -47,7 +47,7 @@ print('Image and label lists dimensions')
 print(len(image_list))
 print(len(label_list))
 
-SHAPE=128;
+SHAPE=512;
 crop_images_list=[]
 crop_labels_list=[]
 print('[INFO]Generating labels array')
@@ -56,7 +56,7 @@ for j in range (0,len(image_list)):
     #Take the image
     image = cv2.imread(image_list[j])[:,:,[2,1,0]]
     image = image.astype('float32')
-    image/=510 
+    image/=255 
     resized_image = cv2.resize(image, (SHAPE, SHAPE))
     crop_images_list.append(resized_image)     
     #Take the label

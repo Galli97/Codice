@@ -37,7 +37,9 @@ path1 =  r"C:\Users\Mattia\Documenti\github\Codice\cropped_labels_TEST.npy"
 crop_images_list = get_np_arrays(path)          #recupero tmp1 dal file 
 crop_labels_list = get_np_arrays(path1)          #recupero tmp2 dal file
 
-N = len(crop_images_list)
+print(crop_images_list[1].shape)
+print(crop_images_list[0].shape)
+N = 1500#len(crop_images_list)
 
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI E DELLE LABEL ######
 num_classes=5
@@ -75,6 +77,9 @@ chosen_label=[];
 print('[INFO]Generating labels array')
 for t in range (0,len(crop_labels_list)):
     print('Label: ', t)
+    t=t+100
+    if(count==1500):
+        break
     crop=crop_labels_list[t]
     for i in range(0,128):
         for n in range(0,128): 

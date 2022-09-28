@@ -88,7 +88,7 @@ print('tmp2: ',tmp2.shape)
 print(tmp1[0,0,0,0])
 for j in range (0,len(tmp1)):
     image = tmp1[j]
-    image*=2*510
+    image*=2
     tmp1[j]=image
 
 print(tmp1[0,0,0,0])

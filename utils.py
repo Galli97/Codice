@@ -106,7 +106,7 @@ def save_final_images(tmp1):
 
 def get_np_arrays(file):
     with open(file,'rb') as f:
-        tmp1 = np.load(f)
+        tmp1 = np.load(f,allow_pickle=True)
     return tmp1
 
 def save_np_arrays_labels(tmp2):
@@ -576,6 +576,13 @@ def add_sample_weights(image, label):
     # sand_pixels =  6191210 
     # bigrock_pixels =  3382388 
     # soil_pixels = 5529396  
+
+    #128 Dataset_bigRock 2
+    null_pixels = 6888445  
+    bedrock_pixels =  5067169 
+    sand_pixels =  4292427 
+    bigrock_pixels =  4942703 
+    soil_pixels = 3975080  
 
 
     PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels#+null_pixels ;
