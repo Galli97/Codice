@@ -32,9 +32,13 @@ from keras.preprocessing.image import ImageDataGenerator
 # path = r"C:\Users\Mattia\Desktop\Dataset_1\Test255\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Dataset_1\Test255\label_patches_TEST.npy"
 
+# #128-255 Norm
+path = r"C:\Users\Mattia\Desktop\Test_res512\image_patches_TEST.npy"
+path1 =  r"C:\Users\Mattia\Desktop\Test_res512\label_patches_TEST.npy"
+
 #128-Resized 255 Norm
-path = r"C:\Users\Mattia\Desktop\Resized_Test\Test255\image_patches_TEST.npy"
-path1 =  r"C:\Users\Mattia\Desktop\Resized_Test\Test255\label_patches_TEST.npy"
+# path = r"C:\Users\Mattia\Desktop\Resized_Test\Test255\image_patches_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\Resized_Test\Test255\label_patches_TEST.npy"
 
 #128-Resized 510 norm
 # path = r"C:\Users\Mattia\Desktop\Resized_Test\image_patches_TEST.npy"
@@ -153,12 +157,18 @@ matrix_nonull=matrix[1:4,1:4]
 # soil_pixels= 4215266
 
 #128 resized
-null_pixels =  12314115
-bedrock_pixels =  5000050
-sand_pixels =  863492
-bigrock_pixels =  41557
-soil_pixels = 6356786
+# null_pixels =  12314115
+# bedrock_pixels =  5000050
+# sand_pixels =  863492
+# bigrock_pixels =  41557
+# soil_pixels = 6356786
 
+#128 res512
+null_pixels =  10502620
+bedrock_pixels =   4713625
+sand_pixels = 3204223
+bigrock_pixels = 964
+soil_pixels = 6154568
 
 matrix2 = np.array([[matrix[0]*100/null_pixels],[matrix[1]*100/bedrock_pixels], [matrix[2]*100/sand_pixels],[matrix[3]*100/bigrock_pixels], [matrix[4]*100/soil_pixels]])
 np.set_printoptions(suppress=True)
