@@ -32,9 +32,13 @@ from keras.preprocessing.image import ImageDataGenerator
 # path = r"C:\Users\Mattia\Desktop\Dataset_1\Test255\image_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Dataset_1\Test255\label_patches_TEST.npy"
 
+# #128-Gold Resized Norm
+# path = r"C:\Users\Mattia\Desktop\Resized_Test\Gold\image_patches_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\Resized_Test\Gold\label_patches_TEST.npy"
+
 # #128-255 Norm
-path = r"C:\Users\Mattia\Desktop\Test_res512\image_patches_TEST.npy"
-path1 =  r"C:\Users\Mattia\Desktop\Test_res512\label_patches_TEST.npy"
+# path = r"C:\Users\Mattia\Desktop\Test_res512\image_patches_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\Test_res512\label_patches_TEST.npy"
 
 #128-Resized 255 Norm
 # path = r"C:\Users\Mattia\Desktop\Resized_Test\Test255\image_patches_TEST.npy"
@@ -45,8 +49,8 @@ path1 =  r"C:\Users\Mattia\Desktop\Test_res512\label_patches_TEST.npy"
 # path1 =  r"C:\Users\Mattia\Desktop\Resized_Test\label_patches_TEST.npy"
 
 #128-all Test set gold 255 norm
-# path = r"C:\Users\Mattia\Desktop\image_patches_TEST.npy"
-# path1 =  r"C:\Users\Mattia\Desktop\label_patches_TEST.npy"
+path = r"C:\Users\Mattia\Desktop\image_patches_TEST.npy"
+path1 =  r"C:\Users\Mattia\Desktop\label_patches_TEST.npy"
 
 #128-1500 Test set gold 255 norm
 # path = r"C:\Users\Mattia\Desktop\image_patches_TEST255_1500.npy"
@@ -136,11 +140,18 @@ matrix_nonull=matrix[1:4,1:4]
 # soil_pixels= soil_count 
 
 #128 tutte le 322 croppate (20000 immagini) delle merged
-# null_pixels =  220661911
-# bedrock_pixels= 26192939
-# sand_pixels= 30639905
-# bigrock_pixels= 77698
-# soil_pixels= 60069019
+null_pixels =  220661911
+bedrock_pixels= 26192939
+sand_pixels= 30639905
+bigrock_pixels= 77698
+soil_pixels= 60069019
+ 
+#Gold Resized 322 immagini
+# null_pixels =  3447139
+# bedrock_pixels= 409378
+# sand_pixels= 479222
+# bigrock_pixels= 1224
+# soil_pixels= 938685
 
 #128 1500
 # null_pixels =  9663358
@@ -164,11 +175,11 @@ matrix_nonull=matrix[1:4,1:4]
 # soil_pixels = 6356786
 
 #128 res512
-null_pixels =  10502620
-bedrock_pixels =   4713625
-sand_pixels = 3204223
-bigrock_pixels = 964
-soil_pixels = 6154568
+# null_pixels =  10502620
+# bedrock_pixels =   4713625
+# sand_pixels = 3204223
+# bigrock_pixels = 964
+# soil_pixels = 6154568
 
 matrix2 = np.array([[matrix[0]*100/null_pixels],[matrix[1]*100/bedrock_pixels], [matrix[2]*100/sand_pixels],[matrix[3]*100/bigrock_pixels], [matrix[4]*100/soil_pixels]])
 np.set_printoptions(suppress=True)

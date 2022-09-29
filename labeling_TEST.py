@@ -39,7 +39,7 @@ crop_labels_list = get_np_arrays(path1)          #recupero tmp2 dal file
 
 print(crop_images_list[1].shape)
 print(crop_images_list[0].shape)
-N = 1500#len(crop_images_list)
+N = len(crop_images_list)
 
 ##### INIZIALIZO DUE LISTE CHE ANDRANNO A CONTENERE GLI ARRAY DELLE IMMAGINI E DELLE LABEL ######
 num_classes=5
@@ -77,7 +77,6 @@ chosen_label=[];
 print('[INFO]Generating labels array')
 for t in range (0,len(crop_labels_list)):
     print('Label: ', t)
-    t=t+100
     if(count==1500):
         break
     crop=crop_labels_list[t]

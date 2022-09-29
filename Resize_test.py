@@ -20,9 +20,11 @@ from sklearn.utils import shuffle
 from sklearn.feature_extraction import image
 ####### PERCORSO IN LOCALE #########
 
-path = r"C:\Users\Mattia\Desktop\Tesi\Dataset\Test-images"
-path1 =  r"C:\Users\Mattia\Desktop\Tesi\Dataset\Test-labels"
+# path = r"C:\Users\Mattia\Desktop\Tesi\Dataset\Test-images"
+# path1 =  r"C:\Users\Mattia\Desktop\Tesi\Dataset\Test-labels"
 
+path = r"C:\Users\Mattia\Desktop\TEST_images"
+path1 =  r"C:\Users\Mattia\Desktop\TEST_labels"
 ####### CREO UNA LISTA CON ELEMENTI DATI DA QUELLI NELLA CARTELLA DEL PERCORSO ######
 dir = os.listdir(path)       #immagini in input
 dir1 = os.listdir(path1)     #labels date dalle maschere
@@ -47,7 +49,7 @@ print('Image and label lists dimensions')
 print(len(image_list))
 print(len(label_list))
 
-SHAPE=512;
+SHAPE=128;
 crop_images_list=[]
 crop_labels_list=[]
 print('[INFO]Generating labels array')
