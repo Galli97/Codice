@@ -53,19 +53,23 @@ print('Image and label lists dimensions')
 print(len(image_list))
 print(len(label_list))
 
+SHAPE=128;
 model = tf.keras.models.load_model('model.h5',custom_objects={"UpdatedMeanIoU": UpdatedMeanIoU })
 
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
 print('[INFO]Generating images array')
 print('[INFO]Generating labels array')
+import time
+tempo=0;
 
-for i in range (0,100):
+for i in range (0,3):
+    start_time = time.time()
     crop_images_list=[]
     crop_labels_list=[]
     print(i)
     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
     image = image.astype('float32')
-    image/=510                                    #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+    image/=255                                    #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
     for r in range (0,8):
         for c in range (0,8):
             cropped_image = image[128*r:128*(r+1),128*c:128*(c+1)]
@@ -99,10 +103,105 @@ for i in range (0,100):
         return predictions
 
     predictions = prediction(x_test,tmp2)
+    tempo += time.time() - start_time
+    print("--- %s seconds ---" % (time.time() - start_time))
 
-                
+tempo_medio = tempo/3;
+
+print(tempo_medio)
 
 
+##############RESIZE############
+# tmp1 = np.empty((1, SHAPE, SHAPE, 3), dtype=np.uint8)  #Qui ho N immagini
+# tmp2 = np.empty((1, SHAPE, SHAPE, 1), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel. Nel caso sparse avrò un intero ad indicare la classe
+
+# for i in range (0,100):
+#     start_time = time.time()
+#     crop_images_list=[]
+#     crop_labels_list=[]
+#     print(i)
+#     image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
+#     image = image.astype('float32')
+#     image/=255                                    #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+#     resized_image = cv2.resize(image, (SHAPE, SHAPE))
+#     label = cv2.imread(label_list[i])[:,:,[2,1,0]]
+#     label = cv2.cvtColor(label, cv2.COLOR_BGR2GRAY) 
+#     label = label.astype('float32')
+#     resized_label = cv2.resize(label, (SHAPE, SHAPE), 0, 0, interpolation = cv2.INTER_NEAREST)
+#     resized_label=np.expand_dims(resized_label, axis=2) 
+#     tmp1[0] = resized_image
+#     tmp2[0] = resized_label
+
+#     BATCH=1
+#     x_test = tf.data.Dataset.from_tensor_slices((tmp1, tmp2))
+#     x_test = (
+#         x_test
+#         .batch(BATCH)
+#     )
+
+#     print("[INFO] Starting Evaluation")
+
+#     from memory_profiler import profile      #The output displays the memory consumed by each line in the code. Implementation of finding the memory consumption is very easy using a memory profiler as we directly call the decorator instead of writing a whole new code. 
+#     # instantiating the decorator            #1 MiB (mebibyte) is always 1024 Kb
+#     @profile
+#     def prediction(x_test,tmp2):
+#         predictions = model.predict(x_test,verbose=1,steps=len(tmp2))
+#         return predictions
+
+#     predictions = prediction(x_test,tmp2)
+#     tempo += time.time() - start_time
+#     print("--- %s seconds ---" % (time.time() - start_time))
+# tempo_medio = tempo/100;
+
+# print(tempo_medio)
+
+###############FUNZIONE INTERA ###########
+# from memory_profiler import profile      #The output displays the memory consumed by each line in the code. Implementation of finding the memory consumption is very easy using a memory profiler as we directly call the decorator instead of writing a whole new code. 
+# # instantiating the decorator            #1 MiB (mebibyte) is always 1024 Kb
+# @profile
+# def process(steps,image_list,label_list,SHAPE):
+#         import time
+#         tempo=0;
+#         for i in range (0,steps):
+        
+#             tmp1 = np.empty((1, SHAPE, SHAPE, 3), dtype=np.uint8)  #Qui ho N immagini
+#             tmp2 = np.empty((1, SHAPE, SHAPE, 1), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel. Nel caso sparse avrò un intero ad indicare la classe
+
+#             start_time = time.time()
+#             crop_images_list=[]
+#             crop_labels_list=[]
+#             print(i)
+#             image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
+#             image = image.astype('float32')
+#             image/=255                                    #normalizzo per avere valori per i pixel nell'intervallo [0,0.5]
+#             resized_image = cv2.resize(image, (SHAPE, SHAPE))
+#             label = cv2.imread(label_list[i])[:,:,[2,1,0]]
+#             label = cv2.cvtColor(label, cv2.COLOR_BGR2GRAY) 
+#             label = label.astype('float32')
+#             resized_label = cv2.resize(label, (SHAPE, SHAPE), 0, 0, interpolation = cv2.INTER_NEAREST)
+#             resized_label=np.expand_dims(resized_label, axis=2) 
+#             tmp1[0] = resized_image
+#             tmp2[0] = resized_label
+
+#             BATCH=1
+#             x_test = tf.data.Dataset.from_tensor_slices((tmp1, tmp2))
+#             x_test = (
+#                 x_test
+#                 .batch(BATCH)
+#             )
+
+#             print("[INFO] Starting Evaluation")
+
+        
+#             #def prediction(x_test,tmp2):
+#             predictions = model.predict(x_test,verbose=1,steps=len(tmp2))
+#             #    return predictions
+
+#             #predictions = prediction(x_test,tmp2)
+#             tempo += time.time() - start_time
+#             print("--- %s seconds ---" % (time.time() - start_time))
+
+# process(100,image_list,label_list,SHAPE)
 
     
 
