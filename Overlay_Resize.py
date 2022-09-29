@@ -71,13 +71,13 @@ for lab in dir1:
     if new_dir1 not in label_list : label_list.append(new_dir1)
     #label=np.expand_dims(label, axis=2)
 
-image_list=image_list[50:55]
-label_list=label_list[50:55]
+image_list=image_list[73:76]
+label_list=label_list[73:76]
 
 
-img_test = img_test[50:55]
-lab_test = lab_test[50:55]
-pred_model = pred_model[50:55]
+img_test = img_test[73:76]
+lab_test = lab_test[73:76]
+pred_model = pred_model[73:76]
 
 pred_model = decode_predictions(pred_model,SHAPE)
 pred_model = decode_masks(pred_model,SHAPE)
@@ -89,7 +89,7 @@ crop_images_list=[]
 ###### RIEMPIO LA LISTA IMMAGINI CON I CORRISPETTIVI ARRAY SFRUTTANDO I PATH SALVATI IN IMAGE_LIST #######
 print('[INFO]Generating images array')
 
-i = random.randint(0,4) #229
+i = 0#random.randint(0,4) #229
 print(i)
 image = cv2.imread(image_list[i])[:,:,[2,1,0]]  #leggo le immagini
 image = image.astype('float32')
@@ -106,15 +106,41 @@ resized_label = cv2.resize(label, (SHAPE, SHAPE), 0, 0, interpolation = cv2.INTE
 resized_label=np.expand_dims(resized_label, axis=2)  
 print(resized_label.shape)
 img_real=cv2.imread(image_list[i])[:,:,[2,1,0]] 
-cv2.imshow('real image',img_real)
-cv2.waitKey(0)
-
+# cv2.imshow('real image',img_real)
+# cv2.waitKey(0)
 
 soil=0;
 bedrock=1;
 sand=2;
 bigrock=3;
 null=255;
+
+res_lab = np.empty((128, 128, 3), dtype=np.uint8) 
+for r in range(0,128):
+    for c in range(0,128): 
+        channels_xy = resized_label[r,c];          #SOIL is kept black, NULL (no label) is white 
+        if channels_xy[0]==bedrock:      #BEDROCK --->BLUE
+            res_lab[r,c,0]=255
+            res_lab[r,c,1]=0
+            res_lab[r,c,2]=0
+        elif channels_xy[0]==sand:    #SAND --->GREEN
+            res_lab[r,c,0]=0
+            res_lab[r,c,1]=255
+            res_lab[r,c,2]=0
+        elif channels_xy[0]==bigrock:    #BIG ROCK ---> RED
+            res_lab[r,c,0]=0
+            res_lab[r,c,1]=0
+            res_lab[r,c,2]=255
+        elif channels_xy[0]==soil:    #SOIL ---> BLACK
+            res_lab[r,c,0]=0
+            res_lab[r,c,1]=0
+            res_lab[r,c,2]=0
+        elif channels_xy[0]==null:    #NULL ---> WHITE
+            res_lab[r,c,0]=255
+            res_lab[r,c,1]=255
+            res_lab[r,c,2]=255
+
+
 label_real=cv2.imread(label_list[i])[:,:,[2,1,0]] 
 lab = np.empty((1024, 1024, 3), dtype=np.uint8) 
 for r in range(0,1024):
@@ -142,19 +168,28 @@ for r in range(0,1024):
             lab[r,c,2]=255
 #lab=cv2.resize(lab,(512,512))
 
-cv2.imshow('real label',lab)
-cv2.waitKey(0)
+# cv2.imshow('real label',lab)
+# cv2.waitKey(0)
 
 
-# resized_image = np.asarray(resized_image, np.float32)
-# resized_label = np.asarray(resized_label, np.float32)
+
 real = img_real[0:1024,0:1024]
 label = lab[0:1024,0:1024]
-overlay_img = cv2.addWeighted(real, 1, label,  0.4, 0)
+overlay_img = cv2.addWeighted(real, 1, label,  0.2, 0)
 result = cv2.resize(overlay_img, (512, 512))
-cv2.imshow('overlay',result)
-cv2.waitKey(0)
+# cv2.imshow('overlay_real',result)
+# cv2.waitKey(0)
 
+real = img_test[i]
+label = res_lab
+# real = real[0:128,0:128]
+# label = label[0:128,0:128]
+real = np.asarray(real, np.float32)
+label = np.asarray(label, np.float32)
+overlay_img = cv2.addWeighted(real, 1, label,  0.002, 0)
+result = cv2.resize(overlay_img, (512, 512))
+cv2.imshow('overlay_resized',result)
+cv2.waitKey(0)
 
 resized = img_test[i]
 print(resized.shape)
@@ -165,19 +200,19 @@ predictions = np.asarray(predictions, np.float32)
 
 overlay_img = cv2.addWeighted(resized, 1, predictions,  0.002, 0)
 result = cv2.resize(overlay_img, (512, 512))
-cv2.imshow('overlay',result)
+cv2.imshow('total_pred',result)
 cv2.waitKey(0)
 
 null_image = decode_null(resized_label,128)
 null_image = np.asarray(null_image, np.float32)
-label_new = New_label(null_image,result,128)
+label_new = New_label(null_image,predictions,128)
 #label_new = cv2.resize(label_new, (512, 512))
 label_new = np.asarray(label_new, np.float32)
 # cv2.imshow('label_new',label_new)
 # cv2.waitKey(0)
 
-overlay_final2 = cv2.addWeighted(label_new, 0.002,img_test[i], 1, 0)
-overlay_final2 = cv2.resize(overlay_final2, (512, 512))
-cv2.imshow('overlay',overlay_final2)
+overlay_final = cv2.addWeighted(label_new, 0.002,resized, 1, 0)
+overlay_final = cv2.resize(overlay_final, (512, 512))
+cv2.imshow('overlay_partial',overlay_final)
 cv2.waitKey(0)
 

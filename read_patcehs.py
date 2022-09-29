@@ -124,6 +124,7 @@ for i in range (0,len(tmp2)):
                 sand_count+=1
             elif tmp2[i,r,c,:]==3:
                 bigrock_count+=1
+                print(i)
             elif tmp2[i,r,c,:]==0:
                 null_count+=1
             else:
