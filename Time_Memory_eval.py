@@ -19,12 +19,7 @@ import random
 from sklearn.utils import shuffle
 from sklearn.feature_extraction import image
 
-# import os, psutil
-# process = psutil.Process(os.getpid())
-# print(process.memory_info().vms)
-# print('MB: ',psutil.Process(os.getpid()).memory_info().vms / 1024 ** 2)
-# print('The CPU usage is: ', psutil.cpu_percent(4))
-# print('RAM memory % used:', psutil.virtual_memory()[2])
+
 
 path = r"C:\Users\Mattia\Desktop\TEST_images"
 path1 =  r"C:\Users\Mattia\Desktop\TEST_labels"
@@ -61,8 +56,8 @@ print('[INFO]Generating images array')
 print('[INFO]Generating labels array')
 import time
 tempo=0;
-
-for i in range (0,3):
+steps=3;
+for i in range (0,steps):
     start_time = time.time()
     crop_images_list=[]
     crop_labels_list=[]
@@ -104,18 +99,25 @@ for i in range (0,3):
 
     predictions = prediction(x_test,tmp2)
     tempo += time.time() - start_time
+    # import os, psutil
+    # process = psutil.Process(os.getpid())
+    # print(process.memory_info().vms)
+    # print('MB: ',psutil.Process(os.getpid()).memory_info().vms / 1024 ** 2)
+    # print('The CPU usage is: ', psutil.cpu_percent(4))
+    # print('RAM memory % used:', psutil.virtual_memory()[2])
     print("--- %s seconds ---" % (time.time() - start_time))
 
-tempo_medio = tempo/3;
+tempo_medio = tempo/steps;
 
-print(tempo_medio)
+print('Model with cropped images: ',tempo_medio)
 
 
 ##############RESIZE############
 # tmp1 = np.empty((1, SHAPE, SHAPE, 3), dtype=np.uint8)  #Qui ho N immagini
 # tmp2 = np.empty((1, SHAPE, SHAPE, 1), dtype=np.uint8)  #Qui ho N labels, che portano l'informazione per ogni pixel. Nel caso sparse avrò un intero ad indicare la classe
-
-# for i in range (0,100):
+# tempo=0;
+# steps=3;
+# for i in range (0,steps):
 #     start_time = time.time()
 #     crop_images_list=[]
 #     crop_labels_list=[]
@@ -151,9 +153,9 @@ print(tempo_medio)
 #     predictions = prediction(x_test,tmp2)
 #     tempo += time.time() - start_time
 #     print("--- %s seconds ---" % (time.time() - start_time))
-# tempo_medio = tempo/100;
+# tempo_medio = tempo/steps;
 
-# print(tempo_medio)
+# print('Model with resized images: ',tempo_medio)
 
 ###############FUNZIONE INTERA ###########
 # from memory_profiler import profile      #The output displays the memory consumed by each line in the code. Implementation of finding the memory consumption is very easy using a memory profiler as we directly call the decorator instead of writing a whole new code. 

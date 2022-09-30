@@ -29,16 +29,16 @@ session = InteractiveSession(config=config)
 ###### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
 
 #128 dataset_1 255
-path = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_images.npy"
-path1 = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_labels.npy"
+# path = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_images.npy"
+# path1 = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_labels.npy"
 
 #128 resize 255
 # path = r"/content/drive/MyDrive/Tesi/Dataset_Resized_255/final_images.npy"
 # path1 = r"/content/drive/MyDrive/Tesi/Dataset_Resized_255/final_labels.npy"
 
 # #128 Res512 crop128 255
-# path = r"/content/drive/MyDrive/Tesi/Dataset_Res512/final_images.npy"
-# path1 = r"/content/drive/MyDrive/Tesi/Dataset_Res512/final_labels.npy"
+path = r"/content/drive/MyDrive/Tesi/Dataset_Res512/final_images.npy"
+path1 = r"/content/drive/MyDrive/Tesi/Dataset_Res512/final_labels.npy"
 
 #Bigrock 2
 # path = r"/content/drive/MyDrive/Tesi/Dataset_bigrock2/final_images.npy"
@@ -153,8 +153,8 @@ input_shape = (SHAPE, SHAPE, 3)
 tf.keras.backend.set_image_data_format('channels_last')
 
 
-#model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
-model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
+model = rete(input_shape=shape,weight_decay=weight_decay,batch_shape=None, classes=5)
+#model = build_vgg16_unet(input_shape,weight_decay=weight_decay, classes=5)
 #model = rete_Resnet101(img_size=128,weight_decay=weight_decay,batch_shape=None, classes=5)
 #model = AtrousFCN_Resnet50_16s(input_shape = shape, weight_decay=weight_decay, batch_momentum=0.95, batch_shape=None, classes=5)
 #model = mobile(shape=input_shape,weight_decay=weight_decay)
