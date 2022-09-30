@@ -56,6 +56,7 @@ print('[INFO]Generating images array')
 print('[INFO]Generating labels array')
 import time
 tempo=0;
+MB=0;
 steps=3;
 for i in range (0,steps):
     start_time = time.time()
@@ -99,19 +100,24 @@ for i in range (0,steps):
         return predictions
 
     predictions = prediction(x_test,tmp2)
+    
     tempo += time.time() - start_time
     print("--- %s seconds ---" % (time.time() - start_time))
-    # import os, psutil
-    # process = psutil.Process(os.getpid())
-    # #print(process.memory_info().vms)
-    # print('MB: ',psutil.Process(os.getpid()).memory_info().vms / 1024 ** 2)
+    import os, psutil
+    process = psutil.Process(os.getpid())
+    #print(process.memory_info().vms)
+    MB+=psutil.Process(os.getpid()).memory_full_info().uss / 1024 ** 2;
+    print('MB: ',psutil.Process(os.getpid()).memory_full_info().uss / 1024 ** 2)
+    #print('MB: ',psutil.Process(os.getpid()).memory_info().vms / 1024 ** 2)
     # print('The CPU usage is: ', psutil.cpu_percent(4))
     # print('RAM memory % used:', psutil.virtual_memory().percent)
     
 
 tempo_medio = tempo/steps;
+MB_medio=MB/steps
 
-print('Model with cropped images: ',tempo_medio)
+print('Model with cropped images-Time: ',tempo_medio)
+print('Model with cropped images-Memory (MB): ',MB_medio)
 
 
 ##############RESIZE############
