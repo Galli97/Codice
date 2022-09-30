@@ -91,6 +91,7 @@ for i in range (0,steps):
     print("[INFO] Starting Evaluation")
 
     from memory_profiler import profile      #The output displays the memory consumed by each line in the code. Implementation of finding the memory consumption is very easy using a memory profiler as we directly call the decorator instead of writing a whole new code. 
+    from memory_profiler import memory_usage 
     # instantiating the decorator            #1 MiB (mebibyte) is always 1024 Kb
     @profile
     def prediction(x_test,tmp2):
@@ -99,13 +100,14 @@ for i in range (0,steps):
 
     predictions = prediction(x_test,tmp2)
     tempo += time.time() - start_time
+    print("--- %s seconds ---" % (time.time() - start_time))
     # import os, psutil
     # process = psutil.Process(os.getpid())
-    # print(process.memory_info().vms)
+    # #print(process.memory_info().vms)
     # print('MB: ',psutil.Process(os.getpid()).memory_info().vms / 1024 ** 2)
     # print('The CPU usage is: ', psutil.cpu_percent(4))
-    # print('RAM memory % used:', psutil.virtual_memory()[2])
-    print("--- %s seconds ---" % (time.time() - start_time))
+    # print('RAM memory % used:', psutil.virtual_memory().percent)
+    
 
 tempo_medio = tempo/steps;
 
