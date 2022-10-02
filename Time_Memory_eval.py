@@ -184,7 +184,7 @@ MB_medio=MB/steps
 import matplotlib.pyplot as plt
 import numpy as np
 
-plt.hist(isto,bins=100)
+plt.hist(isto,bins=1000)
 plt.show() 
 
 print('Model with resized images: ',tempo_medio)
