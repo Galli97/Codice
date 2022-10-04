@@ -29,16 +29,16 @@ session = InteractiveSession(config=config)
 ###### PERCORSO NEL DRIVE PER LAVORARE SU COLAB #########
 
 #128 dataset_1 255
-# path = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_images.npy"
-# path1 = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_labels.npy"
+path = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_images.npy"
+path1 = r"/content/drive/MyDrive/Tesi/Dataset_1_255/final_labels.npy"
 
 #128 resize 255
 # path = r"/content/drive/MyDrive/Tesi/Dataset_Resized_255/final_images.npy"
 # path1 = r"/content/drive/MyDrive/Tesi/Dataset_Resized_255/final_labels.npy"
 
 # #128 Res512 crop128 255
-path = r"/content/drive/MyDrive/Tesi/Dataset_Res512/final_images.npy"
-path1 = r"/content/drive/MyDrive/Tesi/Dataset_Res512/final_labels.npy"
+# path = r"/content/drive/MyDrive/Tesi/Dataset_Res512/final_images.npy"
+# path1 = r"/content/drive/MyDrive/Tesi/Dataset_Res512/final_labels.npy"
 
 #Bigrock 2
 # path = r"/content/drive/MyDrive/Tesi/Dataset_bigrock2/final_images.npy"

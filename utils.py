@@ -505,11 +505,11 @@ def sparse_accuracy_ignoring_last_label(y_true, y_pred):
 def add_sample_weights(image, label):
     
     #128 Res512 crop128
-    null_pixels = 9988015  
-    bedrock_pixels =  7457808 
-    sand_pixels =  6429031 
-    bigrock_pixels =  1928322 
-    soil_pixels = 3507800 
+    # null_pixels = 9988015  
+    # bedrock_pixels =  7457808 
+    # sand_pixels =  6429031 
+    # bigrock_pixels =  1928322 
+    # soil_pixels = 3507800 
  
     #128 Res256 crop128
     # null_pixels = 6229515  
@@ -533,18 +533,12 @@ def add_sample_weights(image, label):
     # soil_pixels = 5942906  
 
     #128 Dataset_1 255
-    # null_pixels = 7438103  
-    # bedrock_pixels =  7015639 
-    # sand_pixels =  6191210 
-    # bigrock_pixels =  3382388 
-    # soil_pixels = 5529396  
+    null_pixels = 7438103  
+    bedrock_pixels =  7015639 
+    sand_pixels =  6191210 
+    bigrock_pixels =  3382388 
+    soil_pixels = 5529396  
 
-    #128 Dataset_bigRock 2
-    # null_pixels = 6888445  
-    # bedrock_pixels =  5067169 
-    # sand_pixels =  4292427 
-    # bigrock_pixels =  4942703 
-    # soil_pixels = 3975080  
 
 
     PIXELS=soil_pixels+bedrock_pixels + sand_pixels+bigrock_pixels#+null_pixels ;
