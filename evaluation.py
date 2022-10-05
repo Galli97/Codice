@@ -24,17 +24,14 @@ from keras.preprocessing.image import ImageDataGenerator
 # path1 = r"/content/drive/MyDrive/Tesi/label_patches_TEST.npy"
 
 # ####### PERCORSO IN LOCALE #########
-#128-510 Norm
-# path = r"C:\Users\Mattia\Desktop\Tentativi128_2\image_patches_TEST.npy"
-# path1 =  r"C:\Users\Mattia\Desktop\Tentativi128_2\label_patches_TEST.npy"
 
 # #128-255 Norm
-# path = r"C:\Users\Mattia\Desktop\Dataset_1\Test255\image_patches_TEST.npy"
-# path1 =  r"C:\Users\Mattia\Desktop\Dataset_1\Test255\label_patches_TEST.npy"
+path = r"C:\Users\Mattia\Desktop\Dataset_1\Test255\image_patches_TEST.npy"
+path1 =  r"C:\Users\Mattia\Desktop\Dataset_1\Test255\label_patches_TEST.npy"
 
 # #128-Gold Resized Norm
-path = r"C:\Users\Mattia\Desktop\Resized_Test\Gold\image_patches_TEST.npy"
-path1 =  r"C:\Users\Mattia\Desktop\Resized_Test\Gold\label_patches_TEST.npy"
+# path = r"C:\Users\Mattia\Desktop\Resized_Test\Gold\image_patches_TEST.npy"
+# path1 =  r"C:\Users\Mattia\Desktop\Resized_Test\Gold\label_patches_TEST.npy"
 
 # #128-255 Norm Resized 512 norm
 # path = r"C:\Users\Mattia\Desktop\Test_res512\image_patches_TEST.npy"
@@ -140,18 +137,18 @@ matrix_nonull=matrix[1:4,1:4]
 # soil_pixels= 60069019
  
 #Gold Resized 322 immagini
-null_pixels =  3447139
-bedrock_pixels= 409378
-sand_pixels= 479222
-bigrock_pixels= 1224
-soil_pixels= 938685
+# null_pixels =  3447139
+# bedrock_pixels= 409378
+# sand_pixels= 479222
+# bigrock_pixels= 1224
+# soil_pixels= 938685
 
 #128 1500
-# null_pixels =  9663358
-# bedrock_pixels= 4869205
-# sand_pixels= 3679903
-# bigrock_pixels= 348196
-# soil_pixels= 6015338
+null_pixels =  9663358
+bedrock_pixels= 4869205
+sand_pixels= 3679903
+bigrock_pixels= 348196
+soil_pixels= 6015338
 
 #1500 delle gold da 128
 # null_pixels =   16007021
